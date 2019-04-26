@@ -1,0 +1,4 @@
+title: Komments
+tabs:
+  komments:
+    extends: tabs/komments

@@ -1,0 +1,26 @@
+label: Komments
+icon: quote
+columns:
+  - width: 1/2
+    sections:
+      published:
+        type: pages
+        headline: Veröffentlicht
+        status: published
+        info: " {{ page.date.toDate('Y-m-d') }}"
+        size: small
+        sortBy: date desc
+        parent: page.find("komments")
+        text: "{{ page.author }}: {{ page.title }}"
+        empty: No public komments
+  - width: 1/2
+    sections:
+      drafts:
+        type: pages
+        headline: Awaiting moderation
+        status: draft
+        parent: page.find("komments")
+        sortBy: date desc
+        text: "{{ page.author }}: {{ page.title }}"
+        empty: No waiting komments
+        info: " {{ page.date.toDate('Y-m-d') }}"

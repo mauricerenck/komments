@@ -1,0 +1,25 @@
+{
+    "name": "mauricerenck/komments",
+    "description": "A comment plugin for Kirby 3",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maurice Renck",
+            "email": "hello@maurice-renck.de"
+        }
+    ],
+    "version": "0.0.1",
+    "autoload": {
+        "files": [
+            "utils/readKomments.php",
+            "utils/writeKomments.php"
+        ]
+    },
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    }
+}

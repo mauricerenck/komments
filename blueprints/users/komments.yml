@@ -1,0 +1,15 @@
+title: Komments
+description: This user can create komments
+permissions:
+  access: false
+  files: false
+  page:
+    changeSlug: false
+    changeStatus: true
+    changeTemplate: false
+    changeTitle: false
+    create: true
+    delete: false
+    preview: false
+    update: false
+  users: false
