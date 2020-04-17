@@ -6,8 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
-    '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-    'f0cc6afb8adfebf031ed681331410723' => $baseDir . '/utils/readKomments.php',
-    '3b20aa86b36773afbb0a51a1938e28e7' => $baseDir . '/utils/writeKomments.php',
+    '757772e28a0943a9afe83def8db95bdf' => $vendorDir . '/mf2/mf2/Mf2/Parser.php',
+    '4944cc37acfce246a121e7126c40a396' => $baseDir . '/utils/sendMastodon.php',
+    'd5e1b7e618997cbe5a51ad1bf6197ee6' => $baseDir . '/utils/sendWebmention.php',
+    '308f005f7d66428a27089b5f7d14a630' => $baseDir . '/utils/receiveWebmention.php',
 );

@@ -1,26 +1,57 @@
 label: Komments
-icon: quote
 columns:
-  - width: 1/2
-    sections:
-      published:
-        type: pages
-        headline: Veröffentlicht
-        status: published
-        info: " {{ page.date.toDate('Y-m-d') }}"
-        size: small
-        sortBy: date desc
-        parent: page.find("komments")
-        text: "{{ page.author }}: {{ page.title }}"
-        empty: No public komments
-  - width: 1/2
-    sections:
-      drafts:
-        type: pages
-        headline: Awaiting moderation
-        status: draft
-        parent: page.find("komments")
-        sortBy: date desc
-        text: "{{ page.author }}: {{ page.title }}"
-        empty: No waiting komments
-        info: " {{ page.date.toDate('Y-m-d') }}"
+    - width: 1/1
+      sections:
+          kommentsWebmentions:
+              type: fields
+              fields:
+                  kommentsInbox:
+                      type: structure
+                      label: Inbox
+                      fields:
+                          avatar:
+                              type: url
+                              label: Avatar
+                          author:
+                              type: text
+                              label: Author
+                          authorUrl:
+                              type: url
+                              label: Author Url
+                          wmSource:
+                              type: url
+                              label: Source
+                          wmTarget:
+                              type: url
+                              label: Target
+                          mentionOf:
+                              type: url
+                              label: Mentioned
+                          wmProperty:
+                              type: text
+                              label: Type
+                          published:
+                              type: date
+                              label: Published
+                              time: true
+                          komment:
+                              type: textarea
+                              label: Komment
+                          quote:
+                              type: textarea
+                              label: Quote
+                          status:
+                              type: toggle
+                              label: Status
+                          honey:
+                              type: text
+                              label: Honeypot
+                      columns:
+                          author:
+                              width: 1/4
+                          wmSource:
+                              width: 1/4
+                          komment:
+                              width: 1/4
+                          status:
+                              width: 1/4

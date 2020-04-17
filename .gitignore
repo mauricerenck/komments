@@ -28,3 +28,5 @@
 /vendor/symfony
 /vendor/theseer
 /vendor/webmozart
+/.cache
+/node_modules

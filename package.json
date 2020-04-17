@@ -1,0 +1,17 @@
+{
+    "name": "komments",
+    "version": "1.2.4",
+    "description": "A Kirby Comment and Webmention Plugin",
+    "main": "index.js",
+    "author": "Maurice Renck",
+    "scripts": {
+        "dev": "parcel watch src/index.js --no-source-maps -d ./",
+        "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./"
+    },
+    "posthtml": {
+        "recognizeSelfClosing": true
+    },
+    "dependencies": {
+        "vue": "^2.6.11"
+    }
+}
