@@ -24,7 +24,7 @@ return [
                                 $pendingKomments[] = [
                                     'author' => $komment['author'],
                                     'komment' => $komment['komment'],
-                                    'kommentType' => $komment['kommentType'],
+                                    'kommentType' => $komment['kommenttype'],
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
                                     'url' => $item->panelUrl(),
@@ -54,7 +54,7 @@ return [
                                 $spamKomments[] = [
                                     'author' => $komment['author'],
                                     'komment' => $komment['komment'],
-                                    'kommentType' => $komment['kommentType'],
+                                    'kommentType' => $komment['kommenttype'],
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
                                     'url' => $item->panelUrl(),
