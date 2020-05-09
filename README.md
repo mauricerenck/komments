@@ -39,11 +39,11 @@ After Installing the Plugin add the snippet to your template. There are two snip
 
 To list all komments and webmentions:
 
-`<?php snippet(komments/webmention); ?>`
+`<?php snippet('komments/webmention'); ?>`
 
 To show the komment form
 
-`<?php snippet(komments/kommentform); ?>`
+`<?php snippet('komments/kommentform'); ?>`
 
 After adding the snippets, you may also want to add the stylesheet within the `<head></head>` of your site:
 
@@ -101,9 +101,9 @@ Next to komments directly on your page, there are some other features enabled by
 
 ### Receiving webmentions
 
-To receive webmentions you have to install the [tratschtante plugin](https://github.com/mauricerenck/tratschtante) and configure it. Tratschtante will handle all the webmentions and normalize their data. Currently only webmention.io is supported. After installing tratschtante, komment will automaticly by informed about new webmentions.
+**To receive webmentions you have to install the [tratschtante plugin](https://github.com/mauricerenck/tratschtante) and configure it.** Tratschtante will handle all the webmentions and normalize their data. Currently only webmention.io is supported. After installing tratschtante, komment will automaticly be informed about new webmentions.
 
-Webmention support is enabled by default but won't work until you install tratschtante.
+**Webmention support is enabled by default but won't work until you install tratschtante.**
 
 ### Sending Webmentions
 
