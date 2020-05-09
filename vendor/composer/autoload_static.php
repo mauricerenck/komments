@@ -4,13 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b
+class ComposerStaticInitbc892aa014ff629994f6dda547e45662
 {
     public static $files = array (
         '757772e28a0943a9afe83def8db95bdf' => __DIR__ . '/..' . '/mf2/mf2/Mf2/Parser.php',
         '4944cc37acfce246a121e7126c40a396' => __DIR__ . '/../..' . '/utils/sendMastodon.php',
         'd5e1b7e618997cbe5a51ad1bf6197ee6' => __DIR__ . '/../..' . '/utils/sendWebmention.php',
-        '308f005f7d66428a27089b5f7d14a630' => __DIR__ . '/../..' . '/utils/receiveWebmention.php',
+        '90d4decb5eec1aeaa6874e62d5b30d1c' => __DIR__ . '/../..' . '/utils/receiveKomment.php',
+        '1b0fa1c44462bbc4ae81202d4687b4b1' => __DIR__ . '/../..' . '/utils/moderation.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -49,10 +50,10 @@ class ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd1e21f6f70eb9d0cd4b34da46d60d75b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbc892aa014ff629994f6dda547e45662::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbc892aa014ff629994f6dda547e45662::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitbc892aa014ff629994f6dda547e45662::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbc892aa014ff629994f6dda547e45662::$classMap;
 
         }, null, ClassLoader::class);
     }

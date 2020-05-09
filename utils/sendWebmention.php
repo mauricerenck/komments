@@ -5,6 +5,9 @@ namespace Plugin\Komments;
 use Kirby\Toolkit\V;
 use Kirby\Data\Data;
 use \IndieWeb\MentionClient;
+use file_exists;
+use implode;
+use in_array;
 
 class WebmentionSender
 {
@@ -18,14 +21,11 @@ class WebmentionSender
     public function __construct($page)
     {
         $this->page = $page;
-        $this->setOutboxPath();
+        $this->outboxPath = $this->page->root() . '/outbox.json';
         $this->outbox = $this->getOutbox();
         $this->mentionClient = new MentionClient();
         $this->processed = [];
-        $this->fieldsToParseUrls = [
-            'text',
-            'gutenberg'
-        ];
+        $this->fieldsToParseUrls = option('mauricerenck.komments.send-mention-url-fields');
     }
 
     public function send()
@@ -34,9 +34,11 @@ class WebmentionSender
             return;
         }
 
-        if ($this->shouldPingUrl('https://web.archive.org/save/' . $this->page->url())) {
-            $this->informArchiveOrg($this->page->url());
-            $this->addToProcessed('https://web.archive.org/save/' . $this->page->url());
+        if (option('mauricerenck.komments.ping-archiveorg')) {
+            if ($this->shouldPingUrl('https://web.archive.org/save/' . $this->page->url())) {
+                $this->informArchiveOrg($this->page->url());
+                $this->addToProcessed('https://web.archive.org/save/' . $this->page->url());
+            }
         }
 
         $urls = $this->parseUrls();
@@ -50,6 +52,12 @@ class WebmentionSender
         }
 
         $this->writeOutbox();
+    }
+
+    public function templateIsWhitelisted($template)
+    {
+        $whitelist = option('mauricerenck.komments.send-limit-to-templates', true);
+        return (in_array($template, $whitelist) || count($whitelist) === 0);
     }
 
     private function informArchiveOrg($targetUrl)
@@ -69,7 +77,7 @@ class WebmentionSender
         curl_close($ch);
     }
 
-    // stolen here: https://github.com/sebastiangreger/kirby3-sendmentions/blob/master/src/SendMentions.php
+    // credits to: https://github.com/sebastiangreger/kirby3-sendmentions/blob/master/src/SendMentions.php
     private function sendMention($targetUrl)
     {
         $endpoint = $this->mentionClient->discoverWebmentionEndpoint($targetUrl);
@@ -90,15 +98,9 @@ class WebmentionSender
         return 'failed';
     }
 
-    private function setOutboxPath()
-    {
-        $pagePath = $this->page->root();
-        $this->outboxPath = $pagePath . '/outbox.json';
-    }
-
     private function getOutbox()
     {
-        if (!\file_exists($this->outboxPath)) {
+        if (!file_exists($this->outboxPath)) {
             return [];
         }
 
@@ -121,10 +123,15 @@ class WebmentionSender
         $this->processed[] = $targetUrl;
     }
 
-    // stolen from https://github.com/sebastiangreger/kirby3-sendmentions/blob/master/src/SendMentions.php
+    // credits to: https://github.com/sebastiangreger/kirby3-sendmentions/blob/master/src/SendMentions.php
     private function parseUrls()
     {
-        $parseText = \implode(' ', [$this->page->content()->text()->kirbytext(), $this->page->content()->gutenberg()->blocks()]);
+        $contentFields = [];
+        foreach ($this->fieldsToParseUrls as $fieldName) {
+            $contentFields[] = $this->page->content()->$fieldName()->blocks();
+        }
+
+        $parseText = implode(' ', $contentFields);
 
         $regexUrlPattern = "#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#iS";
         if (preg_match_all($regexUrlPattern, (string) $parseText, $allUrlsInContent)) {
@@ -140,7 +147,7 @@ class WebmentionSender
             return false;
         }
 
-        if (\in_array($targetUrl, $this->processed)) {
+        if (in_array($targetUrl, $this->processed)) {
             return false;
         }
 

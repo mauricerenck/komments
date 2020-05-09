@@ -1,0 +1,133 @@
+#kommentform {
+  display: grid;
+  grid-template-columns: 100%;
+
+  grid-template-areas:
+    "quote"
+    "komment"
+    "email"
+    "author"
+    "authorsite"
+    "privacy"
+    "button"
+    "tweet";
+
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+#kommentform #url {
+  position: relative;
+  left: -200vw;
+  height: 0;
+}
+
+#kommentform input[name="email"] {
+  grid-area: email;
+}
+
+#kommentform input[name="author"] {
+  grid-area: author;
+}
+
+#kommentform input[type="url"] {
+  grid-area: authorsite;
+}
+
+#kommentform input[type="submit"] {
+  grid-area: button;
+}
+
+#kommentform .share {
+  grid-area: tweet;
+  align-self: start;
+}
+
+#kommentform textarea {
+  grid-area: komment;
+  width: 100%;
+}
+
+#kommentform .visible-quote {
+  grid-area: quote;
+}
+
+#kommentform .komment-privacy {
+  grid-area: privacy;
+  font-size: smaller;
+}
+
+#kommentform.spam-indicator {
+  grid-area: spamindicator;
+  width: 100%;
+}
+
+#kommentform .progress {
+  transition: width 1s, background 2s, height 0.2s;
+  transition-timing-function: linear;
+  display: inline-block;
+  width: 0%;
+  height: 5px;
+  background: red;
+}
+
+#kommentform .progress.orange {
+  background: orange;
+}
+#kommentform .progress.yellow {
+  background: yellowgreen;
+}
+#kommentform .progress.green {
+  background: green;
+}
+
+#kommentform .progress.done {
+  background: green;
+  height: 0;
+}
+
+#kommentsWebmentions .single-komment {
+  display: grid;
+  grid-template-columns: 20px 40px 1fr;
+
+  grid-template-areas:
+    "icon avatar action"
+    "icon avatar content";
+
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+  line-height: 1.2;
+
+  border-bottom: 1px solid grey;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+#kommentsWebmentions .type-of {
+  grid-area: icon;
+  line-height: 40px;
+}
+
+#kommentsWebmentions .author-avatar {
+  grid-area: avatar;
+  position: relative;
+}
+#kommentsWebmentions .author-avatar img {
+  max-width: 40px;
+  border-radius: 3px;
+}
+
+#kommentsWebmentions .author-action {
+  grid-area: action;
+  color: grey;
+  line-height: 40px;
+}
+#kommentsWebmentions .mention-content {
+  grid-area: content;
+  padding-bottom: 20px;
+}
+#kommentsWebmentions .komment-text {
+  padding: 20;
+  line-height: 1.5;
+}

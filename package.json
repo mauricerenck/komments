@@ -1,17 +1,24 @@
 {
-    "name": "komments",
-    "version": "1.2.4",
-    "description": "A Kirby Comment and Webmention Plugin",
-    "main": "index.js",
-    "author": "Maurice Renck",
-    "scripts": {
-        "dev": "parcel watch src/index.js --no-source-maps -d ./",
-        "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./"
-    },
-    "posthtml": {
-        "recognizeSelfClosing": true
-    },
-    "dependencies": {
-        "vue": "^2.6.11"
-    }
+  "name": "komments",
+  "version": "0.9.0",
+  "description": "A comment and webmention plugin for Kirby 3",
+  "main": "index.js",
+  "author": "Maurice Renck",
+  "scripts": {
+    "dev": "parcel watch src/index.js --no-source-maps -d ./",
+    "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./"
+  },
+  "posthtml": {
+    "recognizeSelfClosing": true
+  },
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.2",
+    "cssnano": "^4.1.10",
+    "stylus": "^0.54.7",
+    "vue-template-compiler": "^2.6.11"
+  }
 }

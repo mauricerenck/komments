@@ -12,22 +12,22 @@ class MastodonSender
         $postUrl = $page->url();
         $urlLength = Str::length($postUrl);
         $trimTextPosition = $tootMaxLength - $urlLength - 2;
-
-        $message = ($page->twitterteaser()->isNotEmpty()) ? $page->twitterteaser() : Str::short($page->title(), $trimTextPosition);
+        $textfield = option('mauricerenck.komments.mastodon-text-field', 'mastodonTeaser');
+        $message = ($page->$textfield()->isNotEmpty()) ? $page->$textfield() : Str::short($page->title(), $trimTextPosition);
         $message .= ' ' . $postUrl;
 
         $headers = [
-            'Authorization: Bearer Xats-zsMVOmL7IqjJHmTKVX4bvoIdvVqyw3UlOt7M8s' // TODO
+            'Authorization: Bearer ' . option('mauricerenck.komments.mastodon-bearer')
         ];
 
         $status_data = [
             'status' => $message,
-            'language' => 'de', // TODO
+            'language' => 'de',
             'visibility' => 'public'
         ];
 
         $ch_status = curl_init();
-        curl_setopt($ch_status, CURLOPT_URL, 'https://mastodon.social/api/v1/statuses'); // TODO
+        curl_setopt($ch_status, CURLOPT_URL, option('mauricerenck.komments.mastodon-instance-url'));
         curl_setopt($ch_status, CURLOPT_POST, 1);
         curl_setopt($ch_status, CURLOPT_POSTFIELDS, $status_data);
         curl_setopt($ch_status, CURLOPT_RETURNTRANSFER, true);

@@ -1,50 +1,111 @@
 <?php
+
 namespace Plugin\Komments;
+
 use Kirby;
-use Kirby\Exception\Exception;
-use Kirby\Http\Response;
-use stdClass;
+use Kirby\Toolkit\V;
+use Kirby\Toolkit\F;
+use Kirby\Http\Url;
+use Kirby\Http\Server;
+use Kirby\Data\Data;
+use Kirby\Data\yaml;
+use Kirby\Cms\Structure;
+use StdClass;
+use is_null;
+use json_encode;
+
+@include_once __DIR__ . '/vendor/autoload.php';
 
 load([
-    'Plugin\Komments\ReadKomments' => 'utils/readKomments.php',
-    'Plugin\Komments\WriteKomments' => 'utils/writeKomments.php',
+    'Plugin\Komments\MastodonSender' => 'utils/sendMastodon.php',
+    'Plugin\Komments\WebmentionSender' => 'utils/sendWebmention.php',
+    'Plugin\Komments\KommentReceiver' => 'utils/receiveKomment.php',
+    'Plugin\Komments\KommentModeration' => 'utils/moderation.php',
 ], __DIR__);
 
 Kirby::plugin('mauricerenck/komments', [
-    'options' => [
-        'kommentUserId' => 'CHANGEME',
-    ],
-    'templates' => [],
-    'blueprints' => [
-        'users/komments' => __DIR__ . '/blueprints/users/komments.yml',
-        'tabs/komments' => __DIR__ . '/blueprints/tabs/komments.yml',
-        'pages/komments' => __DIR__ . '/blueprints/pages/komments.yml',
-        'pages/komment' => __DIR__ . '/blueprints/pages/komment.yml'
-    ],
+    'options' => require_once(__DIR__ . '/config/options.php'),
     'snippets' => [
-        'komment/list' => __DIR__ . '/snippets/list-komments.php',
-        'komment/single' => __DIR__ . '/snippets/single-komment.php',
-        'komments/form' => __DIR__ . '/snippets/komment-form.php',
+        'komments/webmention' => __DIR__ . '/snippets/webmentions.php',
+        'komments/kommentform' => __DIR__ . '/snippets/kommentform.php',
+        'komments/type/like' => __DIR__ . '/snippets/mention-type-like.php',
+        'komments/type/reply' => __DIR__ . '/snippets/mention-type-reply.php',
+        'komments/type/repost' => __DIR__ . '/snippets/mention-type-repost.php',
+        'komments/type/mention' => __DIR__ . '/snippets/mention-type-mention.php',
     ],
-    'routes' => [
-        [
-            'pattern' => '(:all)/komment/save',
-            'action' => function () {
-                $kommentData = new stdClass();
-                $kommentData->title = substr($_POST['text'], 0, 30);
-                $kommentData->author = $_POST['author'];
-                $kommentData->email = $_POST['email'];
-                $kommentData->text = $_POST['text'];
-                $kommentData->replyTo = $_POST['replyTo'];
-
-                $slug = $_POST['page_slug'];
-                $kommentUtils = new WriteKomments();
-                $kommentUtils->createKomment($slug, $kommentData);
-
-                go($slug);
-            },
-            'method' => 'POST'
+    'blueprints' => [
+        'sections/komments' => __DIR__ . '/blueprints/sections/komments.yml'
+    ],
+    'pageMethods' => [
+        'kommentCount' => function () {
+            $count = $this->kommentsInbox()->toStructure()->count();
+            return $count;
+        },
+        'hasQueuedKomments' => function ($kommentId, $kommenStatus) {
+            $kommentModeration = new KommentModeration();
+            return $kommentModeration->pageHasQueuedKomments($kommentId, $kommenStatus);
+        },
+    ],
+    'fields' => [
+        'kommentType' => [
+            'props' => [
+            ]
+        ],
+        'gravatar' => [
+            'props' => [
+            ]
         ]
     ],
-    'hooks' => []
+    'translations' => require_once(__DIR__ . '/config/translations.php'),
+    'api' => require_once(__DIR__ . '/config/api.php'),
+    'hooks' => require_once(__DIR__ . '/config/hooks.php'),
+    'routes' => [
+        [
+            'pattern' => 'komments/send',
+            'method' => 'POST',
+            'action' => function () {
+                $kommentReceiver = new KommentReceiver();
+                $kommentModeration = new KommentModeration();
+                $targetPage = $kommentReceiver->getPageFromUrl($_POST['wmTarget']);
+                $spamlevel = 0;
+
+                if (is_null($targetPage)) {
+                    go('error');
+                }
+
+                if ($kommentReceiver->isSpam($_POST)) {
+                    if (option('auto-delete-spam') === true) {
+                        go('error');
+                    } else {
+                        $spamlevel = 100;
+                    }
+                }
+
+                $webmention = [
+                    'type' => 'KOMMENT',
+                    'target' => $targetPage->url(),
+                    'source' => $targetPage->url(),
+                    'published' => $kommentReceiver->setPublishDate(),
+                    'content' => $_POST['komment'],
+                    'quote' => $_POST['quote'],
+                    'author' => [
+                        'type' => 'card',
+                        'name' => $kommentReceiver->setAuthorName($_POST['author']),
+                        'avatar' => $kommentReceiver->setAvatarFromEmail($_POST['email']),
+                        'url' => $kommentReceiver->setUrl($_POST['author_url']),
+                    ]
+                ];
+
+                if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
+                    go('error');
+                }
+
+                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel);
+                $kommentReceiver->storeData($newEntry, $targetPage);
+                $kommentModeration->addCookieToModerationList($newEntry['id']);
+
+                go($targetPage . '#inModeration');
+            }
+        ],
+    ]
 ]);

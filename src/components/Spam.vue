@@ -1,5 +1,5 @@
 <template>
-  <div class="k-komments">
+  <div class="k-spam-komments">
     <k-list data-size="medium">
       <k-list-item
         v-for="komment in komments"
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     load() {
-      this.$api.get("komments/queued").then((komments) => {
+      this.$api.get("komments/spam").then((komments) => {
         this.komments = komments;
       });
     },
