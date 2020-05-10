@@ -8,8 +8,7 @@
 
     <?php if ($komment->status()->isFalse()) : continue; endif; ?>
     <?php
-
-        switch ($komment->property()->raw()) {
+        switch ($komment->kommenttype()->raw()) {
             case 'LIKE': snippet('komments/type/like', ['komment' => $komment]); break;
             case 'REPOST': snippet('komments/type/repost', ['komment' => $komment]); break;
             case 'REPLY': snippet('komments/type/reply', ['komment' => $komment]); break;

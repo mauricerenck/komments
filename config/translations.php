@@ -7,6 +7,7 @@ return [
         'mauricerenck.komments.liked' => 'spent a like',
         'mauricerenck.komments.replied' => 'replied',
         'mauricerenck.komments.mentioned' => 'mentioned this page',
+        'mauricerenck.komments.repost' => 'shared this page',
         'mauricerenck.komments.moderation' => 'Your comment is awaiting moderation.',
         'mauricerenck.komments.disabled' => 'Comments were disabled on this page.',
         'mauricerenck.komments.externalReply' => 'Answer elsewhere',
@@ -15,7 +16,8 @@ return [
     ],
     'de' => [
         'mauricerenck.komments.liked' => 'hat ein like spendiert',
-        'mauricerenck.komments.liked' => 'schreibt',
+        'mauricerenck.komments.replied' => 'antwortete',
+        'mauricerenck.komments.repost' => 'teilt diesen Beitrag',
         'mauricerenck.komments.mentioned' => 'erwähnte diesen Beitrag',
         'mauricerenck.komments.moderation' => 'Dein Kommentar wartet auf Freischaltung.',
         'mauricerenck.komments.disabled' => 'Die Kommentarfunktion wurde auf dieser Seite deaktiviert.',

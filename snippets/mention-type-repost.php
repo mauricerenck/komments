@@ -1,4 +1,4 @@
-<div class="single-komment komment-type-<?php echo strtolower($komment->property()->raw()); ?>">
+<div class="single-komment komment-type-<?php echo strtolower($komment->kommenttype()->raw()); ?>">
     <div class="type-of"><?php echo option('mauricerenck.komments.komment-icon-repost'); ?></div>
     <div class="author-avatar">
         <a href="<?php echo $komment->authorUrl(); ?>" rel="nofollow" target="_blank">
