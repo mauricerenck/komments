@@ -17,7 +17,7 @@ return [
     'de' => [
         'mauricerenck.komments.liked' => 'hat ein like spendiert',
         'mauricerenck.komments.replied' => 'antwortete',
-        'mauricerenck.komments.repost' => 'teilt diesen Beitrag',
+        'mauricerenck.komments.repost' => 'teilte diesen Beitrag',
         'mauricerenck.komments.mentioned' => 'erwähnte diesen Beitrag',
         'mauricerenck.komments.moderation' => 'Dein Kommentar wartet auf Freischaltung.',
         'mauricerenck.komments.disabled' => 'Die Kommentarfunktion wurde auf dieser Seite deaktiviert.',
