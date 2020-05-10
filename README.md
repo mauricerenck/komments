@@ -136,3 +136,7 @@ By changing the the icon options you can add your own emoji or icons. You can se
 If you want to change the styling, have a look at the classes, you can find the default styling in the `assets` folder of this plugin.
 
 You can also modify the javascript part, but be aware, that this might result in false spam detection.
+
+### Show the number of komments for a page
+
+Simply use this tag anywhere on your site: `<?php echo $page->kommentCount(); ?>`
