@@ -128,7 +128,7 @@ class WebmentionSender
     {
         $contentFields = [];
         foreach ($this->fieldsToParseUrls as $fieldName) {
-            $contentFields[] = $this->page->content()->$fieldName()->blocks();
+            $contentFields[] = $this->page->content()->$fieldName()->html();
         }
 
         $parseText = implode(' ', $contentFields);

@@ -7,7 +7,7 @@
     </div>
     <div class="author-action">
         <a href="<?php echo $komment->authorUrl(); ?>" rel="nofollow" target="_blank">
-            @<?php echo $komment->author(); ?>
+            <?php echo $komment->author(); ?>
         </a>
         <?php echo t('mauricerenck.komments.mentioned'); ?>
     </div>
