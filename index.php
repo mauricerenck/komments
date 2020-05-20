@@ -74,7 +74,7 @@ Kirby::plugin('mauricerenck/komments', [
                 }
 
                 if ($kommentReceiver->isSpam($_POST)) {
-                    if (option('auto-delete-spam') === true) {
+                    if (option('mauricerenck.komments.auto-delete-spam') === true) {
                         go('error');
                     } else {
                         $spamlevel = 100;
