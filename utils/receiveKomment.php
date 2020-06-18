@@ -25,7 +25,7 @@ class KommentReceiver
     public function createKomment($webmention, $spamlevel = 0)
     {
         return [
-            'id' => md5($webmention['target'] . $webmention['author']['name']),
+            'id' => md5($webmention['target'] . $webmention['author']['name'] . $webmention['published']),
             'avatar' => $this->setUrl($webmention['author']['avatar']),
             'author' => $webmention['author']['name'],
             'authorUrl' => $this->setUrl($webmention['author']['url']),
