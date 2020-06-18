@@ -13,10 +13,10 @@
     </div>
     <div class="mention-content">
         <?php if ($komment->quote()->isNotEmpty()): ?>
-            <div class="quote"><p><?php echo $komment->quote()->html(); ?></p></div>
+            <div class="quote"><p><?php echo $komment->quote()->kirbytext(); ?></p></div>
         <?php endif; ?>
         <?php if ($komment->komment()->isNotEmpty()): ?>
-            <div class="komment-text"><?php echo $komment->komment()->html(); ?></div>
+            <div class="komment-text"><?php echo $komment->komment()->kirbytext(); ?></div>
         <?php endif; ?>
     </div>
 </div>
