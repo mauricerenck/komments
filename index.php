@@ -27,6 +27,7 @@ Kirby::plugin('mauricerenck/komments', [
     'options' => require_once(__DIR__ . '/config/options.php'),
     'snippets' => [
         'komments/webmention' => __DIR__ . '/snippets/webmentions.php',
+        'komments/webmention-splitted' => __DIR__ . '/snippets/webmentions-splitted.php',
         'komments/kommentform' => __DIR__ . '/snippets/kommentform.php',
         'komments/type/like' => __DIR__ . '/snippets/mention-type-like.php',
         'komments/type/reply' => __DIR__ . '/snippets/mention-type-reply.php',

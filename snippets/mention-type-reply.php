@@ -7,16 +7,19 @@
     </div>
     <div class="author-action">
         <a href="<?php echo $komment->authorUrl(); ?>" rel="nofollow" target="_blank">
-            @<?php echo $komment->author(); ?>
+            <?php echo $komment->author(); ?>
         </a>
         <?php echo t('mauricerenck.komments.replied'); ?>
     </div>
     <div class="mention-content">
         <?php if ($komment->quote()->isNotEmpty()): ?>
-            <div class="quote"><p><?php echo $komment->quote()->kirbytext(); ?></p></div>
+            <div class="quote"><p><?php echo $komment->quote()->html(); ?></p></div>
         <?php endif; ?>
         <?php if ($komment->komment()->isNotEmpty()): ?>
-            <div class="komment-text"><?php echo $komment->komment()->kirbytext(); ?></div>
+            <div class="komment-text">
+                <span class="date"><?php echo $komment->published()->toDate('d.m.Y H:i'); ?></span>
+                <?php echo $komment->komment()->kirbytext(); ?>
+            </div>
         <?php endif; ?>
     </div>
 </div>

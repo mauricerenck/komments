@@ -1,1 +1,2 @@
+- 2020-08-20 - Bugfixes and split view
 - 2020-05-11 - Initial beta release

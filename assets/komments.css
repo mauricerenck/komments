@@ -131,3 +131,25 @@
   padding: 20;
   line-height: 1.5;
 }
+
+.splitted-komments .list-reposts,
+.splitted-komments .list-mentions,
+.splitted-komments .list-likes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 60px));
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.splitted-komments .single-komment {
+  display: block;
+}
+
+.splitted-komments .single-komment .author-avatar img {
+  max-width: 60px;
+}
+
+.splitted-komments .single-komment .author-action,
+.splitted-komments .single-komment .type-of {
+  display: none;
+}
