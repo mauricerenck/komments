@@ -56,7 +56,7 @@ class WebmentionSender
 
     public function templateIsWhitelisted($template)
     {
-        $whitelist = option('mauricerenck.komments.send-limit-to-templates', true);
+        $whitelist = option('mauricerenck.komments.send-limit-to-templates', []);
         return (in_array($template, $whitelist) || count($whitelist) === 0);
     }
 

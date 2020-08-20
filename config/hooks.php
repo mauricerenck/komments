@@ -30,7 +30,7 @@ return[
 
         if (!option('mauricerenck.komments.debug')) {
             $time = time();
-            file_put_contents('webmentionhook.' . $time . '.json', json_encode($response));
+            file_put_contents('webmentionhook.' . $time . '.json', json_encode($webmention));
         }
 
         $kommentReceiver = new KommentReceiver();
