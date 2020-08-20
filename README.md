@@ -41,6 +41,10 @@ To list all komments and webmentions:
 
 `<?php snippet('komments/webmention'); ?>`
 
+To list komments and webmentions separated from each other:
+
+`<?php snippet('komments/webmention-splitted'); ?>`
+
 To show the komment form
 
 `<?php snippet('komments/kommentform'); ?>`
