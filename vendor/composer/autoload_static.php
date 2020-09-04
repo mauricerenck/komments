@@ -12,6 +12,7 @@ class ComposerStaticInitbc892aa014ff629994f6dda547e45662
         'd5e1b7e618997cbe5a51ad1bf6197ee6' => __DIR__ . '/../..' . '/utils/sendWebmention.php',
         '90d4decb5eec1aeaa6874e62d5b30d1c' => __DIR__ . '/../..' . '/utils/receiveKomment.php',
         '1b0fa1c44462bbc4ae81202d4687b4b1' => __DIR__ . '/../..' . '/utils/moderation.php',
+        '72118f495fa13d093fb50bf5406d8571' => __DIR__ . '/../..' . '/utils/base.php',
     );
 
     public static $prefixLengthsPsr4 = array (

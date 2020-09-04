@@ -13,6 +13,8 @@ use Kirby\Cms\Structure;
 use StdClass;
 use is_null;
 use json_encode;
+use \Exception;
+use \Response;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
@@ -21,6 +23,7 @@ load([
     'Plugin\Komments\WebmentionSender' => 'utils/sendWebmention.php',
     'Plugin\Komments\KommentReceiver' => 'utils/receiveKomment.php',
     'Plugin\Komments\KommentModeration' => 'utils/moderation.php',
+    'Plugin\Komments\KommentBaseUtils' => 'utils/base.php',
 ], __DIR__);
 
 Kirby::plugin('mauricerenck/komments', [
@@ -46,6 +49,15 @@ Kirby::plugin('mauricerenck/komments', [
             $kommentModeration = new KommentModeration();
             return $kommentModeration->pageHasQueuedKomments($kommentId, $kommenStatus);
         },
+        'kommentsAreEnabled' => function () {
+            $kommentBaseUtils = new KommentBaseUtils();
+
+            if ($kommentBaseUtils->kommentsAreExpired($this)) {
+                return false;
+            }
+
+            return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
+        },
     ],
     'fields' => [
         'kommentType' => [
@@ -70,13 +82,13 @@ Kirby::plugin('mauricerenck/komments', [
                 $targetPage = $kommentReceiver->getPageFromUrl($_POST['wmTarget']);
                 $spamlevel = 0;
 
-                if (is_null($targetPage)) {
-                    go('error');
+                if (is_null($targetPage) || true !== false) {
+                    return new Response('<h1>error</h1><p>Your comment couldn\'t be saved</p>', 'text/html');
                 }
 
                 if ($kommentReceiver->isSpam($_POST)) {
                     if (option('mauricerenck.komments.auto-delete-spam') === true) {
-                        go('error');
+                        return new Response('<h1>error</h1><p>Your comment was rejected because it looks like spam.</p>', 'text/html');
                     } else {
                         $spamlevel = 100;
                     }
@@ -98,7 +110,7 @@ Kirby::plugin('mauricerenck/komments', [
                 ];
 
                 if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
-                    go('error');
+                    return new Response('<h1>error</h1><p>Invalid field values</p>', 'text/html');
                 }
 
                 $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel);

@@ -19,6 +19,7 @@ A Kirby comment plugin
   - Dashboard for komments in moderation/spam
   - Moderate komments on your page
   - Disable/enable komments per page
+- ✅ Disable komments after a certain number of dates in relation to the publish date
 
 ![the dashboard](doc-assets/komments-dashboard.png)
 (The komment dashboard)
@@ -75,33 +76,49 @@ Add this to every blueprint you wish to enable komments on. This will allow you 
 
 You can fine tune the komments to behave as you whish, use this options in `config.php` file.
 
-| Option                        | Default                                   | Description                                                                                              |
-| ----------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `debug`                       | `false`                                   | Enables debug mode and logs all webmentions to a file                                                    |
-| `enable-webmention-support`   | `true`                                    | Listen to Webmentions and save them as komment                                                           |
-| `webmention-auto-publish`     | `true`                                    | When you receive a webmention set status to published                                                    |
-| `komment-auto-publish`        | `false`                                   | When you receive a komment set status to published                                                       |
-| `send-mention-on-update`      | `true`                                    | Detect urls in your pages and send webmentions                                                           |
-| `send-limit-to-templates`     | `[]`                                      | An array of template names (strings). When set webmentions will be sent only when this pages are updated |
-| `send-mention-url-fields`     | `['text']`                                | An array of fieldnames in which the plugin will search for urls                                          |
-| `send-to-mastodon-on-publish` | `false`                                   | Send a post to mastodon when publishing a page                                                           |
-| `mastodon-bearer`             | -                                         | Your Mastodon bearer Token                                                                               |
-| `mastodon-instance-url`       | `https://mastodon.social/api/v1/statuses` | Your Mastodon API Endpoint                                                                               |
-| `mastodon-text-field`         | `mastodonTeaser`                          | The fieldname of the field you write your mastodon msg in, otherwise the title is used                   |
-| `ping-archiveorg`             | `false`                                   | Enable if you want to inform archive.org when you update a page                                          |
-| `auto-delete-spam`            | `true`                                    | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM         |
-| `komment-icon-like`           | ❤️                                        | The icon for likes in your komment list                                                                  |
-| `komment-icon-reply`          | 💬                                        | The icon for replies/comments in your komment list                                                       |
-| `komment-icon-repost`         | ♻️                                        | The icon for reposts in your komment list                                                                |
-| `komment-icon-mention`        | ♻️                                        | The icon for mention in your komment list                                                                |
+| Option                            | Default                                     | Description                                                                                              |
+| --------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `debug`                           | `false`                                     | Enables debug mode and logs all webmentions to a file                                                    |
+| `enable-webmention-support`       | `true`                                      | Listen to Webmentions and save them as komment                                                           |
+| `webmention-auto-publish`         | `true`                                      | When you receive a webmention set status to published                                                    |
+| `komment-auto-publish`            | `false`                                     | When you receive a komment set status to published                                                       |
+| `send-mention-on-update`          | `true`                                      | Detect urls in your pages and send webmentions                                                           |
+| `send-limit-to-templates`         | `[]`                                        | An array of template names (strings). When set webmentions will be sent only when this pages are updated |
+| `send-mention-url-fields`         | `['text']`                                  | An array of fieldnames in which the plugin will search for urls                                          |
+| `send-to-mastodon-on-publish`     | `false`                                     | Send a post to mastodon when publishing a page                                                           |
+| `mastodon-bearer`                 | -                                           | Your Mastodon bearer Token                                                                               |
+| `mastodon-instance-url`           | `'https://mastodon.social/api/v1/statuses‘` | Your Mastodon API Endpoint                                                                               |
+| `mastodon-text-field`             | `'mastodonTeaser'`                          | The fieldname of the field you write your mastodon msg in, otherwise the title is used                   |
+| `ping-archiveorg`                 | `false`                                     | Enable if you want to inform archive.org when you update a page                                          |
+| `auto-delete-spam`                | `true`                                      | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM         |
+| `auto-disable-komments`           | `0`                                         | Disables the komment form after `n` number of days. Use `0` to never disable komments (default)          |
+| `auto-disable-komments-datefield` | `'date'`                                    | Set a field to function as publish date field used for `auto-disable-komments`                           |
+| `komment-icon-like`               | '❤️'                                        | The icon for likes in your komment list                                                                  |
+| `komment-icon-reply`              | '💬'                                        | The icon for replies/comments in your komment list                                                       |
+| `komment-icon-repost`             | '♻️'                                        | The icon for reposts in your komment list                                                                |
+| `komment-icon-mention`            | '♻️'                                        | The icon for mention in your komment list                                                                |
 
 **Please make sure to prefix all the options with `mauricerenck.komments.`**. For example the debug option should be set in your `config.php` like so: `'mauricerenck.komments.debug' => true`
+
+## Page Methods
+
+| Method                        | Returns   | Exsample                                                                                   |
+| ----------------------------- | --------- | ------------------------------------------------------------------------------------------ |
+| `$page->kommentCount()`       | `integer` | `<?php echo $page->kommentCount(); ?> comments`                                            |
+| `$page->kommentsAreEnabled()` | `boolean` | `<?php if($page->kommentsAreEnabled()): ><button>Write a comment!</button><?php endif; ?>` |
+| `$page->hasQueuedKomments()`  | `boolean` | `<?php if($page->hasQueuedKomments()): >There are comments in moderation<?php endif; ?>`   |
 
 ---
 
 ## Special features
 
 Next to komments directly on your page, there are some other features enabled by this plugin
+
+### Disable komment form after n days
+
+You can let the plugin automatically disable komments after a certain number of days after the page was published. So you could set `auto-disable-komments` to `14`. When you publish a page the komments on that page will be disabled 14 days after the publish date. Only webmentions will be received after this. You can define any date field as a source by using the option `auto-disable-komments-datefield`. The default datefield is `date`.
+
+Please be aware: If you configure a non-existing date field, this will result in a disabled komment state for all pages.
 
 ### Receiving webmentions
 
@@ -140,7 +157,3 @@ By changing the the icon options you can add your own emoji or icons. You can se
 If you want to change the styling, have a look at the classes, you can find the default styling in the `assets` folder of this plugin.
 
 You can also modify the javascript part, but be aware, that this might result in false spam detection.
-
-### Show the number of komments for a page
-
-Simply use this tag anywhere on your site: `<?php echo $page->kommentCount(); ?>`

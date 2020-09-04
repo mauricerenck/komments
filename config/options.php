@@ -16,6 +16,8 @@ return [
     'mastodon-text-field' => 'mastodonTeaser',
     'ping-archiveorg' => false,
     'auto-delete-spam' => true,
+    'auto-disable-komments' => 0,
+    'auto-disable-komments-datefield' => 'date',
     'komment-icon-like' => '❤️',
     'komment-icon-reply' => '💬',
     'komment-icon-repost' => '♻️',

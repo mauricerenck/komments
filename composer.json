@@ -1,6 +1,6 @@
 {
   "name": "mauricerenck/komments",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "A comment and webmention plugin for Kirby 3",
   "type": "kirby-plugin",
   "license": "MIT",
@@ -15,7 +15,8 @@
       "utils/sendMastodon.php",
       "utils/sendWebmention.php",
       "utils/receiveKomment.php",
-      "utils/moderation.php"
+      "utils/moderation.php",
+      "utils/base.php"
     ]
   },
   "require": {

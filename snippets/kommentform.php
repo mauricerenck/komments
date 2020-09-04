@@ -1,5 +1,5 @@
 <?php
-    if ($page->kommentsEnabledOnpage()->isNotEmpty() && $page->kommentsEnabledOnpage()->isFalse()): ?>
+    if (!$page->kommentsAreEnabled()): ?>
         <div class="moderation-note" id="disabled"><?php echo t('mauricerenck.komments.disabled'); ?></div>
         <?php return false; ?>
     <?php endif; ?>

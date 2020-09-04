@@ -48,6 +48,10 @@ class KommentReceiver
             $path = Url::path($url);
             $languages = kirby()->languages();
 
+            if (empty($path)) {
+                $path = '/home';
+            }
+
             if ($languages->count() > 0) {
                 foreach ($languages as $language) {
                     $path = str_replace($language . '/', '', $path);
