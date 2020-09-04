@@ -21,11 +21,11 @@ return [
                         foreach ($item->kommentsInbox()->yaml() as $komment) {
                             $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
 
-                            if ($komment['status'] == 'false' && (integer)$komment['spamlevel'] == 0) {
+                            if (($komment['status'] === 'false' || $komment['status'] === false) && (integer)$komment['spamlevel'] === 0) {
                                 $pendingKomments[] = [
                                     'author' => $komment['author'],
                                     'komment' => $komment['komment'],
-                                    'kommentType' => $komment['kommenttype'],
+                                    'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
                                     'url' => $item->panelUrl(),
@@ -50,12 +50,11 @@ return [
                     if ($item->kommentsInbox()->isNotEmpty()) {
                         foreach ($item->kommentsInbox()->yaml() as $komment) {
                             $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
-
                             if ((integer)$komment['spamlevel'] > 0) {
                                 $spamKomments[] = [
                                     'author' => $komment['author'],
                                     'komment' => $komment['komment'],
-                                    'kommentType' => $komment['kommenttype'],
+                                    'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
                                     'url' => $item->panelUrl(),
