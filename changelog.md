@@ -1,3 +1,5 @@
+- 2020-10-05: Fix form action for installation in subfolder
+
 - 2020-09-03: Improved handling of enabled/disabled komments
 
   - kommentsAreEnabled() page methods

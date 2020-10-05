@@ -82,7 +82,7 @@ Kirby::plugin('mauricerenck/komments', [
                 $targetPage = $kommentReceiver->getPageFromUrl($_POST['wmTarget']);
                 $spamlevel = 0;
 
-                if (is_null($targetPage) || true !== false) {
+                if (is_null($targetPage)) {
                     return new Response('<h1>error</h1><p>Your comment couldn\'t be saved</p>', 'text/html');
                 }
 

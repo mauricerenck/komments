@@ -9,7 +9,7 @@
     <a href="https://twitter.com/intent/tweet?url=<?php echo $actual_link; ?>" class="button button-tiny button-outlined share komment-share-twitter" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
     <a href="https://www.addtoany.com/add_to/mastodon?linkurl=<?php echo $actual_link; ?>" class="button button-tiny button-outlined share komment-share-mastodon" target="_blank"><i class="fab fa-mastodon"></i> Mastodon</a>
 </div>
-<form action="/komments/send" method="post" id="kommentform">
+<form action="<?= $kirby->url('index') ?>/komments/send" method="post" id="kommentform">
     <blockquote class="visible-quote hidden"><p></p></blockquote>
     <textarea name="komment" id="komment" cols="30" rows="5" placeholder="Kommentar*" required></textarea>
     <input type="text" name="url" id="url" placeholder="Leave empty" tabindex="-1">
