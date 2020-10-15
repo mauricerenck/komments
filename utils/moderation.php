@@ -25,7 +25,12 @@ class KommentModeration
 
         $cookie_value[] = $uid;
 
-        setcookie($this->cookie_name, json_encode($cookie_value), time() + (86400 * 256), '/');
+        setcookie($this->cookie_name, json_encode($cookie_value), [
+            'expires' => time() + (86400 * 256),
+            'path' => '/',
+            'secure' => true,
+            'samesite' => 'None'
+        ]);
     }
 
     public function getModerationListFromCookie()

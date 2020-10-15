@@ -10,6 +10,12 @@
     <a href="https://www.addtoany.com/add_to/mastodon?linkurl=<?php echo $actual_link; ?>" class="button button-tiny button-outlined share komment-share-mastodon" target="_blank"><i class="fab fa-mastodon"></i> Mastodon</a>
 </div>
 <form action="<?= $kirby->url('index') ?>/komments/send" method="post" id="kommentform">
+
+
+    <div class="loading-invisible loader sk-cube-grid"><div class="sk-cube sk-cube1"></div><div class="sk-cube sk-cube2"></div><div class="sk-cube sk-cube3"></div><div class="sk-cube sk-cube4"></div><div class="sk-cube sk-cube5"></div><div class="sk-cube sk-cube6"></div><div class="sk-cube sk-cube7"></div><div class="sk-cube sk-cube8"></div><div class="sk-cube sk-cube9"></div></div>
+
+    <div class="form-feedback"></div>
+
     <blockquote class="visible-quote hidden"><p></p></blockquote>
     <textarea name="komment" id="komment" cols="30" rows="5" placeholder="Kommentar*" required></textarea>
     <input type="text" name="url" id="url" placeholder="Leave empty" tabindex="-1">

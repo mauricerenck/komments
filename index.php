@@ -77,18 +77,40 @@ Kirby::plugin('mauricerenck/komments', [
             'pattern' => 'komments/send',
             'method' => 'POST',
             'action' => function () {
+                $headers = kirby()->request()->headers();
+                $formData = kirby()->request()->data();
+
                 $kommentReceiver = new KommentReceiver();
                 $kommentModeration = new KommentModeration();
-                $targetPage = $kommentReceiver->getPageFromUrl($_POST['wmTarget']);
+                $targetPage = $kommentReceiver->getPageFromUrl($formData['wmTarget']);
                 $spamlevel = 0;
+                $shouldReturnJson = ($headers['X-Return-Type'] === 'json');
 
                 if (is_null($targetPage)) {
-                    return new Response('<h1>error</h1><p>Your comment couldn\'t be saved</p>', 'text/html');
+                    if ($shouldReturnJson) {
+                        $response = [
+                            'status' => 'failed',
+                            'message' => 'The page you wrote a comment for could not be found.',
+                        ];
+
+                        return new Response(json_encode($response), 'application/json', 404);
+                    }
+
+                    return new Response('<h1>error</h1><p>The page you wrote a comment for could not be found.</p>', 'text/html', 404);
                 }
 
-                if ($kommentReceiver->isSpam($_POST)) {
+                if ($kommentReceiver->isSpam($formData)) {
                     if (option('mauricerenck.komments.auto-delete-spam') === true) {
-                        return new Response('<h1>error</h1><p>Your comment was rejected because it looks like spam.</p>', 'text/html');
+                        if ($shouldReturnJson) {
+                            $response = [
+                                'status' => 'failed',
+                                'message' => 'Your comment was rejected because it looks like spam.',
+                            ];
+
+                            return new Response(json_encode($response), 'application/json', 403);
+                        }
+
+                        return new Response('<h1>error</h1><p>Your comment was rejected because it looked like spam.</p>', 'text/html', 403);
                     } else {
                         $spamlevel = 100;
                     }
@@ -99,23 +121,42 @@ Kirby::plugin('mauricerenck/komments', [
                     'target' => $targetPage->url(),
                     'source' => $targetPage->url(),
                     'published' => $kommentReceiver->setPublishDate(),
-                    'content' => $_POST['komment'],
-                    'quote' => $_POST['quote'],
+                    'content' => $formData['komment'],
+                    'quote' => $formData['quote'],
                     'author' => [
                         'type' => 'card',
-                        'name' => $kommentReceiver->setAuthorName($_POST['author']),
-                        'avatar' => $kommentReceiver->setAvatarFromEmail($_POST['email']),
-                        'url' => $kommentReceiver->setUrl($_POST['author_url']),
+                        'name' => $kommentReceiver->setAuthorName($formData['author']),
+                        'avatar' => $kommentReceiver->setAvatarFromEmail($formData['email']),
+                        'url' => $kommentReceiver->setUrl($formData['author_url']),
                     ]
                 ];
 
                 if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
-                    return new Response('<h1>error</h1><p>Invalid field values</p>', 'text/html');
+                    if ($shouldReturnJson) {
+                        $response = [
+                            'status' => 'failed',
+                            'message' => 'Invalid field values',
+                        ];
+
+                        return new Response(json_encode($response), 'application/json', 412);
+                    }
+
+                    return new Response('<h1>error</h1><p>Invalid field values</p>', 'text/html', 412);
                 }
 
                 $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel);
                 $kommentReceiver->storeData($newEntry, $targetPage);
                 $kommentModeration->addCookieToModerationList($newEntry['id']);
+
+                if ($shouldReturnJson) {
+                    $response = [
+                        'status' => 'success',
+                        'pending' => true,
+                        'message' => 'Thank you! Your comment is awaiting moderation'
+                    ];
+
+                    return new Response(json_encode($response), 'application/json');
+                }
 
                 go($targetPage . '#inModeration');
             }
