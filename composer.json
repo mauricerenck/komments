@@ -12,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "mauricerenck\\Komments\\": "utils/"
+      "mauricerenck\\Komments\\": "utils"
     },
     "classmap": [
       "utils"
