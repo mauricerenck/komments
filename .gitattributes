@@ -1,6 +1,6 @@
 content export-ignore
 site export-ignore
-src export-ignore
+# src export-ignore
 
 .editorconfig export-ignore
 .gitattributes export-ignore
