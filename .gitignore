@@ -1,32 +1,32 @@
 # files of Composer dependencies that are not needed for the plugin
-/vendor/**/.*
-/vendor/**/*.json
-/vendor/**/*.txt
-/vendor/**/*.md
-/vendor/**/*.yml
-/vendor/**/*.yaml
-/vendor/**/*.xml
-/vendor/**/*.dist
-/vendor/**/readme.php
-/vendor/**/LICENSE
-/vendor/**/COPYING
-/vendor/**/VERSION
-/vendor/**/docs/*
-/vendor/**/example/*
-/vendor/**/examples/*
+# /vendor/**/.*
+# /vendor/**/*.json
+# /vendor/**/*.txt
+# /vendor/**/*.md
+# /vendor/**/*.yml
+# /vendor/**/*.yaml
+# /vendor/**/*.xml
+# /vendor/**/*.dist
+# /vendor/**/readme.php
+# /vendor/**/LICENSE
+# /vendor/**/COPYING
+# /vendor/**/VERSION
+# /vendor/**/docs/*
+# /vendor/**/example/*
+# /vendor/**/examples/*
 /vendor/**/test/*
 /vendor/**/tests/*
-/vendor/**/php4/*
+# /vendor/**/php4/*
 /vendor/getkirby/composer-installer
-/vendor/doctrine
-/vendor/myclabs
-/vendor/phar-io
-/vendor/phpdocumentor
-/vendor/phpspec
+# /vendor/doctrine
+# /vendor/myclabs
+# /vendor/phar-io
+# /vendor/phpdocumentor
+# /vendor/phpspec
 /vendor/phpunit
 /vendor/sebastian
-/vendor/symfony
-/vendor/theseer
-/vendor/webmozart
+# /vendor/symfony
+# /vendor/theseer
+# /vendor/webmozart
 /.cache
 /node_modules
