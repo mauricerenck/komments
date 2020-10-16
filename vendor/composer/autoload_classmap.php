@@ -953,6 +953,7 @@ return array(
     'SebastianBergmann\\Type\\ReflectionMapper' => $vendorDir . '/sebastian/type/src/ReflectionMapper.php',
     'SebastianBergmann\\Type\\RuntimeException' => $vendorDir . '/sebastian/type/src/exception/RuntimeException.php',
     'SebastianBergmann\\Type\\SimpleType' => $vendorDir . '/sebastian/type/src/SimpleType.php',
+    'SebastianBergmann\\Type\\StaticType' => $vendorDir . '/sebastian/type/src/StaticType.php',
     'SebastianBergmann\\Type\\Type' => $vendorDir . '/sebastian/type/src/Type.php',
     'SebastianBergmann\\Type\\TypeName' => $vendorDir . '/sebastian/type/src/TypeName.php',
     'SebastianBergmann\\Type\\UnionType' => $vendorDir . '/sebastian/type/src/UnionType.php',
