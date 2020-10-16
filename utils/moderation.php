@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\Komments;
+namespace mauricerenck\Komments;
 
 use json_encode;
 use json_decode;

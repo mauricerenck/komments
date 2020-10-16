@@ -4,18 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097
+class ComposerStaticInita948c026aeef417331732cb3c55a308c
 {
     public static $files = array (
         '757772e28a0943a9afe83def8db95bdf' => __DIR__ . '/..' . '/mf2/mf2/Mf2/Parser.php',
-        '4944cc37acfce246a121e7126c40a396' => __DIR__ . '/../..' . '/utils/sendMastodon.php',
-        'd5e1b7e618997cbe5a51ad1bf6197ee6' => __DIR__ . '/../..' . '/utils/sendWebmention.php',
-        '90d4decb5eec1aeaa6874e62d5b30d1c' => __DIR__ . '/../..' . '/utils/receiveKomment.php',
-        '1b0fa1c44462bbc4ae81202d4687b4b1' => __DIR__ . '/../..' . '/utils/moderation.php',
-        '72118f495fa13d093fb50bf5406d8571' => __DIR__ . '/../..' . '/utils/base.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'm' => 
+        array (
+            'mauricerenck\\Komments\\' => 22,
+        ),
         'K' => 
         array (
             'Kirby\\' => 6,
@@ -23,6 +22,10 @@ class ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097
     );
 
     public static $prefixDirsPsr4 = array (
+        'mauricerenck\\Komments\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/utils',
+        ),
         'Kirby\\' => 
         array (
             0 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
@@ -46,15 +49,20 @@ class ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097
         'Kirby\\ComposerInstaller\\Installer' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Installer.php',
         'Kirby\\ComposerInstaller\\Plugin' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
         'Kirby\\ComposerInstaller\\PluginInstaller' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
+        'mauricerenck\\Komments\\KommentBaseUtils' => __DIR__ . '/../..' . '/utils/base.php',
+        'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/utils/moderation.php',
+        'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/utils/receiveKomment.php',
+        'mauricerenck\\Komments\\MastodonSender' => __DIR__ . '/../..' . '/utils/sendMastodon.php',
+        'mauricerenck\\Komments\\WebmentionSender' => __DIR__ . '/../..' . '/utils/sendWebmention.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit9eba7ba6584ad2384acb07cf64f47097::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita948c026aeef417331732cb3c55a308c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita948c026aeef417331732cb3c55a308c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita948c026aeef417331732cb3c55a308c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita948c026aeef417331732cb3c55a308c::$classMap;
 
         }, null, ClassLoader::class);
     }

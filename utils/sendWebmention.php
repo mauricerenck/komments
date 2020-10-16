@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\Komments;
+namespace mauricerenck\Komments;
 
 use Kirby\Toolkit\V;
 use Kirby\Data\Data;

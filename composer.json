@@ -11,12 +11,11 @@
     }
   ],
   "autoload": {
-    "files": [
-      "utils/sendMastodon.php",
-      "utils/sendWebmention.php",
-      "utils/receiveKomment.php",
-      "utils/moderation.php",
-      "utils/base.php"
+    "psr-4": {
+      "mauricerenck\\Komments\\": "utils/"
+    },
+    "classmap": [
+      "utils"
     ]
   },
   "require": {
