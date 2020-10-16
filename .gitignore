@@ -14,17 +14,17 @@
 # /vendor/**/docs/*
 # /vendor/**/example/*
 # /vendor/**/examples/*
-/vendor/**/test/*
-/vendor/**/tests/*
+# /vendor/**/test/*
+# /vendor/**/tests/*
 # /vendor/**/php4/*
-/vendor/getkirby/composer-installer
+# /vendor/getkirby/composer-installer
 # /vendor/doctrine
 # /vendor/myclabs
 # /vendor/phar-io
 # /vendor/phpdocumentor
 # /vendor/phpspec
-/vendor/phpunit
-/vendor/sebastian
+# /vendor/phpunit
+# /vendor/sebastian
 # /vendor/symfony
 # /vendor/theseer
 # /vendor/webmozart
