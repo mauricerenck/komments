@@ -29,8 +29,5 @@
   "scripts": {
     "testKirby": "phpunit --bootstrap ./tests/bootstrap.php --testdox ./tests/suites",
     "test": "phpunit --testdox ./tests/suites"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9"
   }
 }
