@@ -1,0 +1,222 @@
+Title: Home
+
+----
+
+Kommentsenabledonpage: true
+
+----
+
+Kommentsinbox:
+
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/28acecc1d01fc0eaec5b488c308d478afaeb8a8f84a02ea98b1e6bc0d4be0969.jpg
+  author: goldie_
+  authorurl: https://twitter.com/goldie_
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: ""
+  quote: ""
+  kommenttype: LIKE
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/18647802
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: like-of
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/4e91cf6037389767fc9b4a149488ad0c242607ab5f25a0df4e1e6a8d73d1cdba.jpg
+  author: Darrell Little
+  authorurl: https://twitter.com/Darrell_VA
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: ""
+  quote: ""
+  kommenttype: LIKE
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/536793087
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: like-of
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/12ded9ee68ac73bdd534c94a6a69da7717ac87db9a6990835c148aeab98489af.jpg
+  author: Aggelos Gesoulis
+  authorurl: https://twitter.com/anges244
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: ""
+  quote: ""
+  kommenttype: LIKE
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/2329589923
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: like-of
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/e7a5297dc3859709ad841487a97e7fc71b872eefdeca9cc0b529218247a26194.jpg
+  author: '🄷🄴🄽 - Obi Hen Kenobi'
+  authorurl: https://twitter.com/de_henne
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: ""
+  quote: ""
+  kommenttype: LIKE
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/68618782
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: like-of
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/0f2d960a89a893e4d7d96ea329a565e0ba87c28cd1d2c3286c678fdf392b7b49.jpg
+  author: unDraw
+  authorurl: https://twitter.com/unDraw_co
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: >
+    Awesome!!! 😀😃👍 Great work
+    Maurice!!! Missed the above the footer
+    notice and was searching for a while,
+    but my bad!!! Thanks for sharing this!!!
+    🙏
+  quote: ""
+  kommenttype: REPLY
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/comment/twitter/mauricehh/1140945527460290566/1140979522298437634
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: in-reply-to
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/0f2d960a89a893e4d7d96ea329a565e0ba87c28cd1d2c3286c678fdf392b7b49.jpg
+  author: unDraw
+  authorurl: ""
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: ""
+  quote: ""
+  kommenttype: LIKE
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/3297914751
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: like-of
+- 
+  avatar: >
+    https://webmention.io/avatar/pbs.twimg.com/ab426ebd5eb90986adab203ba8dca990a0658706baa5e7fdfb484e6fa40fa8e8.jpg
+  author: Maurice
+  authorurl: https://twitter.com/mauricehh
+  source: null
+  target: null
+  mentionof: ""
+  property: null
+  komment: Thanks for the beautiful illustrations!
+  quote: ""
+  kommenttype: REPLY
+  published: 2019-06-18 00:00
+  status: 'true'
+  wmsource: >
+    https://brid-gy.appspot.com/comment/twitter/mauricehh/1140945527460290566/1140983436275879937
+  wmtarget: >
+    https://maurice-renck.de/de/blog/svgs-sind-toll
+  wmproperty: in-reply-to
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/cc5ac18af1836b919cbb275b4fe18a44
+  author: maurice
+  authorurl: https://maurice-renck.de
+  source: https://komments.test:8890
+  target: https://komments.test:8890
+  mentionof: https://komments.test:8890
+  property: KOMMENT
+  komment: |
+    hallo welt!
+    alert("HI");
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2020-09-03 15:45
+  status: 'true'
+  id: d46ceebb32712f44c8b2fc5e65537c66
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  author: Maurice
+  authorurl: ""
+  source: https://komments.test:8890
+  target: https://komments.test:8890
+  mentionof: https://komments.test:8890
+  property: KOMMENT
+  komment: Hallo welt
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2020-11-12 11:55
+  status: 'false'
+  id: f247192310aaf3f56a29aa02ac2adfb1
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  author: Maurice
+  authorurl: ""
+  source: https://komments.test:8890
+  target: https://komments.test:8890
+  mentionof: https://komments.test:8890
+  property: KOMMENT
+  komment: sdfsdfsdfsdfsdfsdfsdf
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2020-11-12 11:55
+  status: 'false'
+  id: edbec17042ca6639ac38998b487cbbf9
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  author: Maurice
+  authorurl: ""
+  source: https://komments.test:8890
+  target: https://komments.test:8890
+  mentionof: https://komments.test:8890
+  property: KOMMENT
+  komment: dfgdfgdfgdfgdfg
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2020-11-12 12:00
+  status: 'false'
+  id: 6cb177f85ca044509d7d044ce2b64a18
+  spamlevel: 0
+
+----
+
+Kommentspending: HI
+
+----
+
+Date: 2020-09-02 08:00
