@@ -23,14 +23,6 @@ use \Response;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
-// load([
-//     'Plugin\Komments\MastodonSender' => 'utils/sendMastodon.php',
-//     'Plugin\Komments\WebmentionSender' => 'utils/sendWebmention.php',
-//     'Plugin\Komments\KommentReceiver' => 'utils/receiveKomment.php',
-//     'Plugin\Komments\KommentModeration' => 'utils/moderation.php',
-//     'Plugin\Komments\KommentBaseUtils' => 'utils/base.php',
-// ], __DIR__);
-
 Kirby::plugin('mauricerenck/komments', [
     'options' => require_once(__DIR__ . '/config/options.php'),
     'snippets' => [
@@ -72,7 +64,8 @@ Kirby::plugin('mauricerenck/komments', [
         'gravatar' => [
             'props' => [
             ]
-        ]
+        ],
+        'kommentsPending' => []
     ],
     'translations' => require_once(__DIR__ . '/config/translations.php'),
     'api' => require_once(__DIR__ . '/config/api.php'),

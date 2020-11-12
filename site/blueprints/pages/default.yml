@@ -1,0 +1,13 @@
+columns:
+  - width: 2/3
+    sections:
+      komments:
+        extends: sections/komments
+  - width: 1/3
+    sections:
+      customFields:
+        type: fields
+        fields:
+          kommentsPending:
+            type: kommentsPending
+            label: Pending Komments
