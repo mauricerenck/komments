@@ -72,6 +72,23 @@ Add this to every blueprint you wish to enable komments on. This will allow you 
 
 ---
 
+### Show number of pending Komments in Panel
+
+If you want to have the number of pending komments in view, you can add the `kommentsPending` panel field wherever you want. It's refreshing every minute, so you won't miss a new Komment. Just add the field to the blueprint:
+
+```
+fields:
+  kommentsPending:
+    type: kommentsPending
+    label: Pending Komments
+```
+
+You could add it to your site.yml blueprint so you see the number of pending Komments right after logging in.
+
+![komment section](doc-assets/komments-pending.png)
+
+---
+
 ## Options
 
 You can fine tune the komments to behave as you whish, use this options in `config.php` file.
