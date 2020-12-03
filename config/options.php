@@ -15,7 +15,7 @@ return [
     'mastodon-instance-url' => 'https://mastodon.social/api/v1/statuses',
     'mastodon-text-field' => 'mastodonTeaser',
     'ping-archiveorg' => false,
-    'auto-delete-spam' => true,
+    'auto-delete-spam' => false,
     'auto-disable-komments' => 0,
     'auto-disable-komments-datefield' => 'date',
     'komment-icon-like' => '❤️',

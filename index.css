@@ -1,1 +1,37 @@
-img{width:100%}.kommentsPendingCounter{position:relative;padding:1rem;background:#fff;box-shadow:var(--box-shadow-item);text-align:center}.count{font-size:var(--font-size-monster)}
+.versionBox {
+    position: relative;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: var(--box-shadow-item);
+    text-align: center;
+}
+
+.version {
+  font-size: var(--font-size-monster);
+}
+
+.update-available {
+  color: var(--color-positive);
+}
+
+.align-center {
+    display: block;
+    text-align: center;
+}
+
+.k-headline-field {
+  margin-bottom: 1em;
+}img {
+  width: 100%;
+}
+.kommentsPendingCounter {
+    position: relative;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: var(--box-shadow-item);
+    text-align: center;
+}
+
+.count {
+    font-size: var(--font-size-monster);
+}
