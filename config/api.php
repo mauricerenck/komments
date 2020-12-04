@@ -4,10 +4,18 @@ namespace mauricerenck\Komments;
 
 use Xml;
 use File;
+use f;
 use Structure;
 
 return [
     'routes' => [
+        [
+            'pattern' => 'komments/version',
+            'action' => function () {
+                $string = f::read(kirby()->roots()->index() . '/composer.json');
+                return $string;
+            }
+        ],
         [
             'pattern' => 'komments/queued',
             'action' => function () {
