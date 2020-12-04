@@ -12,7 +12,7 @@ return [
         [
             'pattern' => 'komments/version',
             'action' => function () {
-                $string = f::read(kirby()->roots()->index() . '/composer.json');
+                $string = f::read(__DIR__ . '/../composer.json');
                 return $string;
             }
         ],
