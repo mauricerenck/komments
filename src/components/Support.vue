@@ -1,7 +1,10 @@
 <template>
   <div class="k-support">
 
-    <div  class="versionBox">
+    <div v-if="hasError" class="error">
+      <k-info-field theme="negative" label="Ooops" text="The current version could not be fetched. You may have reached an API limit" />
+    </div>
+    <div  v-else class="versionBox">
         <div v-if="hasVersionDiff">
           <h4 class="update-available">There is an update available</h4>
           <h3 class="version">{{this.releaseInfo.version}}</h3>
@@ -10,9 +13,6 @@
             <h4>Your Komments plugin is up to date</h4>
         </div>
          <small class="align-center">Your installed version is {{this.version}}</small>
-    </div>
-    <div v-if="hasError" class="error">
-      <k-info-field theme="negative" label="Ooops" text="The current version could not be fetched. You may have reached an API limit" />
     </div>
   </div>
 </template>
@@ -69,6 +69,7 @@ export default {
                     }
                 });
 
+
                 const versionInfo = response.packages['mauricerenck/komments'][latest.join('.')]
                 this.hasVersionDiff = versionInfo.version !== this.version
                 this.releaseInfo = versionInfo
@@ -97,6 +98,7 @@ export default {
 
     .version {
       font-size: var(--font-size-monster);
+      padding: 0.5em 0;
     }
 
     .update-available {
