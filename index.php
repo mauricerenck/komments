@@ -39,7 +39,12 @@ Kirby::plugin('mauricerenck/komments', [
     ],
     'pageMethods' => [
         'kommentCount' => function () {
-            $count = $this->kommentsInbox()->toStructure()->count();
+            $count = 0;
+            foreach ($this->kommentsInbox()->yaml() as $komment) {
+                if ($komment['status'] !== 'false' && $komment['status'] !== false) {
+                    $count++;
+                }
+            }
             return $count;
         },
         'hasQueuedKomments' => function ($kommentId, $kommenStatus) {
