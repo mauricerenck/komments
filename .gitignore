@@ -30,3 +30,6 @@
 /vendor/webmozart
 /.cache
 /node_modules
+/site/sessions
+/site/accounts
+/media
