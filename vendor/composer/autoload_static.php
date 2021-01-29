@@ -15,6 +15,7 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'f864ae44e8154e5ff6f4eec32f46d37f' => __DIR__ . '/../..' . '/kirby/config/setup.php',
+        '87988fc7b1c1f093da22a1a3de972f3a' => __DIR__ . '/../..' . '/kirby/config/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -214,6 +215,7 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         'Kirby\\Cms\\Auth' => __DIR__ . '/../..' . '/kirby/src/Cms/Auth.php',
         'Kirby\\Cms\\Auth\\Challenge' => __DIR__ . '/../..' . '/kirby/src/Cms/Auth/Challenge.php',
         'Kirby\\Cms\\Auth\\EmailChallenge' => __DIR__ . '/../..' . '/kirby/src/Cms/Auth/EmailChallenge.php',
+        'Kirby\\Cms\\Auth\\Status' => __DIR__ . '/../..' . '/kirby/src/Cms/Auth/Status.php',
         'Kirby\\Cms\\Block' => __DIR__ . '/../..' . '/kirby/src/Cms/Block.php',
         'Kirby\\Cms\\BlockConverter' => __DIR__ . '/../..' . '/kirby/src/Cms/BlockConverter.php',
         'Kirby\\Cms\\Blocks' => __DIR__ . '/../..' . '/kirby/src/Cms/Blocks.php',

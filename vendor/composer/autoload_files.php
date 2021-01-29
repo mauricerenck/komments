@@ -14,4 +14,5 @@ return array(
     '04c6c5c2f7095ccf6c481d3e53e1776f' => $vendorDir . '/mustangostang/spyc/Spyc.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     'f864ae44e8154e5ff6f4eec32f46d37f' => $baseDir . '/kirby/config/setup.php',
+    '87988fc7b1c1f093da22a1a3de972f3a' => $baseDir . '/kirby/config/helpers.php',
 );
