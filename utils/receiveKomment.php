@@ -124,7 +124,7 @@ class KommentReceiver
 
     public function setAuthorName($name)
     {
-        if (V::alphanum($name)) {
+        if (is_string($name)) {
             return $name;
         }
 
