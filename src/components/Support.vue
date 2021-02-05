@@ -7,7 +7,7 @@
     <div  v-else class="versionBox">
         <div v-if="hasVersionDiff">
           <h4 class="update-available">There is an update available</h4>
-          <h3 class="version">{{this.releaseInfo.version}}</h3>
+          <h3 class="version">{{this.releaseInfo}}</h3>
         </div>
         <div v-else>
             <h4>Your Komments plugin is up to date</h4>
@@ -18,12 +18,13 @@
 </template>
 
 <script>
+import semver from "semver";
 
 export default {
   data() {
     return {
       version: '',
-      releaseInfo: {},
+      releaseInfo: 0,
       hasVersionDiff: false,
       hasError: false
     };
@@ -48,33 +49,22 @@ export default {
                     this.hasError = true
                 }
 
-                let latest = this.version.split('.');
-                Object.keys(response.packages['mauricerenck/komments']).sort().forEach(function(key) {
-                    const version = key.split('.')
+                this.releaseInfo = this.version
 
-                    if(typeof version !== 'object') {
-                        return false
-                    }
+                const latest = this.version;
+                Object.keys(response.packages['mauricerenck/komments']).sort().forEach((version) => {
+                  if(!semver.valid(version)) {
+                    return false
+                  }
 
-                    if(parseInt(version[0]) > parseInt(latest[0])) {
-                      latest[0] = version[0]
-                    }
-
-                    if(parseInt(version[1]) > parseInt(latest[1])) {
-                      latest[1] = version[1]
-                    }
-
-                    if(parseInt(version[2]) > parseInt(latest[2])) {
-                      latest[2] = version[2]
-                    }
+                  if(semver.gt(version, latest)) {
+                    this.hasVersionDiff = semver.gt(version, latest)
+                    this.releaseInfo = version.toString()
+                  }
                 });
-
-
-                const versionInfo = response.packages['mauricerenck/komments'][latest.join('.')]
-                this.hasVersionDiff = versionInfo.version !== this.version
-                this.releaseInfo = versionInfo
             })
             .catch(error => {
+                console.log('catch', error)
                 this.hasError = true
             })
         });
