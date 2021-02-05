@@ -22,7 +22,7 @@ class KommentReceiver
         ]);
     }
 
-    public function createKomment($webmention, $spamlevel = 0)
+    public function createKomment($webmention, $spamlevel = 0, $isVerified = false)
     {
         return [
             'id' => md5($webmention['target'] . $webmention['author']['name'] . $webmention['published']),
@@ -39,6 +39,7 @@ class KommentReceiver
             'kommentType' => $webmention['type'],
             'status' => $this->setStatus($webmention['type']),
             'spamlevel' => $spamlevel,
+            'verified' => $isVerified
         ];
     }
 

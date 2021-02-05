@@ -148,7 +148,8 @@ Kirby::plugin('mauricerenck/komments', [
                     return new Response('<h1>error</h1><p>Invalid field values</p>', 'text/html', 412);
                 }
 
-                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel);
+                $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;
+                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified);
                 $kommentReceiver->storeData($newEntry, $targetPage);
                 $kommentModeration->addCookieToModerationList($newEntry['id']);
 
