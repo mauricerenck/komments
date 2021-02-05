@@ -1,8 +1,17 @@
+<?php if (!$page->kommentsAreEnabled()): ?>
+    <div class="moderation-note" id="disabled"><?php echo t('mauricerenck.komments.disabled'); ?></div>
+    <?php return false; ?>
+<?php endif; ?>
 <?php
-    if (!$page->kommentsAreEnabled()): ?>
-        <div class="moderation-note" id="disabled"><?php echo t('mauricerenck.komments.disabled'); ?></div>
-        <?php return false; ?>
-    <?php endif; ?>
+    $formName = '';
+    $formEmail = '';
+    $user = $kirby->user();
+
+    if (!is_null($user) && $user->isLoggedIn()) {
+        $formName = $user->name();
+        $formEmail = $user->email();
+    }
+?>
 <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"; ?>
 <div class="share-elsewhere">
     <span><?php echo t('mauricerenck.komments.externalReply'); ?></span><br>
@@ -17,8 +26,8 @@
     <span class="replyHandleDisplay"></span>
     <textarea name="komment" id="komment" cols="30" rows="5" placeholder="Kommentar*" required></textarea>
     <input type="text" name="url" id="url" placeholder="Leave empty" tabindex="-1">
-    <input type="email" name="email" id="email" placeholder="E-Mail*" required>
-    <input type="text" name="author" id="author" placeholder="Name*" required>
+    <input type="email" name="email" id="email" placeholder="E-Mail*" required value="<?php echo $formEmail; ?>">
+    <input type="text" name="author" id="author" placeholder="Name*" required value="<?php echo $formName; ?>">
     <input type="url" name="author_url" id="author_url" placeholder="Website">
     <div class="spam-indicator">
         <div class="progress"></div>

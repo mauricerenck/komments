@@ -4,8 +4,6 @@
 
 A Kirby comment plugin
 
-**Please be aware, this is still a beta.**
-
 ## Features
 
 - ✅ Receive comments from a form on your site
@@ -20,6 +18,10 @@ A Kirby comment plugin
   - Moderate komments on your page
   - Disable/enable komments per page
 - ✅ Disable komments after a certain number of dates in relation to the publish date
+- ✅ Reply to comments
+- ✅ Verified badge for logged in users
+
+**As of version 0.10.0 the split view is the default view** The mixed view is deprecated due to the new nested comments functionality.
 
 ![the dashboard](doc-assets/komments-dashboard.png)
 (The komment dashboard)
@@ -39,10 +41,6 @@ A Kirby comment plugin
 After Installing the Plugin add the snippet to your template. There are two snippets for you to use:
 
 To list all komments and webmentions:
-
-`<?php snippet('komments/webmention'); ?>`
-
-To list komments and webmentions separated from each other:
 
 `<?php snippet('komments/webmention-splitted'); ?>`
 
@@ -114,6 +112,8 @@ You can fine tune the komments to behave as you whish, use this options in `conf
 | `komment-icon-reply`              | '💬'                                        | The icon for replies/comments in your komment list                                                       |
 | `komment-icon-repost`             | '♻️'                                        | The icon for reposts in your komment list                                                                |
 | `komment-icon-mention`            | '♻️'                                        | The icon for mention in your komment list                                                                |
+| `komment-icon-verified`           | '✅'                                        | The icon for the verify badge list                                                                       |
+| `replyClassNames`                 | ''                                          | add classnames tto the reply link                                                                        |
 
 **Please make sure to prefix all the options with `mauricerenck.komments.`**. For example the debug option should be set in your `config.php` like so: `'mauricerenck.komments.debug' => true`
 

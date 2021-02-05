@@ -17,6 +17,7 @@ return [
         'mauricerenck.komments.headline.reposts' => 'Shares',
         'mauricerenck.komments.headline.mentions' => 'Mentions',
         'mauricerenck.komments.headline.replies' => 'Replies',
+        'mauricerenck.komments.action.reply.text' => 'reply',
     ],
     'de' => [
         'mauricerenck.komments.liked' => 'hat ein like spendiert',
@@ -32,5 +33,6 @@ return [
         'mauricerenck.komments.headline.reposts' => 'Geteilt',
         'mauricerenck.komments.headline.mentions' => 'Erwähnungen',
         'mauricerenck.komments.headline.replies' => 'Antworten',
+        'mauricerenck.komments.action.reply.text' => 'antworten',
     ]
 ];

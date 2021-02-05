@@ -22,4 +22,6 @@ return [
     'komment-icon-reply' => '💬',
     'komment-icon-repost' => '♻️',
     'komment-icon-mention' => '♻️',
+    'komment-icon-verified' => '✅',
+    'replyClassNames' => '',
 ];

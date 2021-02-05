@@ -100,6 +100,7 @@ class KommentBaseUtils
             'wmsource' => $komment->wmsource()->value(),
             'wmtarget' => $komment->wmtarget()->value(),
             'wmproperty' => $komment->wmproperty()->value(),
+            'verified' => $komment->verified()->value(),
             'replies' => []
         ];
     }
