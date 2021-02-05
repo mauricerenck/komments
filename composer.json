@@ -18,12 +18,10 @@
       "utils"
     ]
   },
-  "require-dev": {
-  },
+  "require-dev": {},
   "require": {
     "getkirby/composer-installer": "^1.1",
-    "indieweb/mention-client": "^1.2",
-    "getkirby/cms": "^3.4"
+    "indieweb/mention-client": "^1.2"
   },
   "config": {
     "optimize-autoloader": true
