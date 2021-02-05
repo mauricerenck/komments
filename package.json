@@ -1,12 +1,13 @@
 {
   "name": "komments",
-  "version": "0.9.17",
+  "version": "0.10.0",
   "description": "A comment and webmention plugin for Kirby 3",
   "main": "index.js",
   "author": "Maurice Renck",
   "scripts": {
     "dev": "parcel watch src/index.js --no-source-maps -d ./",
-    "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./"
+    "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./",
+    "build-css": "sass  src/komments.scss assets/komments.css"
   },
   "posthtml": {
     "recognizeSelfClosing": true
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.2",
     "cssnano": "^4.1.10",
+    "sass": "^1.32.6",
     "stylus": "^0.54.7",
     "vue-template-compiler": "^2.6.11"
   }

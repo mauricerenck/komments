@@ -1,67 +1,49 @@
 #kommentform {
   display: grid;
   grid-template-columns: 100%;
-
-  grid-template-areas:
-    "quote"
-    "komment"
-    "email"
-    "author"
-    "authorsite"
-    "privacy"
-    "button"
-    "tweet";
-
+  grid-template-areas: "quote" "replyHandle" "komment" "email" "author" "authorsite" "privacy" "button" "tweet";
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 }
-
+#kommentform .replyHandleDisplay {
+  grid-area: replyHandle;
+}
 #kommentform #url {
   position: relative;
   left: -200vw;
   height: 0;
 }
-
-#kommentform input[name="email"] {
+#kommentform input[name=email] {
   grid-area: email;
 }
-
-#kommentform input[name="author"] {
+#kommentform input[name=author] {
   grid-area: author;
 }
-
-#kommentform input[type="url"] {
+#kommentform input[type=url] {
   grid-area: authorsite;
 }
-
-#kommentform input[type="submit"] {
+#kommentform input[type=submit] {
   grid-area: button;
 }
-
 #kommentform .share {
   grid-area: tweet;
   align-self: start;
 }
-
 #kommentform textarea {
   grid-area: komment;
   width: 100%;
 }
-
 #kommentform .visible-quote {
   grid-area: quote;
 }
-
 #kommentform .komment-privacy {
   grid-area: privacy;
   font-size: smaller;
 }
-
 #kommentform.spam-indicator {
   grid-area: spamindicator;
   width: 100%;
 }
-
 #kommentform .progress {
   transition: width 1s, background 2s, height 0.2s;
   transition-timing-function: linear;
@@ -70,7 +52,6 @@
   height: 5px;
   background: red;
 }
-
 #kommentform .progress.orange {
   background: orange;
 }
@@ -80,33 +61,27 @@
 #kommentform .progress.green {
   background: green;
 }
-
 #kommentform .progress.done {
   background: green;
   height: 0;
 }
-
 #kommentform .form-feedback {
   padding: 10px;
 }
-
 #kommentform .form-feedback.error {
   background: orange;
   color: white;
 }
-
 #kommentform .form-feedback.moderation-note {
   background: green;
   color: white;
 }
-
 #kommentform .lds-ellipsis {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
-
 #kommentform .lds-ellipsis div {
   position: absolute;
   top: 33px;
@@ -116,17 +91,14 @@
   background: #fff;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
-
 #kommentform .sk-cube-grid {
   width: 40px;
   height: 40px;
   margin: 0 auto;
 }
-
 #kommentform .loading-invisible {
   display: none;
 }
-
 #kommentform .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
@@ -175,26 +147,18 @@
 #kommentsWebmentions .single-komment {
   display: grid;
   grid-template-columns: 20px 40px 1fr;
-
-  grid-template-areas:
-    "icon avatar action"
-    "icon avatar content";
-
+  grid-template-areas: "icon avatar action" "icon avatar content";
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-
   line-height: 1.2;
-
   border-bottom: 1px solid grey;
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
-
 #kommentsWebmentions .type-of {
   grid-area: icon;
   line-height: 40px;
 }
-
 #kommentsWebmentions .author-avatar {
   grid-area: avatar;
   position: relative;
@@ -203,7 +167,6 @@
   max-width: 40px;
   border-radius: 3px;
 }
-
 #kommentsWebmentions .author-action {
   grid-area: action;
   color: grey;
@@ -226,24 +189,41 @@
   grid-column-gap: 10px;
   grid-row-gap: 10px;
 }
-
 .splitted-komments .single-komment {
   display: block;
 }
-
 .splitted-komments .single-komment .author-avatar img {
   max-width: 60px;
 }
-
 .splitted-komments .single-komment .author-action,
 .splitted-komments .single-komment .type-of {
   display: none;
 }
+.splitted-komments .list-replies {
+  list-style-type: none;
+  padding-left: 0;
+}
+.splitted-komments .list-replies .single-komment .author-action,
+.splitted-komments .list-replies .single-komment .type-of {
+  display: block;
+}
+.splitted-komments .kommentReply {
+  display: block;
+  text-align: right;
+}
 
 @-webkit-keyframes sk-cubeGridScaleDelay {
-  0%,
-  70%,
-  100% {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
     -webkit-transform: scale3D(1, 1, 1);
     transform: scale3D(1, 1, 1);
   }
@@ -253,15 +233,4 @@
   }
 }
 
-@keyframes sk-cubeGridScaleDelay {
-  0%,
-  70%,
-  100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
-  }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
-  }
-}
+/*# sourceMappingURL=komments.css.map */

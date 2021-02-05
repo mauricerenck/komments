@@ -1,6 +1,6 @@
 {
   "name": "mauricerenck/komments",
-  "version": "0.9.17",
+  "version": "0.10.0",
   "description": "A comment and webmention plugin for Kirby 3",
   "type": "kirby-plugin",
   "license": "MIT",
@@ -19,7 +19,6 @@
     ]
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.4"
   },
   "require": {
     "getkirby/composer-installer": "^1.1",
@@ -30,6 +29,7 @@
     "optimize-autoloader": true
   },
   "scripts": {
-    "test": "vendor/bin/phpunit --testdox tests"
+    "test": "vendor/bin/phpunit --testdox tests",
+    "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes"
   }
 }

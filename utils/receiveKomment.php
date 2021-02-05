@@ -31,7 +31,7 @@ class KommentReceiver
             'authorUrl' => $this->setUrl($webmention['author']['url']),
             'source' => $this->setUrl($webmention['source']),
             'target' => $this->setUrl($webmention['target']),
-            'mentionOf' => $this->setUrl($webmention['target']),
+            'mentionOf' => is_null($webmention['mentionOf']) ? $this->setUrl($webmention['target']) : $webmention['mentionOf'],
             'property' => $webmention['type'],
             'published' => $webmention['published'],
             'komment' => $this->setKomment($webmention['content']),
