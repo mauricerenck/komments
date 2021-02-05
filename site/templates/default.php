@@ -15,11 +15,8 @@
             <h2>Form</h2>
             <?php snippet('komments/kommentform'); ?>
 
-            <h2>Chatansicht</h2>
-            <?php snippet('komments/webmention'); ?>
-
-            <h2>Splitted</h2>
-            <?php snippet('komments/webmention-splitted'); ?>
+             <h2>Splitted</h2>
+            <?php snippet('komments/webmention-splitted');?>
         </div>
     </body>
 </html>
