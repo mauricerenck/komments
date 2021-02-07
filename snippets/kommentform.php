@@ -24,11 +24,11 @@
 
     <blockquote class="visible-quote hidden"><p></p></blockquote>
     <span class="replyHandleDisplay"></span>
-    <textarea name="komment" id="komment" cols="30" rows="5" placeholder="Kommentar*" required></textarea>
+    <textarea name="komment" id="komment" cols="30" rows="5" placeholder="<?php echo t('mauricerenck.komments.formlabel.kommentar'); ?>*" required></textarea>
     <input type="text" name="url" id="url" placeholder="Leave empty" tabindex="-1">
-    <input type="email" name="email" id="email" placeholder="E-Mail*" required value="<?php echo $formEmail; ?>">
-    <input type="text" name="author" id="author" placeholder="Name*" required value="<?php echo $formName; ?>">
-    <input type="url" name="author_url" id="author_url" placeholder="Website">
+    <input type="email" name="email" id="email" placeholder="<?php echo t('mauricerenck.komments.formlabel.email'); ?>*" required value="<?php echo $formEmail; ?>">
+    <input type="text" name="author" id="author" placeholder="<?php echo t('mauricerenck.komments.formlabel.name'); ?>*" required value="<?php echo $formName; ?>">
+    <input type="url" name="author_url" id="author_url" placeholder="<?php echo t('mauricerenck.komments.formlabel.website'); ?>">
     <div class="spam-indicator">
         <div class="progress"></div>
     </div>
