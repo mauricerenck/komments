@@ -63,6 +63,8 @@ class KommentBaseUtils
 
     public function buildTree($flatArray)
     {
+        $tree = [];
+
         foreach ($flatArray as $key => $flat) {
             $nodes = [];
             $tree = [];
