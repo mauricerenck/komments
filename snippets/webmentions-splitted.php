@@ -20,9 +20,11 @@
         }
     }
 
-    foreach ($komments['replies'] as $komment) {
-        if ($page->hasQueuedKomments($komment['komment']->id(), $komment['komment']->status())) {
-            $kommentsInModeration++;
+    if (count($komments['replies']) > 0) {
+        foreach ($komments['replies'] as $komment) {
+            if ($page->hasQueuedKomments($komment['komment']->id(), $komment['komment']->status())) {
+                $kommentsInModeration++;
+            }
         }
     }
 ?>
