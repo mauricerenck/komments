@@ -12,13 +12,15 @@
   ],
   "autoload": {
     "psr-4": {
-      "mauricerenck\\Komments\\": "utils"
+      "mauricerenck\\Komments\\": "utils/"
     },
     "classmap": [
       "utils"
     ]
   },
-  "require-dev": {},
+  "require-dev": {
+    "getkirby/cms": "^3.5"
+  },
   "require": {
     "getkirby/composer-installer": "^1.1",
     "indieweb/mention-client": "^1.2"
@@ -28,6 +30,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit --testdox tests",
-    "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes"
+    "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
+    "build-composer": "composer install --no-dev --optimize-autoloader"
   }
 }
