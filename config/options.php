@@ -25,6 +25,6 @@ return [
     'komment-icon-verified' => '✅',
     'replyClassNames' => '',
     'form.submit.classNames' => 'button button-tiny button-primary',
-    'form.twitter.classNames' => '',
-    'form.mastodon.classNames' => '',
+    'form.twitter.classNames' => 'button button-tiny button-outlined share komment-share-twitter',
+    'form.mastodon.classNames' => 'button button-tiny button-outlined share komment-share-mastodon',
 ];
