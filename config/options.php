@@ -24,4 +24,7 @@ return [
     'komment-icon-mention' => '♻️',
     'komment-icon-verified' => '✅',
     'replyClassNames' => '',
+    'form.submit.classNames' => 'button button-tiny button-primary',
+    'form.twitter.classNames' => '',
+    'form.mastodon.classNames' => '',
 ];
