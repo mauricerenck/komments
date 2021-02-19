@@ -7,16 +7,14 @@
 
 <script>
 export default {
-      data() {
+  data() {
     return {
       pendingKomments: 'loading…',
+      interval: null,
     };
   },
   created() {
     this.load();
-    setInterval(() => {
-      this.load();
-    }, 60000);
   },
   props: {
     label: String,
