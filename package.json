@@ -1,6 +1,6 @@
 {
   "name": "komments",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "A comment and webmention plugin for Kirby 3",
   "main": "index.js",
   "author": "Maurice Renck",
