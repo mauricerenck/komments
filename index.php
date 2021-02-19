@@ -93,13 +93,13 @@ Kirby::plugin('mauricerenck/komments', [
                     if ($shouldReturnJson) {
                         $response = [
                             'status' => 'failed',
-                            'message' => 'The page you wrote a comment for could not be found.',
+                            'message' => t('mauricerenck.komments.pagenotfound'),
                         ];
 
                         return new Response(json_encode($response), 'application/json', 404);
                     }
 
-                    return new Response('<h1>error</h1><p>The page you wrote a comment for could not be found.</p>', 'text/html', 404);
+                    return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.pagenotfound').'</p>', 'text/html', 404);
                 }
 
                 if ($kommentReceiver->isSpam($formData)) {
@@ -107,13 +107,13 @@ Kirby::plugin('mauricerenck/komments', [
                         if ($shouldReturnJson) {
                             $response = [
                                 'status' => 'failed',
-                                'message' => 'Your comment was rejected because it looks like spam.',
+                                'message' => t('mauricerenck.komments.lookslikespam'),
                             ];
 
                             return new Response(json_encode($response), 'application/json', 403);
                         }
 
-                        return new Response('<h1>error</h1><p>Your comment was rejected because it looked like spam.</p>', 'text/html', 403);
+                        return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.lookslikespam').'</p>', 'text/html', 403);
                     } else {
                         $spamlevel = 100;
                     }
@@ -139,13 +139,13 @@ Kirby::plugin('mauricerenck/komments', [
                     if ($shouldReturnJson) {
                         $response = [
                             'status' => 'failed',
-                            'message' => 'Invalid field values',
+                            'message' => t('mauricerenck.komments.invalidfieldvalues'),
                         ];
 
                         return new Response(json_encode($response), 'application/json', 412);
                     }
 
-                    return new Response('<h1>error</h1><p>Invalid field values</p>', 'text/html', 412);
+                    return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.invalidfieldvalues').'</p>', 'text/html', 412);
                 }
 
                 $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;
@@ -157,7 +157,7 @@ Kirby::plugin('mauricerenck/komments', [
                     $response = [
                         'status' => 'success',
                         'pending' => true,
-                        'message' => 'Thank you! Your comment is awaiting moderation'
+                        'message' => t('mauricerenck.komments.thankyou')
                     ];
 
                     return new Response(json_encode($response), 'application/json');
