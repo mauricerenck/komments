@@ -1,149 +1,156 @@
-[
-    {
-        "name": "getkirby/composer-installer",
-        "version": "1.2.1",
-        "version_normalized": "1.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/getkirby/composer-installer.git",
-            "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d"
+{
+    "packages": [
+        {
+            "name": "getkirby/composer-installer",
+            "version": "1.2.1",
+            "version_normalized": "1.2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getkirby/composer-installer.git",
+                "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getkirby/composer-installer/zipball/c98ece30bfba45be7ce457e1102d1b169d922f3d",
+                "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.8 || ^2.0"
+            },
+            "time": "2020-12-28T12:54:39+00:00",
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Kirby\\ComposerInstaller\\Plugin"
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Kirby\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Kirby's custom Composer installer for the Kirby CMS and for Kirby plugins",
+            "homepage": "https://getkirby.com",
+            "funding": [
+                {
+                    "url": "https://getkirby.com/buy",
+                    "type": "custom"
+                }
+            ],
+            "install-path": "../getkirby/composer-installer"
         },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/getkirby/composer-installer/zipball/c98ece30bfba45be7ce457e1102d1b169d922f3d",
-            "reference": "c98ece30bfba45be7ce457e1102d1b169d922f3d",
-            "shasum": ""
+        {
+            "name": "indieweb/mention-client",
+            "version": "1.2.0",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/indieweb/mention-client-php.git",
+                "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/indieweb/mention-client-php/zipball/12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
+                "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
+                "shasum": ""
+            },
+            "require": {
+                "mf2/mf2": ">=0.2",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "time": "2018-10-27T19:41:41+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "IndieWeb": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Parecki",
+                    "email": "aaron@parecki.com",
+                    "homepage": "http://aaronparecki.com/"
+                }
+            ],
+            "description": "Client library for sending webmention and pingback notifications",
+            "homepage": "https://github.com/indieweb/mention-client-php",
+            "install-path": "../indieweb/mention-client"
         },
-        "require": {
-            "composer-plugin-api": "^1.0 || ^2.0"
-        },
-        "require-dev": {
-            "composer/composer": "^1.8 || ^2.0"
-        },
-        "time": "2020-12-28T12:54:39+00:00",
-        "type": "composer-plugin",
-        "extra": {
-            "class": "Kirby\\ComposerInstaller\\Plugin"
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Kirby\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "description": "Kirby's custom Composer installer for the Kirby CMS and for Kirby plugins",
-        "homepage": "https://getkirby.com",
-        "funding": [
-            {
-                "url": "https://getkirby.com/buy",
-                "type": "custom"
-            }
-        ]
-    },
-    {
-        "name": "indieweb/mention-client",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/indieweb/mention-client-php.git",
-            "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/indieweb/mention-client-php/zipball/12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
-            "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
-            "shasum": ""
-        },
-        "require": {
-            "mf2/mf2": ">=0.2",
-            "php": ">=5.4"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.8.*"
-        },
-        "time": "2018-10-27T19:41:41+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "IndieWeb": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Aaron Parecki",
-                "email": "aaron@parecki.com",
-                "homepage": "http://aaronparecki.com/"
-            }
-        ],
-        "description": "Client library for sending webmention and pingback notifications",
-        "homepage": "https://github.com/indieweb/mention-client-php"
-    },
-    {
-        "name": "mf2/mf2",
-        "version": "0.4.6",
-        "version_normalized": "0.4.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/microformats/php-mf2.git",
-            "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/microformats/php-mf2/zipball/00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
-            "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "mf2/tests": "@dev",
-            "phpdocumentor/phpdocumentor": "v2.8.4",
-            "phpunit/phpunit": "4.8.*"
-        },
-        "suggest": {
-            "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you",
-            "masterminds/html5": "Alternative HTML parser for PHP, for better HTML5 support."
-        },
-        "time": "2018-08-24T14:47:04+00:00",
-        "bin": [
-            "bin/fetch-mf2",
-            "bin/parse-mf2"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "Mf2/Parser.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "CC0-1.0"
-        ],
-        "authors": [
-            {
-                "name": "Barnaby Walters",
-                "homepage": "http://waterpigs.co.uk"
-            }
-        ],
-        "description": "A pure, generic microformats2 parser — makes HTML as easy to consume as a JSON API",
-        "keywords": [
-            "html",
-            "microformats",
-            "microformats 2",
-            "parser",
-            "semantic"
-        ]
-    }
-]
+        {
+            "name": "mf2/mf2",
+            "version": "0.4.6",
+            "version_normalized": "0.4.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/microformats/php-mf2.git",
+                "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/microformats/php-mf2/zipball/00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
+                "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mf2/tests": "@dev",
+                "phpdocumentor/phpdocumentor": "v2.8.4",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "suggest": {
+                "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you",
+                "masterminds/html5": "Alternative HTML parser for PHP, for better HTML5 support."
+            },
+            "time": "2018-08-24T14:47:04+00:00",
+            "bin": [
+                "bin/fetch-mf2",
+                "bin/parse-mf2"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "Mf2/Parser.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC0-1.0"
+            ],
+            "authors": [
+                {
+                    "name": "Barnaby Walters",
+                    "homepage": "http://waterpigs.co.uk"
+                }
+            ],
+            "description": "A pure, generic microformats2 parser — makes HTML as easy to consume as a JSON API",
+            "keywords": [
+                "html",
+                "microformats",
+                "microformats 2",
+                "parser",
+                "semantic"
+            ],
+            "install-path": "../mf2/mf2"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

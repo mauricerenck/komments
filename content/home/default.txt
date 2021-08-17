@@ -22,6 +22,7 @@ Kommentsinbox:
   kommenttype: LIKE
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/18647802
   wmtarget: >
@@ -41,6 +42,7 @@ Kommentsinbox:
   kommenttype: LIKE
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/536793087
   wmtarget: >
@@ -60,6 +62,7 @@ Kommentsinbox:
   kommenttype: LIKE
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/2329589923
   wmtarget: >
@@ -79,6 +82,7 @@ Kommentsinbox:
   kommenttype: LIKE
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/68618782
   wmtarget: >
@@ -103,6 +107,7 @@ Kommentsinbox:
   kommenttype: REPLY
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/comment/twitter/mauricehh/1140945527460290566/1140979522298437634
   wmtarget: >
@@ -122,6 +127,7 @@ Kommentsinbox:
   kommenttype: LIKE
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/like/twitter/mauricehh/1140945527460290566/3297914751
   wmtarget: >
@@ -141,6 +147,7 @@ Kommentsinbox:
   kommenttype: REPLY
   published: 2019-06-18 00:00:00
   status: 'true'
+  verified: 'false'
   wmsource: >
     https://brid-gy.appspot.com/comment/twitter/mauricehh/1140945527460290566/1140983436275879937
   wmtarget: >
@@ -162,6 +169,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2020-09-03 15:45:00
   status: 'true'
+  verified: 'false'
   id: d46ceebb32712f44c8b2fc5e65537c66
   spamlevel: 0
 - 
@@ -178,6 +186,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2020-11-12 11:55:00
   status: 'false'
+  verified: 'false'
   id: f247192310aaf3f56a29aa02ac2adfb1
   spamlevel: 0
 - 
@@ -194,6 +203,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2020-11-12 11:55:00
   status: 'false'
+  verified: 'false'
   id: edbec17042ca6639ac38998b487cbbf9
   spamlevel: 0
 - 
@@ -210,6 +220,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2020-11-12 12:00:00
   status: 'false'
+  verified: 'false'
   id: 6cb177f85ca044509d7d044ce2b64a18
   spamlevel: 0
 - 
@@ -226,6 +237,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-01-29 17:40:00
   status: 'false'
+  verified: 'false'
   id: b1cf2163959498ee77d65ec3cdb39f60
   spamlevel: 0
 - 
@@ -242,6 +254,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-02-03 18:20:00
   status: 'false'
+  verified: 'false'
   id: 72313eb489568acd3d49339829e06002
   spamlevel: 0
 - 
@@ -258,6 +271,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-02-03 18:20:00
   status: 'false'
+  verified: 'false'
   id: fdc30435190e726b824677bf35ff39a5
   spamlevel: 0
 - 
@@ -274,6 +288,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-02-03 18:20:00
   status: 'true'
+  verified: 'false'
   id: 5a15c2ae74c7a85919dbc75a4355353b
   spamlevel: 0
 - 
@@ -290,6 +305,7 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-02-03 21:35:00
   status: 'true'
+  verified: 'false'
   id: ac0d141efb4817f0a3f31a73e3b19c74
   spamlevel: 0
 - 
@@ -306,7 +322,27 @@ Kommentsinbox:
   kommenttype: KOMMENT
   published: 2021-02-03 22:15:00
   status: 'true'
+  verified: 'false'
   id: 86b3df29955fa2bc2385e32ad4e71c25
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  author: Maurice
+  authorurl: ""
+  source: https://komments.test:8890
+  target: https://komments.test:8890
+  mentionof: https://komments.test:8890
+  property: KOMMENT
+  komment: >
+    Hello This is my comment, how do you
+    like it?
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2021-08-17 11:05:00
+  status: 'false'
+  verified: 'false'
+  id: 39b5472823370a1000504201c7638c70
   spamlevel: 0
 
 ----

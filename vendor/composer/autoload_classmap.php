@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'IndieWeb\\MentionClient' => $vendorDir . '/indieweb/mention-client/src/IndieWeb/MentionClient.php',
     'IndieWeb\\MentionClientTest' => $vendorDir . '/indieweb/mention-client/src/IndieWeb/MentionClientTest.php',
     'Kirby\\ComposerInstaller\\CmsInstaller' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/CmsInstaller.php',
