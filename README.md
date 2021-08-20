@@ -2,6 +2,14 @@
 
 ![GitHub release](https://img.shields.io/github/release/mauricerenck/komments.svg?maxAge=1800) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3.3%2B-black.svg)
 
+---
+
+## WATCH OUT!
+
+This is an unstable development branch. DO NOT use it anywhere near production!
+
+---
+
 A Kirby comment plugin
 
 ## Features
