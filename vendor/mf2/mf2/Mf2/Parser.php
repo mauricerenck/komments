@@ -362,7 +362,7 @@ class Parser {
 					$doc = $doc->loadHTML($input);
 			} else {
 				$doc = new DOMDocument();
-				@$doc->loadHTML(unicodeToHtmlEntities($input));
+				@$doc->loadHTML(unicodeToHtmlEntities($input), \LIBXML_NOWARNING);
 			}
 		} elseif (is_a($input, 'DOMDocument')) {
 			$doc = clone $input;
@@ -506,6 +506,22 @@ class Parser {
 	}
 
 	/**
+	 * Given an img property, parse its value and/or alt text
+	 * @param DOMElement $el
+	 * @access public
+	 * @return string|array
+	 */
+	public function parseImg(DOMElement $el)
+	{
+		if ($el->hasAttribute('alt')) {
+			return [
+				'value' => $this->resolveUrl( $el->getAttribute('src') ),
+				'alt' => $el->getAttribute('alt')
+			];
+		}
+		return $el->getAttribute('src');
+	}
+	/**
 	 * This method parses the language of an element
 	 * @param DOMElement $el
 	 * @access public
@@ -536,6 +552,10 @@ class Parser {
 
 	// TODO: figure out if this has problems with sms: and geo: URLs
 	public function resolveUrl($url) {
+		// If not a string then return.
+		if (!is_string($url)){
+			return $url;
+		}
 		// If the URL is seriously malformed it’s probably beyond the scope of this
 		// parser to try to do anything with it.
 		if (parse_url($url) === false) {
@@ -634,7 +654,9 @@ class Parser {
 	public function parseU(\DOMElement $u) {
 		if (($u->tagName == 'a' or $u->tagName == 'area' or $u->tagName == 'link') and $u->hasAttribute('href')) {
 			$uValue = $u->getAttribute('href');
-		} elseif (in_array($u->tagName, array('img', 'audio', 'video', 'source')) and $u->hasAttribute('src')) {
+		} elseif ( $u->tagName == 'img' and $u->hasAttribute('src') ) {
+			$uValue = $this->parseImg($u);
+		} elseif (in_array($u->tagName, array('audio', 'video', 'source', 'iframe')) and $u->hasAttribute('src')) {
 			$uValue = $u->getAttribute('src');
 		} elseif ($u->tagName == 'video' and !$u->hasAttribute('src') and $u->hasAttribute('poster')) {
 			$uValue = $u->getAttribute('poster');
@@ -649,7 +671,8 @@ class Parser {
 		} else {
 			$uValue = $this->textContent($u);
 		}
-				return $this->resolveUrl($uValue);
+
+		return $this->resolveUrl($uValue);
 	}
 
 	/**
@@ -872,14 +895,15 @@ class Parser {
 		// This way we can DOMDocument::saveHTML on the entire collection at once.
 		// Running DOMDocument::saveHTML per node may add whitespace that isn't in source.
 		// See https://stackoverflow.com/q/38317903
-		$innerNodes = $e->ownerDocument->createDocumentFragment();
-		while ($e->hasChildNodes()) {
-			$innerNodes->appendChild($e->firstChild);
-		}
-		$html = $e->ownerDocument->saveHtml($innerNodes);
-		// Put the nodes back in place.
-		if($innerNodes->hasChildNodes()) {
-			$e->appendChild($innerNodes);
+		if ($innerNodes = $e->ownerDocument->createDocumentFragment()) {
+			while ($e->hasChildNodes()) {
+				$innerNodes->appendChild($e->firstChild);
+			}
+			$html = $e->ownerDocument->saveHtml($innerNodes);
+			// Put the nodes back in place.
+			if ($innerNodes->hasChildNodes()) {
+				$e->appendChild($innerNodes);
+			}
 		}
 
 		$return = array(
@@ -1047,7 +1071,9 @@ class Parser {
 
 		// Do we need to imply a name property?
 		// if no explicit "name" property, and no other p-* or e-* properties, and no nested microformats,
-		if (!array_key_exists('name', $return) && !in_array('p-', $prefixes) && !in_array('e-', $prefixes) && !$has_nested_mf && !$is_backcompat) {
+		if (!array_key_exists('name', $return) && !in_array('p-', $prefixes)
+			&& !in_array('e-', $prefixes) && !$has_nested_mf
+			&& !$is_backcompat && empty($this->upgraded[$e])) {
 			$name = false;
 			// img.h-x[alt] or area.h-x[alt]
 			if (($e->tagName === 'img' || $e->tagName === 'area') && $e->hasAttribute('alt')) {
@@ -1090,14 +1116,11 @@ class Parser {
 		}
 
 		// Check for u-photo
-		if (!array_key_exists('photo', $return) && !$is_backcompat) {
-
+		if (!array_key_exists('photo', $return) && !in_array('u-', $prefixes) && !$has_nested_mf && !$is_backcompat) {
 			$photo = $this->parseImpliedPhoto($e);
-
 			if ($photo !== false) {
 				$return['photo'][] = $photo;
 			}
-
 		}
 
 		// Do we need to imply a url property?
@@ -1141,6 +1164,10 @@ class Parser {
 			'type' => $mfTypes,
 			'properties' => $return
 		);
+		
+		if(trim($e->getAttribute('id')) !== '') {
+			$parsed['id'] = trim($e->getAttribute("id"));
+		}
 
 		if($this->lang) {
 			// Language
@@ -1170,7 +1197,7 @@ class Parser {
 
 		// img.h-x[src]
 		if ($e->tagName == 'img') {
-			return $this->resolveUrl($e->getAttribute('src'));
+			return $this->resolveUrl($this->parseImg($e));
 		}
 
 		// object.h-x[data]
@@ -1195,7 +1222,8 @@ class Parser {
 			if ($els !== false && $els->length === 1) {
 				$el = $els->item(0);
 				if ($el->tagName == 'img') {
-					return $this->resolveUrl($el->getAttribute('src'));
+					$return = $this->parseImg($el);
+					return $this->resolveUrl($return);
 				} else if ($el->tagName == 'object') {
 					return $this->resolveUrl($el->getAttribute('data'));
 				}
@@ -1384,7 +1412,7 @@ class Parser {
 			$recurse = $this->parse_recursive($node, $depth + 1);
 
 			// set bool flag for nested mf
-			$has_nested_mf = ($recurse);
+			$has_nested_mf = (bool) $recurse;
 
 			// parse for root mf
 			$result = $this->parseH($node, $is_backcompat, $has_nested_mf);
@@ -1426,6 +1454,7 @@ class Parser {
 								$parsed_property = $this->parseDT($node);
 								$prefixSpecificResult['value'] = ($parsed_property) ? $parsed_property : '';
 							}
+							$prefixSpecificResult['value'] = is_array($prefixSpecificResult['value']) ? $prefixSpecificResult['value']['value'] : $prefixSpecificResult['value'];
 
 							$mfs['properties'][$property][] = $prefixSpecificResult;
 						}
@@ -1800,7 +1829,8 @@ class Parser {
 				'replace' => 'p-label'
 			),
 			'geo' => array(
-				'replace' => 'p-geo h-geo'
+				'replace' => 'p-geo h-geo',
+				'context' => 'geo'
 			),
 			'latitude' => array(
 				'replace' => 'p-latitude'

@@ -32,5 +32,6 @@
     "test": "vendor/bin/phpunit --testdox tests",
     "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
     "build-composer": "composer install --no-dev --optimize-autoloader"
-  }
+  },
+  "minimum-stability": "dev"
 }
