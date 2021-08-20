@@ -1,7 +1,7 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '0.10.4',
-        'version' => '0.10.4.0',
+        'pretty_version' => '0.10.5',
+        'version' => '0.10.5.0',
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,8 +29,8 @@
             'dev_requirement' => false,
         ),
         'mauricerenck/komments' => array(
-            'pretty_version' => '0.10.4',
-            'version' => '0.10.4.0',
+            'pretty_version' => '0.10.5',
+            'version' => '0.10.5.0',
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

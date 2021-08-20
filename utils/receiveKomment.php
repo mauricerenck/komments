@@ -2,7 +2,6 @@
 
 namespace mauricerenck\Komments;
 
-use Kirby\Http\Url;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 use Kirby\Data\yaml;
@@ -46,7 +45,9 @@ class KommentReceiver
     public function getPageFromUrl(string $url)
     {
         if (V::url($url)) {
-            $path = Url::path($url);
+            // use kirby->url because it includes the path of a possible subfolder install
+            $kirbyBaseUrl = kirby()->url();
+            $path = substr($url, strlen($kirbyBaseUrl));
             $languages = kirby()->languages();
 
             if (empty($path)) {
