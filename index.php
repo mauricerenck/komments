@@ -24,6 +24,7 @@ use \Response;
 @include_once __DIR__ . '/vendor/autoload.php';
 
 Kirby::plugin('mauricerenck/komments', [
+    'areas' => require_once(__DIR__ . '/components/areas.php'),
     'options' => require_once(__DIR__ . '/config/options.php'),
     'snippets' => [
         'komments/webmention' => __DIR__ . '/snippets/webmentions-splitted.php',
@@ -61,17 +62,7 @@ Kirby::plugin('mauricerenck/komments', [
             return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
         },
     ],
-    'fields' => [
-        'kommentType' => [
-            'props' => [
-            ]
-        ],
-        'gravatar' => [
-            'props' => [
-            ]
-        ],
-        'kommentsPending' => []
-    ],
+    'fields' => require_once(__DIR__ . '/components/fields.php'),
     'translations' => require_once(__DIR__ . '/config/translations.php'),
     'api' => require_once(__DIR__ . '/config/api.php'),
     'hooks' => require_once(__DIR__ . '/config/hooks.php'),
@@ -99,7 +90,7 @@ Kirby::plugin('mauricerenck/komments', [
                         return new Response(json_encode($response), 'application/json', 404);
                     }
 
-                    return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.pagenotfound').'</p>', 'text/html', 404);
+                    return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.pagenotfound') . '</p>', 'text/html', 404);
                 }
 
                 if ($kommentReceiver->isSpam($formData)) {
@@ -113,7 +104,7 @@ Kirby::plugin('mauricerenck/komments', [
                             return new Response(json_encode($response), 'application/json', 403);
                         }
 
-                        return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.lookslikespam').'</p>', 'text/html', 403);
+                        return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.lookslikespam') . '</p>', 'text/html', 403);
                     } else {
                         $spamlevel = 100;
                     }
@@ -145,7 +136,7 @@ Kirby::plugin('mauricerenck/komments', [
                         return new Response(json_encode($response), 'application/json', 412);
                     }
 
-                    return new Response('<h1>'.t('mauricerenck.komments.error').'</h1><p>'.t('mauricerenck.komments.invalidfieldvalues').'</p>', 'text/html', 412);
+                    return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.invalidfieldvalues') . '</p>', 'text/html', 412);
                 }
 
                 $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;

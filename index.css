@@ -1,1 +1,121 @@
-.versionBox{position:relative;padding:1rem;background:#fff;box-shadow:var(--box-shadow-item);text-align:center}.version{font-size:var(--font-size-monster);padding:.5em 0}.update-available{color:var(--color-positive)}.align-center{display:block;text-align:center}.k-headline-field{margin-bottom:1em}img{width:100%}.kommentsPendingCounter{position:relative;padding:1rem;background:#fff;box-shadow:var(--box-shadow-item);text-align:center}.count{font-size:var(--font-size-monster)}
+.k-komments-view .komment-moderation {
+  background: #fff;
+  box-shadow: var(--box-shadow-item);
+  border: 1px solid var(--color-border);
+}.k-komments-view .komment-moderation {
+  background: #fff;
+  box-shadow: var(--box-shadow-item);
+  border: 1px solid var(--color-border);
+}
+.k-komments-view .komment-details {
+  padding: 1rem;
+}
+.k-komments-view .komment-details .avatar {
+  grid-column-start: span 2;
+}
+.k-komments-view .komment-details .avatar img {
+  border-radius: 5px;
+}
+.k-komments-view .komment-details .k-icon {
+  display: inline-block;
+}
+.k-komments-view .komment-details .komment-info {
+  grid-column-start: span 10;
+  line-height: 1.5;
+}
+.k-komments-view .komment-details .komment-info .light {
+  color: var(--color-text-light);
+}
+.k-komments-view .komment-details .text {
+  padding: 1rem;
+}
+.k-komments-view .komment-details .actions {
+  padding: 2rem 0;
+}
+.k-komments-view .komment-details .actions .k-button {
+  margin-right: 0.5em;
+}
+.k-komments-view .komment-details .actions .k-bar-slot[data-position=right] {
+  text-align: right;
+}
+.k-komments-view .komment-list {
+  border-right: 1px solid var(--color-border);
+}
+.k-komments-view .komment-preview {
+  padding: 1rem;
+}
+.k-komments-view .targetPage {
+  color: grey;
+  font-size: small;
+}
+.k-komments-view .answer {
+  align-self: end;
+  box-shadow: var(--box-shadow-focus);
+}.k-komments-view .komment-list {
+  border-right: 1px solid var(--color-border);
+}
+.k-komments-view .komment-preview {
+  padding: 1rem;
+}
+.k-komments-view .targetPage {
+  color: grey;
+  font-size: small;
+}
+.k-komments-view .answer {
+  align-self: end;
+  box-shadow: var(--box-shadow-focus);
+}
+.k-komments-view table {
+  border-collapse: collapse;
+}
+.k-komments-view .list-item {
+  border-bottom: 1px solid var(--color-border);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+.k-komments-view .list-item .avatar {
+  display: inline-block;
+  width: 50px;
+}
+.k-komments-view .list-item .avatar img {
+  border-radius: 5px;
+}
+.k-komments-view .list-item.active {
+  border-left: 3px solid var(--color-focus);
+}
+.k-komments-view .list-item.isSpam {
+  background-color: var(--color-negative-outline);
+}
+.k-komments-view .list-item:hover, .k-komments-view .list-item:focus {
+  background-color: #efefef;
+}
+.k-komments-view .list-item td:first-child {
+  padding: 0 1rem;
+}.k-komments-view .version-box {
+  position: relative;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: var(--box-shadow-item);
+  text-align: center;
+}
+.k-komments-view .version-box .version {
+  font-size: 40px;
+  padding: 0.5em 0;
+}
+.k-komments-view .version-box .update-available {
+  color: var(--color-positive);
+}
+.k-komments-view .version-box .align-center {
+  display: block;
+  text-align: center;
+}.kommentsPendingCounter {
+  position: relative;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: var(--box-shadow-item);
+  text-align: center;
+}
+
+.kommentsPendingCounter .count {
+  font-size: var(--text-5xl);
+}

@@ -1,17 +1,19 @@
-import View from "./components/View.vue";
-import Gravatar from "./components/fields/Gravatar.vue";
-import KommentsPendingField from "./components/fields/KommentsPending.vue";
+import KommentsView from "./components/Views/Komments.vue";
+import KommentDetails from "./components/KommentDetails.vue";
+import KommentList from "./components/KommentList.vue";
+import KommentVersion from "./components/KommentVersion.vue";
+import KommentsPending from "./components/fields/KommentsPending.vue";
+
 
 panel.plugin("mauricerenck/komments", {
-    views: {
-        queuedKommments: {
-            component: View,
-            icon: "chat",
-            label: "Komments"
-        }
+    components: {
+        'k-komments-view': KommentsView,
+        'KommentDetails': KommentDetails,
+        'KommentList': KommentList,
+        'KommentVersion': KommentVersion,
     },
     fields: {
-        gravatar: Gravatar,
-        kommentsPending: KommentsPendingField
+        'komments': KommentsView,
+        'kommentsPending': KommentsPending
     }
 });
