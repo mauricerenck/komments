@@ -5,10 +5,6 @@ fields:
     type: toggle
     label: Komments enabled
     default: true
-  kommentsEnabledOnpage:
-    type: toggle
-    label: Komments enabled
-    default: true
   kommentsInbox:
     type: structure
     label: Inbox
