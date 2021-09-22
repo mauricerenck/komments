@@ -1,4 +1,4 @@
-# Komments
+# Komments Kirby-3.6-Alpha
 
 ![GitHub release](https://img.shields.io/github/release/mauricerenck/komments.svg?maxAge=1800) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3.3%2B-black.svg)
 
@@ -6,7 +6,19 @@
 
 ## WATCH OUT!
 
-This is an unstable development branch. DO NOT use it anywhere near production!
+This is an unstable development branch for Kirby 3.6. **DO NOT** use it anywhere near production!
+
+- [x] New Panel View for moderation
+  - [x] Mark comment as spam
+  - [x] Mark comment as verified
+  - [x] Delete comment
+- [ ] Reply from within panel
+- [x] Pending comments field
+- [ ] Comments list on page level
+- [ ] Switch to KirbyUp
+- [ ] Move "send to mastodon" to IndieConnector
+- [ ] Move "ping archive.org" to IndieConnector
+- [ ] Move "send webmentions" to IndieConnector
 
 ---
 
@@ -14,20 +26,24 @@ A Kirby comment plugin
 
 ## Features
 
-- ✅ Receive comments from a form on your site
+- Receive comments from a form on your site
   - The user will be informed that the komment is in moderation
   - Spam detection
   - Reject spam or just mark komments as spam
-- ✅ Receive and send webmentions
-- ✅ Send updates to Mastodon
-- ✅ Ping archive.org
-- ✅ Panel support
+- Receive
+- Panel support
   - Dashboard for komments in moderation/spam
   - Moderate komments on your page
   - Disable/enable komments per page
-- ✅ Disable komments after a certain number of dates in relation to the publish date
-- ✅ Reply to comments
-- ✅ Verified badge for logged in users
+- Disable komments after a certain number of dates in relation to the publish date
+- Reply to comments
+- Verified badge for logged in users
+
+## Deprecated
+
+- Send webmentions
+- Send updates to Mastodon
+- Ping archive.org
 
 **As of version 0.10.0 the split view is the default view** The mixed view is deprecated due to the new nested comments functionality.
 
