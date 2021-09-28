@@ -4,6 +4,8 @@
 
 A Kirby comment plugin
 
+There is an update for Kirby 3.6 in the making [here](https://github.com/mauricerenck/komments/tree/feature/kirby-3-6)
+
 ## Features
 
 - ✅ Receive comments from a form on your site
