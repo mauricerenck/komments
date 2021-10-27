@@ -23,7 +23,8 @@
   },
   "require": {
     "getkirby/composer-installer": "^1.1",
-    "indieweb/mention-client": "^1.2"
+    "indieweb/mention-client": "^1.2",
+    "php": ">=7.3.0 <8.1.0"
   },
   "config": {
     "optimize-autoloader": true

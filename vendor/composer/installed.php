@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'indieweb/mention-client' => array(
-            'pretty_version' => '1.2.0',
-            'version' => '1.2.0.0',
+            'pretty_version' => '1.2.1',
+            'version' => '1.2.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../indieweb/mention-client',
             'aliases' => array(),
-            'reference' => '12e3dc4b3f8f9ae82fa7a3953792bea33f59118a',
+            'reference' => '6807f4b1b96df7f47ea425eebfc7c032768652cf',
             'dev_requirement' => false,
         ),
         'mauricerenck/komments' => array(
