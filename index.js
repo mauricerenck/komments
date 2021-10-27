@@ -117,74 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
+})({"../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
 var map = Object.create(null)
@@ -9010,7 +8943,6 @@ exports.default = _default;
             [
               _c(
                 "k-grid",
-                { staticClass: "komment-moderation" },
                 [
                   _c(
                     "k-column",
@@ -9090,31 +9022,82 @@ render._withStripped = true
         }
 
         
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
       }
     })();
-},{"_css_loader":"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"components/KommentDetails.vue":[function(require,module,exports) {
+},{"vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../../.nvm/versions/node/v16.3.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/KommentDetails.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -9225,7 +9208,7 @@ var _default = {
     markAsSpam: function markAsSpam(pageSlug, kommentId, isSpam) {
       var _this = this;
 
-      this.$api.post("komments/spam", {
+      this.$api.post('komments/spam', {
         pageSlug: pageSlug,
         kommentId: kommentId,
         isSpam: isSpam
@@ -9236,8 +9219,7 @@ var _default = {
     markAsVerified: function markAsVerified(pageSlug, kommentId, isVerified) {
       var _this2 = this;
 
-      console.log(this);
-      this.$api.post("komments/verify", {
+      this.$api.post('komments/verify', {
         pageSlug: pageSlug,
         kommentId: kommentId,
         isVerified: isVerified
@@ -9248,7 +9230,7 @@ var _default = {
     publish: function publish(pageSlug, kommentId, isPublished) {
       var _this3 = this;
 
-      this.$api.post("komments/publish", {
+      this.$api.post('komments/publish', {
         pageSlug: pageSlug,
         kommentId: kommentId,
         isPublished: isPublished
@@ -9259,7 +9241,7 @@ var _default = {
     deleteKomment: function deleteKomment(pageSlug, kommentId, ref) {
       var _this4 = this;
 
-      this.$api.post("komments/delete", {
+      this.$api.post('komments/delete', {
         pageSlug: pageSlug,
         kommentId: kommentId
       }).then(function () {
@@ -9285,53 +9267,40 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "komment-moderation" },
     [
-      _c("k-grid", { attrs: { gutter: "small" } }, [
-        _c(
-          "div",
-          { staticClass: "avatar" },
-          [
+      _c(
+        "k-grid",
+        { attrs: { gutter: "medium" } },
+        [
+          _c("k-column", { staticClass: "avatar", attrs: { width: "2/12" } }, [
             _vm.komment.image
-              ? _c("k-image", {
-                  attrs: { src: _vm.komment.image, ratio: "1/1", crop: true }
-                })
+              ? _c("img", { attrs: { src: _vm.komment.image } })
               : _vm._e()
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "komment-info" }, [
+          ]),
+          _vm._v(" "),
           _c(
-            "div",
+            "k-column",
+            { staticClass: "komment-info", attrs: { width: "10/12" } },
             [
-              _c("k-icon", { attrs: { type: "account" } }),
+              _c("div", [_c("strong", [_vm._v(_vm._s(_vm.komment.author))])]),
               _vm._v(" "),
-              _c("strong", [_vm._v(_vm._s(_vm.komment.author))])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "light" },
-            [
-              _c("k-icon", { attrs: { type: "calendar" } }),
-              _vm._v("\n        " + _vm._s(_vm.komment.published) + "\n      ")
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "light" },
-            [
-              _c("k-icon", { attrs: { type: "page" } }),
-              _vm._v(" " + _vm._s(_vm.komment.title))
-            ],
-            1
+              _c("div", { staticClass: "meta" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.komment.published) +
+                    "\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "meta" }, [
+                _vm._v(_vm._s(_vm.komment.title))
+              ])
+            ]
           )
-        ])
-      ]),
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -9359,7 +9328,11 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Verified\n        ")]
+                        [
+                          _vm._v(
+                            "\n                    Verified\n                "
+                          )
+                        ]
                       )
                     : _c(
                         "k-button",
@@ -9378,7 +9351,11 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Verified\n        ")]
+                        [
+                          _vm._v(
+                            "\n                    Verified\n                "
+                          )
+                        ]
                       ),
                   _vm._v(" "),
                   _vm.komment.spamlevel === 0
@@ -9396,7 +9373,7 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Spam\n        ")]
+                        [_vm._v("\n                    Spam\n                ")]
                       )
                     : _c(
                         "k-button",
@@ -9412,7 +9389,7 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Spam\n        ")]
+                        [_vm._v("\n                    Spam\n                ")]
                       ),
                   _vm._v(" "),
                   _vm.komment.status === true
@@ -9431,7 +9408,11 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Published\n        ")]
+                        [
+                          _vm._v(
+                            "\n                    Published\n                "
+                          )
+                        ]
                       )
                     : _c(
                         "k-button",
@@ -9451,7 +9432,11 @@ exports.default = _default;
                             }
                           }
                         },
-                        [_vm._v("\n          Published\n        ")]
+                        [
+                          _vm._v(
+                            "\n                    Published\n                "
+                          )
+                        ]
                       )
                 ],
                 1
@@ -9471,7 +9456,7 @@ exports.default = _default;
                         }
                       }
                     },
-                    [_vm._v("\n          Delete\n        ")]
+                    [_vm._v("\n                    Delete\n                ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -9496,7 +9481,7 @@ exports.default = _default;
                     [
                       _c("k-text", [
                         _vm._v(
-                          "\n            Do you really want to delete the comment? This cannot be undone.\n          "
+                          "\n                        Do you really want to delete the comment? This cannot be undone.\n                    "
                         )
                       ])
                     ],
@@ -9513,7 +9498,7 @@ exports.default = _default;
       ),
       _vm._v(" "),
       _c("div", { staticClass: "text" }, [
-        _vm._v("\n    " + _vm._s(_vm.komment.komment) + "\n  ")
+        _vm._v("\n        " + _vm._s(_vm.komment.komment) + "\n    ")
       ])
     ],
     1
@@ -9623,6 +9608,10 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   props: {
     queuedKomments: Array,
@@ -9644,12 +9633,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "komments-list" }, [
     _c(
-      "table",
+      "ul",
       _vm._l(_vm.queuedKomments, function(komment, index) {
         return _c(
-          "tr",
+          "li",
           {
             key: index,
             staticClass: "list-item",
@@ -9669,68 +9658,116 @@ exports.default = _default;
           },
           [
             _c(
-              "td",
+              "k-grid",
               [
-                komment.spamlevel > 0
-                  ? _c("k-icon", {
-                      attrs: { type: "bolt", title: "potential spam comment" }
-                    })
-                  : komment.status === false
-                  ? _c("k-icon", { attrs: { type: "clock", title: "pending" } })
-                  : komment.status === true
-                  ? _c("k-icon", {
-                      attrs: { type: "check", title: "published" }
-                    })
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                komment.spamlevel > 0
-                  ? _c("em", [_vm._v("Spam")])
-                  : komment.image
-                  ? _c("k-image", {
-                      staticClass: "avatar",
-                      attrs: { src: komment.image, ratio: "1/1", crop: true }
-                    })
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("td", { staticClass: "komment-preview" }, [
-              _c("div", { staticClass: "title" }, [
-                komment.verified === true
-                  ? _c(
-                      "span",
-                      {
-                        attrs: { alt: "Verified user", title: "Verified user" }
-                      },
-                      [_vm._v("\n            ✓\n          ")]
-                    )
-                  : _vm._e(),
+                _c(
+                  "k-column",
+                  { staticClass: "avatar", attrs: { width: "2/12" } },
+                  [
+                    komment.image
+                      ? _c("img", { attrs: { src: komment.image } })
+                      : _vm._e()
+                  ]
+                ),
                 _vm._v(" "),
-                _c("strong", [_vm._v(_vm._s(komment.author))])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "preview" }, [
-                _vm._v(
-                  "\n          " +
-                    _vm._s(komment.komment.substr(0, 60) + "…") +
-                    "\n        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "targetPage" }, [
-                _vm._v(_vm._s(komment.title))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(komment.published))])
-          ]
+                _c("k-column", { attrs: { width: "10/12" } }, [
+                  _c("div", { staticClass: "komment-preview" }, [
+                    _c("div", { staticClass: "author" }, [
+                      _c("strong", [_vm._v(_vm._s(komment.author))])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "meta" }, [
+                      _vm._v(
+                        _vm._s(komment.published) +
+                          " - " +
+                          _vm._s(komment.title)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "preview" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(komment.komment.substr(0, 60) + "…") +
+                          "\n                        "
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("k-column", { attrs: { width: "2/12" } }),
+                _vm._v(" "),
+                _c("k-column", { attrs: { width: "10/12" } }, [
+                  _c("div", { staticClass: "status" }, [
+                    komment.status === false
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "badge",
+                            attrs: { alt: "pending", title: "pending" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            pending\n                        "
+                            )
+                          ]
+                        )
+                      : komment.status === true
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "badge blue",
+                            attrs: { alt: "published", title: "published" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            published\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    komment.verified === true
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "badge green",
+                            attrs: {
+                              alt: "Verified user",
+                              title: "Verified user"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            verified\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    komment.spamlevel > 0
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "badge red",
+                            attrs: {
+                              alt: "Possible spam comment",
+                              title: "Possible spam comment"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            spam\n                        "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ])
+                ])
+              ],
+              1
+            )
+          ],
+          1
         )
       }),
       0
@@ -10022,7 +10059,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63155" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64849" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

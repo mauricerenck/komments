@@ -148,7 +148,8 @@ Kirby::plugin('mauricerenck/komments', [
                     $response = [
                         'status' => 'success',
                         'pending' => true,
-                        'message' => t('mauricerenck.komments.thankyou')
+                        'message' => t('mauricerenck.komments.thankyou'),
+                        'data' => $webmention
                     ];
 
                     return new Response(json_encode($response), 'application/json');
