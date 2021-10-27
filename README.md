@@ -132,11 +132,11 @@ You can fine tune the komments to behave as you whish, use this options in `conf
 | `auto-delete-spam`                | `true`                                                              | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM         |
 | `auto-disable-komments`           | `0`                                                                 | Disables the komment form after `n` number of days. Use `0` to never disable komments (default)          |
 | `auto-disable-komments-datefield` | `'date'`                                                            | Set a field to function as publish date field used for `auto-disable-komments`                           |
-| `komment-icon-like`               | '❤️'                                                                | The icon for likes in your komment list                                                                  |
-| `komment-icon-reply`              | '💬'                                                                | The icon for replies/comments in your komment list                                                       |
-| `komment-icon-repost`             | '♻️'                                                                | The icon for reposts in your komment list                                                                |
-| `komment-icon-mention`            | '♻️'                                                                | The icon for mention in your komment list                                                                |
-| `komment-icon-verified`           | '✅'                                                                | The icon for the verify badge list                                                                       |
+| `komment-icon-like`               | '❤️'                                                                 | The icon for likes in your komment list                                                                  |
+| `komment-icon-reply`              | '💬'                                                                 | The icon for replies/comments in your komment list                                                       |
+| `komment-icon-repost`             | '♻️'                                                                 | The icon for reposts in your komment list                                                                |
+| `komment-icon-mention`            | '♻️'                                                                 | The icon for mention in your komment list                                                                |
+| `komment-icon-verified`           | '✅'                                                                 | The icon for the verify badge list                                                                       |
 | `replyClassNames`                 | ''                                                                  | add classnames to the reply link                                                                         |
 | `form.submit.classNames`          | `'button button-tiny button-primary'`                               | add classnames to the submit button                                                                      |
 | `form.twitter.classNames`         | `'button button-tiny button-outlined share komment-share-twitter'`  | add classnames to the twitter button                                                                     |
@@ -146,7 +146,7 @@ You can fine tune the komments to behave as you whish, use this options in `conf
 
 ## Page Methods
 
-| Method                        | Returns   | Exsample                                                                                   |
+| Method                        | Returns   | Example                                                                                    |
 | ----------------------------- | --------- | ------------------------------------------------------------------------------------------ |
 | `$page->kommentCount()`       | `integer` | `<?php echo $page->kommentCount(); ?> comments`                                            |
 | `$page->kommentsAreEnabled()` | `boolean` | `<?php if($page->kommentsAreEnabled()): ><button>Write a comment!</button><?php endif; ?>` |
