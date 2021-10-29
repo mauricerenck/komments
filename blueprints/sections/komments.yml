@@ -5,16 +5,15 @@ fields:
     type: toggle
     label: Komments enabled
     default: true
-  kommentsEnabledOnpage:
-    type: toggle
-    label: Komments enabled
-    default: true
+    text:
+      - Disabled
+      - Enabled
   kommentsInbox:
     type: structure
     label: Inbox
     fields:
       avatar:
-        type: gravatar
+        type: url
         label: Avatar
         width: 1/6
       author:
@@ -64,10 +63,16 @@ fields:
       status:
         type: toggle
         label: Status
+        text:
+          - Pending
+          - Published
         width: 1/4
       verified:
         type: toggle
         label: Verified
+        text:
+          - Unverified
+          - Verified
         width: 1/4
     columns:
       author:

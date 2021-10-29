@@ -5,12 +5,52 @@ namespace mauricerenck\Komments;
 use json_encode;
 use json_decode;
 use in_array;
+use Structure;
+use f;
+use Kirby\Http\Remote;
 
 class KommentBaseUtils
 {
     // public function __construct()
     // {
     // }
+
+    public function getPageFromSlug(string $pageSlug)
+    {
+        $page = page($pageSlug);
+        if (is_null($page)) {
+            return false;
+        }
+
+        return $page;
+    }
+
+    public function getPluginVersion()
+    {
+        try {
+            $composerString = f::read(__DIR__ . '/../composer.json');
+            $composerJson = json_decode($composerString);
+
+            $packagistResult = Remote::get('https://repo.packagist.org/p2/mauricerenck/komments.json');
+            $packagistJson = json_decode($packagistResult->content());
+            $latestVersion = $packagistJson->packages->{'mauricerenck/komments'}[0]->version;
+
+            return [
+                'local' => $composerJson->version,
+                'latest' => $latestVersion,
+                'updateAvailable' => $composerJson->version !== $latestVersion,
+                'error' => false
+            ];
+        } catch (\Throwable $th) {
+            throw 'Could not get package information';
+            return[
+                'local' => '',
+                'latest' => '',
+                'updateAvailable' => false,
+                'error' => true
+            ];
+        }
+    }
 
     public function kommentsAreExpired($page)
     {
@@ -81,6 +121,40 @@ class KommentBaseUtils
             }
         }
         return $tree;
+    }
+
+    public function getPendingKomments(): array
+    {
+        $pendingKomments = [];
+        $collection = site()->index();
+        $komments = new Structure();
+        $key = 0;
+
+        foreach ($collection as $item) {
+            if ($item->kommentsInbox()->isNotEmpty()) {
+                foreach ($item->kommentsInbox()->yaml() as $komment) {
+                    $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
+                    if (($komment['status'] === 'false' || $komment['status'] === false)) {
+                        $pendingKomments[] = [
+                            'id' => $komment['id'],
+                            'slug' => $item->slug(),
+                            'author' => $komment['author'],
+                            'komment' => $komment['komment'],
+                            'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
+                            'image' => $komment['avatar'],
+                            'title' => (string) $item->title(),
+                            'url' => $item->panelUrl(),
+                            'published' => date('Y-m-d H:i', strtotime($komment['published'])),
+                            'verified' => ($komment['verified'] === true || $komment['verified'] === 'true') ? true : false,
+                            'spamlevel' => $komment['spamlevel'],
+                            'status' => ($komment['status'] === true || $komment['status'] === 'true') ? true : false,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $pendingKomments;
     }
 
     private function transformToReply($komment)

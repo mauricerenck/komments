@@ -75,5 +75,53 @@ return [
                 return json_encode($spamKomments);
             }
         ],
+        [
+            'pattern' => 'komments/spam',
+            'method' => 'POST',
+            'action' => function () {
+                $formData = kirby()->request()->data();
+
+                $kommentModeration = new KommentModeration();
+                $kommentModeration->markAsSpam($formData['pageSlug'], $formData['kommentId'], $formData['isSpam']);
+
+                return json_encode(['message' => 'okay']);
+            }
+        ],
+        [
+            'pattern' => 'komments/verify',
+            'method' => 'POST',
+            'action' => function () {
+                $formData = kirby()->request()->data();
+
+                $kommentModeration = new KommentModeration();
+                $kommentModeration->markAsVerified($formData['pageSlug'], $formData['kommentId'], $formData['isVerified']);
+
+                return json_encode(['message' => 'okay']);
+            }
+        ],
+        [
+            'pattern' => 'komments/publish',
+            'method' => 'POST',
+            'action' => function () {
+                $formData = kirby()->request()->data();
+
+                $kommentModeration = new KommentModeration();
+                $kommentModeration->publish($formData['pageSlug'], $formData['kommentId'], $formData['isPublished']);
+
+                return json_encode(['message' => 'okay']);
+            }
+        ],
+        [
+            'pattern' => 'komments/delete',
+            'method' => 'POST',
+            'action' => function () {
+                $formData = kirby()->request()->data();
+
+                $kommentModeration = new KommentModeration();
+                $kommentModeration->delete($formData['pageSlug'], $formData['kommentId']);
+
+                return json_encode(['message' => 'okay']);
+            }
+        ],
     ]
 ];
