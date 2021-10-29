@@ -47,8 +47,14 @@ export default {
     created() {
         this.kommentList = this.queuedKomments
         this.selectKomment(this.kommentList[0].id)
+        this.loadKomments()
     },
     methods: {
+        loadKomments() {
+            this.$api.get('komments/queued').then(komments => {
+                this.komments = komments
+            })
+        },
         selectKomment(id) {
             this.selectedKomment = this.queuedKomments.find(komment => {
                 return komment.id === id

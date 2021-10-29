@@ -1,38 +1,38 @@
 {
-  "name": "mauricerenck/komments",
-  "version": "1.0.0",
-  "description": "A comment and webmention plugin for Kirby 3",
-  "type": "kirby-plugin",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Maurice Renck",
-      "email": "hello@maurice-renck.de"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "mauricerenck\\Komments\\": "utils/"
+    "name": "mauricerenck/komments",
+    "version": "1.0.0",
+    "description": "A comment and webmention plugin for Kirby 3",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maurice Renck",
+            "email": "hello@maurice-renck.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "mauricerenck\\Komments\\": "utils/"
+        },
+        "classmap": [
+            "utils"
+        ]
     },
-    "classmap": [
-      "utils"
-    ]
-  },
-  "require-dev": {
-    "getkirby/cms": "^3.6"
-  },
-  "require": {
-    "getkirby/composer-installer": "^1.1",
-    "indieweb/mention-client": "^1.2",
-    "php": ">=7.3.0 <8.1.0"
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit --testdox tests",
-    "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
-    "build-composer": "composer install --no-dev --optimize-autoloader"
-  },
-  "minimum-stability": "dev"
+    "require-dev": {
+        "getkirby/cms": "^3.6"
+    },
+    "require": {
+        "getkirby/composer-installer": "^1.1",
+        "indieweb/mention-client": "^1.2",
+        "php": ">=7.3.0 <8.1.0"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --testdox tests",
+        "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
+        "build-composer": "composer install --no-dev --optimize-autoloader"
+    },
+    "minimum-stability": "dev"
 }

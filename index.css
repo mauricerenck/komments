@@ -1,4 +1,24 @@
-.komment-moderation {
+.versionBox {
+    position: relative;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: var(--box-shadow-item);
+    text-align: center;
+}
+.version {
+    font-size: var(--font-size-monster);
+    padding: 0.5em 0;
+}
+.update-available {
+    color: var(--color-positive);
+}
+.align-center {
+    display: block;
+    text-align: center;
+}
+.k-headline-field {
+    margin-bottom: 1em;
+}.komment-moderation {
   border: 1px solid var(--color-border);
   border-radius: var(--rounded);
   box-shadow: var(--shadow);
