@@ -1,34 +1,36 @@
 <template>
-    <k-view class="k-komments-view">
-        <k-header>Komments</k-header>
+    <k-inside>
+        <k-view class="k-komments-view">
+            <k-header>Komments</k-header>
 
-        <k-grid gutter="medium">
-            <k-column width="3/4">
-                <k-grid>
-                    <k-column width="1/2" class="komment-list">
-                        <KommentList
-                            :queuedKomments="kommentList"
-                            :onSelectKomment="selectKomment"
-                            :selectedKomment="this.selectedKomment"
-                        />
-                    </k-column>
-                    <k-column width="1/2" class="komment-details">
-                        <KommentDetails
-                            :komment="this.selectedKomment"
-                            :onMarkAsSpam="this.onMarkAsSpam"
-                            :onMarkAsVerified="this.onMarkAsVerified"
-                            :onMarkAsPublished="this.onMarkAsPublished"
-                            :onDelete="this.onDelete"
-                        />
-                    </k-column>
-                </k-grid>
-            </k-column>
+            <k-grid gutter="medium">
+                <k-column width="3/4">
+                    <k-grid>
+                        <k-column width="1/2" class="komment-list">
+                            <KommentList
+                                :queuedKomments="kommentList"
+                                :onSelectKomment="selectKomment"
+                                :selectedKomment="this.selectedKomment"
+                            />
+                        </k-column>
+                        <k-column width="1/2" class="komment-details">
+                            <KommentDetails
+                                :komment="this.selectedKomment"
+                                :onMarkAsSpam="this.onMarkAsSpam"
+                                :onMarkAsVerified="this.onMarkAsVerified"
+                                :onMarkAsPublished="this.onMarkAsPublished"
+                                :onDelete="this.onDelete"
+                            />
+                        </k-column>
+                    </k-grid>
+                </k-column>
 
-            <k-column width="1/4">
-                <KommentVersion :version="version" />
-            </k-column>
-        </k-grid>
-    </k-view>
+                <k-column width="1/4">
+                    <KommentVersion :version="version" />
+                </k-column>
+            </k-grid>
+        </k-view>
+    </k-inside>
 </template>
 
 <script>
@@ -51,12 +53,12 @@ export default {
     },
     methods: {
         loadKomments() {
-            this.$api.get('komments/queued').then(komments => {
+            this.$api.get('komments/queued').then((komments) => {
                 this.komments = komments
             })
         },
         selectKomment(id) {
-            this.selectedKomment = this.queuedKomments.find(komment => {
+            this.selectedKomment = this.queuedKomments.find((komment) => {
                 return komment.id === id
             })
         },
@@ -87,7 +89,7 @@ export default {
             }
         },
         onDelete() {
-            this.kommentList = this.kommentList.filter(entry => {
+            this.kommentList = this.kommentList.filter((entry) => {
                 return entry.id !== this.selectedKomment.id
             })
         },

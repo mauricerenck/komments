@@ -1,27 +1,27 @@
 {
-  "name": "komments",
-  "version": "1.0.0",
-  "description": "A comment and webmention plugin for Kirby 3",
-  "main": "index.js",
-  "author": "Maurice Renck",
-  "scripts": {
-    "dev": "parcel watch src/index.js --no-source-maps -d ./",
-    "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./",
-    "build-css": "sass  src/komments.scss assets/komments.css"
-  },
-  "posthtml": {
-    "recognizeSelfClosing": true
-  },
-  "dependencies": {
-    "semver": "^7.3.4",
-    "vue": "^2.6.11",
-    "vue-hot-reload-api": "^2.3.4"
-  },
-  "devDependencies": {
-    "@vue/component-compiler-utils": "^3.1.2",
-    "cssnano": "^4.1.10",
-    "sass": "^1.32.6",
-    "stylus": "^0.54.7",
-    "vue-template-compiler": "^2.6.11"
-  }
+    "name": "komments",
+    "version": "1.0.1",
+    "description": "A comment and webmention plugin for Kirby 3",
+    "main": "index.js",
+    "author": "Maurice Renck",
+    "scripts": {
+        "dev": "parcel watch src/index.js --no-source-maps -d ./",
+        "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./",
+        "build-css": "sass  src/komments.scss assets/komments.css"
+    },
+    "posthtml": {
+        "recognizeSelfClosing": true
+    },
+    "dependencies": {
+        "semver": "^7.3.4",
+        "vue": "^2.6.11",
+        "vue-hot-reload-api": "^2.3.4"
+    },
+    "devDependencies": {
+        "@vue/component-compiler-utils": "^3.1.2",
+        "cssnano": "^4.1.10",
+        "sass": "^1.32.6",
+        "stylus": "^0.54.7",
+        "vue-template-compiler": "^2.6.11"
+    }
 }
