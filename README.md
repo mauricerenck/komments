@@ -40,7 +40,7 @@ There is an update for Kirby 3.6 in the making [here](https://github.com/maurice
 - Reply to comments
 - Verified badge for logged in users
 
-## Deprecated
+## Soon Deprecated
 
 - Send webmentions
 - Send updates to Mastodon
