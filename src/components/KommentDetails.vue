@@ -8,9 +8,7 @@
                 <div>
                     <strong>{{ komment.author }}</strong>
                 </div>
-                <div class="meta">
-                    {{ komment.published }}
-                </div>
+                <div class="meta">{{ komment.published }}</div>
                 <div class="meta">{{ komment.title }}</div>
             </k-column>
         </k-grid>
@@ -71,9 +69,7 @@
                     </k-button>
                 </template>
                 <template slot="right">
-                    <k-button theme="negative" icon="trash" @click="$refs.deleteDialog.open()">
-                        Delete
-                    </k-button>
+                    <k-button theme="negative" icon="trash" @click="$refs.deleteDialog.open()"> Delete </k-button>
 
                     <k-dialog
                         ref="deleteDialog"
@@ -82,17 +78,12 @@
                         icon="trash"
                         @submit="deleteKomment(komment.slug, komment.id, $refs)"
                     >
-                        <k-text>
-                            Do you really want to delete the comment? This cannot be undone.
-                        </k-text>
+                        <k-text> Do you really want to delete the comment? This cannot be undone. </k-text>
                     </k-dialog>
                 </template>
             </k-bar>
         </div>
-
-        <div class="text">
-            {{ komment.komment }}
-        </div>
+        <div class="text">{{ komment.komment }}</div>
     </div>
 </template>
 
