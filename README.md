@@ -9,7 +9,7 @@
 - [x] Kirby 3.6 ready
 - [x] New Panel View for moderation
   - [x] Mark comment as spam
-  - [x] Mark comment as verified
+  - [x] Mark comment as verified
   - [x] Delete comment
 - [ ] Reply from within panel
 - [x] Pending comments field
