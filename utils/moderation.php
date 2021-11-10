@@ -76,13 +76,15 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if ($fieldData[$i]['id'] === $kommentId) {
-                    if ($isSpam) {
-                        $fieldData[$i]['status'] = false;
-                        $fieldData[$i]['verified'] = false;
-                        $fieldData[$i]['spamlevel'] = 100;
-                    } else {
-                        $fieldData[$i]['spamlevel'] = 0;
+                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                    if ($fieldData[$i]['id'] === $kommentId) {
+                        if ($isSpam) {
+                            $fieldData[$i]['status'] = false;
+                            $fieldData[$i]['verified'] = false;
+                            $fieldData[$i]['spamlevel'] = 100;
+                        } else {
+                            $fieldData[$i]['spamlevel'] = 0;
+                        }
                     }
                 }
             }
@@ -112,8 +114,10 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if ($fieldData[$i]['id'] === $kommentId) {
-                    $fieldData[$i]['verified'] = $isVerified;
+                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                    if ($fieldData[$i]['id'] === $kommentId) {
+                        $fieldData[$i]['verified'] = $isVerified;
+                    }
                 }
             }
 
@@ -142,8 +146,10 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if ($fieldData[$i]['id'] === $kommentId) {
-                    $fieldData[$i]['status'] = $publish;
+                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                    if ($fieldData[$i]['id'] === $kommentId) {
+                        $fieldData[$i]['status'] = $publish;
+                    }
                 }
             }
 
@@ -173,8 +179,10 @@ class KommentModeration
             $newFieldData = [];
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if ($fieldData[$i]['id'] !== $kommentId) {
-                    $newFieldData[] = $fieldData[$i];
+                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                    if ($fieldData[$i]['id'] !== $kommentId) {
+                        $newFieldData[] = $fieldData[$i];
+                    }
                 }
             }
 
