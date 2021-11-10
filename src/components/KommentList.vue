@@ -73,7 +73,6 @@ export default {
         onSelectKomment: Function,
         selectedKomment: Object,
     },
-    methods: {},
 }
 </script>
 
