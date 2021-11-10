@@ -48,8 +48,11 @@ export default {
     },
     created() {
         this.kommentList = this.queuedKomments
-        this.selectKomment(this.kommentList[0].id)
         this.loadKomments()
+
+        if (this.kommentList[0]) {
+            this.selectKomment(this.kommentList[0].id)
+        }
     },
     methods: {
         loadKomments() {

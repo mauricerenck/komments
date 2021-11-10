@@ -1,89 +1,92 @@
 <template>
     <div class="komment-moderation">
-        <k-grid gutter="medium">
-            <k-column width="2/12" class="avatar">
-                <img :src="komment.image" v-if="komment.image" />
-            </k-column>
-            <k-column width="10/12" class="komment-info">
-                <div>
-                    <strong>{{ komment.author }}</strong>
-                </div>
-                <div class="meta">{{ komment.published }}</div>
-                <div class="meta">{{ komment.title }}</div>
-            </k-column>
-        </k-grid>
+        <div v-if="komment.id">
+            <k-grid gutter="medium">
+                <k-column width="2/12" class="avatar">
+                    <img :src="komment.image" v-if="komment.image" />
+                </k-column>
+                <k-column width="10/12" class="komment-info">
+                    <div>
+                        <strong>{{ komment.author }}</strong>
+                    </div>
+                    <div class="meta">{{ komment.published }}</div>
+                    <div class="meta">{{ komment.title }}</div>
+                </k-column>
+            </k-grid>
 
-        <div class="actions">
-            <k-bar>
-                <template slot="left">
-                    <k-button
-                        v-if="komment.verified === true"
-                        theme="positive"
-                        icon="toggle-on"
-                        v-on:click="markAsVerified(komment.slug, komment.id, false)"
-                    >
-                        Verified
-                    </k-button>
-                    <k-button
-                        v-else
-                        icon="toggle-off"
-                        v-bind:disabled="komment.spamlevel > 0"
-                        v-on:click="markAsVerified(komment.slug, komment.id, true)"
-                    >
-                        Verified
-                    </k-button>
+            <div class="actions">
+                <k-bar>
+                    <template slot="left">
+                        <k-button
+                            v-if="komment.verified === true"
+                            theme="positive"
+                            icon="toggle-on"
+                            v-on:click="markAsVerified(komment.slug, komment.id, false)"
+                        >
+                            Verified
+                        </k-button>
+                        <k-button
+                            v-else
+                            icon="toggle-off"
+                            v-bind:disabled="komment.spamlevel > 0"
+                            v-on:click="markAsVerified(komment.slug, komment.id, true)"
+                        >
+                            Verified
+                        </k-button>
 
-                    <k-button
-                        v-if="komment.spamlevel === 0"
-                        v-on:click="markAsSpam(komment.slug, komment.id, true)"
-                        icon="toggle-off"
-                    >
-                        Spam
-                    </k-button>
-                    <k-button
-                        v-else
-                        theme="negative"
-                        v-on:click="markAsSpam(komment.slug, komment.id, false)"
-                        icon="toggle-on"
-                    >
-                        Spam
-                    </k-button>
+                        <k-button
+                            v-if="komment.spamlevel === 0"
+                            v-on:click="markAsSpam(komment.slug, komment.id, true)"
+                            icon="toggle-off"
+                        >
+                            Spam
+                        </k-button>
+                        <k-button
+                            v-else
+                            theme="negative"
+                            v-on:click="markAsSpam(komment.slug, komment.id, false)"
+                            icon="toggle-on"
+                        >
+                            Spam
+                        </k-button>
 
-                    <k-button
-                        v-if="komment.status === true"
-                        class="publish"
-                        theme="positive"
-                        icon="toggle-on"
-                        v-on:click="publish(komment.slug, komment.id, false)"
-                    >
-                        Published
-                    </k-button>
-                    <k-button
-                        v-else
-                        class="publish"
-                        v-bind:disabled="komment.spamlevel > 0"
-                        icon="toggle-off"
-                        v-on:click="publish(komment.slug, komment.id, true)"
-                    >
-                        Published
-                    </k-button>
-                </template>
-                <template slot="right">
-                    <k-button theme="negative" icon="trash" @click="$refs.deleteDialog.open()"> Delete </k-button>
+                        <k-button
+                            v-if="komment.status === true"
+                            class="publish"
+                            theme="positive"
+                            icon="toggle-on"
+                            v-on:click="publish(komment.slug, komment.id, false)"
+                        >
+                            Published
+                        </k-button>
+                        <k-button
+                            v-else
+                            class="publish"
+                            v-bind:disabled="komment.spamlevel > 0"
+                            icon="toggle-off"
+                            v-on:click="publish(komment.slug, komment.id, true)"
+                        >
+                            Published
+                        </k-button>
+                    </template>
+                    <template slot="right">
+                        <k-button theme="negative" icon="trash" @click="$refs.deleteDialog.open()"> Delete </k-button>
 
-                    <k-dialog
-                        ref="deleteDialog"
-                        button="Delete"
-                        theme="negative"
-                        icon="trash"
-                        @submit="deleteKomment(komment.slug, komment.id, $refs)"
-                    >
-                        <k-text> Do you really want to delete the comment? This cannot be undone. </k-text>
-                    </k-dialog>
-                </template>
-            </k-bar>
+                        <k-dialog
+                            ref="deleteDialog"
+                            button="Delete"
+                            theme="negative"
+                            icon="trash"
+                            @submit="deleteKomment(komment.slug, komment.id, $refs)"
+                        >
+                            <k-text> Do you really want to delete the comment? This cannot be undone. </k-text>
+                        </k-dialog>
+                    </template>
+                </k-bar>
+            </div>
+            <div class="text">{{ komment.komment }}</div>
         </div>
-        <div class="text">{{ komment.komment }}</div>
+        <div v-else><k-info-field theme="positive" text="There are no comments waiting for moderation" /></div>
     </div>
 </template>
 
