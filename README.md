@@ -5,7 +5,6 @@
 
 ---
 
-
 ![the dashboard](/doc-assets/komments-dashboard.png)
 
 ## Installation
