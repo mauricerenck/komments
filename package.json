@@ -5,8 +5,8 @@
     "main": "index.js",
     "author": "Maurice Renck",
     "scripts": {
-        "dev": "parcel watch src/index.js --no-source-maps -d ./",
-        "build": "parcel build src/index.js --no-source-maps --experimental-scope-hoisting -d ./",
+        "dev": "npx -y kirbyup src/index.js --watch",
+        "build": "npx -y kirbyup src/index.js",
         "build-css": "sass  src/komments.scss assets/komments.css"
     },
     "posthtml": {
@@ -20,6 +20,7 @@
     "devDependencies": {
         "@vue/component-compiler-utils": "^3.1.2",
         "cssnano": "^4.1.10",
+        "kirbyup": "^0.20.0",
         "sass": "^1.32.6",
         "stylus": "^0.54.7",
         "vue-template-compiler": "^2.6.11"
