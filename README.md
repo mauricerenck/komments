@@ -15,7 +15,7 @@
 - [ ] Reply from within panel
 - [x] Pending comments field
 - [ ] Comments list on page level
-- [ ] Switch to KirbyUp
+- [x] Switch to KirbyUp
 - [ ] Move "send to mastodon" to IndieConnector
 - [ ] Move "ping archive.org" to IndieConnector
 - [ ] Move "send webmentions" to IndieConnector
