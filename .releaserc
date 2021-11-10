@@ -5,6 +5,24 @@
     ],
     "plugins": [
         "@semantic-release/commit-analyzer",
+        {
+            "preset": "angular",
+            "releaseRules": [
+                {
+                    "type": "docs",
+                    "scope": "README",
+                    "release": "patch"
+                },
+                {
+                    "type": "refactor",
+                    "release": "patch"
+                },
+                {
+                    "type": "improvement",
+                    "release": "patch"
+                }
+            ]
+        },
         "@semantic-release/release-notes-generator",
         "@ambimax/semantic-release-composer",
         "@semantic-release/github",
