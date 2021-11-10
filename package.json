@@ -18,6 +18,7 @@
         "vue-hot-reload-api": "^2.3.4"
     },
     "devDependencies": {
+        "@ambimax/semantic-release-composer": "github:ambimax/semantic-release-composer",
         "@vue/component-compiler-utils": "^3.1.2",
         "cssnano": "^4.1.10",
         "kirbyup": "^0.20.0",
