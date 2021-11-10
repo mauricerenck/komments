@@ -7,6 +7,29 @@
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         "@ambimax/semantic-release-composer",
-        "@semantic-release/github"
+        "@semantic-release/github",
+        [
+            "@semantic-release/changelog",
+            {
+                "changelogFile": "CHANGELOG.md"
+            }
+        ],
+        [
+            "@ambimax/semantic-release-composer",
+            {
+                "skipOnMissingComposerJson": true
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "composer.json",
+                    "package.json",
+                    "CHANGELOG.md"
+                ],
+                "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            }
+        ]
     ]
 }

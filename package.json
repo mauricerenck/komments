@@ -4,6 +4,7 @@
     "description": "A comment and webmention plugin for Kirby 3",
     "main": "index.js",
     "author": "Maurice Renck",
+    "private": true,
     "scripts": {
         "dev": "npx -y kirbyup src/index.js --watch",
         "build": "npx -y kirbyup src/index.js",
@@ -19,6 +20,8 @@
     },
     "devDependencies": {
         "@ambimax/semantic-release-composer": "github:ambimax/semantic-release-composer",
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
         "@vue/component-compiler-utils": "^3.1.2",
         "cssnano": "^4.1.10",
         "kirbyup": "^0.20.0",
