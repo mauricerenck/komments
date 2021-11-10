@@ -1,0 +1,61 @@
+Title: phpunit
+
+----
+
+Kommentsenabledonpage: true
+
+----
+
+Kommentsinbox:
+
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/c67cfe10182e385fcd4181c06334a527
+  author: Unknown user
+  authorurl: ""
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  komment: A regular comment of an unkown user
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'false'
+  id: 1bfffa3f189b3c5b5d6f3ed3271d3342
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  author: Verified User
+  authorurl: https://maurice-renck.de
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  komment: A regular comment of a verified user
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'true'
+  id: c62bc1426c1d39eb6d8a6b4f5b3ef3ee
+  spamlevel: 0
+- 
+  avatar: >
+    https://www.gravatar.com/avatar/fa5d3b1755664ea7cb3c8ef1e00a5a52
+  author: SpamBot
+  authorurl: ""
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  komment: A spam comment by an evil bot
+  quote: ""
+  kommenttype: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'false'
+  id: 594a3bdc4947c1a8496d2beb8a065cb1
+  spamlevel: 100

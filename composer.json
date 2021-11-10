@@ -1,6 +1,6 @@
 {
     "name": "mauricerenck/komments",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A comment and webmention plugin for Kirby 3",
     "type": "kirby-plugin",
     "license": "MIT",
@@ -19,7 +19,8 @@
         ]
     },
     "require-dev": {
-        "getkirby/cms": "^3.6"
+        "getkirby/cms": "^3.6",
+        "phpunit/phpunit": "9.5.x-dev"
     },
     "require": {
         "getkirby/composer-installer": "^1.1",
