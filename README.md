@@ -1,4 +1,5 @@
 # Komments 
+#### A Kirby comment plugin
 
 ![GitHub release](https://img.shields.io/github/release/mauricerenck/komments.svg?maxAge=1800) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3.5%2B-black.svg)
 
@@ -21,8 +22,6 @@
 - [ ] Mark webmentions from known users as verified
 
 ---
-
-A Kirby comment plugin
 
 ## Features
 
