@@ -11,10 +11,6 @@ use Kirby\Http\Remote;
 
 class KommentBaseUtils
 {
-    // public function __construct()
-    // {
-    // }
-
     public function getPageFromSlug(string $pageSlug)
     {
         $page = page($pageSlug);
@@ -153,6 +149,10 @@ class KommentBaseUtils
                 }
             }
         }
+
+        usort($pendingKomments, function ($a, $b) {
+            return $b['published'] <=> $a['published'];
+        });
 
         return $pendingKomments;
     }
