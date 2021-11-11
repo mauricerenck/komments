@@ -37,7 +37,7 @@ return [
         'mauricerenck.komments.disabled' => 'Die Kommentarfunktion wurde auf dieser Seite deaktiviert.',
         'mauricerenck.komments.externalReply' => 'Woanders antworten',
         'mauricerenck.komments.form.submit' => 'Abschicken',
-        'mauricerenck.komments.form.privacy' => 'Die eigegebene E-Mail-Adresse wird vorm Speichern unwiderruflich verschlüsselt und dient nur zur Darstellung des Avatars. Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
+        'mauricerenck.komments.form.privacy' => 'Die eingegebene E-Mail-Adresse wird vor dem Speichern unwiderruflich verschlüsselt und dient nur zur Darstellung des Avatars. Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
         'mauricerenck.komments.form.label.comment' => 'Kommentar',
         'mauricerenck.komments.form.label.email' => 'E-Mail',
         'mauricerenck.komments.form.label.name' => 'Name',
@@ -51,7 +51,7 @@ return [
         'mauricerenck.komments.error' => 'Fehler',
         'mauricerenck.komments.lookslikespam' => 'Dein Kommentar wurde als Spam eingestuft und abgelehnt.',
         'mauricerenck.komments.invalidfieldvalues' => 'Falsche Eingabewerte',
-        'mauricerenck.komments.thankyou' => 'Danke! Dein Kommentar wartet auf seine Freischaltung.',
+        'mauricerenck.komments.thankyou' => 'Danke. Dein Kommentar wartet auf seine Freischaltung.',
     ],
     'fr' => [
         'mauricerenck.komments.liked' => 'a apprécié',
