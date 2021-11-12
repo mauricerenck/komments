@@ -18,7 +18,7 @@ Use one of these three methods to install the plugin:
 ### Setup
 
 * [How to configure the plugin](docs/options.md)
-* [Setting up the panel](#)
+* [Setting up the panel](docs/panel.md)
 * [Setting up your templates](docs/templates.md)
 * [Receive and send Webmentions](docs/webmentions.md)
 * [FAQ](docs/faq.md)
