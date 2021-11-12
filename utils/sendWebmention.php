@@ -8,6 +8,7 @@ use \IndieWeb\MentionClient;
 use file_exists;
 use implode;
 use in_array;
+use Exception;
 
 class WebmentionSender
 {

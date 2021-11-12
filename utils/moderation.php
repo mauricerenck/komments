@@ -2,9 +2,10 @@
 
 namespace mauricerenck\Komments;
 
-use json_encode;
-use json_decode;
 use in_array;
+use Exception;
+use json_decode;
+use json_encode;
 use Kirby\Data\yaml;
 
 class KommentModeration
