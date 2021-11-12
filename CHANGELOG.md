@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/mauricerenck/komments/compare/v1.3.2...v1.3.3) (2021-11-12)
+
+
+### Bug Fixes
+
+* set pending comments label via field settings [#32](https://github.com/mauricerenck/komments/issues/32) ([c2b56e7](https://github.com/mauricerenck/komments/commit/c2b56e783221dcf4f99bbd236b255b9c2c9a9728))
+
 ## [1.3.2](https://github.com/mauricerenck/komments/compare/v1.3.1...v1.3.2) (2021-11-12)
 
 
