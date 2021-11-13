@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/mauricerenck/komments/compare/v1.3.4...v1.3.5) (2021-11-13)
+
+
+### Bug Fixes
+
+* moved no comments screen into component ([67b26a8](https://github.com/mauricerenck/komments/commit/67b26a89fcccba0f7269865628fb21da53efbb85))
+
 ## [1.3.4](https://github.com/mauricerenck/komments/compare/v1.3.3...v1.3.4) (2021-11-13)
 
 
