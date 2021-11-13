@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/mauricerenck/komments/compare/v1.3.3...v1.3.4) (2021-11-13)
+
+
+### Bug Fixes
+
+* replace slug with id for nested pages [#31](https://github.com/mauricerenck/komments/issues/31) ([074aeca](https://github.com/mauricerenck/komments/commit/074aecac8a00d2f8ecf0ea21317e644746bd01c1))
+
 ## [1.3.3](https://github.com/mauricerenck/komments/compare/v1.3.2...v1.3.3) (2021-11-12)
 
 
