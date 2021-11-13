@@ -86,7 +86,6 @@
             </div>
             <div class="text">{{ komment.komment }}</div>
         </div>
-        <div v-else><k-info-field theme="positive" text="There are no comments waiting for moderation" /></div>
     </div>
 </template>
 

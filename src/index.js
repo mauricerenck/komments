@@ -24,5 +24,5 @@ panel.plugin("mauricerenck/komments", {
             icon: "chat",
             label: "Komments"
         }
-    },
+    }
 });

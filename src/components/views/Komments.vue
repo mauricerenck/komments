@@ -5,7 +5,17 @@
 
             <k-grid gutter="medium">
                 <k-column width="3/4">
-                    <k-grid>
+                    <div v-if="kommentList.length === 0" class="so-empty">
+                        <img src="/assets/undraw_empty_street_sfxm.svg" />
+                        <div>
+                            <k-info-field
+                                theme="positive"
+                                text="There are no comments waiting for moderation. Have a nice day!"
+                            />
+                        </div>
+                    </div>
+
+                    <k-grid v-else>
                         <k-column width="1/2" class="komment-list">
                             <KommentList
                                 :queuedKomments="kommentList"
