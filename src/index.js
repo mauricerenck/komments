@@ -4,6 +4,7 @@ import KommentDetails from "./components/KommentDetails.vue";
 import KommentList from "./components/KommentList.vue";
 import KommentVersion from "./components/KommentVersion.vue";
 import KommentsPending from "./components/fields/KommentsPending.vue";
+import NoKomments from "./components/NoKomments.vue";
 
 
 panel.plugin("mauricerenck/komments", {
@@ -12,6 +13,7 @@ panel.plugin("mauricerenck/komments", {
         'KommentDetails': KommentDetails,
         'KommentList': KommentList,
         'KommentVersion': KommentVersion,
+        'NoKomments': NoKomments,
     },
     fields: {
         'komments': KommentsView,
