@@ -133,7 +133,7 @@ class KommentBaseUtils
                     if (($komment['status'] === 'false' || $komment['status'] === false)) {
                         $pendingKomments[] = [
                             'id' => $komment['id'],
-                            'slug' => $item->slug(),
+                            'slug' => $item->id(),
                             'author' => $komment['author'],
                             'komment' => $komment['komment'],
                             'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
