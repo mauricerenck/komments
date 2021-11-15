@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/mauricerenck/komments/compare/v1.3.5...v1.4.0) (2021-11-15)
+
+
+### Features
+
+* receive webmentions from new indieconnector hook ([503039e](https://github.com/mauricerenck/komments/commit/503039eb1126a13e5381d5c23c522ab3a6e33708))
+
 ## [1.3.5](https://github.com/mauricerenck/komments/compare/v1.3.4...v1.3.5) (2021-11-13)
 
 
