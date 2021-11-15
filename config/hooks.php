@@ -37,7 +37,7 @@ return[
         $newEntry = $kommentReceiver->createKomment($webmention);
         $kommentReceiver->storeData($newEntry, $targetPage);
     },
-    'indieConnector.webhook.received' => function ($webmention, $targetPage) {
+    'indieConnector.webmention.received' => function ($webmention, $targetPage) {
         if (!option('mauricerenck.komments.enable-webmention-support')) {
             return;
         }

@@ -27,6 +27,9 @@
         "indieweb/mention-client": "^1.2",
         "php": ">=7.3.0 <8.1.0"
     },
+    "suggests": {
+        "mauricerenck/indieconnector": "1.2"
+    },
     "config": {
         "optimize-autoloader": true
     },
