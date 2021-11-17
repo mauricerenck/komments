@@ -246,7 +246,8 @@ class CombinedMicroformatsTest extends PHPUnit_Framework_TestCase {
 	public function testMicroformatsNestedUnderUPropertyClassnamesDeriveValueCorrectly() {
 		$input = '<div class="h-entry"><img class="u-url h-card" alt="This should not be the value" src="This should be the value" /></div>';
 		$mf = Mf2\parse($input);
-		$this->assertEquals($mf['items'][0]['properties']['url'][0]['value'], 'This should be the value', json_encode($mf['items'][0]['properties']['url'][0]));
+
+		$this->assertEquals($mf['items'][0]['properties']['url'][0]['value'], 'This should be the value');
 	}
 
 	public function testMicroformatsNestedUnderUPropertyClassnamesDeriveValueFromURL() {

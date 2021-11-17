@@ -11,26 +11,13 @@
     ],
     "bin": ["bin/fetch-mf2", "bin/parse-mf2"],
     "require": {
-        "php": ">=5.6.0"
-    },
-    "config": {
-       "platform": {
-       }
+        "php": ">=5.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*",
-        "mf2/tests": "dev-master#e9e2b905821ba0a5b59dab1a8eaf40634ce9cd49",
-	"squizlabs/php_codesniffer": "^2.6 || ^3.1.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
-	"phpcompatibility/php-compatibility": "^9.3"
+        "phpdocumentor/phpdocumentor": "v2.8.4",
+        "mf2/tests": "@dev"
     },
-    "scripts": {
-	"install-codestandards": [
-		"Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
-	],
-	"phpcs": "./vendor/bin/phpcs -p",
-	"phpunit": "./vendor/bin/phpunit"
-   },
     "autoload": {
         "files": ["Mf2/Parser.php"]
     },

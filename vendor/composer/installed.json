@@ -97,35 +97,32 @@
         },
         {
             "name": "mf2/mf2",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
+            "version": "0.4.6",
+            "version_normalized": "0.4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/microformats/php-mf2.git",
-                "reference": "1e2a2ee44c467297a1e98190ad9834535837da67"
+                "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microformats/php-mf2/zipball/1e2a2ee44c467297a1e98190ad9834535837da67",
-                "reference": "1e2a2ee44c467297a1e98190ad9834535837da67",
+                "url": "https://api.github.com/repos/microformats/php-mf2/zipball/00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
+                "reference": "00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
-                "mf2/tests": "dev-master#e9e2b905821ba0a5b59dab1a8eaf40634ce9cd49",
-                "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "4.8.*",
-                "squizlabs/php_codesniffer": "^2.6 || ^3.1.0"
+                "mf2/tests": "@dev",
+                "phpdocumentor/phpdocumentor": "v2.8.4",
+                "phpunit/phpunit": "4.8.*"
             },
             "suggest": {
                 "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you",
                 "masterminds/html5": "Alternative HTML parser for PHP, for better HTML5 support."
             },
-            "time": "2020-06-13T04:36:49+00:00",
-            "default-branch": true,
+            "time": "2018-08-24T14:47:04+00:00",
             "bin": [
                 "bin/fetch-mf2",
                 "bin/parse-mf2"

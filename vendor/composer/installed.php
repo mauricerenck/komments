@@ -1,7 +1,7 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.3.3',
-        'version' => '1.3.3.0',
+        'pretty_version' => '1.4.0',
+        'version' => '1.4.0.0',
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,8 +29,8 @@
             'dev_requirement' => false,
         ),
         'mauricerenck/komments' => array(
-            'pretty_version' => '1.3.3',
-            'version' => '1.3.3.0',
+            'pretty_version' => '1.4.0',
+            'version' => '1.4.0.0',
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -38,14 +38,12 @@
             'dev_requirement' => false,
         ),
         'mf2/mf2' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => '0.4.6',
+            'version' => '0.4.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mf2/mf2',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'reference' => '1e2a2ee44c467297a1e98190ad9834535837da67',
+            'aliases' => array(),
+            'reference' => '00b70ee7eb7f5b0585b1bd467f6c9cbd75055d23',
             'dev_requirement' => false,
         ),
     ),

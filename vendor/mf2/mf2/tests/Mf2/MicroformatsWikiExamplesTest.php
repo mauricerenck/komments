@@ -110,10 +110,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
   "type": ["h-card"],
   "properties": {
 	"name": ["Chris Messina"],
-	"photo": [{
-		"value": "http://example.org/pic.jpg",
-		"alt": "Chris Messina"
-	}]
+	"photo": ["http://example.org/pic.jpg"]
   }
 }]}';
 		$parser = new Parser($input, '', true);
@@ -139,10 +136,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
   "properties": {
 	"name": ["Rohit Khare"],
 	"url": ["http://rohit.khare.org/"],
-	"photo": [{
-		"value": "https://s3.amazonaws.com/twitter_production/profile_images/53307499/180px-Rohit-sq_bigger.jpg",
-		"alt": "Rohit Khare"
-	}]
+	"photo": ["https://s3.amazonaws.com/twitter_production/profile_images/53307499/180px-Rohit-sq_bigger.jpg"]
   }
 }]}';
 		$parser = new Parser($input, '', true);
@@ -178,12 +172,7 @@ class MicroformatsWikiExamplesTest extends PHPUnit_Framework_TestCase {
 	"items": [{
 	"type": ["h-card"],
 	"properties": {
-	  "photo": [
-	     {  
-		"value": "https://webfwd.org/content/about-experts/300.mitchellbaker/mentor_mbaker.jpg",
-		"alt": "photo of Mitchell"
-	     }
-	  ],
+	  "photo": ["https://webfwd.org/content/about-experts/300.mitchellbaker/mentor_mbaker.jpg"],
 	  "name": ["Mitchell Baker"],
 	  "url": [
 		"http://blog.lizardwrangler.com/",
