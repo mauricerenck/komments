@@ -25,6 +25,16 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | `form.mastodon.classNames`        | `'button button-tiny button-outlined share komment-share-mastodon'` | add classnames to the mastodon button                                                            |
 
 
+## Notification settings
+
+| Option                                  | Default   | Description                                                 |
+| --------------------------------------- | --------- | ----------------------------------------------------------- |
+| `notifications.cronSecret`              | `''`      | A secret token to secure the cronjobs                       |
+| `notifications.email.enable`            | `false`   | Enables or disables notification of new comments via e-mail |
+| `notifications.email.sender`            | `''`      | E-mail-address for sending notifications                    |
+| `notifications.email.emailReceiverList` | `[]`      | A  list of e-mail-addresses                                 |
+| `notifications.email.notificationMode`  | `instant` | When should the notification be sent: `instant` or `cron`   |
+
 ## Soon deprecated
 
 These options / functions will soon be moved to the IndieConnector plugin.
