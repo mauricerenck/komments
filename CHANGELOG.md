@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/mauricerenck/komments/compare/v1.4.0...v1.5.0) (2021-12-17)
+
+
+### Features
+
+* bump version ([#40](https://github.com/mauricerenck/komments/issues/40)) ([f1c60a4](https://github.com/mauricerenck/komments/commit/f1c60a4e3119db60b5a4665cf267c2fda930ae1c))
+
 # [1.4.0](https://github.com/mauricerenck/komments/compare/v1.3.5...v1.4.0) (2021-11-15)
 
 
