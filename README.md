@@ -21,7 +21,7 @@ Use one of these three methods to install the plugin:
 * [Setting up the panel](docs/panel.md)
 * [Setting up your templates](docs/templates.md)
 * [Receive and send Webmentions](docs/webmentions.md)
-* [Get notifications of new comments](docs/notifications.md)
+* [Get notifications for new comments](docs/notifications.md)
 * [FAQ](docs/faq.md)
 
 ---
