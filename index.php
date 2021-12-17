@@ -18,22 +18,17 @@ use Kirby\Cms\Structure;
 use StdClass;
 use is_null;
 use json_encode;
-use \Exception;
 use \Response;
+use \Throwable;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
 Kirby::plugin('mauricerenck/komments', [
     'areas' => require_once(__DIR__ . '/components/areas.php'),
     'options' => require_once(__DIR__ . '/config/options.php'),
-    'snippets' => [
-        'komments/webmention' => __DIR__ . '/snippets/webmentions-splitted.php',
-        'komments/webmention-splitted' => __DIR__ . '/snippets/webmentions-splitted.php',
-        'komments/kommentform' => __DIR__ . '/snippets/kommentform.php',
-        'komments/type/like' => __DIR__ . '/snippets/mention-type-like.php',
-        'komments/type/reply' => __DIR__ . '/snippets/mention-type-reply.php',
-        'komments/type/repost' => __DIR__ . '/snippets/mention-type-repost.php',
-        'komments/type/mention' => __DIR__ . '/snippets/mention-type-mention.php',
+    'snippets' => require_once(__DIR__ . '/config/snippets.php'),
+    'templates' => [
+        'emails/newcomments' => __DIR__ . '/templates/emails/newComments.php'
     ],
     'blueprints' => [
         'sections/komments' => __DIR__ . '/blueprints/sections/komments.yml'
@@ -73,76 +68,38 @@ Kirby::plugin('mauricerenck/komments', [
             'action' => function () {
                 $headers = kirby()->request()->headers();
                 $formData = kirby()->request()->data();
+                $shouldReturnJson = ($headers['X-Return-Type'] === 'json');
 
                 $kommentReceiver = new KommentReceiver();
                 $kommentModeration = new KommentModeration();
+
                 $targetPage = $kommentReceiver->getPageFromUrl($formData['wmTarget']);
                 $spamlevel = 0;
-                $shouldReturnJson = ($headers['X-Return-Type'] === 'json');
+                $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;
 
                 if (is_null($targetPage)) {
-                    if ($shouldReturnJson) {
-                        $response = [
-                            'status' => 'failed',
-                            'message' => t('mauricerenck.komments.pagenotfound'),
-                        ];
-
-                        return new Response(json_encode($response), 'application/json', 404);
-                    }
-
-                    return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.pagenotfound') . '</p>', 'text/html', 404);
+                    return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.pagenotfound', 404, $shouldReturnJson);
                 }
 
                 if ($kommentReceiver->isSpam($formData)) {
                     if (option('mauricerenck.komments.auto-delete-spam') === true) {
-                        if ($shouldReturnJson) {
-                            $response = [
-                                'status' => 'failed',
-                                'message' => t('mauricerenck.komments.lookslikespam'),
-                            ];
-
-                            return new Response(json_encode($response), 'application/json', 403);
-                        }
-
-                        return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.lookslikespam') . '</p>', 'text/html', 403);
+                        return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.lookslikespam', 403, $shouldReturnJson);
                     } else {
                         $spamlevel = 100;
                     }
                 }
 
-                $webmention = [
-                    'type' => 'KOMMENT',
-                    'target' => $targetPage->url(),
-                    'source' => $targetPage->url(),
-                    'mentionOf' => (!empty($formData['replyTo'])) ? $formData['replyTo'] : null,
-                    'published' => $kommentReceiver->setPublishDate(),
-                    'content' => $formData['komment'],
-                    'quote' => $formData['quote'],
-                    'author' => [
-                        'type' => 'card',
-                        'name' => $kommentReceiver->setAuthorName($formData['author']),
-                        'avatar' => $kommentReceiver->setAvatarFromEmail($formData['email']),
-                        'url' => $kommentReceiver->setUrl($formData['author_url']),
-                    ]
-                ];
+                $webmention = $kommentReceiver->convertToWebmention($formData, $targetPage);
 
                 if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
-                    if ($shouldReturnJson) {
-                        $response = [
-                            'status' => 'failed',
-                            'message' => t('mauricerenck.komments.invalidfieldvalues'),
-                        ];
-
-                        return new Response(json_encode($response), 'application/json', 412);
-                    }
-
-                    return new Response('<h1>' . t('mauricerenck.komments.error') . '</h1><p>' . t('mauricerenck.komments.invalidfieldvalues') . '</p>', 'text/html', 412);
+                    return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.invalidfieldvalues', 412, $shouldReturnJson);
                 }
 
-                $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;
                 $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified);
                 $kommentReceiver->storeData($newEntry, $targetPage);
                 $kommentModeration->addCookieToModerationList($newEntry['id']);
+
+                kirby()->trigger('komments.comment.received', []);
 
                 if ($shouldReturnJson) {
                     $response = [
@@ -156,6 +113,20 @@ Kirby::plugin('mauricerenck/komments', [
                 }
 
                 go($targetPage . '#inModeration');
+            }
+        ],
+        [
+            'pattern' => 'komments/cron/notification/(:any)',
+            'method' => 'GET',
+            'action' => function ($secret) {
+                if (option('mauricerenck.komments.notifications.cronSecret', '') === $secret) {
+                    $notifications = new KommentNotificationUtils();
+                    $notifications->sendNotifications();
+
+                    return new Response('sent', 'text/plain');
+                }
+
+                return new Response('Forbidden', 'text/plain', 401);
             }
         ],
     ]

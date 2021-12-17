@@ -15,6 +15,7 @@ return array(
     'Kirby\\ComposerInstaller\\PluginInstaller' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
     'mauricerenck\\Komments\\KommentBaseUtils' => $baseDir . '/utils/base.php',
     'mauricerenck\\Komments\\KommentModeration' => $baseDir . '/utils/moderation.php',
+    'mauricerenck\\Komments\\KommentNotificationUtils' => $baseDir . '/utils/notifications.php',
     'mauricerenck\\Komments\\KommentReceiver' => $baseDir . '/utils/receiveKomment.php',
     'mauricerenck\\Komments\\MastodonSender' => $baseDir . '/utils/sendMastodon.php',
     'mauricerenck\\Komments\\WebmentionSender' => $baseDir . '/utils/sendWebmention.php',

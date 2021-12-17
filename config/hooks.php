@@ -5,7 +5,7 @@ namespace mauricerenck\Komments;
 use Kirby\Http\Server;
 use Kirby\Data\yaml;
 
-return[
+return [
     'page.update:after' => function ($newPage, $oldPage) {
         $webmentionSender = new WebmentionSender($newPage);
         if (option('mauricerenck.komments.send-mention-on-update', true) && !$newPage->isDraft() && $webmentionSender->templateIsWhitelisted($newPage->intendedTemplate())) {
@@ -50,5 +50,11 @@ return[
         $kommentReceiver = new KommentReceiver();
         $newEntry = $kommentReceiver->createKomment($webmention);
         $kommentReceiver->storeData($newEntry, $targetPage);
+    },
+    'komments.comment.received' => function () {
+        if (option('mauricerenck.komments.notifications.email.notificationMode', 'instant') === 'instant') {
+            $notifications = new KommentNotificationUtils();
+            $notifications->sendNotifications();
+        }
     }
 ];
