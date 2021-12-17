@@ -21,6 +21,25 @@ class KommentReceiver
         ]);
     }
 
+    public function convertToWebmention($formData, $targetPage)
+    {
+        return [
+            'type' => 'KOMMENT',
+            'target' => $targetPage->url(),
+            'source' => $targetPage->url(),
+            'mentionOf' => (!empty($formData['replyTo'])) ? $formData['replyTo'] : null,
+            'published' => $this->setPublishDate(),
+            'content' => $formData['komment'],
+            'quote' => $formData['quote'],
+            'author' => [
+                'type' => 'card',
+                'name' => $this->setAuthorName($formData['author']),
+                'avatar' => $this->setAvatarFromEmail($formData['email']),
+                'url' => $this->setUrl($formData['author_url']),
+            ]
+        ];
+    }
+
     public function createKomment($webmention, $spamlevel = 0, $isVerified = false)
     {
         return [
@@ -141,5 +160,19 @@ class KommentReceiver
         }
 
         return null;
+    }
+
+    public function sendReponseToClient(string $headlineTranslationString, string $messageTranslationString, number $httpCode, boolean $shouldReturnJson)
+    {
+        if ($shouldReturnJson) {
+            $response = [
+                'status' => $headlineTranslationString,
+                'message' => t($messageTranslationString),
+            ];
+
+            return new Response(json_encode($response), 'application/json', $httpCode);
+        }
+
+        return new Response('<h1>' . t($headlineTranslationString) . '</h1><p>' . t($messageTranslationString) . '</p>', 'text/html', $httpCode);
     }
 }

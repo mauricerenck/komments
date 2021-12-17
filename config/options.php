@@ -27,4 +27,13 @@ return [
     'form.submit.classNames' => 'button button-tiny button-primary',
     'form.twitter.classNames' => 'button button-tiny button-outlined share komment-share-twitter',
     'form.mastodon.classNames' => 'button button-tiny button-outlined share komment-share-mastodon',
+    'notifications' => [
+        'cronSecret' => '',
+        'email' => [
+            'enable' => false,
+            'sender' => 'user@domain.tld',
+            'emailReceiverList' => [],
+            'notificationMode' => 'cron'
+        ]
+    ]
 ];
