@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/mauricerenck/komments/compare/v1.5.0...v1.5.1) (2021-12-18)
+
+
+### Bug Fixes
+
+* transform webmention to comment bug when empty mentionOf field ([384711a](https://github.com/mauricerenck/komments/commit/384711a4f74f33d70a12da1ba0a0a6bd612c88bb))
+
 # [1.5.0](https://github.com/mauricerenck/komments/compare/v1.4.0...v1.5.0) (2021-12-17)
 
 
