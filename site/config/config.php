@@ -2,5 +2,18 @@
 
 return [
     'debug' => true,
-    'mauricerenck.komments.auto-disable-komments' => 0,
+    'email' => [
+        'transport' => [
+            'type' => 'smtp',
+            'host' => 'localhost',
+            'port' => 1025,
+            'security' => false
+        ]
+    ],
+    'mauricerenck' => [
+        'komments' => [
+            'auto-delete-spam' => false,
+            'auto-disable-komments' => 0,
+        ]
+    ]
 ];
