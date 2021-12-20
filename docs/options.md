@@ -41,7 +41,7 @@ These options / functions will soon be moved to the IndieConnector plugin.
 
 | Option                        | Default                                     | Description                                                                                              |
 | ----------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `send-mention-on-update`      | `true`                                      | Detect urls in your pages and send webmentions                                                           |
+| `send-mention-on-update`      | `false`                                     | Detect urls in your pages and send webmentions                                                           |
 | `send-limit-to-templates`     | `[]`                                        | An array of template names (strings). When set webmentions will be sent only when this pages are updated |
 | `send-mention-url-fields`     | `['text']`                                  | An array of fieldnames in which the plugin will search for urls                                          |
 | `send-to-mastodon-on-publish` | `false`                                     | Send a post to mastodon when publishing a page                                                           |

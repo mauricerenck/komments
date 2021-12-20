@@ -33,7 +33,7 @@ return [
             'enable' => false,
             'sender' => 'user@domain.tld',
             'emailReceiverList' => [],
-            'notificationMode' => 'cron'
+            'notificationMode' => 'instant'
         ]
     ]
 ];

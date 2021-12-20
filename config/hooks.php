@@ -8,7 +8,7 @@ use Kirby\Data\yaml;
 return [
     'page.update:after' => function ($newPage, $oldPage) {
         $webmentionSender = new WebmentionSender($newPage);
-        if (option('mauricerenck.komments.send-mention-on-update', true) && !$newPage->isDraft() && $webmentionSender->templateIsWhitelisted($newPage->intendedTemplate())) {
+        if (option('mauricerenck.komments.send-mention-on-update', false) && !$newPage->isDraft() && $webmentionSender->templateIsWhitelisted($newPage->intendedTemplate())) {
             $sendWebmention = new WebmentionSender($newPage);
             $sendWebmention->send();
         }
