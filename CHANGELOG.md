@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/mauricerenck/komments/compare/v1.5.1...v1.5.2) (2022-01-25)
+
+
+### Bug Fixes
+
+* php 8 boolean alias no more supported - use bool instead ([5cbca29](https://github.com/mauricerenck/komments/commit/5cbca29b141f76a474f65c4ed5b5c1220c1e239f))
+
 ## [1.5.1](https://github.com/mauricerenck/komments/compare/v1.5.0...v1.5.1) (2021-12-18)
 
 
