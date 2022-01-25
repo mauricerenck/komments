@@ -162,7 +162,7 @@ class KommentReceiver
         return null;
     }
 
-    public function sendReponseToClient(string $headlineTranslationString, string $messageTranslationString, number $httpCode, boolean $shouldReturnJson)
+    public function sendReponseToClient(string $headlineTranslationString, string $messageTranslationString, int $httpCode, bool $shouldReturnJson)
     {
         if ($shouldReturnJson) {
             $response = [
