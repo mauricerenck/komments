@@ -23,41 +23,35 @@
                                 <strong>{{ komment.author }}</strong>
                             </div>
                             <div class="meta">{{ komment.published }} - {{ komment.title }}</div>
-                            <div class="preview">
-                                {{ komment.komment.substr(0, 60) + '&hellip;' }}
+                            <div class="status">
+                                <span v-if="komment.status === false" alt="pending" title="pending" class="badge">
+                                    pending
+                                </span>
+                                <span
+                                    v-else-if="komment.status === true"
+                                    alt="published"
+                                    title="published"
+                                    class="badge blue"
+                                >
+                                    published
+                                </span>
+                                <span
+                                    v-if="komment.verified === true"
+                                    alt="Verified user"
+                                    title="Verified user"
+                                    class="badge green"
+                                >
+                                    verified
+                                </span>
+                                <span
+                                    v-if="komment.spamlevel > 0"
+                                    alt="Possible spam comment"
+                                    title="Possible spam comment"
+                                    class="badge red"
+                                >
+                                    spam
+                                </span>
                             </div>
-                        </div>
-                    </k-column>
-                    <k-column width="2/12"></k-column>
-                    <k-column width="10/12">
-                        <div class="status">
-                            <span v-if="komment.status === false" alt="pending" title="pending" class="badge">
-                                pending
-                            </span>
-                            <span
-                                v-else-if="komment.status === true"
-                                alt="published"
-                                title="published"
-                                class="badge blue"
-                            >
-                                published
-                            </span>
-                            <span
-                                v-if="komment.verified === true"
-                                alt="Verified user"
-                                title="Verified user"
-                                class="badge green"
-                            >
-                                verified
-                            </span>
-                            <span
-                                v-if="komment.spamlevel > 0"
-                                alt="Possible spam comment"
-                                title="Possible spam comment"
-                                class="badge red"
-                            >
-                                spam
-                            </span>
                         </div>
                     </k-column>
                 </k-grid>
@@ -91,7 +85,7 @@ export default {
         .meta {
             color: var(--color-gray-500);
             font-size: var(--text-sm);
-            padding-bottom: var(--spacing-4);
+            padding-bottom: var(--spacing-1);
         }
 
         .badge {
@@ -120,7 +114,9 @@ export default {
         }
 
         .status {
-            padding: var(--spacing-2);
+            span {
+                margin-right: var(--spacing-1);
+            }
         }
 
         .avatar {
@@ -139,12 +135,12 @@ export default {
             border: 1px solid var(--color-border);
             border-radius: var(--rounded);
             cursor: pointer;
-            margin: 0 20px 10px 0;
+            margin: 0 20px 2px 0;
             box-shadow: var(--shadow);
             background-color: var(--color-white);
 
             &.active {
-                margin: 0 10px 10px 10px;
+                position: relative;
                 box-shadow: var(--shadow-lg);
                 background-color: var(--color-gray-200);
                 border-color: var(--color-blue);

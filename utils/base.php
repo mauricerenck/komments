@@ -135,7 +135,7 @@ class KommentBaseUtils
                             'id' => $komment['id'],
                             'slug' => $item->id(),
                             'author' => $komment['author'],
-                            'komment' => $komment['komment'],
+                            'komment' => kirbytext(nl2br(html($komment['komment']))),
                             'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                             'image' => $komment['avatar'],
                             'title' => (string) $item->title(),

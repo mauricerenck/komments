@@ -2,9 +2,11 @@
     <k-inside>
         <k-view class="k-komments-view">
             <k-header>Komments</k-header>
+            <KommentVersion :version="version" />
 
             <k-grid gutter="medium">
-                <k-column width="3/4">
+                <k-column width="1/3"> </k-column>
+                <k-column width="1/1">
                     <div v-if="kommentList.length === 0" class="so-empty">
                         <NoKomments />
                         <div>
@@ -16,14 +18,14 @@
                     </div>
 
                     <k-grid v-else>
-                        <k-column width="1/2" class="komment-list">
+                        <k-column width="1/3" class="komment-list">
                             <KommentList
                                 :queuedKomments="kommentList"
                                 :onSelectKomment="selectKomment"
                                 :selectedKomment="this.selectedKomment"
                             />
                         </k-column>
-                        <k-column width="1/2" class="komment-details">
+                        <k-column width="2/3" class="komment-details">
                             <KommentDetails
                                 :komment="this.selectedKomment"
                                 :onMarkAsSpam="this.onMarkAsSpam"
@@ -33,10 +35,6 @@
                             />
                         </k-column>
                     </k-grid>
-                </k-column>
-
-                <k-column width="1/4">
-                    <KommentVersion :version="version" />
                 </k-column>
             </k-grid>
         </k-view>
@@ -105,6 +103,8 @@ export default {
             this.kommentList = this.kommentList.filter((entry) => {
                 return entry.id !== this.selectedKomment.id
             })
+
+            this.selectedKomment = this.kommentList[0]
         },
     },
 }

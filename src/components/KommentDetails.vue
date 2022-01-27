@@ -2,10 +2,10 @@
     <div class="komment-moderation">
         <div v-if="komment.id">
             <k-grid gutter="medium">
-                <k-column width="2/12" class="avatar">
+                <k-column width="1/12" class="avatar">
                     <img :src="komment.image" v-if="komment.image" />
                 </k-column>
-                <k-column width="10/12" class="komment-info">
+                <k-column width="11/12" class="komment-info">
                     <div>
                         <strong>{{ komment.author }}</strong>
                     </div>
@@ -18,56 +18,59 @@
                 <k-bar>
                     <template slot="left">
                         <k-button
-                            v-if="komment.verified === true"
-                            theme="positive"
-                            icon="toggle-on"
-                            v-on:click="markAsVerified(komment.slug, komment.id, false)"
-                        >
-                            Verified
-                        </k-button>
-                        <k-button
-                            v-else
-                            icon="toggle-off"
-                            v-bind:disabled="komment.spamlevel > 0"
-                            v-on:click="markAsVerified(komment.slug, komment.id, true)"
-                        >
-                            Verified
-                        </k-button>
-
-                        <k-button
-                            v-if="komment.spamlevel === 0"
-                            v-on:click="markAsSpam(komment.slug, komment.id, true)"
-                            icon="toggle-off"
-                        >
-                            Spam
-                        </k-button>
-                        <k-button
-                            v-else
-                            theme="negative"
-                            v-on:click="markAsSpam(komment.slug, komment.id, false)"
-                            icon="toggle-on"
-                        >
-                            Spam
-                        </k-button>
-
-                        <k-button
                             v-if="komment.status === true"
                             class="publish"
                             theme="positive"
-                            icon="toggle-on"
+                            icon="check"
                             v-on:click="publish(komment.slug, komment.id, false)"
                         >
                             Published
                         </k-button>
                         <k-button
-                            v-else
+                            v-else-if="komment.status === false"
                             class="publish"
                             v-bind:disabled="komment.spamlevel > 0"
-                            icon="toggle-off"
+                            icon="protected"
                             v-on:click="publish(komment.slug, komment.id, true)"
                         >
                             Published
                         </k-button>
+                        <k-button v-else icon="clock" v-bind:disabled="true"> Published </k-button>
+
+                        <k-button
+                            v-if="komment.verified === true"
+                            theme="positive"
+                            icon="check"
+                            v-on:click="markAsVerified(komment.slug, komment.id, false)"
+                        >
+                            Verified user
+                        </k-button>
+                        <k-button
+                            v-else-if="komment.verified === false"
+                            icon="protected"
+                            v-bind:disabled="komment.spamlevel > 0"
+                            v-on:click="markAsVerified(komment.slug, komment.id, true)"
+                        >
+                            Verified user
+                        </k-button>
+                        <k-button v-else icon="clock" v-bind:disabled="true"> Verified user </k-button>
+
+                        <k-button
+                            v-if="komment.spamlevel === 0"
+                            v-on:click="markAsSpam(komment.slug, komment.id, true)"
+                            icon="protected"
+                        >
+                            Marked as spam
+                        </k-button>
+                        <k-button
+                            v-else-if="komment.spamlevel > 0"
+                            theme="negative"
+                            v-on:click="markAsSpam(komment.slug, komment.id, false)"
+                            icon="check"
+                        >
+                            Marked as spam
+                        </k-button>
+                        <k-button v-else icon="clock" v-bind:disabled="true"> Marked as spam </k-button>
                     </template>
                     <template slot="right">
                         <k-button theme="negative" icon="trash" @click="$refs.deleteDialog.open()"> Delete </k-button>
@@ -84,7 +87,7 @@
                     </template>
                 </k-bar>
             </div>
-            <div class="text">{{ komment.komment }}</div>
+            <div class="text" v-html="komment.komment"></div>
         </div>
     </div>
 </template>
@@ -100,6 +103,8 @@ export default {
     },
     methods: {
         markAsSpam(pageSlug, kommentId, isSpam) {
+            this.komment.spamlevel = null
+
             this.$api
                 .post('komments/spam', {
                     pageSlug: pageSlug,
@@ -111,6 +116,7 @@ export default {
                 })
         },
         markAsVerified(pageSlug, kommentId, isVerified) {
+            this.komment.verified = null
             this.$api
                 .post('komments/verify', {
                     pageSlug: pageSlug,
@@ -122,6 +128,8 @@ export default {
                 })
         },
         publish(pageSlug, kommentId, isPublished) {
+            this.komment.status = null
+
             this.$api
                 .post('komments/publish', {
                     pageSlug: pageSlug,
@@ -142,6 +150,9 @@ export default {
                     this.onDelete()
                     ref.deleteDialog.close()
                 })
+        },
+        nl2br(kommentText) {
+            return kommentText.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2')
         },
     },
 }
@@ -173,7 +184,11 @@ export default {
         background-color: var(--color-gray-100);
 
         .k-button {
-            margin-right: 0.5em;
+            margin-right: 1.75em;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
 
         .k-bar-slot[data-position='right'] {
@@ -183,6 +198,10 @@ export default {
 
     .text {
         padding: var(--spacing-2);
+
+        a {
+            color: var(--color-negative);
+        }
     }
 }
 </style>
