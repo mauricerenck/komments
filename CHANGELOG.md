@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/mauricerenck/komments/compare/v1.5.2...v1.6.0) (2022-01-27)
+
+
+### Features
+
+* panel ui refinements ([6ebe3b9](https://github.com/mauricerenck/komments/commit/6ebe3b941ddbca5dcb4aa9a11eada0efd659146d))
+
 ## [1.5.2](https://github.com/mauricerenck/komments/compare/v1.5.1...v1.5.2) (2022-01-25)
 
 
