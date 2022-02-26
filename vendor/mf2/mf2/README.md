@@ -1,6 +1,6 @@
 # php-mf2
 
-[![Build Status](https://travis-ci.org/microformats/php-mf2.png?branch=master)](http://travis-ci.org/microformats/php-mf2)
+[![Latest Stable Version](http://poser.pugx.org/mf2/mf2/v)](https://packagist.org/packages/mf2/mf2) [![Total Downloads](http://poser.pugx.org/mf2/mf2/downloads)](https://packagist.org/packages/mf2/mf2) [![Latest Unstable Version](http://poser.pugx.org/mf2/mf2/v/unstable)](https://packagist.org/packages/mf2/mf2) [![License](http://poser.pugx.org/mf2/mf2/license)](https://packagist.org/packages/mf2/mf2) [![PHP Version Require](http://poser.pugx.org/mf2/mf2/require/php)](https://packagist.org/packages/mf2/mf2)<a href="https://github.com/microformats/php-mf2/actions/workflows/main.yml"><img src="https://github.com/microformats/php-mf2/actions/workflows/main.yml/badge.svg?branch=main" alt="" /></a> 
 
 php-mf2 is a pure, generic [microformats-2](http://microformats.org/wiki/microformats-2) parser. It makes HTML as easy to consume as JSON.
 
@@ -8,7 +8,7 @@ Instead of having a hard-coded list of all the different microformats, it follow
 
 ## Installation
 
-There are two ways of installing php-mf2. I **highly recommend** installing php-mf2 using [Composer](http://getcomposer.org). The rest of the documentation assumes that you have done so.
+There are two ways of installing php-mf2. We **highly recommend** installing php-mf2 using [Composer](http://getcomposer.org). The rest of the documentation assumes that you have done so.
 
 To install using Composer, run
 
@@ -323,7 +323,7 @@ In previous versions of php-mf2 you could also add your own class mappings — o
 Some tips:
 
 * All content apart from the 'html' key in dictionaries produced by parsing an `e-*` property is not HTML-escaped. For example, `<span class="p-name">&lt;code&gt;</span>` will result in `"name": ["<code>"]`. At the very least, HTML-escape all properties before echoing them out in HTML
-* If you’re using the raw HTML content under the 'html' key of dictionaries produced by parsing `e-*` properties, you SHOULD purify the HTML before displaying it to prevent injection of arbitrary code. For PHP I recommend using [HTML Purifier](http://htmlpurifier.org)
+* If you’re using the raw HTML content under the 'html' key of dictionaries produced by parsing `e-*` properties, you SHOULD purify the HTML before displaying it to prevent injection of arbitrary code. For PHP we recommend using [HTML Purifier](http://htmlpurifier.org)
 
 TODO: move this section to a security/consumption best practises page on the wiki
 
@@ -331,19 +331,20 @@ TODO: move this section to a security/consumption best practises page on the wik
 
 Issues and bug reports are very welcome. If you know how to write tests then please do so as code always expresses problems and intent much better than English, and gives me a way of measuring whether or not fixes have actually solved your problem. If you don’t know how to write tests, don’t worry :) Just include as much useful information in the issue as you can.
 
-Pull requests very welcome, please try to maintain stylistic, structural and naming consistency with the existing codebase, and don’t be too upset if I make naming changes :)
+Pull requests very welcome, please try to maintain stylistic, structural and naming consistency with the existing codebase, and don’t be too upset if we make naming changes :)
 
 ### How to make a Pull Request
 
 1. Fork the repo to your github account
 2. Clone a copy to your computer (simply installing php-mf2 using composer only works for using it, not developing it)
-3. Install the dev dependencies with `./composer.phar install`
-4. Run PHPUnit with `./vendor/bin/phpunit`
-5. Make your changes
+3. Install the dev dependencies with `composer install`.
+4. Run PHPUnit with `composer phpunit`
+5. Check PHP Compatibility with the current minimum version supported (`composer phpcs`)
 6. Add PHPUnit tests for your changes, either in an existing test file if suitable, or a new one
-7. Make sure your tests pass (`./vendor/bin/phpunit`), using 5.4+
-8. Go to your fork of the repo on github.com and make a pull request, preferably with a short summary, detailed description and references to issues/parsing specs as appropriate
-9. Bask in the warm feeling of having contributed to a piece of free software
+7. Make your changes
+8. Make sure your tests pass (`composer phpunit`)
+9. Go to your fork of the repo on github.com and make a pull request, preferably with a short summary, detailed description and references to issues/parsing specs as appropriate
+10. Bask in the warm feeling of having contributed to a piece of free software
 
 ### Testing
 
@@ -354,6 +355,20 @@ The other, in `tests/test-suite`, is a custom test harness which hooks up php-mf
 Currently php-mf2 passes the majority of it’s own test case, and a good percentage of the cross-platform tests. Contributors should ALWAYS test against the PHPUnit suite to ensure any changes don’t negatively impact php-mf2, and SHOULD run the cross-platform suite, especially if you’re changing parsing behaviour.
 
 ### Changelog
+
+#### v0.5.0
+
+Breaking change: bumped minimum PHP version from 5.4 to 5.6 ([#220](https://github.com/microformats/php-mf2/issues/220))
+
+Other changes:
+
+* [#195](https://github.com/microformats/php-mf2/issues/195) Fix backcompat parsing for geo property
+* [#182](https://github.com/microformats/php-mf2/issues/182) Fix parsing for iframe.u-*\[src]
+* [#214](https://github.com/microformats/php-mf2/issues/214) parse an img element for src and alt
+* [#206](https://github.com/microformats/php-mf2/issues/206) Add optional ID for h-* elements
+* [#198](https://github.com/microformats/php-mf2/issues/198) reduce instances where photo is implied
+* Internal: switched from Travis to Github Actions for CI
+* Internal: renamed master branch to main
 
 #### v0.4.6
 

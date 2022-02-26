@@ -20,7 +20,7 @@ Use one of these three methods to install the plugin:
 * [How to configure the plugin](docs/options.md)
 * [Setting up the panel](docs/panel.md)
 * [Setting up your templates](docs/templates.md)
-* [Receive and send Webmentions](docs/webmentions.md)
+* [Receive Webmentions](docs/webmentions.md)
 * [Get notifications for new comments](docs/notifications.md)
 * [FAQ](docs/faq.md)
 
@@ -38,7 +38,8 @@ Use one of these three methods to install the plugin:
   - Disable/enable comments per page
 - Disable comments after a certain number of days in relation to the publish date
 - Reply to comments
-- Verified badge for logged in users
+- Verified badge for logged in users 
+- Automatically publish comments of verified users
 - E-Mail notifications for new comments (instant or via cronjob)
 
 
@@ -56,15 +57,17 @@ Use one of these three methods to install the plugin:
 - [x] Switch to KirbyUp
 - [ ] Reply from within panel
 - [ ] Comments list on page level
-- [ ] Move "send to mastodon" to IndieConnector
-- [ ] Move "ping archive.org" to IndieConnector
-- [ ] Move "send webmentions" to IndieConnector
+- [x] Move "send to mastodon" to IndieConnector
+- [x] Move "ping archive.org" to IndieConnector
+- [x] Move "send webmentions" to IndieConnector
 - [ ] Mark webmentions from known users as verified
 
 ---
 
-## Soon Deprecated
+## DEPRECATED
 
 - Send webmentions
 - Send updates to Mastodon
 - Ping archive.org
+
+Please use the [IndieConnector Plugin](https://github.com/mauricerenck/indieConnector) in addition to send webmentions
