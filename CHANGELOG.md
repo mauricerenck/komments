@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/mauricerenck/komments/compare/v1.6.0...v1.7.0) (2022-02-26)
+
+
+### Features
+
+* DEPRECATED removed sending webmentions ([#44](https://github.com/mauricerenck/komments/issues/44)) ([7d31fdb](https://github.com/mauricerenck/komments/commit/7d31fdb01e0791b78d4c4f5a77ea72fd5703a209))
+
 # [1.6.0](https://github.com/mauricerenck/komments/compare/v1.5.2...v1.6.0) (2022-01-27)
 
 
