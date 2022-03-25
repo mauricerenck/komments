@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/mauricerenck/komments/compare/v1.7.0...v1.8.0) (2022-03-25)
+
+
+### Features
+
+* auto publish comments of verified users ([de0e17c](https://github.com/mauricerenck/komments/commit/de0e17caa2f0126a240e2738a942ee52d7128b79))
+
 # [1.7.0](https://github.com/mauricerenck/komments/compare/v1.6.0...v1.7.0) (2022-02-26)
 
 
