@@ -75,7 +75,6 @@ Kirby::plugin('mauricerenck/komments', [
 
                 $targetPage = $kommentReceiver->getPageFromUrl($formData['wmTarget']);
                 $spamlevel = 0;
-                $isVerified = (!is_null(kirby()->user())) ? kirby()->user()->isLoggedIn() : false;
 
                 if (is_null($targetPage)) {
                     return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.pagenotfound', 404, $shouldReturnJson);
@@ -90,6 +89,7 @@ Kirby::plugin('mauricerenck/komments', [
                 }
 
                 $webmention = $kommentReceiver->convertToWebmention($formData, $targetPage);
+                $isVerified = $kommentReceiver->isVerified($formData['email']);
 
                 if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
                     return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.invalidfieldvalues', 412, $shouldReturnJson);

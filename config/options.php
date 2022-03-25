@@ -5,6 +5,7 @@ return [
     'enable-webmention-support' => true,
     'webmention-auto-publish' => true,
     'komment-auto-publish' => false,
+    'auto-publish-verified' => true,
     'auto-delete-spam' => false,
     'auto-disable-komments' => 0,
     'auto-disable-komments-datefield' => 'date',

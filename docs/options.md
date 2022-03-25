@@ -13,7 +13,7 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | `enable-webmention-support`       | `true`   | Listen to Webmentions and save them as komment                                                   |
 | `webmention-auto-publish`         | `true`   | When you receive a webmention set status to published                                            |
 | `komment-auto-publish`            | `false`  | When you receive a komment set status to published                                               |
-| `auto-publish-verified`           | `false`  | New comments by verified users are automatically published                                       |
+| `auto-publish-verified`           | `true`   | New comments by verified users are automatically published                                       |
 | `auto-delete-spam`                | `true`   | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM |
 | `auto-disable-komments`           | `0`      | Disables the komment form after `n` number of days. Use `0` to never disable komments (default)  |
 | `auto-disable-komments-datefield` | `'date'` | Set a field to function as publish date field used for `auto-disable-komments`                   |

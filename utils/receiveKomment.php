@@ -55,7 +55,7 @@ class KommentReceiver
             'komment' => $this->setKomment($webmention['content']),
             'quote' => (isset($webmention['quote'])) ? $this->setKomment($webmention['quote']) : null,
             'kommentType' => $webmention['type'],
-            'status' => $this->setStatus($webmention['type']),
+            'status' => $this->setStatus($webmention['type'], $isVerified),
             'spamlevel' => $spamlevel,
             'verified' => $isVerified
         ];
@@ -109,6 +109,23 @@ class KommentReceiver
         return false;
     }
 
+    public function isVerified($email)
+    {
+        if (!is_null(kirby()->user()) && kirby()->user()->isLoggedIn()) {
+            return true;
+        }
+
+        if (!V::email($email)) {
+            return false;
+        }
+
+        if (!is_null(kirby()->users()->findByKey($email))) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function setUrl($url)
     {
         if (V::url($url)) {
@@ -127,11 +144,17 @@ class KommentReceiver
         return Str::unhtml($komment);
     }
 
-    public function setStatus($type)
+    public function setStatus($type, $isVerified)
     {
-        if ($type === 'KOMMENT' && option('mauricerenck.komments.komment-auto-publish')) {
+        if ($type === 'KOMMENT' && option('mauricerenck.komments.komment-auto-publish', false)) {
             return true;
-        } elseif ($type !== 'KOMMENT' && option('mauricerenck.komments.webmention-auto-publish')) {
+        }
+
+        if ($type === 'KOMMENT' && $isVerified && option('mauricerenck.komments.auto-publish-verified', true)) {
+            return true;
+        }
+
+        if ($type !== 'KOMMENT' && option('mauricerenck.komments.webmention-auto-publish', false)) {
             return true;
         }
 
