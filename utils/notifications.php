@@ -28,7 +28,8 @@ class KommentNotificationUtils
         }
 
         $receipients = option('mauricerenck.komments.notifications.email.emailReceiverList', []);
-        $panelUrl = site()->panelUrl() . '/komments';
+        $panelUrl = site()->url() . '/panel/komments';
+
         $pendingCommentsCount = count($this->pendingComments);
 
         if ($pendingCommentsCount > 0) {
