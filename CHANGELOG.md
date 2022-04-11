@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/mauricerenck/komments/compare/v1.8.0...v1.8.1) (2022-04-11)
+
+
+### Bug Fixes
+
+* panel url in mail notification ([c63bcd2](https://github.com/mauricerenck/komments/commit/c63bcd22068726ad1f013a01ebe06e4911fde989))
+
 # [1.8.0](https://github.com/mauricerenck/komments/compare/v1.7.0...v1.8.0) (2022-03-25)
 
 
