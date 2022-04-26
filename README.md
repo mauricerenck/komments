@@ -24,6 +24,7 @@ Use one of these three methods to install the plugin:
 * [Get notifications for new comments](docs/notifications.md)
 * [FAQ](docs/faq.md)
 
+
 ---
 ## Features
 
