@@ -6,11 +6,21 @@
                     <img :src="komment.image" v-if="komment.image" />
                 </k-column>
                 <k-column width="11/12" class="komment-info">
-                    <div>
+                    <div class="author-short">
                         <strong>{{ komment.author }}</strong>
+                        <k-link
+                            :to="komment.authorUrl"
+                            :title="komment.authorUrl"
+                            target="_blank"
+                            v-if="komment.authorUrl"
+                        >
+                            <k-icon type="url" />
+                        </k-link>
                     </div>
                     <div class="meta">{{ komment.published }}</div>
-                    <div class="meta">{{ komment.title }}</div>
+                    <div class="meta">
+                        <k-link :to="komment.url" :title="komment.url">{{ komment.title }}</k-link>
+                    </div>
                 </k-column>
             </k-grid>
 
@@ -170,6 +180,13 @@ export default {
         img {
             width: 60px;
             border-radius: var(--rounded);
+        }
+    }
+
+    .author-short {
+        .k-icon {
+            display: inline-block;
+            margin-left: 0.5em;
         }
     }
 
