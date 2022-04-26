@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/mauricerenck/komments/compare/v1.8.1...v1.8.2) (2022-04-26)
+
+
+### Bug Fixes
+
+* bump version ([63096e1](https://github.com/mauricerenck/komments/commit/63096e12f7865c8dfc67fbeb5474ea3c346b1e56))
+
 ## [1.8.1](https://github.com/mauricerenck/komments/compare/v1.8.0...v1.8.1) (2022-04-11)
 
 
