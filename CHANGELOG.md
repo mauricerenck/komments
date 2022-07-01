@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/mauricerenck/komments/compare/v1.9.0...v1.9.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* some code cleanup ([289b2b0](https://github.com/mauricerenck/komments/commit/289b2b0b5ed68dcdec7110931e8cc75a9aeaaec4))
+
 # [1.9.0](https://github.com/mauricerenck/komments/compare/v1.8.2...v1.9.0) (2022-07-01)
 
 
