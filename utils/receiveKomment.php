@@ -5,6 +5,7 @@ namespace mauricerenck\Komments;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 use Kirby\Data\yaml;
+use Kirby\Http\Response;
 
 class KommentReceiver
 {
