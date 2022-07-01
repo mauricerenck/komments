@@ -34,6 +34,7 @@ Use one of these three methods to install the plugin:
 - Receive webmentions (using an additional plugin)
 - Panel support
   - Dashboard for comments in moderation/spam
+  - Support for Kirby stats
   - Moderate comments on the panel page
   - Disable/enable comments per page
 - Disable comments after a certain number of days in relation to the publish date

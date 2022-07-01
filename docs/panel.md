@@ -23,7 +23,29 @@ Add this to every blueprint you wish to enable komments on. This will allow you 
 ![komment section](../doc-assets/komment-section.png)
 
 
-### Show number of pending Komments in Panel
+## Show number of pending Komments in Kirby Panel Stats
+
+Kirby 3.7 introduced the Panel Stats sections which allow you to build a little dashboard and show keymetrics. You can use this to show pending comments:
+
+```
+sections:
+  stats:
+    type: stats
+    reports:
+      - label: Pending Comments
+        value: "{{ site.numberOfPendingComments }}"
+        info: "Possible spam: {{ site.numberOfSpamComments }}"
+        link: https://getkirby.com/shop
+        theme: negative
+```
+
+![komment section](../doc-assets/komment-stats.png)
+
+To get the number of pending comments use the site method `numberOfPendingComments`. To get pending comments marked as spam use `numberOfSpamComments`
+
+To learn more about Kirby stats, please have a look here: https://getkirby.com/docs/reference/panel/sections/stats
+
+## Show number of pending Komments in Panel
 
 If you want to have the number of pending komments in view, you can add the `kommentsPending` panel field wherever you want. It's refreshing every minute, so you won't miss a new Komment. Just add the field to the blueprint:
 
@@ -38,5 +60,4 @@ You could add it to your site.yml blueprint so you see the number of pending Kom
 
 ![komment section](../doc-assets/komments-pending.png)
 
----
 
