@@ -140,7 +140,7 @@ class KommentBaseUtils
                             'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                             'image' => $komment['avatar'],
                             'title' => (string) $item->title(),
-                            'url' => $item->panelUrl(),
+                            'url' => $item->panel()->url(),
                             'published' => date('Y-m-d H:i', strtotime($komment['published'])),
                             'verified' => ($komment['verified'] === true || $komment['verified'] === 'true') ? true : false,
                             'spamlevel' => $komment['spamlevel'],
@@ -156,6 +156,43 @@ class KommentBaseUtils
         });
 
         return $pendingKomments;
+    }
+
+    public function getPendingCommentCount(): int
+    {
+        $collection = site()->index();
+        $pendingKomments = 0;
+
+        foreach ($collection as $item) {
+            if ($item->kommentsInbox()->isNotEmpty()) {
+                foreach ($item->kommentsInbox()->yaml() as $komment) {
+                    if (($komment['status'] === 'false' || $komment['status'] === false)) {
+                        $pendingKomments++;
+                    }
+                }
+            }
+        }
+
+        return $pendingKomments;
+    }
+
+    public function getSpamCommentCount(): int
+    {
+        $collection = site()->index();
+        $spamComments = 0;
+
+        foreach ($collection as $item) {
+            if ($item->kommentsInbox()->isNotEmpty()) {
+                foreach ($item->kommentsInbox()->yaml() as $komment) {
+                    $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
+                    if ($komment['spamlevel'] > 0) {
+                        $spamComments++;
+                    }
+                }
+            }
+        }
+
+        return $spamComments;
     }
 
     private function transformToReply($komment)

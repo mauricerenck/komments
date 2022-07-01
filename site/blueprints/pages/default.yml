@@ -16,5 +16,16 @@ tabs:
                 type: kommentsPending
                 label: Pending Komments
   testtab:
-    label: TEST TAB
+    label: Stats
     icon: text
+    sections:
+      stats:
+        type: stats
+        # Available size options: small, medium, large, huge. Default is large
+        size: huge
+        reports:
+          - label: Pending Comments
+            value: "{{ site.numberOfPendingComments }}"
+            info: "Possible spam: {{ site.numberOfSpamComments }}"
+            link: https://getkirby.com/shop
+            theme: negative
