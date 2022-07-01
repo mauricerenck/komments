@@ -137,7 +137,7 @@ class KommentReceiver
 
     public function setKomment($komment)
     {
-        if (Str::isURL($komment)) {
+        if (V::url($komment)) {
             return null;
         }
 

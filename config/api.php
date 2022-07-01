@@ -36,7 +36,7 @@ return [
                                     'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
-                                    'url' => $item->panelUrl(),
+                                    'url' => $item->panel()->url(),
                                 ];
                             }
                         }
@@ -65,7 +65,7 @@ return [
                                     'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
                                     'image' => $komment['avatar'],
                                     'title' => (string) $item->title(),
-                                    'url' => $item->panelUrl(),
+                                    'url' => $item->panel()->url(),
                                 ];
                             }
                         }

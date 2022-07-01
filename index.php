@@ -57,6 +57,16 @@ Kirby::plugin('mauricerenck/komments', [
             return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
         },
     ],
+    'siteMethods' => [
+        'numberOfPendingComments' => function () {
+            $kommentBaseUtils = new KommentBaseUtils();
+            return $kommentBaseUtils->getPendingCommentCount();
+        },
+        'numberOfSpamComments' => function () {
+            $kommentBaseUtils = new KommentBaseUtils();
+            return $kommentBaseUtils->getSpamCommentCount();
+        }
+    ],
     'fields' => require_once(__DIR__ . '/components/fields.php'),
     'translations' => require_once(__DIR__ . '/config/translations.php'),
     'api' => require_once(__DIR__ . '/config/api.php'),

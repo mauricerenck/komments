@@ -73,4 +73,22 @@ final class UtilsBaseTest extends TestCase
         $baseUtils = new KommentBaseUtils();
         $this->assertEquals(0, $baseUtils->kommentsAreExpired($pageMock));
     }
+
+    public function testReturnCommentCount()
+    {
+        $pageMock = $this->getMockBuilder(Page::class)
+            ->enableProxyingToOriginalMethods();
+
+        $baseUtils = new KommentBaseUtils();
+        $this->assertEquals(3, $baseUtils->getPendingCommentCount());
+    }
+
+    public function testReturnSpamCommentCount()
+    {
+        $pageMock = $this->getMockBuilder(Page::class)
+            ->enableProxyingToOriginalMethods();
+
+        $baseUtils = new KommentBaseUtils();
+        $this->assertEquals(1, $baseUtils->getSpamCommentCount());
+    }
 }

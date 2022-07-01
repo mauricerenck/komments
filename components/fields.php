@@ -11,8 +11,8 @@ return [
         'props' => [
             'queuedComments' => function () {
                 $kommentUtils = new KommentBaseUtils();
-                $pendingComments = $kommentUtils->getPendingKomments();
-                return count($pendingComments);
+                $pendingComments = $kommentUtils->getPendingCommentCount();
+                return $pendingComments;
             },
         ]
     ],
