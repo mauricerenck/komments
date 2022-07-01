@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/mauricerenck/komments/compare/v1.8.2...v1.9.0) (2022-07-01)
+
+
+### Features
+
+* support for kirby 3.7 stats sections ([961d857](https://github.com/mauricerenck/komments/commit/961d857f563400d920cadab187db086ef38960cf))
+
 ## [1.8.2](https://github.com/mauricerenck/komments/compare/v1.8.1...v1.8.2) (2022-04-26)
 
 
