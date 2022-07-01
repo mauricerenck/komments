@@ -2,11 +2,8 @@
 
 namespace mauricerenck\Komments;
 
-use mauricerenck\Komments\KommentBaseUtils;
 use mauricerenck\Komments\KommentModeration;
 use mauricerenck\Komments\KommentReceiver;
-use mauricerenck\Komments\MastodonSender;
-use mauricerenck\Komments\WebmentionSender;
 use Kirby;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\F;
@@ -15,10 +12,10 @@ use Kirby\Http\Server;
 use Kirby\Data\Data;
 use Kirby\Data\yaml;
 use Kirby\Cms\Structure;
+use Kirby\Http\Response;
 use StdClass;
 use is_null;
 use json_encode;
-use \Response;
 use \Throwable;
 
 @include_once __DIR__ . '/vendor/autoload.php';
@@ -26,51 +23,19 @@ use \Throwable;
 Kirby::plugin('mauricerenck/komments', [
     'areas' => require_once(__DIR__ . '/components/areas.php'),
     'options' => require_once(__DIR__ . '/config/options.php'),
-    'snippets' => require_once(__DIR__ . '/config/snippets.php'),
+    'snippets' => require_once(__DIR__ . '/components/snippets.php'),
     'templates' => [
         'emails/newcomments' => __DIR__ . '/templates/emails/newComments.php'
     ],
     'blueprints' => [
         'sections/komments' => __DIR__ . '/blueprints/sections/komments.yml'
     ],
-    'pageMethods' => [
-        'kommentCount' => function () {
-            $count = 0;
-            foreach ($this->kommentsInbox()->yaml() as $komment) {
-                if ($komment['status'] !== 'false' && $komment['status'] !== false) {
-                    $count++;
-                }
-            }
-            return $count;
-        },
-        'hasQueuedKomments' => function ($kommentId, $kommenStatus) {
-            $kommentModeration = new KommentModeration();
-            return $kommentModeration->pageHasQueuedKomments($kommentId, $kommenStatus);
-        },
-        'kommentsAreEnabled' => function () {
-            $kommentBaseUtils = new KommentBaseUtils();
-
-            if ($kommentBaseUtils->kommentsAreExpired($this)) {
-                return false;
-            }
-
-            return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
-        },
-    ],
-    'siteMethods' => [
-        'numberOfPendingComments' => function () {
-            $kommentBaseUtils = new KommentBaseUtils();
-            return $kommentBaseUtils->getPendingCommentCount();
-        },
-        'numberOfSpamComments' => function () {
-            $kommentBaseUtils = new KommentBaseUtils();
-            return $kommentBaseUtils->getSpamCommentCount();
-        }
-    ],
+    'pageMethods' => require_once(__DIR__ . '/components/page-methods.php'),
+    'siteMethods' => require_once(__DIR__ . '/components/site-methods.php'),
     'fields' => require_once(__DIR__ . '/components/fields.php'),
     'translations' => require_once(__DIR__ . '/config/translations.php'),
-    'api' => require_once(__DIR__ . '/config/api.php'),
-    'hooks' => require_once(__DIR__ . '/config/hooks.php'),
+    'api' => require_once(__DIR__ . '/components/api.php'),
+    'hooks' => require_once(__DIR__ . '/components/hooks.php'),
     'routes' => [
         [
             'pattern' => 'komments/send',
