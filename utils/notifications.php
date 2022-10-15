@@ -7,7 +7,7 @@ use json_decode;
 use in_array;
 use Structure;
 use f;
-use Kirby\Http\Remote;
+
 
 class KommentNotificationUtils
 {

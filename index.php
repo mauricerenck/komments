@@ -8,7 +8,6 @@ use Kirby;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\F;
 use Kirby\Http\Url;
-use Kirby\Http\Server;
 use Kirby\Data\Data;
 use Kirby\Data\yaml;
 use Kirby\Cms\Structure;

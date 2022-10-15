@@ -2,9 +2,6 @@
 
 namespace mauricerenck\Komments;
 
-use Kirby\Http\Server;
-use Kirby\Data\yaml;
-
 return [
     'tratschtante.webhook.received' => function ($webmention, $targetPage) {
         if (!option('mauricerenck.komments.enable-webmention-support')) {
