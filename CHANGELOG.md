@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/mauricerenck/komments/compare/v1.9.1...v1.10.0) (2022-10-15)
+
+
+### Features
+
+* kirby 3.8 removed deprecated server ([bfb18d9](https://github.com/mauricerenck/komments/commit/bfb18d9f5199845ef4668fe6d25b3b1cb8ac556c))
+
 ## [1.9.1](https://github.com/mauricerenck/komments/compare/v1.9.0...v1.9.1) (2022-07-01)
 
 
