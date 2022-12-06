@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/mauricerenck/komments/compare/v1.10.0...v1.11.0) (2022-12-06)
+
+
+### Features
+
+* autopublish comments of configured email addresses ([b7ac409](https://github.com/mauricerenck/komments/commit/b7ac409ebfba5d04a815e5b50be36c4c8895f25f))
+
 # [1.10.0](https://github.com/mauricerenck/komments/compare/v1.9.1...v1.10.0) (2022-10-15)
 
 
