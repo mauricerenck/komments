@@ -41,6 +41,7 @@ Use one of these three methods to install the plugin:
 - Reply to comments
 - Verified badge for logged in users 
 - Automatically publish comments of verified users
+- Automatically publish comments of specified users
 - E-Mail notifications for new comments (instant or via cronjob)
 
 

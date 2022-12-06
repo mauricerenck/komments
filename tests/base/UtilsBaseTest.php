@@ -2,7 +2,6 @@
 use mauricerenck\Komments\KommentBaseUtils;
 use PHPUnit\Framework\TestCase;
 use Kirby\Cms;
-use c;
 
 final class UtilsBaseTest extends TestCase
 {

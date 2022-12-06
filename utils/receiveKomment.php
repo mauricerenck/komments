@@ -41,8 +41,10 @@ class KommentReceiver
         ];
     }
 
-    public function createKomment($webmention, $spamlevel = 0, $isVerified = false)
+    public function createKomment($webmention, $spamlevel = 0, $isVerified = false, $autoPublish = false)
     {
+        $publishComments = $isVerified || $autoPublish;
+
         return [
             'id' => md5($webmention['target'] . $webmention['author']['name'] . $webmention['published']),
             'avatar' => $this->setUrl($webmention['author']['avatar']),
@@ -56,7 +58,7 @@ class KommentReceiver
             'komment' => $this->setKomment($webmention['content']),
             'quote' => (isset($webmention['quote'])) ? $this->setKomment($webmention['quote']) : null,
             'kommentType' => $webmention['type'],
-            'status' => $this->setStatus($webmention['type'], $isVerified),
+            'status' => $this->setStatus($webmention['type'], $publishComments),
             'spamlevel' => $spamlevel,
             'verified' => $isVerified
         ];
@@ -120,11 +122,11 @@ class KommentReceiver
             return false;
         }
 
-        if (!is_null(kirby()->users()->findByKey($email))) {
-            return true;
-        }
-
         return false;
+    }
+
+    public function autoPublish($email) {
+        return (in_array($email, option('mauricerenck.komments.moderation.autoPublish', [])));
     }
 
     public function setUrl($url)

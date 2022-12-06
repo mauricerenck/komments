@@ -64,12 +64,13 @@ Kirby::plugin('mauricerenck/komments', [
 
                 $webmention = $kommentReceiver->convertToWebmention($formData, $targetPage);
                 $isVerified = $kommentReceiver->isVerified($formData['email']);
+                $autoPublish = $kommentReceiver->autoPublish($formData['email']);
 
                 if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
                     return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.invalidfieldvalues', 412, $shouldReturnJson);
                 }
 
-                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified);
+                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified, $autoPublish);
                 $kommentReceiver->storeData($newEntry, $targetPage);
                 $kommentModeration->addCookieToModerationList($newEntry['id']);
 
