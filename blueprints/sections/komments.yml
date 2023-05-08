@@ -12,18 +12,40 @@ fields:
     type: structure
     label: Inbox
     fields:
-      avatar:
-        type: url
-        label: Avatar
-        width: 1/6
       author:
         type: text
         label: Author
-        width: 2/6
+        width: 1/3
+      avatar:
+        type: url
+        label: Avatar
+        width: 2/3
       authorUrl:
         type: url
         label: Author Url
-        width: 3/6
+        width: 2/3
+      kommentType:
+        type: select
+        label: Type
+        width: 1/3
+        options:
+          LIKE: Like
+          REPOST: Repost
+          REPLY: Reply
+          MENTION: Mention
+          KOMMENT: Komment
+          SPAM: Spam
+
+      quote:
+        type: textarea
+        label: Quote
+        width: 1/1
+      komment:
+        type: textarea
+        label: Komment
+        size: medium
+        width: 1/1
+
       source:
         type: hidden
         label: Source
@@ -36,30 +58,12 @@ fields:
       property:
         type: hidden
         label: Type
-      komment:
-        type: textarea
-        label: Komment
-        width: 1/2
-      quote:
-        type: textarea
-        label: Quote
-        width: 1/2
-      kommentType:
-        type: select
-        label: Type
-        width: 1/4
-        options:
-          LIKE: Like
-          REPOST: Repost
-          REPLY: Reply
-          MENTION: Mention
-          KOMMENT: Komment
-          SPAM: Spam
+
       published:
         type: date
         label: Published
         time: true
-        width: 1/4
+        width: 2/4
       status:
         type: toggle
         label: Status
