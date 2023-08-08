@@ -20,7 +20,7 @@
         ]
     },
     "require-dev": {
-        "getkirby/cms": "^3.7",
+        "getkirby/cms": "^3.9",
         "phpunit/phpunit": "^9.5."
     },
     "require": {
