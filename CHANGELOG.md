@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/mauricerenck/komments/compare/v1.11.0...v1.11.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* get page from url when slug is translated ([5bc51b4](https://github.com/mauricerenck/komments/commit/5bc51b4c9cc3e44de7cd2ff9e0c5e9c99e2c3683)), closes [#56](https://github.com/mauricerenck/komments/issues/56)
+
 # [1.11.0](https://github.com/mauricerenck/komments/compare/v1.10.0...v1.11.0) (2022-12-06)
 
 
