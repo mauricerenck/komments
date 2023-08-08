@@ -10,7 +10,7 @@ return [
         'mauricerenck.komments.repost' => 'shared this page',
         'mauricerenck.komments.moderation' => 'Your comment is awaiting moderation.',
         'mauricerenck.komments.disabled' => 'Comments were disabled on this page.',
-        'mauricerenck.komments.externalReply' => 'Answer elsewhere',
+        'mauricerenck.komments.externalReply' => 'Reply elsewhere',
         'mauricerenck.komments.form.submit' => 'send',
         'mauricerenck.komments.form.privacy' => 'Your E-Mail address will be encrypted before saving the comment. It will only be used to display a gravatar. By submitting your data, you agree that all entered data may be saved and displayed as a comment.',
         'mauricerenck.komments.form.label.comment' => 'Comment',

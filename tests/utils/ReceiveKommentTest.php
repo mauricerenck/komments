@@ -1,8 +1,6 @@
 <?php
 use mauricerenck\Komments\KommentReceiver;
 use PHPUnit\Framework\TestCase;
-use Kirby\Cms;
-use Kirby\Toolkit\Config;
 
 final class ReceiveKommentTest extends TestCase
 {

@@ -6,6 +6,7 @@ use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 use Kirby\Data\yaml;
 use Kirby\Http\Response;
+use Kirby\Http\Url;
 
 class KommentReceiver
 {
@@ -70,24 +71,21 @@ class KommentReceiver
             // use kirby->url because it includes the path of a possible subfolder install
             $kirbyBaseUrl = kirby()->url();
             $path = substr($url, strlen($kirbyBaseUrl));
-            $languages = kirby()->languages();
 
-            if (empty($path)) {
-                $path = '/home';
-            }
-
-            if ($languages->count() > 0) {
-                foreach ($languages as $language) {
-                    $path = str_replace($language . '/', '', $path);
+            if ($path == '') {
+                $targetPage = page(site()->homePageId());
+            } elseif (!$targetPage = page($path)) {
+                $targetPage = page(kirby()->router()->call($path));
+    
+                if ($targetPage->isErrorPage()) {
+                    return null;
                 }
             }
-
-            $targetPage = page($path);
-
+    
             if (is_null($targetPage)) {
                 return null;
             }
-
+    
             return $targetPage;
         }
 
