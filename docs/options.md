@@ -43,8 +43,14 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 
 ## Moderation settings
 
-| Option                                  | Default   | Description                                                 |
-| --------------------------------------- | --------- | ----------------------------------------------------------- |
-| `komment-auto-publish`            | `false`  | When you receive a komment set status to published                                               |
-| `auto-publish-verified`           | `true`   | New comments by verified users are automatically published                                       |
-| `moderation.autoPublish`          | `[]`   | An array of email addresses which comments will be published without moderation                  |
+| Option                   | Default | Description                                                                     |
+| ------------------------ | ------- | ------------------------------------------------------------------------------- |
+| `komment-auto-publish`   | `false` | When you receive a komment set status to published                              |
+| `auto-publish-verified`  | `true`  | New comments by verified users are automatically published                      |
+| `moderation.autoPublish` | `[]`    | An array of email addresses which comments will be published without moderation |
+
+## Privacy settings
+
+| Option               | Default | Description                                                                |
+| -------------------- | ------- | -------------------------------------------------------------------------- |
+| `privacy.storeEmail` | `false` | Enable to also store the email address of the comment sender in plain text |

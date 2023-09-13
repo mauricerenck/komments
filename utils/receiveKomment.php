@@ -38,6 +38,7 @@ class KommentReceiver
                 'name' => $this->setAuthorName($formData['author']),
                 'avatar' => $this->setAvatarFromEmail($formData['email']),
                 'url' => $this->setUrl($formData['author_url']),
+                'email' => $this->setEmail($formData['email']),
             ]
         ];
     }
@@ -51,6 +52,7 @@ class KommentReceiver
             'avatar' => $this->setUrl($webmention['author']['avatar']),
             'author' => $webmention['author']['name'],
             'authorUrl' => $this->setUrl($webmention['author']['url']),
+            'authorEmail' => $this->setEmail($webmention['author']['email']),
             'source' => $this->setUrl($webmention['source']),
             'target' => $this->setUrl($webmention['target']),
             'mentionOf' => (!isset($webmention['mentionOf']) || is_null($webmention['mentionOf'])) ? $this->setUrl($webmention['target']) : $webmention['mentionOf'],
@@ -181,6 +183,21 @@ class KommentReceiver
         if (V::email($email)) {
             $mailHash = md5($email);
             return 'https://www.gravatar.com/avatar/' . $mailHash;
+        }
+
+        return null;
+    }
+
+    public function setEmail(string | null $email) {
+
+        if(is_null($email)) {
+            return null;
+        }
+
+        if(option('mauricerenck.komments.privacy.storeEmail', false)) {
+            if (V::email($email)) {
+                return $email;
+            }
         }
 
         return null;
