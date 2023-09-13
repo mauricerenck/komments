@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/mauricerenck/komments/compare/v1.11.1...v1.12.0) (2023-09-13)
+
+
+### Features
+
+* added option to store email of senders ([#58](https://github.com/mauricerenck/komments/issues/58)) ([2d0f4e6](https://github.com/mauricerenck/komments/commit/2d0f4e61b869b0fc1943f6b857d41bde3b3312c2))
+
 ## [1.11.1](https://github.com/mauricerenck/komments/compare/v1.11.0...v1.11.1) (2023-08-08)
 
 
