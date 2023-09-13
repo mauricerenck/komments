@@ -44,4 +44,53 @@ final class ReceiveKommentTest extends TestCase
 
         $this->assertFalse($isVerified);
     }
+
+    public function testSetEmailAddressDisabled()
+    {
+        $kommentReceiver = new KommentReceiver();
+        $result = $kommentReceiver->setEmail('test@phpunit.de');
+
+        $this->assertNull($result);
+    }
+
+    public function testSetConvertToWebmention()
+    {
+        $commentMock = Array
+        (
+            'komment' => 'This is my comment',
+            'url' => '',
+            'email' => 'test@phpunit.de',
+            'author' => 'John Doe',
+            'author_url' => 'https://web.site',
+            'wmSource' => 'https://komments.test:8890/en/phpunit',
+            'wmTarget' => 'https://komments.test:8890/en/phpunit',
+            'wmProperty' => 'komment',
+            'quote' => '',
+            'replyTo' => '',
+            'replyHandle' => '',
+            'cts' => 10,
+        );
+
+        $expectedResult = [
+            'type' => 'KOMMENT',
+            'target' => '/en/phpunit',
+            'source' => '/en/phpunit',
+            'mentionOf' =>  null,
+            'published' => date('c'),
+            'content' => 'This is my comment',
+            'quote' => '',
+            'author' => [
+                'type' => 'card',
+                'name' => 'John Doe',
+                'avatar' => 'https://www.gravatar.com/avatar/cc1bdde8cb8ec60527b5102beafc99a6',
+                'url' => 'https://web.site',
+                'email' => null,
+            ]
+        ];
+
+        $kommentReceiver = new KommentReceiver();
+        $webmention = $kommentReceiver->convertToWebmention($commentMock, page('phpunit'));
+        
+        $this->assertEquals($expectedResult, $webmention);
+    }
 }
