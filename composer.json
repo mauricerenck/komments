@@ -24,13 +24,13 @@
         "phpunit/phpunit": "^9.5."
     },
     "require": {
-        "getkirby/composer-installer": "^1.1",
+        "getkirby/composer-installer": "^1.2",
         "indieweb/mention-client": "^1.2",
-        "php": ">=7.4.0",
+        "php": ">=8.0.0",
         "ext-json": "*"
     },
     "suggests": {
-        "mauricerenck/indieconnector": "1.2"
+        "mauricerenck/indieconnector": "1.8"
     },
     "config": {
         "optimize-autoloader": true,
