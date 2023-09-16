@@ -2,12 +2,6 @@
 
 namespace mauricerenck\Komments;
 
-use json_encode;
-use json_decode;
-use in_array;
-use Structure;
-use f;
-
 
 class KommentNotificationUtils
 {

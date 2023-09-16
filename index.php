@@ -5,17 +5,7 @@ namespace mauricerenck\Komments;
 use mauricerenck\Komments\KommentModeration;
 use mauricerenck\Komments\KommentReceiver;
 use Kirby;
-use Kirby\Toolkit\V;
-use Kirby\Toolkit\F;
-use Kirby\Http\Url;
-use Kirby\Data\Data;
-use Kirby\Data\yaml;
-use Kirby\Cms\Structure;
 use Kirby\Http\Response;
-use StdClass;
-use is_null;
-use json_encode;
-use \Throwable;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
