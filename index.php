@@ -6,6 +6,7 @@ use mauricerenck\Komments\KommentModeration;
 use mauricerenck\Komments\KommentReceiver;
 use Kirby;
 use Kirby\Http\Response;
+use Kirby\Toolkit\I18n;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
@@ -70,7 +71,7 @@ Kirby::plugin('mauricerenck/komments', [
                     $response = [
                         'status' => 'success',
                         'pending' => true,
-                        'message' => t('mauricerenck.komments.thankyou'),
+                        'message' => I18n::template('mauricerenck.komments.thankyou', null, [], kirby()->languageCode()),
                         'data' => $webmention
                     ];
 
