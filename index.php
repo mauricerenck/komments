@@ -71,7 +71,7 @@ Kirby::plugin('mauricerenck/komments', [
                     $response = [
                         'status' => 'success',
                         'pending' => true,
-                        'message' => I18n::template('mauricerenck.komments.thankyou', null, [], kirby()->languageCode()),
+                        'message' => I18n::translate('mauricerenck.komments.thankyou', null , kirby()->languageCode()),
                         'data' => $webmention
                     ];
 
