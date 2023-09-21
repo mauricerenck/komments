@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/mauricerenck/komments/compare/v1.12.0...v1.12.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* thank you message translation ([#59](https://github.com/mauricerenck/komments/issues/59)) ([f4cbfa3](https://github.com/mauricerenck/komments/commit/f4cbfa3a6f398ccb888ab9a6cc4c9e252c7a054a)), closes [/github.com/mauricerenck/komments/pull/59#issuecomment-1729101856](https://github.com//github.com/mauricerenck/komments/pull/59/issues/issuecomment-1729101856)
+
 # [1.12.0](https://github.com/mauricerenck/komments/compare/v1.11.1...v1.12.0) (2023-09-13)
 
 
