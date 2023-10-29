@@ -1,4 +1,5 @@
 <?php
+
 use mauricerenck\Komments\KommentReceiver;
 use PHPUnit\Framework\TestCase;
 
@@ -55,8 +56,7 @@ final class ReceiveKommentTest extends TestCase
 
     public function testSetConvertToWebmention()
     {
-        $commentMock = Array
-        (
+        $commentMock = [
             'komment' => 'This is my comment',
             'url' => '',
             'email' => 'test@phpunit.de',
@@ -69,7 +69,7 @@ final class ReceiveKommentTest extends TestCase
             'replyTo' => '',
             'replyHandle' => '',
             'cts' => 10,
-        );
+        ];
 
         $expectedResult = [
             'type' => 'KOMMENT',
@@ -90,7 +90,48 @@ final class ReceiveKommentTest extends TestCase
 
         $kommentReceiver = new KommentReceiver();
         $webmention = $kommentReceiver->convertToWebmention($commentMock, page('phpunit'));
-        
+
         $this->assertEquals($expectedResult, $webmention);
+    }
+
+    public function testGetAuthorData()
+    {
+        $kommentReceiver = new KommentReceiver();
+
+        $expectedResult = [
+            'name' => 'John Doe',
+            'avatar' => 'https://web.site/avatar.jpg',
+            'url' => 'https://web.site',
+            'email' => 'hello@test.tld'
+        ];
+
+        $author = $kommentReceiver->getAuthorData([
+            'name' => 'John Doe',
+            'avatar' => 'https://web.site/avatar.jpg',
+            'url' => 'https://web.site',
+            'email' => 'hello@test.tld'
+        ]);
+
+        $this->assertEquals($expectedResult, $author);
+    }
+
+    public function testGetAuthorDataHandlesMissingData()
+    {
+        $kommentReceiver = new KommentReceiver();
+
+        $expectedResult = [
+            'name' => 'John Doe',
+            'avatar' => 'https://web.site/avatar.jpg',
+            'url' => null,
+            'email' => null
+        ];
+
+        $author = $kommentReceiver->getAuthorData([
+            'name' => 'John Doe',
+            'avatar' => 'https://web.site/avatar.jpg',
+            'email' => ''
+        ]);
+
+        $this->assertEquals($expectedResult, $author);
     }
 }

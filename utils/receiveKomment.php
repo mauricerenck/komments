@@ -45,13 +45,14 @@ class KommentReceiver
     public function createKomment($webmention, $spamlevel = 0, $isVerified = false, $autoPublish = false)
     {
         $publishComments = $isVerified || $autoPublish;
+        $author = $this->getAuthorData($webmention['author']);
 
         return [
-            'id' => md5($webmention['target'] . $webmention['author']['name'] . $webmention['published']),
-            'avatar' => $this->setUrl($webmention['author']['avatar']),
-            'author' => $webmention['author']['name'],
-            'authorUrl' => $this->setUrl($webmention['author']['url']),
-            'authorEmail' => $this->setEmail($webmention['author']['email']),
+            'id' => md5($webmention['target'] . $author['name'] . $webmention['published']),
+            'avatar' => $this->setUrl($author['avatar']),
+            'author' => $author['name'],
+            'authorUrl' => $this->setUrl($author['url']),
+            'authorEmail' => $this->setEmail($author['email']),
             'source' => $this->setUrl($webmention['source']),
             'target' => $this->setUrl($webmention['target']),
             'mentionOf' => (!isset($webmention['mentionOf']) || is_null($webmention['mentionOf'])) ? $this->setUrl($webmention['target']) : $webmention['mentionOf'],
@@ -63,6 +64,15 @@ class KommentReceiver
             'status' => $this->setStatus($webmention['type'], $publishComments),
             'spamlevel' => $spamlevel,
             'verified' => $isVerified
+        ];
+    }
+
+    public function getAuthorData(array $author) {
+        return [
+            'name' => $author['name'] ?? null,
+            'avatar' => $author['avatar'] ?? null,
+            'url' => $author['url'] ?? null,
+            'email' => $author['email'] ?? null,
         ];
     }
 
