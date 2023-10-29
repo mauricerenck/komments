@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/mauricerenck/komments/compare/v1.12.1...v1.12.2) (2023-10-29)
+
+
+### Bug Fixes
+
+* handle empty mail address in webmentions [#60](https://github.com/mauricerenck/komments/issues/60) ([8c5b3e8](https://github.com/mauricerenck/komments/commit/8c5b3e84a2da4f61574ff172acb616b175f12dbd))
+
 ## [1.12.1](https://github.com/mauricerenck/komments/compare/v1.12.0...v1.12.1) (2023-09-21)
 
 
