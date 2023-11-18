@@ -13,48 +13,38 @@
                     isVerified: komment.verified === true,
                 }"
             >
-                <k-grid>
-                    <k-column width="2/12" class="avatar">
-                        <img :src="komment.image" v-if="komment.image" />
-                    </k-column>
-                    <k-column width="10/12">
-                        <div class="komment-preview">
-                            <div class="author">
-                                <strong>{{ komment.author }}</strong>
-                            </div>
-                            <div class="meta">{{ komment.published }} - {{ komment.title }}</div>
-                            <div class="status">
-                                <span v-if="komment.status === false" alt="pending" title="pending" class="badge">
-                                    pending
-                                </span>
-                                <span
-                                    v-else-if="komment.status === true"
-                                    alt="published"
-                                    title="published"
-                                    class="badge blue"
-                                >
-                                    published
-                                </span>
-                                <span
-                                    v-if="komment.verified === true"
-                                    alt="Verified user"
-                                    title="Verified user"
-                                    class="badge green"
-                                >
-                                    verified
-                                </span>
-                                <span
-                                    v-if="komment.spamlevel > 0"
-                                    alt="Possible spam comment"
-                                    title="Possible spam comment"
-                                    class="badge red"
-                                >
-                                    spam
-                                </span>
-                            </div>
-                        </div>
-                    </k-column>
-                </k-grid>
+                <img :src="komment.image" v-if="komment.image" />
+
+                <div class="komment-preview">
+                    <div class="author">
+                        <strong>{{ komment.author }}</strong>
+                    </div>
+                    <div class="meta">{{ komment.published }} - {{ komment.title }}</div>
+                    <div class="status">
+                        <span v-if="komment.status === false" alt="pending" title="pending" class="badge">
+                            pending
+                        </span>
+                        <span v-else-if="komment.status === true" alt="published" title="published" class="badge blue">
+                            published
+                        </span>
+                        <span
+                            v-if="komment.verified === true"
+                            alt="Verified user"
+                            title="Verified user"
+                            class="badge green"
+                        >
+                            verified
+                        </span>
+                        <span
+                            v-if="komment.spamlevel > 0"
+                            alt="Possible spam comment"
+                            title="Possible spam comment"
+                            class="badge red"
+                        >
+                            spam
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -73,8 +63,14 @@ export default {
 <style lang="scss">
 .k-komments-view {
     .komments-list {
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2);
+        }
+
         .komment-preview {
-            padding: 1rem;
+            line-height: 1.5;
         }
 
         .answer {
@@ -119,25 +115,24 @@ export default {
             }
         }
 
-        .avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            img {
-                width: 60px;
-                border-radius: var(--rounded);
-            }
-        }
-
         .list-item {
+            display: flex;
+            gap: var(--spacing-2);
+            place-items: center;
             transition: all 0.125s;
             border: 1px solid var(--color-border);
             border-radius: var(--rounded);
             cursor: pointer;
-            margin: 0 20px 2px 0;
+            // margin: 0 20px 2px 0;
             box-shadow: var(--shadow);
             background-color: var(--color-white);
+            padding: var(--spacing-2);
+
+            img {
+                width: 60px;
+                border-radius: var(--rounded);
+                margin-right: var(--spacing-2);
+            }
 
             &.active {
                 position: relative;

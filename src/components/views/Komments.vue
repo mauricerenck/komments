@@ -1,43 +1,39 @@
 <template>
     <k-inside>
-        <k-view class="k-komments-view">
+        <div class="k-komments-view">
             <k-header>Komments</k-header>
-            <KommentVersion :version="version" />
 
-            <k-grid gutter="medium">
-                <k-column width="1/3"> </k-column>
-                <k-column width="1/1">
-                    <div v-if="kommentList.length === 0" class="so-empty">
-                        <NoKomments />
-                        <div>
-                            <k-info-field
-                                theme="positive"
-                                text="There are no comments waiting for moderation. Have a nice day!"
-                            />
-                        </div>
+            <div>
+                <div v-if="kommentList.length === 0" class="so-empty">
+                    <NoKomments />
+                    <div>
+                        <k-info-field
+                            theme="positive"
+                            text="There are no comments waiting for moderation. Have a nice day!"
+                        />
                     </div>
+                </div>
 
-                    <k-grid v-else>
-                        <k-column width="1/3" class="komment-list">
-                            <KommentList
-                                :queuedKomments="kommentList"
-                                :onSelectKomment="selectKomment"
-                                :selectedKomment="this.selectedKomment"
-                            />
-                        </k-column>
-                        <k-column width="2/3" class="komment-details">
-                            <KommentDetails
-                                :komment="this.selectedKomment"
-                                :onMarkAsSpam="this.onMarkAsSpam"
-                                :onMarkAsVerified="this.onMarkAsVerified"
-                                :onMarkAsPublished="this.onMarkAsPublished"
-                                :onDelete="this.onDelete"
-                            />
-                        </k-column>
-                    </k-grid>
-                </k-column>
-            </k-grid>
-        </k-view>
+                <div class="comments-grid" v-else>
+                    <k-column width="1/3" class="komment-list">
+                        <KommentList
+                            :queuedKomments="kommentList"
+                            :onSelectKomment="selectKomment"
+                            :selectedKomment="this.selectedKomment"
+                        />
+                    </k-column>
+                    <k-column width="2/3" class="komment-details">
+                        <KommentDetails
+                            :komment="this.selectedKomment"
+                            :onMarkAsSpam="this.onMarkAsSpam"
+                            :onMarkAsVerified="this.onMarkAsVerified"
+                            :onMarkAsPublished="this.onMarkAsPublished"
+                            :onDelete="this.onDelete"
+                        />
+                    </k-column>
+                </div>
+            </div>
+        </div>
     </k-inside>
 </template>
 
@@ -52,7 +48,6 @@ export default {
     props: {
         title: String,
         queuedKomments: Array,
-        version: Object,
     },
     created() {
         this.kommentList = this.queuedKomments
@@ -63,10 +58,14 @@ export default {
         }
     },
     methods: {
-        loadKomments() {
-            this.$api.get('komments/queued').then((komments) => {
-                this.komments = komments
-            })
+        async loadKomments() {
+            try {
+                panel.api.get('komments/queued').then((komments) => {
+                    this.komments = komments
+                })
+            } catch (error) {
+                console.log(error)
+            }
         },
         selectKomment(id) {
             this.selectedKomment = this.queuedKomments.find((komment) => {
@@ -109,3 +108,12 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+.k-komments-view {
+    .comments-grid {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: var(--spacing-4);
+    }
+}
+</style>

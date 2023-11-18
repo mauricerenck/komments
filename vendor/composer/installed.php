@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'mauricerenck/komments',
-        'pretty_version' => '1.12.0',
-        'version' => '1.12.0.0',
+        'pretty_version' => '1.12.2',
+        'version' => '1.12.2.0',
         'reference' => NULL,
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -29,8 +29,8 @@
             'dev_requirement' => false,
         ),
         'mauricerenck/komments' => array(
-            'pretty_version' => '1.12.0',
-            'version' => '1.12.0.0',
+            'pretty_version' => '1.12.2',
+            'version' => '1.12.2.0',
             'reference' => NULL,
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
@@ -38,12 +38,14 @@
             'dev_requirement' => false,
         ),
         'mf2/mf2' => array(
-            'pretty_version' => 'v0.5.0',
-            'version' => '0.5.0.0',
-            'reference' => 'ddc56de6be62ed4a21f569de9b80e17af678ca50',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '7daaefd9f50806e0d13746102bb55d3e93f3bccf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mf2/mf2',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
             'dev_requirement' => false,
         ),
     ),
