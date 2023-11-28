@@ -2,6 +2,7 @@
 
 return [
     'debug' => true,
+    'languages' => true,
     'email' => [
         'transport' => [
             'type' => 'smtp',
@@ -19,6 +20,9 @@ return [
             'auto-publish-verified' => true,
             'auto-delete-spam' => false,
             'auto-disable-komments' => 0,
+            'privacy' => [
+                'storeEmail' => false,
+            ],
             'notifications' => [
                 'email' => [
                     'enable' => false,

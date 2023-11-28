@@ -20,7 +20,7 @@
         ]
     },
     "require-dev": {
-        "getkirby/cms": "^3.9",
+        "getkirby/cms": "^4",
         "phpunit/phpunit": "^9.5."
     },
     "require": {
@@ -47,5 +47,6 @@
             "composer install --no-dev --optimize-autoloader",
             "npm run build"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }

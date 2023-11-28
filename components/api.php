@@ -2,27 +2,17 @@
 
 namespace mauricerenck\Komments;
 
-use Xml;
-use File;
-use f;
 use Structure;
+use Kirby\Http\Response;
 
 return [
     'routes' => [
         [
-            'pattern' => 'komments/version',
-            'action' => function () {
-                $string = f::read(__DIR__ . '/../composer.json');
-                return $string;
-            }
-        ],
-        [
             'pattern' => 'komments/queued',
             'action' => function () {
+
                 $pendingKomments = [];
                 $collection = site()->index();
-                $komments = new Structure();
-                $key = 0;
 
                 foreach ($collection as $item) {
                     if ($item->kommentsInbox()->isNotEmpty()) {
@@ -43,7 +33,7 @@ return [
                     }
                 }
 
-                return json_encode($pendingKomments);
+                return new Response(json_encode($pendingKomments), 'application/json');
             }
         ],
         [
@@ -51,8 +41,7 @@ return [
             'action' => function () {
                 $spamKomments = [];
                 $collection = site()->index();
-                $komments = new Structure();
-                $key = 0;
+
 
                 foreach ($collection as $item) {
                     if ($item->kommentsInbox()->isNotEmpty()) {
@@ -72,7 +61,7 @@ return [
                     }
                 }
 
-                return json_encode($spamKomments);
+                return new Response(json_encode($spamKomments), 'application/json');
             }
         ],
         [
@@ -84,7 +73,7 @@ return [
                 $kommentModeration = new KommentModeration();
                 $kommentModeration->markAsSpam($formData['pageSlug'], $formData['kommentId'], $formData['isSpam']);
 
-                return json_encode(['message' => 'okay']);
+                return new Response(json_encode(['message' => 'okay']), 'application/json');
             }
         ],
         [
@@ -96,7 +85,7 @@ return [
                 $kommentModeration = new KommentModeration();
                 $kommentModeration->markAsVerified($formData['pageSlug'], $formData['kommentId'], $formData['isVerified']);
 
-                return json_encode(['message' => 'okay']);
+                return new Response(json_encode(['message' => 'okay']), 'application/json');
             }
         ],
         [
@@ -108,7 +97,7 @@ return [
                 $kommentModeration = new KommentModeration();
                 $kommentModeration->publish($formData['pageSlug'], $formData['kommentId'], $formData['isPublished']);
 
-                return json_encode(['message' => 'okay']);
+                return new Response(json_encode(['message' => 'okay']), 'application/json');
             }
         ],
         [
@@ -120,7 +109,7 @@ return [
                 $kommentModeration = new KommentModeration();
                 $kommentModeration->delete($formData['pageSlug'], $formData['kommentId']);
 
-                return json_encode(['message' => 'okay']);
+                return new Response(json_encode(['message' => 'okay']), 'application/json');
             }
         ],
     ]

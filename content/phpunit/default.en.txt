@@ -1,0 +1,358 @@
+Title: phpunit
+
+----
+
+Kommentsenabledonpage: true
+
+----
+
+Kommentsinbox:
+
+- 
+  author: Unknown user
+  avatar: >
+    https://www.gravatar.com/avatar/c67cfe10182e385fcd4181c06334a527
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: A regular comment of an unkown user
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'false'
+  id: 1bfffa3f189b3c5b5d6f3ed3271d3342
+  spamlevel: 0
+- 
+  author: Verified User
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://maurice-renck.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: A regular comment of a verified user
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'true'
+  id: c62bc1426c1d39eb6d8a6b4f5b3ef3ee
+  spamlevel: 0
+- 
+  author: SpamBot
+  avatar: >
+    https://www.gravatar.com/avatar/fa5d3b1755664ea7cb3c8ef1e00a5a52
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: A spam comment by an evil bot
+  source: https://komments.test:8890/phpunit
+  target: https://komments.test:8890/phpunit
+  mentionof: https://komments.test:8890/phpunit
+  property: KOMMENT
+  published: 2021-11-10 13:50:00
+  status: 'false'
+  verified: 'false'
+  id: 594a3bdc4947c1a8496d2beb8a065cb1
+  spamlevel: 100
+- 
+  author: sdfsdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdfs
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-08-08 07:25:00
+  status: 'true'
+  verified: 'true'
+  id: 844a605a0e656b226691d36a6deceaae
+  spamlevel: 0
+- 
+  author: dfgdfgdfg
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: dfgdfg
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-08-08 07:25:00
+  status: 'true'
+  verified: 'true'
+  id: 020ad1b6c6d4c7f97d59c5759e908bd1
+  spamlevel: 0
+- 
+  author: NEU
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: dfgdfggdfg
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-08-08 10:35:00
+  status: 'true'
+  verified: 'true'
+  id: 5a61aabc59cb4fcb11756a651fa5b5ef
+  spamlevel: 0
+- 
+  author: "234234234"
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: dfgdfgdfg
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-08-08 10:35:00
+  status: 'true'
+  verified: 'true'
+  id: a716a89e7b115623218d4ea52bff06ce
+  spamlevel: 0
+- 
+  author: maurice email nicht speichern
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: >
+    hier ist mein kommentar, er ist sehr
+    schön!
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:10:00
+  status: 'true'
+  verified: 'true'
+  id: db4e9594bdda80340d7155f367e3b5f8
+  spamlevel: 0
+- 
+  author: Maurice speichert email
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: was gehet aaaaaaab?
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:10:00
+  status: 'true'
+  verified: 'true'
+  id: ab75d4591808b517f07e8e6cc110ceb7
+  spamlevel: 0
+- 
+  author: name
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://wwb.site
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: kommentar
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:35:00
+  status: 'true'
+  verified: 'true'
+  id: daf0a12ebaf7eb83ee3c4f400058ce51
+  spamlevel: 0
+- 
+  author: name
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://wwb.site
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: kommentar
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:35:00
+  status: 'true'
+  verified: 'true'
+  id: e3d1e414380898bace9e47eebf6d9419
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:35:00
+  status: 'true'
+  verified: 'true'
+  id: b39a7f8c72770a7cc03add4e3cfcf3de
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:45:00
+  status: 'true'
+  verified: 'true'
+  id: 653279f37f7ca0649c333fdc071878a8
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:45:00
+  status: 'true'
+  verified: 'true'
+  id: 4cb42e8a0ac5dec2f000fd73ba2399fa
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:45:00
+  status: 'true'
+  verified: 'true'
+  id: e38cd8362e6c8ecde5f634cafca97258
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:45:00
+  status: 'true'
+  verified: 'true'
+  id: 6832fd61a1ceff974ad9ccad605dc303
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: maurice@maurice-renck.de
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:45:00
+  status: 'true'
+  verified: 'true'
+  id: 0572d8b288e486f8342b8ad60839345f
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:50:00
+  status: 'true'
+  verified: 'true'
+  id: 899ce6bff0f8261fe56a710f8b4ef345
+  spamlevel: 0
+- 
+  author: sdfsdf
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: https://test.de
+  authoremail: ""
+  kommenttype: KOMMENT
+  quote: ""
+  komment: sdfsdfsdf
+  source: https://komments.test:8890/en/phpunit
+  target: https://komments.test:8890/en/phpunit
+  mentionof: https://komments.test:8890/en/phpunit
+  property: KOMMENT
+  published: 2023-09-13 09:50:00
+  status: 'true'
+  verified: 'true'
+  id: ebd429cd5fa3b6fce3706c5e4584f976
+  spamlevel: 0
+
+----
+
+Uuid: uzeaX0oDEG6ZYGKS

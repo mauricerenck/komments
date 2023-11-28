@@ -97,17 +97,17 @@
         },
         {
             "name": "mf2/mf2",
-            "version": "v0.5.0",
-            "version_normalized": "0.5.0.0",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/microformats/php-mf2.git",
-                "reference": "ddc56de6be62ed4a21f569de9b80e17af678ca50"
+                "reference": "7daaefd9f50806e0d13746102bb55d3e93f3bccf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microformats/php-mf2/zipball/ddc56de6be62ed4a21f569de9b80e17af678ca50",
-                "reference": "ddc56de6be62ed4a21f569de9b80e17af678ca50",
+                "url": "https://api.github.com/repos/microformats/php-mf2/zipball/7daaefd9f50806e0d13746102bb55d3e93f3bccf",
+                "reference": "7daaefd9f50806e0d13746102bb55d3e93f3bccf",
                 "shasum": ""
             },
             "require": {
@@ -117,14 +117,15 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
                 "mf2/tests": "dev-master#e9e2b905821ba0a5b59dab1a8eaf40634ce9cd49",
                 "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^5.7",
-                "squizlabs/php_codesniffer": "^3.6.2"
+                "squizlabs/php_codesniffer": "^3.6.2",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "suggest": {
                 "barnabywalters/mf-cleaner": "To more easily handle the canonical data php-mf2 gives you",
                 "masterminds/html5": "Alternative HTML parser for PHP, for better HTML5 support."
             },
-            "time": "2022-02-10T01:05:27+00:00",
+            "time": "2023-10-11T23:47:04+00:00",
+            "default-branch": true,
             "bin": [
                 "bin/fetch-mf2",
                 "bin/parse-mf2"
@@ -156,7 +157,7 @@
             ],
             "support": {
                 "issues": "https://github.com/microformats/php-mf2/issues",
-                "source": "https://github.com/microformats/php-mf2/tree/v0.5.0"
+                "source": "https://github.com/microformats/php-mf2/tree/main"
             },
             "install-path": "../mf2/mf2"
         }
