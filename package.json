@@ -14,7 +14,7 @@
         "recognizeSelfClosing": true
     },
     "dependencies": {
-        "semver": "^7.3.4",
+        "semver": "^7.5.2",
         "vue": "^2.6.11",
         "vue-hot-reload-api": "^2.3.4"
     },
