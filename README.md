@@ -1,7 +1,7 @@
 # Komments 
 #### A Kirby comment plugin
 
-![GitHub release](https://img.shields.io/github/release/mauricerenck/komments.svg?maxAge=1800) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-3.5%2B-black.svg)
+![GitHub release](https://img.shields.io/github/release/mauricerenck/komments.svg?maxAge=1800) ![License](https://img.shields.io/github/license/mashape/apistatus.svg) ![Kirby Version](https://img.shields.io/badge/Kirby-4%2B-black.svg)
 
 ---
 
@@ -13,7 +13,6 @@ Use one of these three methods to install the plugin:
 
 - composer (recommended): `composer require mauricerenck/komments`
 - zip file: unzip [master.zip](https://github.com/mauricerenck/komments/releases/latest) as folder `site/plugins/komments`
-- git: `git submodule add https://github.com/mauricerenck/komments.git site/plugins/komments`
 
 ### Setup
 
@@ -50,7 +49,7 @@ Use one of these three methods to install the plugin:
 
 ## Roadmap 
 
-- [x] Kirby 3.6 ready
+- [x] Kirby 4 ready
 - [x] New panel view for moderation
   - [x] Mark comment as spam
   - [x] Mark comment as verified
@@ -63,13 +62,5 @@ Use one of these three methods to install the plugin:
 - [x] Move "ping archive.org" to IndieConnector
 - [x] Move "send webmentions" to IndieConnector
 - [ ] Mark webmentions from known users as verified
-
----
-
-## DEPRECATED
-
-- Send webmentions
-- Send updates to Mastodon
-- Ping archive.org
 
 Please use the [IndieConnector Plugin](https://github.com/mauricerenck/indieConnector) in addition to send webmentions
