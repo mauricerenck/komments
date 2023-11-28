@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/mauricerenck/komments/compare/v1.12.2...v1.13.0) (2023-11-28)
+
+
+### Features
+
+* kirby 4 release ([#62](https://github.com/mauricerenck/komments/issues/62)) ([86ba8e2](https://github.com/mauricerenck/komments/commit/86ba8e2d0d3ce15775aff91ac0d549173cc6eb0f)), closes [#61](https://github.com/mauricerenck/komments/issues/61)
+
 ## [1.12.2](https://github.com/mauricerenck/komments/compare/v1.12.1...v1.12.2) (2023-10-29)
 
 
