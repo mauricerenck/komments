@@ -1,6 +1,6 @@
 {
     "name": "mauricerenck/komments",
-    "version": "1.13.0",
+    "version": "1.13.1",
     "description": "A comment and webmention plugin for Kirby 3",
     "homepage": "https://github.com/mauricerenck/komments",
     "type": "kirby-plugin",

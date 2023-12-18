@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/mauricerenck/komments/compare/v1.13.0...v1.13.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* js get submit button if not input element ([0f1883b](https://github.com/mauricerenck/komments/commit/0f1883beb4bdf901c03c572c09c2a0da8f1095ae))
+
 # [1.13.0](https://github.com/mauricerenck/komments/compare/v1.12.2...v1.13.0) (2023-11-28)
 
 
