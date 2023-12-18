@@ -15,7 +15,7 @@ docReady(function () {
     const kommentAuthor = document.querySelector('#kommentform #author');
     const kommentUrl = document.querySelector('#kommentform #author_url');
     const timeField = document.querySelector('#kommentform .cts');
-    const submitField = document.querySelector('#kommentform input[type=submit]');
+    const submitField = document.querySelector('#kommentform [type=submit]');
     const spamIndicatorProgress = document.querySelector('#kommentform .spam-indicator .progress');
     const sendingIndicator = document.querySelector('#kommentform .loader');
     const formFeedback = document.querySelector('#kommentform .form-feedback');
