@@ -1,0 +1,8 @@
+options:
+  changeSlug: false
+  update: true
+
+sections:
+  phpunit:
+    komments:
+      extends: sections/komments

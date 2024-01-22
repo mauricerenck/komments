@@ -37,7 +37,7 @@ class KommentBaseUtils
             ];
         } catch (\Throwable $th) {
             throw 'Could not get package information';
-            return[
+            return [
                 'local' => '',
                 'latest' => '',
                 'updateAvailable' => false,
@@ -75,10 +75,18 @@ class KommentBaseUtils
         foreach ($komments as $komment) {
             if ($komment->status()->isTrue()) {
                 switch ($komment->kommenttype()->raw()) {
-                    case 'LIKE': $structuredKomments['likes'][] = $komment; break;
-                    case 'REPOST': $structuredKomments['reposts'][] = $komment; break;
-                    case 'MENTION': $structuredKomments['mentions'][] = $komment; break;
-                    default: $replyTree[$komment->id()] = $this->transformToReply($komment); break;
+                    case 'LIKE':
+                        $structuredKomments['likes'][] = $komment;
+                        break;
+                    case 'REPOST':
+                        $structuredKomments['reposts'][] = $komment;
+                        break;
+                    case 'MENTION':
+                        $structuredKomments['mentions'][] = $komment;
+                        break;
+                    default:
+                        $replyTree[$komment->id()] = $this->transformToReply($komment);
+                        break;
                 }
             }
         }
@@ -119,41 +127,85 @@ class KommentBaseUtils
 
     public function getPendingKomments(): array
     {
-        $pendingKomments = [];
+        $pendingComments = [];
         $collection = site()->index();
-        $komments = new Structure();
-        $key = 0;
 
         foreach ($collection as $item) {
-            if ($item->kommentsInbox()->isNotEmpty()) {
-                foreach ($item->kommentsInbox()->yaml() as $komment) {
-                    $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
-                    if (($komment['status'] === 'false' || $komment['status'] === false)) {
-                        $pendingKomments[] = [
-                            'id' => $komment['id'],
-                            'slug' => $item->id(),
-                            'author' => $komment['author'],
-                            'authorUrl' => $komment['authorurl'],
-                            'komment' => kirbytext(nl2br(html($komment['komment']))),
-                            'kommentType' => (isset($komment['kommenttype'])) ? $komment['kommenttype'] : 'komment', // backward compatiblity
-                            'image' => $komment['avatar'],
-                            'title' => (string) $item->title(),
-                            'url' => $item->panel()->url(),
-                            'published' => date('Y-m-d H:i', strtotime($komment['published'])),
-                            'verified' => ($komment['verified'] === true || $komment['verified'] === 'true') ? true : false,
-                            'spamlevel' => $komment['spamlevel'],
-                            'status' => ($komment['status'] === true || $komment['status'] === 'true') ? true : false,
-                        ];
-                    }
-                }
-            }
+            $pendingComments = array_merge($pendingComments, $this->getCommentsOfPage($item, 'pending'));
         }
 
-        usort($pendingKomments, function ($a, $b) {
+        usort($pendingComments, function ($a, $b) {
             return $b['published'] <=> $a['published'];
         });
 
-        return $pendingKomments;
+        return $pendingComments;
+    }
+
+    public function getCommentsOfPage($page, $filter = 'all')
+    {
+        if ($page->kommentsInbox()->isEmpty()) {
+            return [];
+        }
+
+        $comments = [];
+        $allPageComments = $page->kommentsInbox()->toStructure();
+        $filteredComments = [];
+
+        switch($filter) {
+            case 'pending':
+                $filteredComments = $allPageComments->filterBy('status', 'false');
+                break;
+            case 'spam':
+                $filteredComments = $allPageComments->filterBy('spamlevel', '!=', '0');
+                break;
+            default:
+                $filteredComments = $allPageComments;
+                break;
+        }
+
+        foreach ($filteredComments as $komment) {
+            $comments[] = [
+                'id' => $komment->id(),
+                'slug' => $page->id(),
+                'author' => $komment->author()->value(),
+                'authorUrl' => $komment->authorUrl()->value(),
+                'komment' => kirbytext(nl2br(html($komment->komment()))),
+                'kommentType' => $komment->kommenttype()->value() ?? 'komment',
+                'image' => $komment->avatar()->value(),
+                'title' => $page->title()->value(),
+                'url' => $page->panel()->url(),
+                'published' => date('Y-m-d H:i', strtotime($komment->published())),
+                'verified' => $komment->verified()->toBool(false),
+                'spamlevel' => $komment->spamlevel()->value() ?? 0,
+                'status' => $komment->status()->toBool(false),
+            ];
+        }
+
+        return $comments;
+    }
+
+    public function getCommentsCountOfPage($page, $filter = 'all'): int
+    {
+        if ($page->kommentsInbox()->isEmpty()) {
+            return 0;
+        }
+
+        $allPageComments = $page->kommentsInbox()->toStructure();
+        $filteredComments = [];
+
+        switch($filter) {
+            case 'pending':
+                $filteredComments = $allPageComments->filterBy('status', 'false');
+                break;
+            case 'spam':
+                $filteredComments = $allPageComments->filterBy('spamlevel', '!=', '0');
+                break;
+            default:
+                $filteredComments = $allPageComments;
+                break;
+        }
+
+        return $filteredComments->count();
     }
 
     public function getPendingCommentCount(): int
@@ -162,13 +214,7 @@ class KommentBaseUtils
         $pendingKomments = 0;
 
         foreach ($collection as $item) {
-            if ($item->kommentsInbox()->isNotEmpty()) {
-                foreach ($item->kommentsInbox()->yaml() as $komment) {
-                    if (($komment['status'] === 'false' || $komment['status'] === false)) {
-                        $pendingKomments++;
-                    }
-                }
-            }
+            $pendingKomments += $this->getCommentsCountOfPage($item, 'pending');
         }
 
         return $pendingKomments;
@@ -180,14 +226,7 @@ class KommentBaseUtils
         $spamComments = 0;
 
         foreach ($collection as $item) {
-            if ($item->kommentsInbox()->isNotEmpty()) {
-                foreach ($item->kommentsInbox()->yaml() as $komment) {
-                    $komment['spamlevel'] = (isset($komment['spamlevel'])) ? $komment['spamlevel'] : 0; // backward compatiblity
-                    if ($komment['spamlevel'] > 0) {
-                        $spamComments++;
-                    }
-                }
-            }
+            $spamComments += $this->getCommentsCountOfPage($item, 'spam');
         }
 
         return $spamComments;
