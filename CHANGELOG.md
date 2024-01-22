@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/mauricerenck/komments/compare/v1.13.1...v1.13.2) (2024-01-22)
+
+
+### Bug Fixes
+
+* better mocks for tests ([1160be6](https://github.com/mauricerenck/komments/commit/1160be66f503c463e3fa88fd3100bd404b1a1403)), closes [#64](https://github.com/mauricerenck/komments/issues/64)
+
 ## [1.13.1](https://github.com/mauricerenck/komments/compare/v1.13.0...v1.13.1) (2023-12-18)
 
 
