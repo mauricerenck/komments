@@ -21,10 +21,6 @@ return [
                                     $kommentUtils = new KommentBaseUtils();
                                     return $kommentUtils->getPendingKomments();
                                 },
-                                'version' => function () {
-                                    $kommentUtils = new KommentBaseUtils();
-                                    return $kommentUtils->getPluginVersion();
-                                }
                             ],
                         ];
                     }

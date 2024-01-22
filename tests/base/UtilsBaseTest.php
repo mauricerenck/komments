@@ -31,12 +31,6 @@ final class UtilsBaseTest extends TestCaseMocked
     //     $this->assertEquals($pageMock, $baseUtils->getPageFromSlug('home'));
     // }
 
-    public function testShouldGetPluginVersion()
-    {
-        $baseUtils = new KommentBaseUtils();
-        $this->assertIsArray($baseUtils->getPluginVersion());
-    }
-
     public function testShouldGetPendingKomments()
     {
         $baseUtils = new KommentBaseUtils();

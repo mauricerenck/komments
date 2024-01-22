@@ -8,10 +8,11 @@ namespace Mf2\Parser\Test;
 
 use Mf2\Parser;
 use Mf2;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit_Framework_TestCase;
 
-class ParseLanguageTest extends TestCase {
-	protected function set_up() {
+class ParseLanguageTest extends PHPUnit_Framework_TestCase {
+
+	public function setUp() {
 		date_default_timezone_set('Europe/London');
 	}
 

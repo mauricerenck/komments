@@ -38,14 +38,12 @@
             'dev_requirement' => false,
         ),
         'mf2/mf2' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '7daaefd9f50806e0d13746102bb55d3e93f3bccf',
+            'pretty_version' => 'v0.5.0',
+            'version' => '0.5.0.0',
+            'reference' => 'ddc56de6be62ed4a21f569de9b80e17af678ca50',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mf2/mf2',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
     ),

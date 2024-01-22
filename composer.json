@@ -47,6 +47,5 @@
             "composer install --no-dev --optimize-autoloader",
             "npm run build"
         ]
-    },
-    "minimum-stability": "dev"
+    }
 }

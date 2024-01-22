@@ -7,9 +7,13 @@ namespace Mf2\Parser\Test;
 
 use Mf2;
 use Mf2\Parser;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit_Framework_TestCase;
 
-class RelTest extends TestCase {
+class RelTest extends PHPUnit_Framework_TestCase {
+  public function setUp() {
+    date_default_timezone_set('Europe/London');
+  }
+
   public function testRelValueOnLinkTag() {
     $input = '<link rel="webmention" href="http://example.com/webmention">';
     $parser = new Parser($input);

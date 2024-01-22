@@ -7,15 +7,16 @@ namespace Mf2\Parser\Test;
 
 use Mf2;
 use Mf2\Parser;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @todo some of these can be made into single tests with dataProviders
  */
-class ParseImpliedTest extends TestCase {
-	protected function set_up() {
+class ParseImpliedTest extends PHPUnit_Framework_TestCase {
+	public function setUp() {
 		date_default_timezone_set('Europe/London');
 	}
+
 
 	public function testParsesImpliedPNameFromNodeValue() {
 		$input = '<span class="h-card">The Name</span>';

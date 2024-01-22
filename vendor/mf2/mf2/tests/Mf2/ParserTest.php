@@ -4,9 +4,7 @@ namespace Mf2\Parser\Test;
 
 use Mf2\Parser;
 use Mf2;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
-use Yoast\PHPUnitPolyfills\Polyfills\AssertIsType;
-use Yoast\PHPUnitPolyfills\Polyfills\AssertStringContains;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Parser Test
@@ -16,11 +14,9 @@ use Yoast\PHPUnitPolyfills\Polyfills\AssertStringContains;
  *
  * Stuff for parsing E goes in here until there is enough of it to go elsewhere (like, never?)
  */
-class ParserTest extends TestCase {
-	use AssertIsType;
-	use AssertStringContains;
+class ParserTest extends PHPUnit_Framework_TestCase {
 
-	protected function set_up() {
+	public function setUp() {
 		date_default_timezone_set('Europe/London');
 	}
 
@@ -269,7 +265,7 @@ EOT;
 
 		$mf = Mf2\fetch('http://waterpigs.co.uk/photo.jpg', null, $curlInfo);
 		$this->assertNull($mf);
-		$this->assertStringContainsString('jpeg', $curlInfo['content_type']);
+		$this->assertContains('jpeg', $curlInfo['content_type']);
 	}
 
 	/**
@@ -397,11 +393,8 @@ EOT;
 		$output = $parser->parse();
 
 		$this->assertContains('h-entry', $output['items'][0]['type']);
-		$this->assertStringContainsString(
-			'Hello World',
-			$output['items'][0]['properties']['content'][0]
-		);
-		$this->assertStringNotContainsString('alert', $output['items'][0]['properties']['content'][0]);
+		$this->assertContains('Hello World', $output['items'][0]['properties']['content'][0]);
+		$this->assertNotContains('alert', $output['items'][0]['properties']['content'][0]);
 	}
 
 	public function testScriptElementContentsRemovedFromAllPlaintextValues() {
@@ -415,8 +408,8 @@ EOT;
 		$parser = new Parser($input);
 		$output = $parser->parse();
 
-		$this->assertStringNotContainsString('not contained', $output['items'][0]['properties']['published'][0]);
-		$this->assertStringNotContainsString('not contained', $output['items'][0]['properties']['url'][0]);
+		$this->assertNotContains('not contained', $output['items'][0]['properties']['published'][0]);
+		$this->assertNotContains('not contained', $output['items'][0]['properties']['url'][0]);
 	}
 
 	public function testScriptTagContentsNotRemovedFromHTMLValue() {
@@ -438,13 +431,13 @@ EOT;
 		$output = $parser->parse();
 
 		$this->assertContains('h-entry', $output['items'][0]['type']);
-		$this->assertStringContainsString('Hello World', $output['items'][0]['properties']['content'][0]['value']);
-		$this->assertStringContainsString('<b>Hello World</b>', $output['items'][0]['properties']['content'][0]['html']);
+		$this->assertContains('Hello World', $output['items'][0]['properties']['content'][0]['value']);
+		$this->assertContains('<b>Hello World</b>', $output['items'][0]['properties']['content'][0]['html']);
 		# The script and style tags should be removed from plaintext results but left in HTML results.
-		$this->assertStringContainsString('alert', $output['items'][0]['properties']['content'][0]['html']);
-		$this->assertStringNotContainsString('alert', $output['items'][0]['properties']['content'][0]['value']);
-		$this->assertStringContainsString('visibility', $output['items'][0]['properties']['content'][0]['html']);
-		$this->assertStringNotContainsString('visibility', $output['items'][0]['properties']['content'][0]['value']);
+		$this->assertContains('alert', $output['items'][0]['properties']['content'][0]['html']);
+		$this->assertNotContains('alert', $output['items'][0]['properties']['content'][0]['value']);
+		$this->assertContains('visibility', $output['items'][0]['properties']['content'][0]['html']);
+		$this->assertNotContains('visibility', $output['items'][0]['properties']['content'][0]['value']);
 	}
 
 	public function testWhitespaceBetweenElements() {
@@ -849,8 +842,8 @@ END;
 EOD;
 
 		$output = Mf2\parse($input);
-		$this->assertIsArray($output['items'][0]['properties']['comment'][0]['properties']);
-		$this->assertIsArray($output['items'][0]['properties']['comment'][0]['children'][0]['properties']);
+		$this->assertInternalType('array', $output['items'][0]['properties']['comment'][0]['properties']);
+		$this->assertInternalType('array', $output['items'][0]['properties']['comment'][0]['children'][0]['properties']);
 		$this->assertEmpty($output['items'][0]['properties']['comment'][0]['properties']);
 		$this->assertEmpty($output['items'][0]['properties']['comment'][0]['children'][0]['properties']);
   }
@@ -866,53 +859,6 @@ EOD;
 		# 366 days in leap years
 		$this->assertEquals('2016-12-31', Mf2\normalizeOrdinalDate('2016-366'));
 		$this->assertEquals('', Mf2\normalizeOrdinalDate('2016-367'));
-	}
-
-	/**
-	 * @see https://github.com/microformats/php-mf2/issues/230
-	 */
-	public function testPropertyWithInvalidHPrefixedRootClassParsed() {
-		$input = <<<EOF
-<div class="h-card">
-	<img class="u-photo w-32 h-32" alt="Jon Doe" src="/image.jpg"/>
-</div>
-EOF;
-
-		$output = Mf2\parse($input);
-		$this->assertEquals(array('value' => '/image.jpg', 'alt' => 'Jon Doe'), $output['items'][0]['properties']['photo'][0]);
-	}
-
-	public function testGetRootMfOnlyFindsValidElements() {
-		$input = <<<EOF
-<div class="h-entry>"> <a href="https://example.com" class="u-url">content</a></div>
-<div class="h-entry1>"> <a href="https://example.com" class="u-url">content</a></div>
-<div class="h-👍"> <a href="https://example.com" class="u-url">content</a></div>
-<div class="h-hentry_"> <a href="https://example.com" class="u-url">content</a></div>
-<div class="h-"> <a href="https://example.com" class="u-url">content</a></div>
-<div class="h-vendor123-name"><a href="https://example.com" class="u-url">content</a></div>
-EOF;
-
-		$p = new Mf2\Parser($input);
-		$rootEls = $p->getRootMF();
-
-		$this->assertEquals(1, count($rootEls));
-		$this->assertEquals('h-vendor123-name', $rootEls->item(0)->getAttribute('class'));
-	}
-
-	/**
-	 * @see https://github.com/microformats/php-mf2/issues/245
-	 */
-	public function testNewlineBeforePrefix() {
-		$input = <<<EOT
-<div class="h-entry">
-<h1 class="post_title__text
-p-name">Page Title</h1>
-<p class="p-summary">A summary so the p-name won't be implied. This test demonstrates p-name is not being parsed.</p>
-</div>
-EOT;
-		$result = Mf2\parse($input);
-		$this->assertEquals('Page Title', $result['items'][0]['properties']['name'][0]);
-		$this->assertEquals('A summary so the p-name won\'t be implied. This test demonstrates p-name is not being parsed.', $result['items'][0]['properties']['summary'][0]);
 	}
 }
 

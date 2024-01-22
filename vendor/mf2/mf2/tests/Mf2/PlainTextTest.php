@@ -1,9 +1,8 @@
 <?php
 
 namespace Mf2\Parser\Test;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class PlainTextTest extends TestCase {
+class PlainTextTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider aaronpkExpectations
      */

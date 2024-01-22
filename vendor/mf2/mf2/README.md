@@ -1,6 +1,6 @@
 # php-mf2
 
-[![Latest Stable Version](http://poser.pugx.org/mf2/mf2/v)](https://packagist.org/packages/mf2/mf2) [![Total Downloads](http://poser.pugx.org/mf2/mf2/downloads)](https://packagist.org/packages/mf2/mf2) [![Latest Unstable Version](http://poser.pugx.org/mf2/mf2/v/unstable)](https://packagist.org/packages/mf2/mf2) [![License](http://poser.pugx.org/mf2/mf2/license)](https://packagist.org/packages/mf2/mf2) [![PHP Version Require](http://poser.pugx.org/mf2/mf2/require/php)](https://packagist.org/packages/mf2/mf2) <a href="https://github.com/microformats/php-mf2/actions/workflows/main.yml"><img src="https://github.com/microformats/php-mf2/actions/workflows/main.yml/badge.svg?branch=main" alt="" /></a>
+[![Latest Stable Version](http://poser.pugx.org/mf2/mf2/v)](https://packagist.org/packages/mf2/mf2) [![Total Downloads](http://poser.pugx.org/mf2/mf2/downloads)](https://packagist.org/packages/mf2/mf2) [![Latest Unstable Version](http://poser.pugx.org/mf2/mf2/v/unstable)](https://packagist.org/packages/mf2/mf2) [![License](http://poser.pugx.org/mf2/mf2/license)](https://packagist.org/packages/mf2/mf2) [![PHP Version Require](http://poser.pugx.org/mf2/mf2/require/php)](https://packagist.org/packages/mf2/mf2)<a href="https://github.com/microformats/php-mf2/actions/workflows/main.yml"><img src="https://github.com/microformats/php-mf2/actions/workflows/main.yml/badge.svg?branch=main" alt="" /></a> 
 
 php-mf2 is a pure, generic [microformats-2](http://microformats.org/wiki/microformats-2) parser. It makes HTML as easy to consume as JSON.
 
@@ -78,11 +78,9 @@ php-mf2 is PSR-0 autoloadable, so simply include Composer’s auto-generated aut
 * To fetch microformats from a URL, call `Mf2\fetch($url)`
 * To parse microformats from HTML, call `Mf2\parse($html, $url)`, where `$url` is the URL from which `$html` was loaded, if any. This parameter is required for correct relative URL parsing and must not be left out unless parsing HTML which is not loaded from the web.
 
-All parsing functions return a canonical microformats 2 representation of any microformats found on the page, as an array. For a general guide to safely and successfully processing parsed microformats data, see [How to Consume Microformats 2 Data](https://waterpigs.co.uk/articles/consuming-microformats/).
-
 ## Examples
 
-### Fetching Microformats from a URL
+### Fetching microformats from a URL
 
 ```php
 <?php
@@ -97,17 +95,13 @@ use Mf2;
 
 $mf = Mf2\fetch('http://microformats.org');
 
-// $mf is either a canonical mf2 array, or null on an error.
-if (is_array($mf)) {
-  foreach ($mf['items'] as $microformat) {
-    // Note: in real code, never assume that a property exists, or that a particular property value is a string!
-    echo "A {$microformat['type'][0]} called {$microformat['properties']['name'][0]}\n";
-  }
+foreach ($mf['items'] as $microformat) {
+	echo "A {$microformat['type'][0]} called {$microformat['properties']['name'][0]}\n";
 }
 
 ```
 
-### Parsing Microformats from a HTML String
+### Parsing microformats from a HTML string
 
 Here we demonstrate parsing of microformats2 implied property parsing, where an entire h-card with name and URL properties is created using a single `h-card` class.
 
@@ -122,17 +116,16 @@ $output = Mf2\parse($html, 'https://waterpigs.co.uk/');
 
 ```json
 {
-  "items": [
-    {
-      "type": ["h-card"],
-      "properties": {
-        "name": ["Barnaby Walters"],
-        "url": ["https://waterpigs.co.uk/"]
-      }
-    }
-  ],
-  "rels": {},
-  "rel-urls": {}
+	"items": [
+		{
+			"type": ["h-card"],
+			"properties": {
+				"name": ["Barnaby Walters"],
+				"url": ["https://waterpigs.co.uk/"]
+			}
+		}
+	],
+	"rels": {}
 }
 ```
 
@@ -140,14 +133,14 @@ If no microformats are found, `items` will be an empty array.
 
 Note that, whilst the property prefixes are stripped, the prefix of the `h-*` classname(s) in the "type" array are retained.
 
-### Parsing a Document with Relative URLs
+### Parsing a document with relative URLs
 
 Most of the time you’ll be getting your input HTML from a URL. You should pass that URL as the second parameter to `Mf2\parse()` so that any relative URLs in the document can be resolved. For example, say you got the following HTML from `http://example.org/post/1`:
 
 ```html
 <div class="h-card">
-  <h1 class="p-name">Mr. Example</h1>
-  <img class="u-photo" alt="" src="/photo.png" />
+	<h1 class="p-name">Mr. Example</h1>
+	<img class="u-photo" alt="" src="/photo.png" />
 </div>
 ```
 
@@ -161,57 +154,50 @@ will result in the following output, with relative URLs made absolute:
 
 ```json
 {
-  "items": [{
-    "type": ["h-card"],
-    "properties": {
-      "name": ["Mr. Example"],
-      "photo": [{
-        "value": "http://example.org/photo.png",
-        "alt": ""
-      }]
-    }
-  }],
-  "rels": {},
-  "rel-urls": {}
+	"items": [{
+		"type": ["h-card"],
+		"properties": {
+			"name": ["Mr. Example"],
+			"photo": ["http://example.org/photo.png"]
+		}
+	}],
+	"rels": {},
+	"rel-urls": {}
 }
 ```
 
 php-mf2 correctly handles relative URL resolution according to the URI and HTML specs, including correct use of the `<base>` element.
 
-### Parsing Link `rel` Values
+### Parsing `rel` and `rel=alternate` values
 
-php-mf2 also parses any link relations in the document, placing them into two top-level arrays. For convenience and completeness, one is indexed by each individual rel value, and the other by each URL.
-
-For example, this HTML:
+php-mf2 also parses any link relations in the document, placing them into two top-level arrays — one for `rel=alternate` and another for all other rel values, e.g. when parsing:
 
 ```html
 <a rel="me" href="https://twitter.com/barnabywalters">Me on twitter</a>
 <link rel="alternate etc" href="http://example.com/notes.atom" />
 ```
 
-parses to the following canonical representation:
+parsing will result in the following keys:
 
 ```json
 {
-  "items": [],
-  "rels": {
-    "me": ["https://twitter.com/barnabywalters"],
-    "alternate": ["http://example.com/notes.atom"],
-    "etc": ["http://example.com/notes.atom"]
-  },
-  "rel-urls": {
-    "https://twitter.com/barnabywalters": {
-      "text": "Me on twitter",
-      "rels": ["me"]
-    },
-    "http://example.com/notes.atom": {
-      "rels": ["alternate", "etc"]
-    }
-  }
+	"items": [],
+	"rels": {
+		"me": ["https://twitter.com/barnabywalters"]
+	},
+	"rel-urls": {
+		"https://twitter.com/barnabywalters": {
+			"text": "Me on twitter",
+			"rels": ["me"]
+		},
+		"http://example.com/notes.atom": {
+			"rels": ["alternate","etc"]
+		}
+	}
 }
 ```
 
-If you’re not bothered about the microformats2 data and just want rels and alternates, you can (very slightly) improve performance by creating a `Mf2\Parser` object (see below) and calling `->parseRelsAndAlternates()` instead of `->parse()`, e.g.
+Protip: if you’re not bothered about the microformats2 data and just want rels and alternates, you can improve performance by creating a `Mf2\Parser` object (see below) and calling `->parseRelsAndAlternates()` instead of `->parse()`, e.g.
 
 ```php
 <?php
@@ -232,12 +218,12 @@ To learn what the HTTP status code for any request was, or learn more about the 
 
 $mf = Mf2\fetch('http://waterpigs.co.uk/this-page-doesnt-exist', true, $curlInfo);
 if ($curlInfo['http_code'] == '404') {
-  // This page doesn’t exist.
+	// This page doesn’t exist.
 }
 
 ```
 
-If it was HTML then it is still parsed, as there are cases where error pages contain microformats — for example a deleted h-entry resulting in a 410 Gone response containing a stub h-entry with an explanation for the deletion.
+If it was HTML then it is still parsed, as there are cases where error pages contain microformats — for example a deleted h-entry resulting in a 410 Gone response containing a stub h-entry with amn explanation for the deletion.
 
 ### Getting more control by creating a Parser object
 
@@ -245,7 +231,7 @@ The `Mf2\parse()` function covers the most common usage patterns by internally c
 
 The constructor takes two arguments, the input HTML (or a DOMDocument) and the URL to use as a base URL. Once you have a parser, there are a few other things you can do:
 
-### Selectively Parsing a Document
+### Selectively parsing a document
 
 There are several ways to selectively parse microformats from a document. If you wish to only parse microformats from an element with a particular ID, `Parser::parseFromId($id) ` is the easiest way.
 
@@ -269,9 +255,9 @@ There is still [ongoing brainstorming](http://microformats.org/wiki/microformats
 
 ```php
 $doc = '<div class="h-entry" lang="sv" id="postfrag123">
-  <h1 class="p-name">En svensk titel</h1>
-  <div class="e-content" lang="en">With an <em>english</em> summary</div>
-  <div class="e-content">Och <em>svensk</em> huvudtext</div>
+	<h1 class="p-name">En svensk titel</h1>
+	<div class="e-content" lang="en">With an <em>english</em> summary</div>
+	<div class="e-content">Och <em>svensk</em> huvudtext</div>
 </div>';
 $parser = new Mf2\Parser($doc);
 $parser->lang = true;
@@ -280,33 +266,34 @@ $result = $parser->parse();
 
 ```json
 {
-  "items": [
-    {
-      "type": ["h-entry"],
-      "properties": {
-        "name": ["En svensk titel"],
-        "content": [
-          {
-            "html": "With an <em>english</em> summary",
-            "value": "With an english summary",
-            "lang": "en"
-          },
-          {
-            "html": "Och <em>svensk</em> huvudtext",
-            "value": "Och svensk huvudtext",
-            "lang": "sv"
-          }
-        ]
-      },
-      "lang": "sv"
-    }
-  ],
-  "rels": {},
-  "rel-urls": {}
+	"items": [
+		{
+			"type": ["h-entry"],
+			"properties": {
+				"name": ["En svensk titel"],
+				"content": [
+					{
+						"html": "With an <em>english</em> summary",
+						"value": "With an english summary",
+						"lang": "en"
+					},
+					{
+						"html": "Och <em>svensk</em> huvudtext",
+						"value": "Och svensk huvudtext",
+						"lang": "sv"
+					}
+				]
+			},
+			"lang": "sv"
+		}
+	],
+	"rels": {},
+	"rel-urls": {}
 }
 ```
 
 Note that this option is still considered experimental and in development, and the parsed output may change between minor releases.
+
 
 ### Generating output for JSON serialization with JSON-mode
 
@@ -321,9 +308,13 @@ $jsonParser = new Mf2\Parser($html, $url, true);
 
 ### Classic Microformats Markup
 
-php-mf2 has some support for parsing classic microformats markup. It’s enabled by default, but can be turned off by calling `Mf2\parse($html, $url, false);` or `$parser->parse(false);` if you’re instantiating a parser yourself.
+php-mf2 has some support for parsing classic microformats markup. It’s enabled by default, but can be turned off by calling `Mf2\parse($html, $url, false);` or `$parser->parse(false);` if you’re instanciating a parser yourself.
 
-If the built in mappings don’t successfully parse some classic microformats markup, please raise an issue and we’ll fix it.
+In previous versions of php-mf2 you could also add your own class mappings — officially this is no longer supported.
+
+* If the built in mappings don’t successfully parse some classic microformats markup then raise an issue and we’ll fix it.
+* If you want to screen-scrape websites which don’t use mf2 into mf2 data structures, consider contributing to [php-mf2-shim](https://github.com/microformats/php-mf2-shim)
+* If you *really* need to make one-off changes to the default mappings… It is possible. But you have to figure it out for yourself ;)
 
 ## Security
 
@@ -333,6 +324,8 @@ Some tips:
 
 * All content apart from the 'html' key in dictionaries produced by parsing an `e-*` property is not HTML-escaped. For example, `<span class="p-name">&lt;code&gt;</span>` will result in `"name": ["<code>"]`. At the very least, HTML-escape all properties before echoing them out in HTML
 * If you’re using the raw HTML content under the 'html' key of dictionaries produced by parsing `e-*` properties, you SHOULD purify the HTML before displaying it to prevent injection of arbitrary code. For PHP we recommend using [HTML Purifier](http://htmlpurifier.org)
+
+TODO: move this section to a security/consumption best practises page on the wiki
 
 ## Contributing
 
@@ -345,12 +338,13 @@ Pull requests very welcome, please try to maintain stylistic, structural and nam
 1. Fork the repo to your github account
 2. Clone a copy to your computer (simply installing php-mf2 using composer only works for using it, not developing it)
 3. Install the dev dependencies with `composer install`.
-4. Run PHPUnit with `./vendor/bin/phpunit`
+4. Run PHPUnit with `composer phpunit`
+5. Check PHP Compatibility with the current minimum version supported (`composer phpcs`)
 6. Add PHPUnit tests for your changes, either in an existing test file if suitable, or a new one
 7. Make your changes
-8. Make sure your tests pass (`./vendor/bin/phpunit`) and that your code is compatible with all supported versions of PHP (`./vendor/bin/phpcs -p`)
+8. Make sure your tests pass (`composer phpunit`)
 9. Go to your fork of the repo on github.com and make a pull request, preferably with a short summary, detailed description and references to issues/parsing specs as appropriate
-10. Bask in the warm feeling of having contributed to a piece of free software (optional)
+10. Bask in the warm feeling of having contributed to a piece of free software
 
 ### Testing
 
@@ -364,19 +358,17 @@ Currently php-mf2 passes the majority of it’s own test case, and a good percen
 
 #### v0.5.0
 
-**Breaking changes**:
-
-* Bumped minimum PHP version from 5.4 to 5.6 ([#220](https://github.com/microformats/php-mf2/issues/220))
-* [#214](https://github.com/microformats/php-mf2/issues/214) parse an img element for src and alt — i.e. all property values parsed as image URLs where the img element has an `alt` attribute will now be a `{'value': 'url', 'alt': 'the alt value'}` structure rather than a single URL string
-* Renamed `master` branch to `main`. Anyone who had been installing the latest development version with `dev-master` will need to change their requirements to `dev-main`
+Breaking change: bumped minimum PHP version from 5.4 to 5.6 ([#220](https://github.com/microformats/php-mf2/issues/220))
 
 Other changes:
 
 * [#195](https://github.com/microformats/php-mf2/issues/195) Fix backcompat parsing for geo property
 * [#182](https://github.com/microformats/php-mf2/issues/182) Fix parsing for iframe.u-*\[src]
+* [#214](https://github.com/microformats/php-mf2/issues/214) parse an img element for src and alt
 * [#206](https://github.com/microformats/php-mf2/issues/206) Add optional ID for h-* elements
 * [#198](https://github.com/microformats/php-mf2/issues/198) reduce instances where photo is implied
 * Internal: switched from Travis to Github Actions for CI
+* Internal: renamed master branch to main
 
 #### v0.4.6
 
@@ -606,8 +598,8 @@ Many thanks to @aaronpk, @gRegorLove and @kylewm for contributions, @aaronpk and
 * `Mf2\parse()` function added to simplify the most common case of just parsing some HTML
 * Updated e-* property parsing rules to match mf2 parsing spec — instead of producing inconsistent HTML content, it now produces dictionaries like <pre><code>
 {
-  "html": "<b>The Content</b>",
-  "value: "The Content"
+	"html": "<b>The Content</b>",
+	"value: "The Content"
 }
 </code></pre>
 * Removed `htmlSafe` options as new e-* parsing rules make them redundant

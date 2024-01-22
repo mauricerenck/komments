@@ -19,33 +19,6 @@ class KommentBaseUtils
         return $page;
     }
 
-    public function getPluginVersion()
-    {
-        try {
-            $composerString = f::read(__DIR__ . '/../composer.json');
-            $composerJson = json_decode($composerString);
-
-            $packagistResult = Remote::get('https://repo.packagist.org/p2/mauricerenck/komments.json');
-            $packagistJson = json_decode($packagistResult->content());
-            $latestVersion = $packagistJson->packages->{'mauricerenck/komments'}[0]->version;
-
-            return [
-                'local' => $composerJson->version,
-                'latest' => $latestVersion,
-                'updateAvailable' => $composerJson->version !== $latestVersion,
-                'error' => false
-            ];
-        } catch (\Throwable $th) {
-            throw 'Could not get package information';
-            return [
-                'local' => '',
-                'latest' => '',
-                'updateAvailable' => false,
-                'error' => true
-            ];
-        }
-    }
-
     public function kommentsAreExpired($page)
     {
         $expireAfterNumOfDays = option('mauricerenck.komments.auto-disable-komments', 0);
