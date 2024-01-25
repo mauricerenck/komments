@@ -1,0 +1,128 @@
+<?php
+
+namespace mauricerenck\Komments;
+
+use Kirby\Cms\Structure;
+
+class KommentsFrontend
+{
+    private $baseUtils;
+
+    public function __construct()
+    {
+        $this->baseUtils = new KommentBaseUtils();
+    }
+
+    public function getCommentList($page): array
+    {
+        $inboxes = $this->getAllInboxesOfPage($page);
+
+
+
+        $commentList = [
+            'likes' => new Structure(),
+            'reposts' => new Structure(),
+            'replies' => new Structure(),
+            'mentions' => new Structure(),
+            'comments' => new Structure(),
+        ];
+
+        $filteredInbox = $this->filterCommentsByType($inboxes, 'LIKE');
+        if ($filteredInbox->count() > 0) {
+            $commentList['likes']->add($filteredInbox);
+        }
+
+        $filteredInbox = $this->filterCommentsByType($inboxes, 'REPOST');
+        if ($filteredInbox->count() > 0) {
+            $commentList['reposts']->add($filteredInbox);
+        }
+
+        $filteredInbox = $this->filterCommentsByType($inboxes, 'MENTION');
+        if ($filteredInbox->count() > 0) {
+            $commentList['mentions']->add($filteredInbox);
+        }
+
+        $filteredInbox = $this->filterCommentsByType($inboxes, 'REPLY');
+        if ($filteredInbox->count() > 0) {
+            $commentList['replies']->add($filteredInbox);
+        }
+
+        $filteredInbox = $this->filterCommentsByType($inboxes, 'KOMMENT');
+        if ($filteredInbox->count() > 0) {
+            $commentList['comments']->add($filteredInbox);
+        }
+
+        return $commentList;
+    }
+
+    public function getAllInboxesOfPage($page)
+    {
+        $languages = kirby()->languages();
+        $inboxes = new Structure();
+
+        if ($languages->count() === 0) {
+            $inbox = $this->baseUtils->getInboxByLanguage($page);
+            return $inbox->toStructure();
+        }
+
+        foreach ($languages as $language) {
+            $inbox = $this->baseUtils->getInboxByLanguage($page, $language->code());
+            $inboxes->add($inbox->toStructure());
+        }
+
+        return $inboxes;
+    }
+
+    public function filterCommentsByType($inbox, $type = 'all')
+    {
+        if ($type === 'all') {
+            return $inbox;
+        }
+
+        return $inbox->filterBy('kommentType', $type);
+    }
+
+    public function convertToNestedComments($comments)
+    {
+        $nestedComments = [];
+        foreach ($comments as $comment) {
+            $nestedComments[$comment['id']] = $comment;
+        }
+
+        foreach ($nestedComments as $reply) {
+            $mentionOf = $reply['mentionof'];
+            if (!empty($nestedComments[$mentionOf])) {
+                $nestedComments[$mentionOf]['replies'][] = $reply['id'];
+            }
+        }
+
+        return $this->buildTree($nestedComments);
+    }
+
+    public function buildTree($flatArray)
+    {
+        $tree = [];
+
+        foreach ($flatArray as $key => $flat) {
+            $nodes = [];
+            $tree = [];
+            foreach ($flatArray as $key => &$node) {
+                $node['replies'] = [];
+                $id = $node['id'];
+                $parent_id = $node['mentionof'];
+                $nodes[$id] = &$node;
+                if (array_key_exists($parent_id, $nodes)) {
+                    $nodes[$parent_id]['replies'][] = &$node;
+                } else {
+                    $tree[] = &$node;
+                }
+            }
+        }
+        return $tree;
+    }
+
+    private function transformToReply($komment)
+    {
+        deprecated('`transformToReply()` is deprecated. `transformToReply()` will be removed in future versions.');
+    }
+}
