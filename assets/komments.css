@@ -195,7 +195,6 @@
 .splitted-komments .single-komment .author-avatar img {
   max-width: 60px;
 }
-.splitted-komments .single-komment .author-action,
 .splitted-komments .single-komment .type-of {
   display: none;
 }
@@ -210,6 +209,18 @@
 .splitted-komments .kommentReply {
   display: block;
   text-align: right;
+}
+
+.reply-elsewhere > dialog:not([open]) {
+  display: none;
+}
+.reply-elsewhere .copied {
+  padding: 0.5em;
+  border: 2px solid green;
+  margin-bottom: 1em;
+}
+.reply-elsewhere .copied.hidden {
+  display: none;
 }
 
 @-webkit-keyframes sk-cubeGridScaleDelay {
