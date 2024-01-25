@@ -8,7 +8,6 @@
             <h2>FIELDS</h2>
             <ul>
                 <li>kommentsAreEnabled: <?php var_dump($page->kommentsAreEnabled()) ?></li>
-                <li>hasQueuedKomments: <?php var_dump($page->hasQueuedKomments('1', '2')) ?></li>
                 <li>KommentCount: <?php echo $page->kommentCount() ?></li>
                 <li>Pending Comments: <?php echo $site->numberOfPendingComments() ?></li>
             </ul>
