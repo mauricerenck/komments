@@ -118,7 +118,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => false,
                 'spamlevel' => 0,
-                'status' => false
+                'status' => false,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
             [
                 'id' => 'c62bc1426c1d39eb6d8a6b4f5b3ef3ee',
@@ -133,7 +135,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => true,
                 'spamlevel' => 0,
-                'status' => true
+                'status' => true,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
             [
                 'id' => '594a3bdc4947c1a8496d2beb8a065cb1',
@@ -148,7 +152,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => false,
                 'spamlevel' => 100,
-                'status' => false
+                'status' => false,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
         ];
 
@@ -156,6 +162,38 @@ final class UtilsBaseTest extends TestCaseMocked
         $this->assertEquals($result, $expectedResult);
     }
 
+        /**
+     * @group panel
+     * @testdox getCommentsOfPage - should get 1 published comments
+     */
+    public function testGetPublishedCommentsOfPage()
+    {
+        $pageMock = $this->getPageMock();
+        $baseUtils = new KommentBaseUtils();
+
+        $expectedResult = [
+            [
+                'id' => 'c62bc1426c1d39eb6d8a6b4f5b3ef3ee',
+                'slug' => 'phpunit-test',
+                'author' => 'Verified User',
+                'authorUrl' => 'https://maurice-renck.de',
+                'komment' => '<p>A regular comment of a verified user</p>',
+                'kommentType' => 'KOMMENT',
+                'image' => 'https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56',
+                'title' => 'phpunit-test',
+                'url' => '/panel/pages/phpunit-test',
+                'published' => '2021-11-10 13:50',
+                'verified' => true,
+                'spamlevel' => 0,
+                'status' => true,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
+            ],
+        ];
+
+        $result = $baseUtils->getCommentsOfPage($pageMock, 'published');
+        $this->assertEquals($result, $expectedResult);
+    }
 
     /**
      * @group panel
@@ -235,7 +273,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => true,
                 'spamlevel' => 0,
-                'status' => false
+                'status' => false,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
             [
                 'id' => '594a3bdc4947c1a8496d2beb8a065cb1',
@@ -250,7 +290,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => false,
                 'spamlevel' => 100,
-                'status' => false
+                'status' => false,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
         ];
 
@@ -282,7 +324,9 @@ final class UtilsBaseTest extends TestCaseMocked
                 'published' => '2021-11-10 13:50',
                 'verified' => false,
                 'spamlevel' => 100,
-                'status' => false
+                'status' => false,
+                'mentionof' => 'https://komments.test:8890/phpunit',
+                'replies' => []
             ],
         ];
 
