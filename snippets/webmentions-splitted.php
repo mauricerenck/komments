@@ -1,66 +1,66 @@
 <?php
 
-  namespace mauricerenck\Komments;
+namespace mauricerenck\Komments;
 
-    $kommentUtils = new KommentBaseUtils();
-    $komments = $kommentUtils->parseKomments($page->kommentsInbox());
-    $kommentList = ['LIKES' => [], 'REPOSTS' => [], 'REPLIES' => [], 'MENTIONS' => []];
-    $kommentsInModeration = 0;
+$kommentsFrontend = new KommentsFrontend();
+$commentList = $kommentsFrontend->getCommentList($page);
 
-    function addReply($komment)
-    {
-        snippet('komments/type/reply', ['komment' => $komment]);
+function addReply($comment, $comments)
+{
+    snippet('komments/type/reply', ['komment' => $comment]);
 
-        if (count($komment['replies']) > 0) {
-            echo '<ul>';
-            foreach ($komment['replies'] as $reply) {
-                addReply($reply);
-            }
-            echo '</ul>';
+    $replies = $comments->filterBy('mentionOf', '==', $comment->id());
+
+    if ($replies->count() > 0) {
+        echo '<ul>';
+        foreach ($replies as $reply) {
+            addReply($reply, $comments);
         }
+        echo '</ul>';
     }
-
-    if (count($komments['replies']) > 0) {
-        foreach ($komments['replies'] as $komment) {
-            if ($page->hasQueuedKomments($komment['komment']->id(), $komment['komment']->status())) {
-                $kommentsInModeration++;
-            }
-        }
-    }
+}
 ?>
 <div id="kommentsWebmentions">
+    <div class="splitted-komments">
+        <?php if ($commentList['likes']->count() > 0) : ?>
+            <h5><?php echo t('mauricerenck.komments.headline.likes'); ?></h5>
+            <div class="list-likes">
+                <?php $likes = $commentList['likes']; ?>
+                <?php foreach ($likes as $comment) : snippet('komments/type/like', ['komment' => $comment]);
+                endforeach; ?>
+            </div>
+        <?php endif; ?>
 
-<?php if ($kommentsInModeration > 0): ?><div class="moderation-note" id="inModeration"><?php echo t('mauricerenck.komments.moderation'); ?></div><?php endif; ?>
+        <?php if ($commentList['reposts']->count() > 0) : ?>
+            <h5><?php echo t('mauricerenck.komments.headline.reposts'); ?></h5>
+            <div class="list-reposts">
+                <?php foreach ($commentList['reposts'] as $comment) : snippet('komments/type/repost', ['komment' => $comment]);
+                endforeach; ?>
+            </div>
+        <?php endif; ?>
 
-<div class="splitted-komments">
-    <?php if (count($komments['likes']) > 0) : ?>
-        <h5><?php echo t('mauricerenck.komments.headline.likes'); ?></h5>
-        <div class="list-likes">
-            <?php foreach ($komments['likes'] as $komment) : snippet('komments/type/like', ['komment' => $komment]); endforeach; ?>
-        </div>
-    <?php endif; ?>
+        <?php if ($commentList['mentions']->count() > 0) : ?>
+            <h5><?php echo t('mauricerenck.komments.headline.mentions'); ?></h5>
+            <div class="list-mentions">
+                <?php foreach ($commentList['mentions'] as $comment) : snippet('komments/type/mention', ['komment' => $comment]);
+                endforeach; ?>
+            </div>
+        <?php endif; ?>
 
-    <?php if (count($komments['reposts']) > 0) : ?>
-        <h5><?php echo t('mauricerenck.komments.headline.reposts'); ?></h5>
-        <div class="list-reposts">
-            <?php foreach ($komments['reposts'] as $komment) : snippet('komments/type/repost', ['komment' => $komment]); endforeach; ?>
-        </div>
-    <?php endif; ?>
+        <?php if ($commentList['comments']->count() > 0) : ?>
+            <h5><?php echo t('mauricerenck.komments.headline.comments'); ?></h5>
+            <ul class="list-comments">
+                <?php foreach ($commentList['comments']->filterBy('mentionOf', '*=', 'http') as $comment) : addReply($comment, $commentList['comments']);
+                endforeach; ?>
+            </ul>
+        <?php endif; ?>
 
-    <?php if (count($komments['mentions']) > 0) : ?>
-        <h5><?php echo t('mauricerenck.komments.headline.mentions'); ?></h5>
-        <div class="list-mentions">
-            <?php foreach ($komments['mentions'] as $komment) : snippet('komments/type/mention', ['komment' => $komment]); endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (count($komments['replies']) > 0) : ?>
-    <h5><?php echo t('mauricerenck.komments.headline.replies'); ?></h5>
-    <ul class="list-replies">
-        <?php foreach ($komments['replies'] as $komment) : addReply($komment); endforeach; ?>
-    </ul>
-<?php endif; ?>
+        <?php if ($commentList['replies']->count() > 0) : ?>
+            <h5><?php echo t('mauricerenck.komments.headline.replies'); ?></h5>
+            <ul class="list-replies">
+                <?php foreach ($commentList['replies'] as $comment) :  snippet('komments/type/reply', ['komment' => $comment]);
+                endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
 </div>
-
-</div>
-
