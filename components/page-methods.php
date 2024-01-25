@@ -2,8 +2,6 @@
 
 namespace mauricerenck\Komments;
 
-use mauricerenck\Komments\KommentBaseUtils;
-
 return [
     'kommentCount' => function () {
         $count = 0;
@@ -20,9 +18,9 @@ return [
         return 0;
     },
     'kommentsAreEnabled' => function () {
-        $kommentBaseUtils = new KommentBaseUtils();
+        $kommentsFrontend = new KommentsFrontend();
 
-        if ($kommentBaseUtils->kommentsAreExpired($this)) {
+        if ($kommentsFrontend->kommentsAreExpired($this)) {
             return false;
         }
 

@@ -14,25 +14,6 @@ class KommentBaseUtils
         return $page;
     }
 
-    public function kommentsAreExpired($page)
-    {
-        $expireAfterNumOfDays = option('mauricerenck.komments.auto-disable-komments', 0);
-
-        if ($expireAfterNumOfDays === 0) {
-            return false;
-        }
-
-        $dateField = option('mauricerenck.komments.auto-disable-komments-datefield', 'date');
-        $publishDate = $page->$dateField()->toDate();
-        $now = time();
-
-        if (($now - $publishDate) > $expireAfterNumOfDays * 24 * 60 * 60) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function getPendingKomments(): array
     {
         $pendingComments = [];

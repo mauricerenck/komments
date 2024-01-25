@@ -8,9 +8,42 @@ class KommentsFrontend
 {
     private $baseUtils;
 
-    public function __construct()
+    public function __construct(
+        private ?int $expireAfterNumOfDays = null,
+        private ?string $dateField = null,
+    )
     {
         $this->baseUtils = new KommentBaseUtils();
+
+        $this->expireAfterNumOfDays = $expireAfterNumOfDays ?? option('mauricerenck.komments.auto-disable-komments', 0);
+        $this->dateField = $dateField ?? option('mauricerenck.komments.auto-disable-komments-datefield', 'date');
+    }
+
+    public function kommentsAreExpired($page)
+    {
+        if ($this->expireAfterNumOfDays === 0) {
+            return false;
+        }
+
+        $dateFieldName = $this->dateField;
+
+        if (is_null($page->$dateFieldName()) || $page->$dateFieldName()->exists() === false) {
+            return false;
+        }
+
+        $publishDate = $page->$dateFieldName()->toDate();
+        
+        if($publishDate === 0) {
+            return false;
+        }
+
+        $now = time();
+
+        if (($now - $publishDate) > $this->expireAfterNumOfDays * 24 * 60 * 60) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getCommentList($page): array
