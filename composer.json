@@ -21,7 +21,8 @@
     },
     "require-dev": {
         "getkirby/cms": "^4",
-        "phpunit/phpunit": "^9.5."
+        "phpunit/phpunit": "^9.5.",
+        "mockery/mockery": "^1.6"
     },
     "require": {
         "getkirby/composer-installer": "^1.2",
@@ -39,7 +40,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testdox tests",
+        "test": "vendor/bin/phpunit --testdox --colors=always",
         "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
         "build-composer": "composer install --no-dev --optimize-autoloader",
         "build-release": [
