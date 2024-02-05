@@ -50,8 +50,6 @@ class KommentsFrontend
     {
         $inboxes = $this->getAllInboxesOfPage($page);
 
-
-
         $commentList = [
             'likes' => new Structure(),
             'reposts' => new Structure(),
@@ -90,9 +88,11 @@ class KommentsFrontend
 
     public function getAllInboxesOfPage($page)
     {
-        $languages = kirby()->languages();
+        $baseUtils = new KommentBaseUtils();
+        $languages = $baseUtils->getAllLanguages();
         $inboxes = new Structure();
 
+        var_dump($languages);
         if ($languages->count() === 0) {
             $inbox = $this->baseUtils->getInboxByLanguage($page);
             return $inbox->toStructure();
@@ -115,6 +115,7 @@ class KommentsFrontend
         return $inbox->filterBy('kommentType', $type);
     }
 
+    // FIXME deprecated ?
     public function convertToNestedComments($comments)
     {
         $nestedComments = [];
@@ -132,6 +133,7 @@ class KommentsFrontend
         return $this->buildTree($nestedComments);
     }
 
+    // FIXME deprecated ?
     public function buildTree($flatArray)
     {
         $tree = [];

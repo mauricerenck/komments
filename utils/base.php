@@ -14,6 +14,12 @@ class KommentBaseUtils
         return $page;
     }
 
+    public function getAllLanguages()
+    {
+        // this method is used for easy mocking in tests
+        return kirby()->languages();
+    }
+
     public function getPendingKomments(): array
     {
         $pendingComments = [];
@@ -30,6 +36,7 @@ class KommentBaseUtils
         return $pendingComments;
     }
 
+    // TESTED - move to moderation class?
     public function getCommentsOfPage($page, $filter = null, $language = null)
     {
         $allPageInboxes = $this->getInboxByLanguage($page, $language);
@@ -60,6 +67,7 @@ class KommentBaseUtils
         return $this->convertInboxToCommentArray($filteredComments, $page);
     }
 
+    // TESTED
     public function getInboxByLanguage($page, $language = null)
     {
 
@@ -78,8 +86,11 @@ class KommentBaseUtils
         return null;
     }
 
+    // TESTED partially
     public function getCommentsCountOfPage($page, $filter = 'all'): int
     {
+
+        // FIXME Multilanuage support
         if ($page->kommentsInbox()->isEmpty()) {
             return 0;
         }
@@ -129,6 +140,7 @@ class KommentBaseUtils
         return $spamComments;
     }
 
+    // FIXME move to moderation class?
     public function convertInboxToCommentArray($inbox, $page)
     {
         $comments = [];

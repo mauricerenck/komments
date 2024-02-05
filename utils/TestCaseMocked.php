@@ -135,6 +135,10 @@ class TestCaseMocked extends TestCase
                   'code' => 'de',
                   'content' => $pageContentDE,
               ],
+              'fr' => [
+                'code' => 'fr',
+                'content' => [],
+            ],
             ]
         ]);
 

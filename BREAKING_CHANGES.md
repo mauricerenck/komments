@@ -1,0 +1,7 @@
+- Moderation Cookies entfernt
+- Snippets angepasst
+- Comments und Replies getrennt
+- Alles jetzt als Object, keine Arrays mehr
+- hasQueuedKomments DEPRECATED
+- Quote ist weg, wurde sowieso nicht aktiv genutzt
+- 

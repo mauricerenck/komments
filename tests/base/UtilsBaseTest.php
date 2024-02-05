@@ -145,7 +145,7 @@ final class UtilsBaseTest extends TestCaseMocked
         $this->assertEquals($result, $expectedResult);
     }
 
-        /**
+    /**
      * @group panel
      * @testdox getCommentsOfPage - should get 1 published comments
      */
@@ -339,6 +339,107 @@ final class UtilsBaseTest extends TestCaseMocked
      * @testdox getCommentsCountOfPage - should get 1 spam comment
      */
     public function testGetSpamCommentsCount()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getCommentsCountOfPage($pageMock, 'spam');
+
+        $this->assertEquals(1, $result);
+    }
+
+    /**
+     * @group base
+     * @testdox getInboxByLanguage - should get english inbox with 3 comments
+     */
+    public function testGetInboxByLanguageEn()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getInboxByLanguage($pageMock, 'en');
+        $structure = $result->toStructure();
+
+        $this->assertEquals(3, $structure->count());
+    }
+
+    /**
+     * @group base
+     * @testdox getInboxByLanguage - should get german inbox with 1 comments
+     */
+    public function testGetInboxByLanguageDe()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getInboxByLanguage($pageMock, 'de');
+        $structure = $result->toStructure();
+
+        $this->assertEquals(1, $structure->count());
+    }
+
+    /**
+     * @group base
+     * @testdox getInboxByLanguage - should handle query without language
+     */
+    public function testGetInboxByLanguageUnknown()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getInboxByLanguage($pageMock, null);
+        $structure = $result->toStructure();
+
+        $this->assertEquals(3, $structure->count());
+    }
+
+    /**
+     * @group base
+     * @testdox getCommentsCountOfPage - should get 3 comments
+     */
+    public function testGetCommentsCountOfPage()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getCommentsCountOfPage($pageMock);
+
+        $this->assertEquals(3, $result);
+    }
+
+    /**
+     * @group base
+     * @testdox getCommentsCountOfPage - should count 1 published comment
+     */
+    public function testGetCommentsCountOfPagePublished()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getCommentsCountOfPage($pageMock, 'published');
+
+        $this->assertEquals(1, $result);
+    }
+
+    /**
+     * @group base
+     * @testdox getCommentsCountOfPage - should count 1 pending comment
+     */
+    public function testGetCommentsCountOfPagePending()
+    {
+        $pageMock = $this->getPageMock();
+
+        $baseUtils = new KommentBaseUtils();
+        $result = $baseUtils->getCommentsCountOfPage($pageMock, 'pending');
+
+        $this->assertEquals(2, $result);
+    }
+
+    /**
+     * @group base
+     * @testdox getCommentsCountOfPage - should count 1 spam comment
+     */
+    public function testGetCommentsCountOfPageSpam()
     {
         $pageMock = $this->getPageMock();
 
