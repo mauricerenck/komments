@@ -92,7 +92,6 @@ class KommentsFrontend
         $languages = $baseUtils->getAllLanguages();
         $inboxes = new Structure();
 
-        var_dump($languages);
         if ($languages->count() === 0) {
             $inbox = $this->baseUtils->getInboxByLanguage($page);
             return $inbox->toStructure();
