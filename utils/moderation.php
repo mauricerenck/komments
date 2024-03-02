@@ -7,7 +7,7 @@ use Kirby\Data\yaml;
 
 class KommentModeration
 {
-
+    // TODO write tests
     public function markAsSpam($pageSlug, $kommentId, $isSpam)
     {
         try {
@@ -21,7 +21,8 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                if (isset($fieldData[$i]['id'])) {
+                    // backward compatibility
                     if ($fieldData[$i]['id'] === $kommentId) {
                         if ($isSpam) {
                             $fieldData[$i]['status'] = false;
@@ -39,13 +40,14 @@ class KommentModeration
             $kirby = kirby();
             $kirby->impersonate('kirby');
             $targetPage->update([
-                'kommentsInbox' => $fieldData
+                'kommentsInbox' => $fieldData,
             ]);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
+    // TODO write tests
     public function markAsVerified($pageSlug, $kommentId, $isVerified)
     {
         try {
@@ -59,7 +61,8 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                if (isset($fieldData[$i]['id'])) {
+                    // backward compatibility
                     if ($fieldData[$i]['id'] === $kommentId) {
                         $fieldData[$i]['verified'] = $isVerified;
                     }
@@ -71,13 +74,14 @@ class KommentModeration
             $kirby = kirby();
             $kirby->impersonate('kirby');
             $targetPage->update([
-                'kommentsInbox' => $fieldData
+                'kommentsInbox' => $fieldData,
             ]);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
+    // TODO write tests
     public function publish($pageSlug, $kommentId, $publish)
     {
         try {
@@ -91,7 +95,8 @@ class KommentModeration
             $fieldData = $targetPage->kommentsInbox()->yaml();
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                if (isset($fieldData[$i]['id'])) {
+                    // backward compatibility
                     if ($fieldData[$i]['id'] === $kommentId) {
                         $fieldData[$i]['status'] = $publish;
                     }
@@ -103,13 +108,14 @@ class KommentModeration
             $kirby = kirby();
             $kirby->impersonate('kirby');
             $targetPage->update([
-                'kommentsInbox' => $fieldData
+                'kommentsInbox' => $fieldData,
             ]);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
+    // TODO write tests
     public function delete($pageSlug, $kommentId)
     {
         try {
@@ -124,7 +130,8 @@ class KommentModeration
             $newFieldData = [];
 
             for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) { // backward compatibility
+                if (isset($fieldData[$i]['id'])) {
+                    // backward compatibility
                     if ($fieldData[$i]['id'] !== $kommentId) {
                         $newFieldData[] = $fieldData[$i];
                     }
@@ -136,11 +143,71 @@ class KommentModeration
             $kirby = kirby();
             $kirby->impersonate('kirby');
             $targetPage->update([
-                'kommentsInbox' => $newFieldData
+                'kommentsInbox' => $newFieldData,
             ]);
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
+    // TESTING NOT POSSIBLE RIGHT NOW
+    public function getSiteWideComments(?string $filter = 'all'): array
+    {
+        $comments = [];
+        $collection = site()->index();
+
+        foreach ($collection as $item) {
+            $comments = array_merge($comments, $this->getCommentsOfPage($item, $filter));
+        }
+
+        usort($comments, function ($a, $b) {
+            return $b['published'] <=> $a['published'];
+        });
+
+        return $comments;
+    }
+
+    // TESTED
+    public function getCommentsOfPage($page, $filter = null, $language = null)
+    {
+        $baseUtils = new KommentBaseUtils();
+        $allPageInboxes = $baseUtils->getInboxByLanguage($page, $language);
+        $allPageComments = $allPageInboxes->toStructure();
+
+        if (is_null($allPageComments)) {
+            return [];
+        }
+
+        $filteredComments = $baseUtils->filterCommentsByStatus($allPageComments, $filter);
+
+        return $this->convertInboxToCommentArray($filteredComments, $page);
+    }
+
+    // TESTED
+    public function convertInboxToCommentArray($inbox, $page)
+    {
+        $comments = [];
+
+        foreach ($inbox as $entry) {
+            $comments[] = [
+                'id' => $entry->id(),
+                'slug' => $page->id(),
+                'author' => $entry->author()->value(),
+                'authorUrl' => $entry->authorUrl()->value(),
+                'komment' => kirbytext(nl2br(html($entry->komment()))),
+                'kommentType' => $entry->kommenttype()->value() ?? 'komment',
+                'image' => $entry->avatar()->value(),
+                'title' => $page->title()->value(),
+                'url' => $page->panel()->url(),
+                'published' => date('Y-m-d H:i', strtotime($entry->published())),
+                'verified' => $entry->verified()->toBool(false),
+                'spamlevel' => $entry->spamlevel()->value() ?? 0,
+                'status' => $entry->status()->toBool(false),
+                'mentionof' => $entry->mentionof()->value() ?? null,
+                'replies' => [],
+            ];
+        }
+
+        return $comments;
+    }
 }

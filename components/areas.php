@@ -18,14 +18,14 @@ return [
                             'title' => 'Komments',
                             'props' => [
                                 'queuedKomments' => function () {
-                                    $kommentUtils = new KommentBaseUtils();
-                                    return $kommentUtils->getPendingKomments();
+                                    $kommentModeration = new KommentModeration();
+                                    return $kommentModeration->getSiteWideComments('pending');
                                 },
                             ],
                         ];
-                    }
-                ]
-            ]
+                    },
+                ],
+            ],
         ];
-    }
+    },
 ];

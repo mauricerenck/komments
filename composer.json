@@ -15,9 +15,7 @@
         "psr-4": {
             "mauricerenck\\Komments\\": "utils/"
         },
-        "classmap": [
-            "utils"
-        ]
+        "classmap": ["utils"]
     },
     "require-dev": {
         "getkirby/cms": "^4",
@@ -43,10 +41,6 @@
         "test": "vendor/bin/phpunit --testdox --colors=always",
         "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
         "build-composer": "composer install --no-dev --optimize-autoloader",
-        "build-release": [
-            "composer test",
-            "composer install --no-dev --optimize-autoloader",
-            "npm run build"
-        ]
+        "build-release": ["composer test tests", "composer install --no-dev --optimize-autoloader", "npm run build"]
     }
 }

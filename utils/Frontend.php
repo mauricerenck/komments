@@ -8,10 +8,7 @@ class KommentsFrontend
 {
     private $baseUtils;
 
-    public function __construct(
-        private ?int $expireAfterNumOfDays = null,
-        private ?string $dateField = null,
-    )
+    public function __construct(private ?int $expireAfterNumOfDays = null, private ?string $dateField = null)
     {
         $this->baseUtils = new KommentBaseUtils();
 
@@ -32,23 +29,24 @@ class KommentsFrontend
         }
 
         $publishDate = $page->$dateFieldName()->toDate();
-        
-        if($publishDate === 0) {
+
+        if ($publishDate === 0) {
             return false;
         }
 
         $now = time();
 
-        if (($now - $publishDate) > $this->expireAfterNumOfDays * 24 * 60 * 60) {
+        if ($now - $publishDate > $this->expireAfterNumOfDays * 24 * 60 * 60) {
             return true;
         }
 
         return false;
     }
 
+    // TODO write tests
     public function getCommentList($page): array
     {
-        $inboxes = $this->getAllInboxesOfPage($page);
+        $inboxes = $this->baseUtils->getAllCommentsOfPage($page);
 
         $commentList = [
             'likes' => new Structure(),
@@ -58,60 +56,32 @@ class KommentsFrontend
             'comments' => new Structure(),
         ];
 
-        $filteredInbox = $this->filterCommentsByType($inboxes, 'LIKE');
+        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'LIKE');
         if ($filteredInbox->count() > 0) {
             $commentList['likes']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->filterCommentsByType($inboxes, 'REPOST');
+        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'REPOST');
         if ($filteredInbox->count() > 0) {
             $commentList['reposts']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->filterCommentsByType($inboxes, 'MENTION');
+        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'MENTION');
         if ($filteredInbox->count() > 0) {
             $commentList['mentions']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->filterCommentsByType($inboxes, 'REPLY');
+        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'REPLY');
         if ($filteredInbox->count() > 0) {
             $commentList['replies']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->filterCommentsByType($inboxes, 'KOMMENT');
+        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'KOMMENT');
         if ($filteredInbox->count() > 0) {
             $commentList['comments']->add($filteredInbox);
         }
 
         return $commentList;
-    }
-
-    public function getAllInboxesOfPage($page)
-    {
-        $baseUtils = new KommentBaseUtils();
-        $languages = $baseUtils->getAllLanguages();
-        $inboxes = new Structure();
-
-        if ($languages->count() === 0) {
-            $inbox = $this->baseUtils->getInboxByLanguage($page);
-            return $inbox->toStructure();
-        }
-
-        foreach ($languages as $language) {
-            $inbox = $this->baseUtils->getInboxByLanguage($page, $language->code());
-            $inboxes->add($inbox->toStructure());
-        }
-
-        return $inboxes;
-    }
-
-    public function filterCommentsByType($inbox, $type = 'all')
-    {
-        if ($type === 'all') {
-            return $inbox;
-        }
-
-        return $inbox->filterBy('kommentType', $type);
     }
 
     // FIXME deprecated ?

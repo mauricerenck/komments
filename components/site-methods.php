@@ -7,10 +7,10 @@ use mauricerenck\Komments\KommentBaseUtils;
 return [
     'numberOfPendingComments' => function () {
         $kommentBaseUtils = new KommentBaseUtils();
-        return $kommentBaseUtils->getPendingCommentCount();
+        return $kommentBaseUtils->getSiteWideCommentCount('pending');
     },
     'numberOfSpamComments' => function () {
         $kommentBaseUtils = new KommentBaseUtils();
-        return $kommentBaseUtils->getSpamCommentCount();
-    }
+        return $kommentBaseUtils->getSiteWideCommentCount('spam');
+    },
 ];

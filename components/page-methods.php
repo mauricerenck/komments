@@ -3,15 +3,9 @@
 namespace mauricerenck\Komments;
 
 return [
-    'kommentCount' => function () {
-        $count = 0;
-        // FIXME Multilanuage support
-        foreach ($this->kommentsInbox()->yaml() as $komment) {
-            if ($komment['status'] !== 'false' && $komment['status'] !== false) {
-                $count++;
-            }
-        }
-        return $count;
+    'kommentCount' => function ($language = null) {
+        $baseUtils = new KommentBaseUtils();
+        return $baseUtils->getCommentsCountOfPage($this, 'published');
     },
     'hasQueuedKomments' => function ($kommentId, $kommenStatus) {
         deprecated('`hasQueuedKomments()` is deprecated, queued comment cookies habe been removed, this is no more needed. `hasQueuedKomments()` will be removed in future versions.');

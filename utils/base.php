@@ -2,8 +2,16 @@
 
 namespace mauricerenck\Komments;
 
+use Kirby\Cms\Structure;
+
 class KommentBaseUtils
 {
+    public function __construct(private ?array $languageCodes = null)
+    {
+        $this->languageCodes = $languageCodes;
+    }
+
+    // TESTED
     public function getPageFromSlug(string $pageSlug)
     {
         $page = page($pageSlug);
@@ -14,63 +22,73 @@ class KommentBaseUtils
         return $page;
     }
 
+    // NO NEED TO TEST
     public function getAllLanguages()
     {
+        if (!is_null($this->languageCodes)) {
+            return $this->languageCodes;
+        }
+
         // this method is used for easy mocking in tests
-        return kirby()->languages();
-    }
+        $languages = kirby()->languages();
 
-    public function getPendingKomments(): array
-    {
-        $pendingComments = [];
-        $collection = site()->index();
-
-        foreach ($collection as $item) {
-            $pendingComments = array_merge($pendingComments, $this->getCommentsOfPage($item, 'pending'));
+        $languageCodes = [];
+        foreach ($languages as $language) {
+            $languageCodes[] = $language->code();
         }
 
-        usort($pendingComments, function ($a, $b) {
-            return $b['published'] <=> $a['published'];
-        });
-
-        return $pendingComments;
+        return $languageCodes;
     }
 
-    // TESTED - move to moderation class?
-    public function getCommentsOfPage($page, $filter = null, $language = null)
+    // TESTED
+    public function getAllCommentsOfPage($page)
     {
-        $allPageInboxes = $this->getInboxByLanguage($page, $language);
-        $allPageComments = $allPageInboxes->toStructure();
+        $languageCodes = $this->getAllLanguages();
+        $inboxes = new Structure();
 
-        if (is_null($allPageComments)) {
-            return [];
+        if (count($languageCodes) === 0) {
+            $inbox = $this->getInboxByLanguage($page);
+            $inboxes->add($inbox->toStructure());
+
+            return $inboxes;
         }
 
-        $filteredComments = [];
+        foreach ($languageCodes as $language) {
+            $inbox = $this->getInboxByLanguage($page, $language);
+            $inboxes->add($inbox->toStructure());
+        }
 
-        switch ($filter) {
+        return $inboxes;
+    }
+
+    // TESTED
+    public function filterCommentsByType($inbox, $type = 'all')
+    {
+        if ($type === 'all') {
+            return $inbox;
+        }
+
+        return $inbox->filterBy('kommentType', $type);
+    }
+
+    // TESTED
+    public function filterCommentsByStatus($inbox, $status = 'all')
+    {
+        switch ($status) {
             case 'published':
-                $filteredComments = $allPageComments->filterBy('status', 'true');
-                break;
+                return $inbox->filterBy('status', 'true');
             case 'pending':
-                $filteredComments = $allPageComments->filterBy('status', 'false');
-                break;
+                return $inbox->filterBy('status', 'false');
             case 'spam':
-                $filteredComments = $allPageComments->filterBy('spamlevel', '!=', '0');
-                break;
+                return $inbox->filterBy('spamlevel', '!=', '0');
             default:
-                $filteredComments = $allPageComments;
-                break;
+                return $inbox;
         }
-
-
-        return $this->convertInboxToCommentArray($filteredComments, $page);
     }
 
     // TESTED
     public function getInboxByLanguage($page, $language = null)
     {
-
         if ($page->kommentsInbox()->isEmpty()) {
             return null;
         }
@@ -86,85 +104,25 @@ class KommentBaseUtils
         return null;
     }
 
-    // TESTED partially
+    // TESTED
     public function getCommentsCountOfPage($page, $filter = 'all'): int
     {
+        $inbox = $this->getAllCommentsOfPage($page);
+        $filteredInbox = $this->filterCommentsByStatus($inbox, $filter);
 
-        // FIXME Multilanuage support
-        if ($page->kommentsInbox()->isEmpty()) {
-            return 0;
-        }
-
-        $allPageComments = $page->kommentsInbox()->toStructure();
-        $filteredComments = [];
-
-        switch ($filter) {
-            case 'published':
-                $filteredComments = $allPageComments->filterBy('status', 'true');
-                break;
-            case 'pending':
-                $filteredComments = $allPageComments->filterBy('status', 'false');
-                break;
-            case 'spam':
-                $filteredComments = $allPageComments->filterBy('spamlevel', '!=', '0');
-                break;
-            default:
-                $filteredComments = $allPageComments;
-                break;
-        }
-
-        return $filteredComments->count();
+        return $filteredInbox->count();
     }
 
-    public function getPendingCommentCount(): int
+    // TODO TEST NOT POSSIBLE
+    public function getSiteWideCommentCount(?string $filter = 'all'): int
     {
         $collection = site()->index();
         $pendingKomments = 0;
 
         foreach ($collection as $item) {
-            $pendingKomments += $this->getCommentsCountOfPage($item, 'pending');
+            $pendingKomments += $this->getCommentsCountOfPage($item, $filter);
         }
 
         return $pendingKomments;
-    }
-
-    public function getSpamCommentCount(): int
-    {
-        $collection = site()->index();
-        $spamComments = 0;
-
-        foreach ($collection as $item) {
-            $spamComments += $this->getCommentsCountOfPage($item, 'spam');
-        }
-
-        return $spamComments;
-    }
-
-    // FIXME move to moderation class?
-    public function convertInboxToCommentArray($inbox, $page)
-    {
-        $comments = [];
-
-        foreach ($inbox as $entry) {
-            $comments[] = [
-                'id' => $entry->id(),
-                'slug' => $page->id(),
-                'author' => $entry->author()->value(),
-                'authorUrl' => $entry->authorUrl()->value(),
-                'komment' => kirbytext(nl2br(html($entry->komment()))),
-                'kommentType' => $entry->kommenttype()->value() ?? 'komment',
-                'image' => $entry->avatar()->value(),
-                'title' => $page->title()->value(),
-                'url' => $page->panel()->url(),
-                'published' => date('Y-m-d H:i', strtotime($entry->published())),
-                'verified' => $entry->verified()->toBool(false),
-                'spamlevel' => $entry->spamlevel()->value() ?? 0,
-                'status' => $entry->status()->toBool(false),
-                'mentionof' => $entry->mentionof()->value() ?? null,
-                'replies' => [],
-            ];
-        }
-
-        return $comments;
     }
 }
