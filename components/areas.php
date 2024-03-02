@@ -21,6 +21,7 @@ return [
                                     $kommentModeration = new KommentModeration();
                                     return $kommentModeration->getSiteWideComments('pending');
                                 },
+                                'kirbyVersion' => kirby()->version(),
                             ],
                         ];
                     },

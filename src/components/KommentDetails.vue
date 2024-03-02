@@ -108,12 +108,13 @@ export default {
         onMarkAsVerified: Function,
         onMarkAsPublished: Function,
         onDelete: Function,
+        kommentApi: Function,
     },
     methods: {
         markAsSpam(pageSlug, kommentId, isSpam) {
             this.komment.spamlevel = null
 
-            panel.api
+            this.kommentApi()
                 .post('komments/spam', {
                     pageSlug: pageSlug,
                     kommentId: kommentId,
@@ -125,7 +126,8 @@ export default {
         },
         markAsVerified(pageSlug, kommentId, isVerified) {
             this.komment.verified = null
-            panel.api
+
+            this.kommentApi()
                 .post('komments/verify', {
                     pageSlug: pageSlug,
                     kommentId: kommentId,
@@ -138,7 +140,7 @@ export default {
         publish(pageSlug, kommentId, isPublished) {
             this.komment.status = null
 
-            panel.api
+            this.kommentApi()
                 .post('komments/publish', {
                     pageSlug: pageSlug,
                     kommentId: kommentId,
@@ -149,7 +151,7 @@ export default {
                 })
         },
         deleteKomment(pageSlug, kommentId, ref) {
-            panel.api
+            this.kommentApi()
                 .post('komments/delete', {
                     pageSlug: pageSlug,
                     kommentId: kommentId,
