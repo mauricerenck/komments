@@ -51,22 +51,12 @@ export default {
     },
     created() {
         this.kommentList = this.queuedKomments
-        this.loadKomments()
 
         if (this.kommentList[0]) {
             this.selectKomment(this.kommentList[0].id)
         }
     },
     methods: {
-        async loadKomments() {
-            try {
-                panel.api.get('komments/queued').then((komments) => {
-                    this.komments = komments
-                })
-            } catch (error) {
-                console.log(error)
-            }
-        },
         selectKomment(id) {
             this.selectedKomment = this.queuedKomments.find((komment) => {
                 return komment.id === id

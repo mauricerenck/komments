@@ -3,7 +3,7 @@
 namespace mauricerenck\Komments;
 
 return [
-    'komments' => function ($kirby) {
+    'komments' => function () {
         return [
             'label' => 'Komments',
             'icon' => 'chat',
