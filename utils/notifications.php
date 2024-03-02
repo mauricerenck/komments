@@ -8,8 +8,8 @@ class KommentNotificationUtils
 
     public function sendNotifications()
     {
-        $kommentUtils = new KommentBaseUtils();
-        $this->pendingComments = $kommentUtils->getSiteWideComments('pending');
+        $kommentModeration = new KommentModeration();
+        $this->pendingComments = $kommentModeration->getSiteWideComments('pending');
 
         $this->sendEmailNotification();
     }

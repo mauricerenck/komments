@@ -171,14 +171,13 @@ class KommentModeration
     public function getCommentsOfPage($page, $filter = null, $language = null)
     {
         $baseUtils = new KommentBaseUtils();
-        $allPageInboxes = $baseUtils->getInboxByLanguage($page, $language);
-        $allPageComments = $allPageInboxes->toStructure();
+        $allPageInboxes = $baseUtils->getAllCommentsOfPage($page);
 
-        if (is_null($allPageComments)) {
+        if (is_null($allPageInboxes)) {
             return [];
         }
 
-        $filteredComments = $baseUtils->filterCommentsByStatus($allPageComments, $filter);
+        $filteredComments = $baseUtils->filterCommentsByStatus($allPageInboxes, $filter);
 
         return $this->convertInboxToCommentArray($filteredComments, $page);
     }
