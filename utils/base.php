@@ -48,14 +48,18 @@ class KommentBaseUtils
 
         if (count($languageCodes) === 0) {
             $inbox = $this->getInboxByLanguage($page);
-            $inboxes->add($inbox->toStructure());
+            if (!is_null($inbox)) {
+                $inboxes->add($inbox->toStructure());
+            }
 
             return $inboxes;
         }
 
         foreach ($languageCodes as $language) {
             $inbox = $this->getInboxByLanguage($page, $language);
-            $inboxes->add($inbox->toStructure());
+            if (!is_null($inbox)) {
+                $inboxes->add($inbox->toStructure());
+            }
         }
 
         return $inboxes;
