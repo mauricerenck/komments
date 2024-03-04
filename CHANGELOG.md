@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/mauricerenck/komments/compare/v2.0.0...v2.0.1) (2024-03-04)
+
+
+### Bug Fixes
+
+* handle missing inbox ([2f539e4](https://github.com/mauricerenck/komments/commit/2f539e4d3d96c1b3a68f5c0fdc8ccdadad312a98))
+
 # [2.0.0](https://github.com/mauricerenck/komments/compare/v1.13.2...v2.0.0) (2024-03-04)
 
 
