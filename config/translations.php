@@ -13,7 +13,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Reply elsewhere',
         'mauricerenck.komments.form.submit' => 'send',
         'mauricerenck.komments.form.privacy' =>
-            'Your E-Mail address will be encrypted before saving the comment. It will only be used to display a gravatar. By submitting your data, you agree that all entered data may be saved and displayed as a comment.',
+            'By submitting your data, you agree that all entered data may be saved and displayed as a comment.',
         'mauricerenck.komments.form.label.comment' => 'Comment',
         'mauricerenck.komments.form.label.email' => 'E-mail',
         'mauricerenck.komments.form.label.name' => 'Name',
@@ -40,7 +40,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Woanders antworten',
         'mauricerenck.komments.form.submit' => 'Abschicken',
         'mauricerenck.komments.form.privacy' =>
-            'Die eingegebene E-Mail-Adresse wird vor dem Speichern unwiderruflich verschlüsselt und dient nur zur Darstellung des Avatars. Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
+            'Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
         'mauricerenck.komments.form.label.comment' => 'Kommentar',
         'mauricerenck.komments.form.label.email' => 'E-Mail',
         'mauricerenck.komments.form.label.name' => 'Name',
@@ -67,7 +67,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Répondre ailleurs',
         'mauricerenck.komments.form.submit' => 'envoyer',
         'mauricerenck.komments.form.privacy' =>
-            'Votre adresse électronique sera chiffrée avant de sauvegarder le commentaire. Elle ne sera utilisée que pour afficher un gravatar. En soumettant vos données, vous acceptez que toutes les données saisies soient sauvegardées et affichées sous forme de commentaire.',
+            'En soumettant vos données, vous acceptez que toutes les données saisies soient sauvegardées et affichées sous forme de commentaire.',
         'mauricerenck.komments.form.label.kommentar' => 'Commentaire',
         'mauricerenck.komments.form.label.email' => 'E-mail',
         'mauricerenck.komments.form.label.name' => 'Nom',
