@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/mauricerenck/komments/compare/v2.0.2...v2.0.3) (2024-03-04)
+
+
+### Bug Fixes
+
+* privacy text ([bf4cbea](https://github.com/mauricerenck/komments/commit/bf4cbea892d2e73119841703a29cb29a6bb79182))
+
 ## [2.0.2](https://github.com/mauricerenck/komments/compare/v2.0.1...v2.0.2) (2024-03-04)
 
 
