@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/mauricerenck/komments/compare/v2.0.1...v2.0.2) (2024-03-04)
+
+
+### Bug Fixes
+
+* multilanguage inbox handling ([e51bcc9](https://github.com/mauricerenck/komments/commit/e51bcc925927631dd720ad26a7a0fa22ec3b6494))
+
 ## [2.0.1](https://github.com/mauricerenck/komments/compare/v2.0.0...v2.0.1) (2024-03-04)
 
 
