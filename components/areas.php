@@ -3,7 +3,7 @@
 namespace mauricerenck\Komments;
 
 return [
-    'komments' => function ($kirby) {
+    'komments' => function () {
         return [
             'label' => 'Komments',
             'icon' => 'chat',
@@ -18,14 +18,15 @@ return [
                             'title' => 'Komments',
                             'props' => [
                                 'queuedKomments' => function () {
-                                    $kommentUtils = new KommentBaseUtils();
-                                    return $kommentUtils->getPendingKomments();
+                                    $kommentModeration = new KommentModeration();
+                                    return $kommentModeration->getSiteWideComments('pending');
                                 },
+                                'kirbyVersion' => kirby()->version(),
                             ],
                         ];
-                    }
-                ]
-            ]
+                    },
+                ],
+            ],
         ];
-    }
+    },
 ];

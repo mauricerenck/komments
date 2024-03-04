@@ -1,6 +1,11 @@
 <template>
     <k-inside>
-        <div class="k-komments-view">
+        <div
+            class="k-komments-view"
+            v-bind:class="{
+                version3: this.kirbyMajorVersion === '3',
+            }"
+        >
             <k-header>Komments</k-header>
 
             <div>
@@ -29,6 +34,7 @@
                             :onMarkAsVerified="this.onMarkAsVerified"
                             :onMarkAsPublished="this.onMarkAsPublished"
                             :onDelete="this.onDelete"
+                            :kommentApi="this.kommentApi"
                         />
                     </k-column>
                 </div>
@@ -48,24 +54,22 @@ export default {
     props: {
         title: String,
         queuedKomments: Array,
+        kirbyVersion: String,
     },
     created() {
         this.kommentList = this.queuedKomments
-        this.loadKomments()
-
         if (this.kommentList[0]) {
             this.selectKomment(this.kommentList[0].id)
         }
     },
+    computed: {
+        kirbyMajorVersion() {
+            return this.kirbyVersion.split('.')[0]
+        },
+    },
     methods: {
-        async loadKomments() {
-            try {
-                panel.api.get('komments/queued').then((komments) => {
-                    this.komments = komments
-                })
-            } catch (error) {
-                console.log(error)
-            }
+        kommentApi() {
+            return !panel.api ? this.$api : panel.api
         },
         selectKomment(id) {
             this.selectedKomment = this.queuedKomments.find((komment) => {
@@ -110,6 +114,15 @@ export default {
 </script>
 <style lang="scss">
 .k-komments-view {
+    &.version3 {
+        padding: var(--spacing-10);
+
+        .komment-list,
+        .komment-details {
+            grid-column-start: inherit;
+        }
+    }
+
     .comments-grid {
         display: grid;
         grid-template-columns: 1fr 3fr;

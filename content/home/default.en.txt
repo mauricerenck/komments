@@ -12,10 +12,10 @@ Kommentsinbox:
   author: Maurice
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
-  authorurl: ""
+  authorurl: https://maurice-renck.de
+  authoremail: ""
   kommenttype: KOMMENT
-  quote: ""
-  komment: just a test
+  komment: This is a verified comment
   source: https://komments.test:8890
   target: https://komments.test:8890
   mentionof: https://komments.test:8890
@@ -23,6 +23,7 @@ Kommentsinbox:
   published: 2022-07-01 15:05:00
   status: 'true'
   verified: 'true'
+  quote: ""
   id: 69e47b8d360d466d0b18c88b2f5f65da
   spamlevel: 0
 - 
@@ -30,76 +31,80 @@ Kommentsinbox:
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
+  authoremail: ""
   kommenttype: KOMMENT
-  quote: ""
-  komment: skjdf sdlfjsd lfsd
+  komment: This is a comment
   source: https://komments.test:8890
   target: https://komments.test:8890
-  mentionof: https://komments.test:8890
+  mentionof: 69e47b8d360d466d0b18c88b2f5f65da
   property: KOMMENT
   published: 2022-07-01 15:05:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: 18e4701f1daed91c1f7dd3018d2537e0
   spamlevel: 0
 - 
-  author: sdfsdf
+  author: userLike
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
-  kommenttype: KOMMENT
-  quote: ""
-  komment: sdfsdfsdf
+  authoremail: ""
+  kommenttype: LIKE
+  komment: ""
   source: https://komments.test:8890
   target: https://komments.test:8890
   mentionof: https://komments.test:8890
   property: KOMMENT
   published: 2022-07-01 15:25:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: 5ff0d17abcf50a3566ba347f6e80b832
   spamlevel: 0
 - 
-  author: sdfsdfs
+  author: userRepost
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
-  kommenttype: KOMMENT
-  quote: ""
-  komment: sdfsd
+  authoremail: ""
+  kommenttype: REPOST
+  komment: ""
   source: https://komments.test:8890/en
   target: https://komments.test:8890/en
   mentionof: https://komments.test:8890/en
   property: KOMMENT
   published: 2023-08-08 07:20:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: 4d84cfa624de930e106cb62056596ef2
   spamlevel: 0
 - 
-  author: sdfsdfs
+  author: userMention
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
-  kommenttype: KOMMENT
-  quote: ""
-  komment: sdfsd
+  authoremail: ""
+  kommenttype: MENTION
+  komment: ""
   source: https://komments.test:8890/en
   target: https://komments.test:8890/en
   mentionof: https://komments.test:8890/en
   property: KOMMENT
   published: 2023-08-08 07:25:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: b53b321e3df94a297aebe0854921c79e
   spamlevel: 0
 - 
-  author: sdfsdf
+  author: userSpam
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
-  kommenttype: KOMMENT
-  quote: ""
+  authoremail: ""
+  kommenttype: SPAM
   komment: sdfsdfsdf
   source: https://komments.test:8890/en
   target: https://komments.test:8890/en
@@ -107,25 +112,45 @@ Kommentsinbox:
   property: KOMMENT
   published: 2023-08-08 07:25:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: f8cc69a6569a8cb1be0a0102d42cbf3a
   spamlevel: 0
 - 
-  author: sdfsdfsdfsdf
+  author: userReply
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
   authorurl: ""
-  kommenttype: KOMMENT
-  quote: ""
-  komment: sdfsdfsdf
+  authoremail: ""
+  kommenttype: REPLY
+  komment: This is a reply
   source: https://komments.test:8890/en
   target: https://komments.test:8890/en
   mentionof: https://komments.test:8890/en
   property: KOMMENT
   published: 2023-08-08 10:30:00
   status: 'true'
-  verified: 'true'
+  verified: 'false'
+  quote: ""
   id: 173f70c58803c163a70efc99c62bbbcd
+  spamlevel: 0
+- 
+  author: replyGuy
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: KOMMENT
+  komment: This is a reply to a comment
+  source: https://komments.test:8890/en
+  target: https://komments.test:8890/en
+  mentionof: 18e4701f1daed91c1f7dd3018d2537e0
+  property: KOMMENT
+  published: 2024-01-25 11:20:00
+  status: 'true'
+  verified: 'true'
+  id: 612763db7d5a035ad11d73acb5bb5cda
+  quote: ""
   spamlevel: 0
 
 ----

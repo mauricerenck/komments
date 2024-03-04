@@ -2,15 +2,14 @@
 
 namespace mauricerenck\Komments;
 
-
 class KommentNotificationUtils
 {
     private $pendingComments;
 
     public function sendNotifications()
     {
-        $kommentUtils = new KommentBaseUtils();
-        $this->pendingComments = $kommentUtils->getPendingKomments();
+        $kommentModeration = new KommentModeration();
+        $this->pendingComments = $kommentModeration->getSiteWideComments('pending');
 
         $this->sendEmailNotification();
     }
@@ -34,8 +33,8 @@ class KommentNotificationUtils
                 'template' => 'newcomments',
                 'data' => [
                     'pendingComments' => $pendingCommentsCount,
-                    'panelUrl' => $panelUrl
-                ]
+                    'panelUrl' => $panelUrl,
+                ],
             ]);
         }
     }

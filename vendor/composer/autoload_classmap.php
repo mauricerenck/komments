@@ -17,6 +17,7 @@ return array(
     'mauricerenck\\Komments\\KommentModeration' => $baseDir . '/utils/moderation.php',
     'mauricerenck\\Komments\\KommentNotificationUtils' => $baseDir . '/utils/notifications.php',
     'mauricerenck\\Komments\\KommentReceiver' => $baseDir . '/utils/receiveKomment.php',
+    'mauricerenck\\Komments\\KommentsFrontend' => $baseDir . '/utils/Frontend.php',
     'mauricerenck\\Komments\\MastodonSender' => $baseDir . '/utils/sendMastodon.php',
     'mauricerenck\\Komments\\TestCaseMocked' => $baseDir . '/utils/TestCaseMocked.php',
     'mauricerenck\\Komments\\WebmentionSender' => $baseDir . '/utils/sendWebmention.php',

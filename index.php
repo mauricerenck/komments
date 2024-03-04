@@ -63,7 +63,6 @@ Kirby::plugin('mauricerenck/komments', [
 
                 $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified, $autoPublish);
                 $kommentReceiver->storeData($newEntry, $targetPage);
-                $kommentModeration->addCookieToModerationList($newEntry['id']);
 
                 kirby()->trigger('komments.comment.received', []);
 

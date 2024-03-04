@@ -2,27 +2,19 @@
 
 namespace mauricerenck\Komments;
 
-use mauricerenck\Komments\KommentBaseUtils;
-use mauricerenck\Komments\KommentModeration;
-
 return [
-    'kommentCount' => function () {
-        $count = 0;
-        foreach ($this->kommentsInbox()->yaml() as $komment) {
-            if ($komment['status'] !== 'false' && $komment['status'] !== false) {
-                $count++;
-            }
-        }
-        return $count;
+    'kommentCount' => function ($language = null) {
+        $baseUtils = new KommentBaseUtils();
+        return $baseUtils->getCommentsCountOfPage($this, 'published');
     },
     'hasQueuedKomments' => function ($kommentId, $kommenStatus) {
-        $kommentModeration = new KommentModeration();
-        return $kommentModeration->pageHasQueuedKomments($kommentId, $kommenStatus);
+        deprecated('`hasQueuedKomments()` is deprecated, queued comment cookies habe been removed, this is no more needed. `hasQueuedKomments()` will be removed in future versions.');
+        return 0;
     },
     'kommentsAreEnabled' => function () {
-        $kommentBaseUtils = new KommentBaseUtils();
+        $kommentsFrontend = new KommentsFrontend();
 
-        if ($kommentBaseUtils->kommentsAreExpired($this)) {
+        if ($kommentsFrontend->kommentsAreExpired($this)) {
             return false;
         }
 

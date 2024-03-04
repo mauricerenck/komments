@@ -41,11 +41,6 @@ fields:
           MENTION: Mention
           KOMMENT: Komment
           SPAM: Spam
-
-      quote:
-        type: textarea
-        label: Quote
-        width: 1/1
       komment:
         type: textarea
         label: Komment

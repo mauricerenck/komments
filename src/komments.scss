@@ -67,7 +67,10 @@
     }
 
     .progress {
-        transition: width 1s, background 2s, height 0.2s;
+        transition:
+            width 1s,
+            background 2s,
+            height 0.2s;
         transition-timing-function: linear;
         display: inline-block;
         width: 0%;
@@ -178,22 +181,37 @@
 }
 
 #kommentsWebmentions {
-    .single-komment {
-        display: grid;
-        grid-template-columns: 20px 40px 1fr;
+    .list-reposts,
+    .list-mentions,
+    .list-likes {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
 
-        grid-template-areas:
-            'icon avatar action'
-            'icon avatar content';
+        .author-action {
+            display: none;
+        }
+    }
 
-        grid-column-gap: 10px;
-        grid-row-gap: 10px;
+    .list-comments,
+    .list-replies {
+        .single-komment {
+            display: grid;
+            grid-template-columns: 20px 40px 1fr;
 
-        line-height: 1.2;
+            grid-template-areas:
+                'icon avatar action'
+                'icon avatar content';
 
-        border-bottom: 1px solid grey;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+
+            line-height: 1.2;
+
+            border-bottom: 1px solid grey;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
     }
 
     .type-of {
@@ -222,45 +240,6 @@
     .komment-text {
         padding: 20;
         line-height: 1.5;
-    }
-}
-
-.splitted-komments {
-    .list-reposts,
-    .list-mentions,
-    .list-likes {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30px, 60px));
-        grid-column-gap: 10px;
-        grid-row-gap: 10px;
-    }
-
-    .single-komment {
-        display: block;
-    }
-
-    .single-komment .author-avatar img {
-        max-width: 60px;
-    }
-
-    .single-komment .author-action,
-    .single-komment .type-of {
-        display: none;
-    }
-
-    .list-replies {
-        list-style-type: none;
-        padding-left: 0;
-
-        .single-komment .author-action,
-        .single-komment .type-of {
-            display: block;
-        }
-    }
-
-    .kommentReply {
-        display: block;
-        text-align: right;
     }
 }
 

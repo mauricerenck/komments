@@ -144,7 +144,39 @@
   animation-delay: 0.2s;
 }
 
-#kommentsWebmentions .single-komment {
+#kommentsWebmentions {
+  /* .single-komment {
+      display: grid;
+      grid-template-columns: 20px 40px 1fr;
+
+      grid-template-areas:
+          'icon avatar action'
+          'icon avatar content';
+
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+
+      line-height: 1.2;
+
+      border-bottom: 1px solid grey;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+  } */
+}
+#kommentsWebmentions .list-reposts,
+#kommentsWebmentions .list-mentions,
+#kommentsWebmentions .list-likes {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+#kommentsWebmentions .list-reposts .author-action,
+#kommentsWebmentions .list-mentions .author-action,
+#kommentsWebmentions .list-likes .author-action {
+  display: none;
+}
+#kommentsWebmentions .list-comments .single-komment,
+#kommentsWebmentions .list-replies .single-komment {
   display: grid;
   grid-template-columns: 20px 40px 1fr;
   grid-template-areas: "icon avatar action" "icon avatar content";
@@ -181,37 +213,36 @@
   line-height: 1.5;
 }
 
-.splitted-komments .list-reposts,
-.splitted-komments .list-mentions,
-.splitted-komments .list-likes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30px, 60px));
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-}
-.splitted-komments .single-komment {
-  display: block;
-}
-.splitted-komments .single-komment .author-avatar img {
-  max-width: 60px;
-}
-.splitted-komments .single-komment .author-action,
-.splitted-komments .single-komment .type-of {
-  display: none;
-}
-.splitted-komments .list-replies {
-  list-style-type: none;
-  padding-left: 0;
-}
-.splitted-komments .list-replies .single-komment .author-action,
-.splitted-komments .list-replies .single-komment .type-of {
-  display: block;
-}
-.splitted-komments .kommentReply {
-  display: block;
-  text-align: right;
-}
+/* .splitted-komments {
 
+    .single-komment {
+        display: block;
+    }
+
+    .single-komment .author-avatar img {
+        max-width: 60px;
+    }
+
+    .single-komment .author-action,
+    .single-komment .type-of {
+        display: none;
+    }
+
+    .list-replies {
+        list-style-type: none;
+        padding-left: 0;
+
+        .single-komment .author-action,
+        .single-komment .type-of {
+            display: block;
+        }
+    }
+
+    .kommentReply {
+        display: block;
+        text-align: right;
+    }
+} */
 @-webkit-keyframes sk-cubeGridScaleDelay {
   0%, 70%, 100% {
     -webkit-transform: scale3D(1, 1, 1);

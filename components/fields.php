@@ -4,24 +4,23 @@ namespace mauricerenck\Komments;
 
 return [
     'kommentType' => [
-        'props' => [
-        ]
+        'props' => [],
     ],
     'kommentsPending' => [
         'props' => [
             'queuedComments' => function () {
                 $kommentUtils = new KommentBaseUtils();
-                $pendingComments = $kommentUtils->getPendingCommentCount();
+                $pendingComments = $kommentUtils->getSiteWideCommentCount('pending');
                 return $pendingComments;
             },
-        ]
+        ],
     ],
     'komments' => [
         'props' => [
             'queuedComments' => function () {
-                $kommentUtils = new KommentBaseUtils();
-                return $kommentUtils->getPendingKomments();
+                $kommentModeration = new KommentModeration();
+                return $kommentModeration->getSiteWideComments('pending');
             },
-        ]
-    ]
+        ],
+    ],
 ];

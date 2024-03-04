@@ -127,7 +127,7 @@ docReady(function () {
         link.addEventListener('click', (event) => {
             const kommentId = event.target.dataset.id;
             const kommentHandle = event.target.dataset.handle;
-            console.log(kommentId, kommentHandle);
+
             kommentForm.querySelector('input[name=replyTo]').value = kommentId;
             kommentForm.querySelector('input[name=replyHandle]').value = kommentHandle;
             replyHandleDisplay.innerHTML = `<a href="#komment_${kommentId}">@${kommentHandle}</a>`;
