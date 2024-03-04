@@ -1,3 +1,51 @@
+# [2.0.0](https://github.com/mauricerenck/komments/compare/v1.13.2...v2.0.0) (2024-03-04)
+
+
+* Code and compatibility improvements (#66) ([51e4ccf](https://github.com/mauricerenck/komments/commit/51e4ccf8a09ae8b9454c86c7d4ce1bcb8721947d)), closes [#66](https://github.com/mauricerenck/komments/issues/66)
+
+
+### BREAKING CHANGES
+
+* Komments plugin will not use cookies anymore
+
+* improvement: use structures in snippets no more arrays
+* comments and replies are splitted, strcutures are used now
+
+* chore: add deprecation warning
+
+* improvement: base utils optimization
+
+* feat: added frontend class (wip)
+
+* feat: removed unused quote feature
+
+BRAKING CHANGE: Quotes are getting removed
+
+* improvement: moved kommentsAreExpired to frontend class
+
+* feat: multilang page mock
+
+* improvement: tests
+
+* chore: ignore tilde folder
+
+* chore: remove dump
+
+* chore: class loader
+
+* improvement: refactored classes and tests
+
+* improvement: remove needless api calls
+
+* fix: better backwards compatibility with Kirby 3
+
+* chore: added translations
+
+* fix: show all language comments in panel
+
+* improvement: reduced css
+* CSS has been reduced to a minimum
+
 ## [1.13.2](https://github.com/mauricerenck/komments/compare/v1.13.1...v1.13.2) (2024-01-22)
 
 
