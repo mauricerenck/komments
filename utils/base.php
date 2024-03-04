@@ -93,10 +93,6 @@ class KommentBaseUtils
     // TESTED
     public function getInboxByLanguage($page, $language = null)
     {
-        if ($page->kommentsInbox()->isEmpty()) {
-            return null;
-        }
-
         if (is_null($language)) {
             return $page->kommentsInbox();
         }
