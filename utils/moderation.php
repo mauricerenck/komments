@@ -18,7 +18,8 @@ class KommentModeration
                 throw new Exception('Page not found', 1);
             }
 
-            $fieldData = $targetPage->kommentsInbox()->yaml();
+            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
+            $fieldData = $fieldData->toArray();
 
             for ($i = 0; $i < count($fieldData); $i++) {
                 if (isset($fieldData[$i]['id'])) {
@@ -58,7 +59,8 @@ class KommentModeration
                 throw new Exception('Page not found', 1);
             }
 
-            $fieldData = $targetPage->kommentsInbox()->yaml();
+            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
+            $fieldData = $fieldData->toArray();
 
             for ($i = 0; $i < count($fieldData); $i++) {
                 if (isset($fieldData[$i]['id'])) {
@@ -92,7 +94,8 @@ class KommentModeration
                 throw new Exception('Page not found', 1);
             }
 
-            $fieldData = $targetPage->kommentsInbox()->yaml();
+            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
+            $fieldData = $fieldData->toArray();
 
             for ($i = 0; $i < count($fieldData); $i++) {
                 if (isset($fieldData[$i]['id'])) {
@@ -126,7 +129,8 @@ class KommentModeration
                 throw new Exception('Page not found', 1);
             }
 
-            $fieldData = $targetPage->kommentsInbox()->yaml();
+            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
+            $fieldData = $fieldData->toArray();
             $newFieldData = [];
 
             for ($i = 0; $i < count($fieldData); $i++) {
