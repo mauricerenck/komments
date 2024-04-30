@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/mauricerenck/komments/compare/v2.0.3...v2.0.4) (2024-04-30)
+
+
+### Bug Fixes
+
+* comment moderation on non-primary language ([3bda0f2](https://github.com/mauricerenck/komments/commit/3bda0f284f8e415a95fec35cc1581957bcf0762c))
+
 ## [2.0.3](https://github.com/mauricerenck/komments/compare/v2.0.2...v2.0.3) (2024-03-04)
 
 
