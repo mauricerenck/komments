@@ -8,7 +8,39 @@ Kommentsenabledonpage: true
 
 Kommentsinbox:
 
-- 
+-
+  author: DeUserLike
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: LIKE
+  komment: ""
+  source: null
+  target: null
+  mentionof: null
+  property: null
+  published: 2024-01-24 17:05:00
+  status: 'true'
+  verified: 'false'
+  id: "0"
+-
+  author: DeUserLike
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: LIKE
+  komment: ""
+  source: null
+  target: null
+  mentionof: null
+  property: null
+  published: 2024-01-24 17:05:00
+  status: 'true'
+  verified: 'false'
+  id: "0"
+-
   author: Maurice
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -26,7 +58,7 @@ Kommentsinbox:
   quote: ""
   id: 69e47b8d360d466d0b18c88b2f5f65da
   spamlevel: 0
-- 
+-
   author: Maurice
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -44,7 +76,7 @@ Kommentsinbox:
   quote: ""
   id: 18e4701f1daed91c1f7dd3018d2537e0
   spamlevel: 0
-- 
+-
   author: userLike
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -62,7 +94,7 @@ Kommentsinbox:
   quote: ""
   id: 5ff0d17abcf50a3566ba347f6e80b832
   spamlevel: 0
-- 
+-
   author: userRepost
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -80,7 +112,7 @@ Kommentsinbox:
   quote: ""
   id: 4d84cfa624de930e106cb62056596ef2
   spamlevel: 0
-- 
+-
   author: userMention
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -98,7 +130,7 @@ Kommentsinbox:
   quote: ""
   id: b53b321e3df94a297aebe0854921c79e
   spamlevel: 0
-- 
+-
   author: userSpam
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -116,7 +148,7 @@ Kommentsinbox:
   quote: ""
   id: f8cc69a6569a8cb1be0a0102d42cbf3a
   spamlevel: 0
-- 
+-
   author: userReply
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -134,7 +166,7 @@ Kommentsinbox:
   quote: ""
   id: 173f70c58803c163a70efc99c62bbbcd
   spamlevel: 0
-- 
+-
   author: replyGuy
   avatar: >
     https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -152,6 +184,22 @@ Kommentsinbox:
   id: 612763db7d5a035ad11d73acb5bb5cda
   quote: ""
   spamlevel: 0
+-
+  author: DeUserLike
+  avatar: >
+    https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
+  authorurl: ""
+  authoremail: ""
+  kommenttype: LIKE
+  komment: ""
+  source: null
+  target: null
+  mentionof: null
+  property: null
+  published: 2024-01-24 17:05:00
+  status: 'true'
+  verified: 'false'
+  id: "0"
 
 ----
 
