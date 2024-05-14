@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/mauricerenck/komments/compare/v2.0.4...v2.0.5) (2024-05-14)
+
+
+### Bug Fixes
+
+* pending comments shown on page ([422a8e8](https://github.com/mauricerenck/komments/commit/422a8e85f02d4df78e2eb407fe25ec3b58c8a0f0))
+
 ## [2.0.4](https://github.com/mauricerenck/komments/compare/v2.0.3...v2.0.4) (2024-04-30)
 
 
