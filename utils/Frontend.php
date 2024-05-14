@@ -47,6 +47,7 @@ class KommentsFrontend
     public function getCommentList($page): array
     {
         $inboxes = $this->baseUtils->getAllCommentsOfPage($page);
+        $inboxes = $this->baseUtils->filterCommentsByStatus($inboxes, 'published');
 
         $commentList = [
             'likes' => new Structure(),
