@@ -60,11 +60,37 @@ class KommentReceiver
             'published' => $webmention['published'],
             'komment' => $this->setKomment($webmention['content']),
             'quote' => (isset($webmention['quote'])) ? $this->setKomment($webmention['quote']) : null,
-            'kommentType' => $webmention['type'],
+            'kommentType' => $this->convertWebmentionTypes($webmention['type']),
             'status' => $this->setStatus($webmention['type'], $publishComments),
             'spamlevel' => $spamlevel,
             'verified' => $isVerified
         ];
+    }
+
+    public function convertWebmentionTypes($type) {
+
+        $oldTypes = ['LIKE', 'REPOST', 'BOOKMARK', 'REPLY', 'RSVP', 'MENTION', 'INVITE', 'KOMMENT'];
+
+        if(in_array($type, $oldTypes)) { return $type; }
+
+        switch($type) {
+            case 'like-of':
+                return 'LIKE';
+            case 'repost-of':
+                return 'REPOST';
+            case 'bookmark-of':
+                return 'BOOKMARK';
+            case 'in-reply-to':
+                return 'REPLY';
+            case 'rsvp':
+                return 'RSVP';
+            case 'mention-of':
+                return 'MENTION';
+            case 'invite':
+                return 'INVITE';
+            default:
+                return 'KOMMENT';
+        }
     }
 
     public function getAuthorData(array $author) {
@@ -87,16 +113,16 @@ class KommentReceiver
                 $targetPage = page(site()->homePageId());
             } elseif (!$targetPage = page($path)) {
                 $targetPage = page(kirby()->router()->call($path));
-    
+
                 if ($targetPage->isErrorPage()) {
                     return null;
                 }
             }
-    
+
             if (is_null($targetPage)) {
                 return null;
             }
-    
+
             return $targetPage;
         }
 

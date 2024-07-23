@@ -18,11 +18,7 @@ return [
         $kommentReceiver->storeData($newEntry, $targetPage);
     },
     'indieConnector.webmention.received' => function ($webmention, $targetPage) {
-        if (!option('mauricerenck.komments.enable-webmention-support')) {
-            return;
-        }
-
-        if (!option('mauricerenck.komments.debug')) {
+        if (!option('mauricerenck.komments.debug', false)) {
             $time = time();
             file_put_contents('webmentionhook.' . $time . '.json', json_encode($webmention));
         }
