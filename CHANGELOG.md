@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/mauricerenck/komments/compare/v2.0.5...v2.1.0) (2024-08-06)
+
+
+### Features
+
+* handle new indieconnector types ([d6696b5](https://github.com/mauricerenck/komments/commit/d6696b5062fc91ae9d6357082dddacc08563e18d))
+
 ## [2.0.5](https://github.com/mauricerenck/komments/compare/v2.0.4...v2.0.5) (2024-05-14)
 
 
