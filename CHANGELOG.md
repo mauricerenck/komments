@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/mauricerenck/komments/compare/v2.1.0...v2.1.1) (2024-08-10)
+
+
+### Bug Fixes
+
+* only create webhook debug files when debug enabled ([5bf780c](https://github.com/mauricerenck/komments/commit/5bf780cb5491fd0a460dd2d2510e5ba72a8e4be0))
+
 # [2.1.0](https://github.com/mauricerenck/komments/compare/v2.0.5...v2.1.0) (2024-08-06)
 
 
