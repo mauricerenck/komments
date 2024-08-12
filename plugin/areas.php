@@ -16,15 +16,15 @@ return [
                 [
                     'pattern' => 'komments',
                     'action' => function () {
+                        $kommentModeration = new KommentModeration();
+                        $comments = $kommentModeration->getComments(type: 'comment');
+
                         return [
                             'component' => 'k-komments-view',
                             'title' => 'Komments',
                             'props' => [
-                                'queuedKomments' => function () {
-                                    $kommentModeration = new KommentModeration();
-                                    return $kommentModeration->getSiteWideComments('pending');
-                                },
-                                'kirbyVersion' => kirby()->version(),
+                                'queuedKomments' => $comments['comments'],
+                                'affectedPages' => $comments['affectedPages'],
                             ],
                         ];
                     },
