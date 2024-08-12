@@ -133,20 +133,30 @@ class KommentModeration
     }
 
     // TESTING NOT POSSIBLE RIGHT NOW
-    public function getSiteWideComments(?string $filter = 'all'): array
+    public function getComments(?bool $published = false, ?string $type = 'comment'): mixed
     {
-        $comments = [];
-        $collection = site()->index();
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfSite();
+        $filteredComments = $comments->filterBy('published', $published)->filterBy('type', $type)->sortBy('updatedAt','desc');
 
-        foreach ($collection as $item) {
-            $comments = array_merge($comments, $this->getCommentsOfPage($item, $filter));
+        $pages = [];
+
+        foreach ($filteredComments as $comment) {
+            $uuid = $comment->pageuuid()->value();
+            $page = page($uuid);
+
+            $pages[] = [
+                'uuid' => $uuid,
+                'title' => $page->title()->value(),
+                'panel' => $page->panel()->url()
+            ];
         }
 
-        usort($comments, function ($a, $b) {
-            return $b['published'] <=> $a['published'];
-        });
+        return [
+            'comments' => $filteredComments->toJson(),
+            'affectedPages' => $pages
+        ];
 
-        return $comments;
     }
 
     // TESTED
