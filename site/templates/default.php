@@ -5,6 +5,18 @@
     <body>
         <div style="max-width: 500px; margin: 0 auto;">
 
+            <pre>
+                <?php
+                    $migration = new mauricerenck\Komments\Migrations();
+                    $migration->convertCommentsFromMarkdownToSqlite();
+
+                    $storage = new mauricerenck\Komments\StorageSqlite();
+                    $comments = $storage->getCommentsOfSite();
+                ?>
+                </pre>
+            <pre>
+                <?php dump($page->mastodonStatusUrl()) ?>
+            </pre>
             <h2>FIELDS</h2>
             <ul>
                 <li>kommentsAreEnabled: <?php var_dump($page->kommentsAreEnabled()) ?></li>
@@ -13,10 +25,15 @@
             </ul>
 
             <h2>Form</h2>
-            <?php snippet('komments/kommentform'); ?>
+            <?php snippet('komments/form'); ?>
 
-             <h2>Splitted</h2>
-            <?php snippet('komments/webmention-splitted');?>
+            <h2>New</h2>
+            <?php snippet('komments/list/likes');?>
+            <?php snippet('komments/list/mentions');?>
+            <?php snippet('komments/list/replies');?>
+            <?php snippet('komments/list/reposts');?>
+            <?php snippet('komments/list/comments');?>
+
         </div>
     </body>
 </html>
