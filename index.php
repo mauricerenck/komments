@@ -11,21 +11,19 @@ use Kirby\Toolkit\I18n;
 @include_once __DIR__ . '/vendor/autoload.php';
 
 Kirby::plugin('mauricerenck/komments', [
-    'areas' => require_once(__DIR__ . '/components/areas.php'),
-    'options' => require_once(__DIR__ . '/config/options.php'),
-    'snippets' => require_once(__DIR__ . '/components/snippets.php'),
+    'areas' => require_once(__DIR__ . '/plugin/areas.php'),
+    'options' => require_once(__DIR__ . '/plugin/options.php'),
+    'snippets' => require_once(__DIR__ . '/plugin/snippets.php'),
     'templates' => [
         'emails/newcomments' => __DIR__ . '/templates/emails/newComments.php'
     ],
-    'blueprints' => [
-        'sections/komments' => __DIR__ . '/blueprints/sections/komments.yml'
-    ],
-    'pageMethods' => require_once(__DIR__ . '/components/page-methods.php'),
-    'siteMethods' => require_once(__DIR__ . '/components/site-methods.php'),
-    'fields' => require_once(__DIR__ . '/components/fields.php'),
-    'translations' => require_once(__DIR__ . '/config/translations.php'),
-    'api' => require_once(__DIR__ . '/components/api.php'),
-    'hooks' => require_once(__DIR__ . '/components/hooks.php'),
+    'blueprints' => require_once(__DIR__ . '/plugin/blueprints.php'),
+    'pageMethods' => require_once(__DIR__ . '/plugin/page-methods.php'),
+    'siteMethods' => require_once(__DIR__ . '/plugin/site-methods.php'),
+    'fields' => require_once(__DIR__ . '/plugin/fields.php'),
+    'translations' => require_once(__DIR__ . '/plugin/translations.php'),
+    'api' => require_once(__DIR__ . '/plugin/api.php'),
+    'hooks' => require_once(__DIR__ . '/plugin/hooks.php'),
     'routes' => [
         [
             'pattern' => 'komments/send',
@@ -92,6 +90,16 @@ Kirby::plugin('mauricerenck/komments', [
                 }
 
                 return new Response('Forbidden', 'text/plain', 401);
+            }
+        ],
+        [
+            'pattern' => '@/comment/(:any)',
+            'method' => 'GET',
+            'action' => function ($id) {
+                $storage = StorageFactory::create();
+                $comment = $storage->getSingleComment($id);
+
+                go($comment->pageUuid() . '#c' . $comment->id());
             }
         ],
     ]
