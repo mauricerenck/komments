@@ -9,9 +9,6 @@
                 <?php
                     $migration = new mauricerenck\Komments\Migrations();
                     $migration->convertCommentsFromMarkdownToSqlite();
-
-                    $storage = new mauricerenck\Komments\StorageSqlite();
-                    $comments = $storage->getCommentsOfSite();
                 ?>
                 </pre>
             <pre>
