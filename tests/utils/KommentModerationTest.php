@@ -332,4 +332,20 @@ final class KommentModerationTest extends TestCaseMocked
 
         $this->assertEquals(count($result), 3);
     }
+
+    /**
+     * @group panel
+     * @testdox convertInboxToCommentArray - should convert to panel comment array
+     */
+     public function testMarkAsSpam()
+     {
+         $pageMock = $this->getPageMock();
+         $baseUtilsMock = Mockery::mock('mauricerenck\Komments\KommentBaseUtils[getAllCommentsOfPage]');
+         $commentModeration = new KommentModeration();
+
+
+         $inbox = $baseUtils->getAllCommentsOfPage($pageMock);
+
+         $this->assertEquals($comment['status'], 'spam');
+     }
 }

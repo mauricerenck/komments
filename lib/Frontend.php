@@ -7,10 +7,12 @@ use Kirby\Cms\Structure;
 class KommentsFrontend
 {
     private $baseUtils;
+    private $storage;
 
     public function __construct(private ?int $expireAfterNumOfDays = null, private ?string $dateField = null)
     {
         $this->baseUtils = new KommentBaseUtils();
+        $this->storage = StorageFactory::create();
 
         $this->expireAfterNumOfDays = $expireAfterNumOfDays ?? option('mauricerenck.komments.auto-disable-komments', 0);
         $this->dateField = $dateField ?? option('mauricerenck.komments.auto-disable-komments-datefield', 'date');
@@ -44,10 +46,15 @@ class KommentsFrontend
     }
 
     // TODO write tests
-    public function getCommentList($page): array
+    public function getCommentList($page): Structure
     {
-        $inboxes = $this->baseUtils->getAllCommentsOfPage($page);
-        $inboxes = $this->baseUtils->filterCommentsByStatus($inboxes, 'published');
+        // $inboxes = $this->baseUtils->getAllCommentsOfPage($page);
+        // $inboxes = $this->baseUtils->filterCommentsByStatus($inboxes, 'published');
+
+        $comments = $this->storage->getCommentsOfPage($page->uuid());
+        $publishedComments = $comments->filterBy('published', true);
+
+        return $publishedComments;
 
         $commentList = [
             'likes' => new Structure(),
@@ -57,31 +64,32 @@ class KommentsFrontend
             'comments' => new Structure(),
         ];
 
-        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'LIKE');
+        $filteredInbox = $publishedComments->filterBy('type', 'like-of');
         if ($filteredInbox->count() > 0) {
             $commentList['likes']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'REPOST');
+        $filteredInbox = $publishedComments->filterBy('type', 'repost-of');
         if ($filteredInbox->count() > 0) {
             $commentList['reposts']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'MENTION');
+        $filteredInbox = $publishedComments->filterBy('type', 'mention-of');
         if ($filteredInbox->count() > 0) {
             $commentList['mentions']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'REPLY');
+        $filteredInbox = $publishedComments->filterBy('type', 'reply-to');
         if ($filteredInbox->count() > 0) {
             $commentList['replies']->add($filteredInbox);
         }
 
-        $filteredInbox = $this->baseUtils->filterCommentsByType($inboxes, 'KOMMENT');
+        $filteredInbox = $publishedComments->filterBy('type', 'comment');
         if ($filteredInbox->count() > 0) {
             $commentList['comments']->add($filteredInbox);
         }
 
+        dump($commentList);
         return $commentList;
     }
 
