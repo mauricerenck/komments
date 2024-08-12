@@ -1,6 +1,9 @@
 <?php
-
 namespace mauricerenck\Komments;
+
+if (option('mauricerenck.komments.comments.disabled', false) === true) {
+    return null;
+}
 
 return [
     'komments' => function () {

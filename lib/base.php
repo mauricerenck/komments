@@ -3,6 +3,7 @@
 namespace mauricerenck\Komments;
 
 use Kirby\Cms\Structure;
+use Kirby\Data\Yaml;
 
 class KommentBaseUtils
 {
@@ -25,11 +26,11 @@ class KommentBaseUtils
     // NO NEED TO TEST
     public function getAllLanguages()
     {
+        // this method is used for easy mocking in tests
         if (!is_null($this->languageCodes)) {
             return $this->languageCodes;
         }
 
-        // this method is used for easy mocking in tests
         $languages = kirby()->languages();
 
         $languageCodes = [];
@@ -124,5 +125,45 @@ class KommentBaseUtils
         }
 
         return $pendingKomments;
+    }
+
+    public function updateSingleComment($page, string $kommentId, array $newValues): bool
+    {
+        $languageCodes = $this->getAllLanguages();
+
+        if (count($languageCodes) === 0) {
+            $inbox = $this->getInboxByLanguage($page);
+            if (!is_null($inbox)) {
+                $inbox = $inbox->toArray();
+
+                foreach ($inbox as $key => $komment) {
+                    if ($komment['id'] === $kommentId) {
+                        $inbox[$key] = array_merge($komment, $newValues);
+                    }
+                }
+            }
+        }
+
+        foreach ($languageCodes as $language) {
+            $inbox = $this->getInboxByLanguage($page, $language);
+            if (!is_null($inbox)) {
+                $inbox = $inbox->toArray();
+
+                foreach ($inbox as $key => $komment) {
+                    if ($komment['id'] === $kommentId) {
+                        $inbox[$key] = array_merge($komment, $newValues);
+                    }
+                }
+            }
+        }
+
+        $kirby = kirby();
+        $kirby->impersonate('kirby');
+        $newInbox = Yaml::encode($inbox);
+        $page->update([
+            'kommentsInbox' => $newInbox,
+        ]);
+
+        return true;
     }
 }

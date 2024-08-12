@@ -20,4 +20,15 @@ return [
 
         return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
     },
+    'mastodonStatusUrl' => function () {
+        if(class_exists('mauricerenck\IndieConnector\MastodonSender')) {
+            return $this->icGetMastodonUrl();
+        }
+
+        return null;
+    },
+    'comments' => function () {
+        $kommentsFrontend = new KommentsFrontend();
+        return $kommentsFrontend->getCommentList($this);
+    },
 ];
