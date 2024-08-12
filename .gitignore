@@ -36,3 +36,5 @@
 /kirby
 /site/cache
 /~
+/.sqlite
+/.ddev
