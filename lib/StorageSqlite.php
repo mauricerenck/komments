@@ -75,8 +75,16 @@ class StorageSqlite extends Storage {
     }
 
 
-    public function updateComment(string $commentId, array $fields, array $values): bool {
-        return $this->database->update('comments', $fields, $values, 'WHERE id = "' . $commentId . '"');
+    public function updateComment(string $commentId, array $values): bool {
+        $fields = [];
+        $newValues = [];
+
+        foreach($values as $key => $value) {
+            $fields[] = $key;
+            $newValues[] = $value;
+        }
+
+        return $this->database->update('comments', $fields, $newValues, 'WHERE id = "' . $commentId . '"');
     }
 
     public function deleteComment(string $commentId): bool {
