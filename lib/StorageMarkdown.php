@@ -50,7 +50,7 @@ class StorageMarkdown extends Storage {
 
     public function saveComment(Content $comment): bool {}
 
-    public function updateComment(string $commentId, array $fields, array $values): bool {}
+    public function updateComment(string $commentId, array $values): bool {}
 
     public function deleteComment(string $commentId): bool {}
 

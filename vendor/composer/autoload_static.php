@@ -52,7 +52,7 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         'Kirby\\ComposerInstaller\\PluginInstaller' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
         'mauricerenck\\Komments\\DatabaseAbstraction' => __DIR__ . '/../..' . '/lib/DatabaseAbstraction.php',
         'mauricerenck\\Komments\\KommentBaseUtils' => __DIR__ . '/../..' . '/lib/base.php',
-        'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/lib/moderation.php',
+        'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/lib/KommentModeration.php',
         'mauricerenck\\Komments\\KommentNotificationUtils' => __DIR__ . '/../..' . '/lib/notifications.php',
         'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/lib/receiveKomment.php',
         'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/lib/Frontend.php',
