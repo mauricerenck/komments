@@ -23,13 +23,66 @@ return [
                             'component' => 'k-komments-view',
                             'title' => 'Komments',
                             'props' => [
-                                'queuedKomments' => $comments['comments'],
+                                'queuedKomments' => json_decode($comments['comments']),
                                 'affectedPages' => $comments['affectedPages'],
                             ],
                         ];
                     },
                 ],
             ],
+            'dialogs' => [
+                // the key of the dialog defines its routing pattern
+                'comment/read/(:any)' => [
+                    // dialog callback functions
+                    'load' => function ($id) {
+                        $kommentModeration = new KommentModeration();
+                        $comment = $kommentModeration->getComment($id);
+                        return [
+                            // what dialog component to use
+                            'component' => 'k-komments-details',
+                            'props' => [
+                                'text' => $comment['content'],
+                            ]
+                        ];
+                    },
+                    'submit' => function () {
+                        // create todo
+                        return true;
+                    }
+                ],
+                'comment/delete/(:any)' => [
+                    'load' => function (string $id) {
+                        return [
+                            'component' => 'k-remove-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to delete this comment?'
+                            ]
+                        ];
+                    },
+                    'submit' => function (string $id) {
+                        $kommentModeration = new KommentModeration();
+                        $result = $kommentModeration->deleteComment($id);
+
+                        return $result;
+                    }
+                ],
+                'comment/flag/(:any)/(:any)' => [
+                    'load' => function (string $id, string $type) {
+                        return [
+                            'component' => 'k-text-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to flag this comment?'
+                            ]
+                        ];
+                    },
+                    'submit' => function (string $id, string $type) {
+                        $kommentModeration = new KommentModeration();
+                        $result = $kommentModeration->flagComment($id, $type);
+
+                        return $result;
+                    }
+                ]
+            ]
         ];
     },
 ];
