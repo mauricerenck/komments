@@ -4,7 +4,7 @@ namespace mauricerenck\Komments;
 
 use mauricerenck\Komments\KommentModeration;
 use mauricerenck\Komments\KommentReceiver;
-use Kirby;
+use Kirby\Cms\App as Kirby;
 use Kirby\Http\Response;
 use Kirby\Toolkit\I18n;
 
