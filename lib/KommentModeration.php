@@ -2,134 +2,67 @@
 
 namespace mauricerenck\Komments;
 
-use Exception;
-use Kirby\Data\Yaml;
-
 class KommentModeration
 {
-    // TODO write tests
-    public function markAsSpam($pageSlug, $kommentId, $isSpam)
+    public function getComment(string $id): mixed
     {
-        $baseUtils = new KommentBaseUtils();
-        $targetPage = $baseUtils->getPageFromSlug($pageSlug);
+        $storage = StorageFactory::create();
+        $comment = $storage->getSingleComment($id);
+        $pages = [];
 
-        if (!$targetPage) {
-            throw new Exception('Page not found', 404);
-        }
 
-        $newData = [
-            'status' => false,
-            'verified' => false,
-            'spamlevel' => 100,
+        $uuid = $comment->pageuuid()->value();
+        $page = page($uuid);
+
+        $pages[] = [
+            'uuid' => $uuid,
+            'title' => $page->title()->value(),
+            'panel' => $page->panel()->url()
         ];
 
-        $baseUtils->updateSingleComment($targetPage, $kommentId, $newData);
+
+        return $comment->toArray();
     }
 
-    // TODO write tests
-    public function markAsVerified($pageSlug, $kommentId, $isVerified)
+    public function deleteComment(string $id): mixed
     {
-        try {
-            $baseUtils = new KommentBaseUtils();
-            $targetPage = $baseUtils->getPageFromSlug($pageSlug);
-
-            if (!$targetPage) {
-                throw new Exception('Page not found', 1);
-            }
-
-            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
-            $fieldData = $fieldData->toArray();
-
-            for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) {
-                    // backward compatibility
-                    if ($fieldData[$i]['id'] === $kommentId) {
-                        $fieldData[$i]['verified'] = $isVerified;
-                    }
-                }
-            }
-
-            $fieldData = Yaml::encode($fieldData);
-
-            $kirby = kirby();
-            $kirby->impersonate('kirby');
-            $targetPage->update([
-                'kommentsInbox' => $fieldData,
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $storage = StorageFactory::create();
+        $result = $storage->deleteComment($id);
+        return $result;
     }
 
-    // TODO write tests
-    public function publish($pageSlug, $kommentId, $publish)
+    public function publishComment(string $id): mixed
     {
-        try {
-            $baseUtils = new KommentBaseUtils();
-            $targetPage = $baseUtils->getPageFromSlug($pageSlug);
-
-            if (!$targetPage) {
-                throw new Exception('Page not found', 1);
-            }
-
-            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
-            $fieldData = $fieldData->toArray();
-
-            for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) {
-                    // backward compatibility
-                    if ($fieldData[$i]['id'] === $kommentId) {
-                        $fieldData[$i]['status'] = $publish;
-                    }
-                }
-            }
-
-            $fieldData = Yaml::encode($fieldData);
-
-            $kirby = kirby();
-            $kirby->impersonate('kirby');
-            $targetPage->update([
-                'kommentsInbox' => $fieldData,
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $storage = StorageFactory::create();
+        $comment = $storage->getSingleComment($id);
+        $newStatus = $comment->published()->isTrue() ? false : true;
+        $result = $storage->updateComment($id, ['published' => $newStatus]);
+        return $result ? $newStatus : $comment->published();
     }
 
-    // TODO write tests
-    public function delete($pageSlug, $kommentId)
+    public function flagComment(string $id, string $flag): mixed
     {
-        try {
-            $baseUtils = new KommentBaseUtils();
-            $targetPage = $baseUtils->getPageFromSlug($pageSlug);
+        $storage = StorageFactory::create();
+        $comment = $storage->getSingleComment($id);
 
-            if (!$targetPage) {
-                throw new Exception('Page not found', 1);
-            }
-
-            $fieldData = $baseUtils->getAllCommentsOfPage($targetPage);
-            $fieldData = $fieldData->toArray();
-            $newFieldData = [];
-
-            for ($i = 0; $i < count($fieldData); $i++) {
-                if (isset($fieldData[$i]['id'])) {
-                    // backward compatibility
-                    if ($fieldData[$i]['id'] !== $kommentId) {
-                        $newFieldData[] = $fieldData[$i];
-                    }
+        switch($flag) {
+            case 'spamlevel':
+                if($comment->spamlevel()->value() > 0) {
+                    return $storage->updateComment($id, ['spamlevel' => 0]) ? 0 : $comment->spamlevel();
                 }
-            }
-
-            $newFieldData = Yaml::encode($newFieldData);
-
-            $kirby = kirby();
-            $kirby->impersonate('kirby');
-            $targetPage->update([
-                'kommentsInbox' => $newFieldData,
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
+                else {
+                    return ($storage->updateComment($id, ['spamlevel' => 100, 'published' => false, 'verified' => false])) ? 100 : $comment->spamlevel();
+                }
+            case 'verified':
+                if($comment->verified()->isTrue()) {
+                    return $storage->updateComment($id, ['verified' => false]) ? false : $comment->verified();
+                }
+                else {
+                    return $storage->updateComment($id, ['spamlevel' => 0, 'verified' => true]) ? true : $comment->verified();
+                }
         }
+
+        return false;
     }
 
     // TESTING NOT POSSIBLE RIGHT NOW
@@ -156,49 +89,5 @@ class KommentModeration
             'comments' => $filteredComments->toJson(),
             'affectedPages' => $pages
         ];
-
-    }
-
-    // TESTED
-    public function getCommentsOfPage($page, $filter = null, $language = null)
-    {
-        $baseUtils = new KommentBaseUtils();
-        $allPageInboxes = $baseUtils->getAllCommentsOfPage($page);
-
-        if (is_null($allPageInboxes)) {
-            return [];
-        }
-
-        $filteredComments = $baseUtils->filterCommentsByStatus($allPageInboxes, $filter);
-
-        return $this->convertInboxToCommentArray($filteredComments, $page);
-    }
-
-    // TESTED
-    public function convertInboxToCommentArray($inbox, $page)
-    {
-        $comments = [];
-
-        foreach ($inbox as $entry) {
-            $comments[] = [
-                'id' => $entry->id(),
-                'slug' => $page->id(),
-                'author' => $entry->author()->value(),
-                'authorUrl' => $entry->authorUrl()->value(),
-                'komment' => kirbytext(nl2br(html($entry->komment()))),
-                'kommentType' => $entry->kommenttype()->value() ?? 'komment',
-                'image' => $entry->avatar()->value(),
-                'title' => $page->title()->value(),
-                'url' => $page->panel()->url(),
-                'published' => date('Y-m-d H:i', strtotime($entry->published())),
-                'verified' => $entry->verified()->toBool(false),
-                'spamlevel' => $entry->spamlevel()->value() ?? 0,
-                'status' => $entry->status()->toBool(false),
-                'mentionof' => $entry->mentionof()->value() ?? null,
-                'replies' => [],
-            ];
-        }
-
-        return $comments;
     }
 }

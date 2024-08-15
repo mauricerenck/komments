@@ -7,55 +7,22 @@ use Kirby\Http\Response;
 return [
     'routes' => [
         [
-            'pattern' => 'komments/spam',
+            'pattern' => 'komments/flag/(:any)/(:any)',
             'method' => 'POST',
-            'action' => function () {
-                $formData = kirby()->request()->data();
-
+            'action' => function (string $id, string $flag) {
                 $kommentModeration = new KommentModeration();
-                $kommentModeration->markAsSpam($formData['pageSlug'], $formData['kommentId'], $formData['isSpam']);
+                $result = $kommentModeration->flagComment($id, $flag);
 
-                return new Response(json_encode(['message' => 'okay']), 'application/json');
+                return new Response(json_encode([$flag => $result]), 'application/json');
             },
         ],
         [
-            'pattern' => 'komments/verify',
+            'pattern' => 'komments/publish/(:any)',
             'method' => 'POST',
-            'action' => function () {
-                $formData = kirby()->request()->data();
-
+            'action' => function (string $id) {
                 $kommentModeration = new KommentModeration();
-                $kommentModeration->markAsVerified(
-                    $formData['pageSlug'],
-                    $formData['kommentId'],
-                    $formData['isVerified']
-                );
-
-                return new Response(json_encode(['message' => 'okay']), 'application/json');
-            },
-        ],
-        [
-            'pattern' => 'komments/publish',
-            'method' => 'POST',
-            'action' => function () {
-                $formData = kirby()->request()->data();
-
-                $kommentModeration = new KommentModeration();
-                $kommentModeration->publish($formData['pageSlug'], $formData['kommentId'], $formData['isPublished']);
-
-                return new Response(json_encode(['message' => 'okay']), 'application/json');
-            },
-        ],
-        [
-            'pattern' => 'komments/delete',
-            'method' => 'POST',
-            'action' => function () {
-                $formData = kirby()->request()->data();
-
-                $kommentModeration = new KommentModeration();
-                $kommentModeration->delete($formData['pageSlug'], $formData['kommentId']);
-
-                return new Response(json_encode(['message' => 'okay']), 'application/json');
+                $result = $kommentModeration->publishComment($id);
+                return new Response(json_encode(['published' => $result]), 'application/json');
             },
         ],
     ],

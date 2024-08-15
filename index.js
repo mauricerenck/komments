@@ -12,7 +12,7 @@
       options
     };
   }
-  const _sfc_main$4 = {
+  const _sfc_main$6 = {
     props: {
       queuedKomments: Object,
       affectedPages: Array
@@ -31,27 +31,102 @@
         return (this.pagination.page - 1) * this.pagination.limit + 1;
       },
       commentList() {
-        const queuedKomments = JSON.parse(this.queuedKomments);
         const commentList = [];
         this.pagination.total = 0;
-        queuedKomments.forEach((comment) => {
+        this.queuedKomments.filter((comment) => !comment.published).forEach((comment) => {
           const pageOfComment = this.affectedPages.find((page) => page.uuid === comment.pageuuid);
           const newComment = {
+            id: comment.id,
             pageTitle: `<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`,
             author: `<span class="author-entry"><img src="${comment.authoravatar}" width="30px" height="30px" />${comment.authorname}</span>`,
             content: comment.content,
             updatedAt: comment.updatedat,
-            spamlevel: comment.spamlevel > 0 ? '<svg aria-hidden="true" data-type="alert" class="k-icon" style="color: var(--color-red-700);"><use xlink:href="#icon-alert"></use></svg>' : "",
-            verified: comment.verified ? '<svg aria-hidden="true" data-type="check" class="k-icon" style="color: var(--color-green-700);"><use xlink:href="#icon-check"></use></svg>' : ""
+            spamlevel: comment.spamlevel > 0 ? '<svg aria-hidden="true" data-type="flag" class="k-icon" style="color: var(--color-red-700);"><use xlink:href="#icon-flag"></use></svg>' : "",
+            verified: comment.verified ? '<svg aria-hidden="true" data-type="sparkling" class="k-icon" style="color: var(--color-green-700);"><use xlink:href="#icon-sparkling"></use></svg>' : ""
           };
           commentList.push(newComment);
           this.pagination.total++;
         });
         return commentList.slice(this.index - 1, this.pagination.limit * this.pagination.page);
       }
+    },
+    methods: {
+      showCommentDetails(id) {
+        const comment = this.queuedKomments.find((comment2) => comment2.id === id);
+        panel.drawer.open({
+          component: "komments-detail-drawer",
+          props: {
+            icon: "info",
+            title: "Comment",
+            comment
+          }
+        });
+      },
+      replyToComment(id) {
+        const comment = this.queuedKomments.find((comment2) => comment2.id === id);
+        panel.drawer.open({
+          component: "komments-reply-drawer",
+          props: {
+            icon: "chat",
+            title: "Comment",
+            comment
+          }
+        });
+      },
+      publishComment(id) {
+        panel.api.post(`komments/publish/${id}`).then((response) => {
+          this.queuedKomments.find((item) => item.id === id).published = response.published;
+        });
+      },
+      deleteComment(id) {
+        panel.dialog.open(`comment/delete/${id}`);
+      },
+      flagComment(id, type) {
+        panel.api.post(`komments/flag/${id}/${type}`).then((response) => {
+          this.queuedKomments.find((item) => item.id === id)[type] = response[type];
+        });
+      },
+      dropdownOptions(row) {
+        const comment = this.queuedKomments.find((item) => item.id === row.id);
+        return [
+          {
+            label: comment.published ? "Unpublish" : "Publish",
+            icon: comment.published ? "toggle-on" : "toggle-off",
+            click: () => this.publishComment(row.id)
+          },
+          {
+            label: "Reply to",
+            icon: "chat",
+            click: () => this.replyToComment(row.id)
+          },
+          "-",
+          {
+            label: comment.verified ? "Mark as unverified" : "Mark as verified",
+            icon: comment.verified ? "cancel-small" : "sparkling",
+            disabled: comment.spamlevel > 0,
+            click: () => this.flagComment(row.id, "verified")
+          },
+          {
+            label: comment.spamlevel > 0 ? "Remove from spam" : "Mark as spam" + row.spamlevel,
+            icon: comment.spamlevel > 0 ? "cancel-small" : "flag",
+            click: () => this.flagComment(row.id, "spamlevel")
+          },
+          {
+            label: "View Details",
+            icon: "info",
+            click: () => this.showCommentDetails(row.id)
+          },
+          "-",
+          {
+            label: "Delete",
+            icon: "trash",
+            click: () => this.deleteComment(row.id)
+          }
+        ];
+      }
     }
   };
-  var _sfc_render$4 = function render() {
+  var _sfc_render$6 = function render() {
     var _vm = this, _c = _vm._self._c;
     return _c("k-inside", [_c("div", { staticClass: "k-komments-view" }, [_c("k-headline", { attrs: { "tag": "h2" } }, [_vm._v("Comments")]), _c("k-table", { attrs: { "columns": {
       author: { label: "Author", type: "html" },
@@ -60,25 +135,59 @@
       updatedAt: { label: "Last Update", type: "html" },
       spamlevel: { label: "Spamlevel", type: "html", width: "40px", align: "center" },
       verified: { label: "Verified", type: "html", width: "40px", align: "center" }
-    }, "index": false, "rows": this.commentList, "options": [
-      { text: "View", icon: "view", click: () => {
-      } },
-      { text: "Verify", icon: "view", click: () => {
-      } },
-      { text: "Reply", icon: "view", click: () => {
-      } },
-      { text: "Delete", icon: "alert", click: () => {
-      } }
-    ], "pagination": {
-      page: _vm.pagination.page,
-      limit: _vm.pagination.limit,
-      total: _vm.pagination.total,
-      details: true
-    } }, on: { "paginate": function($event) {
+    }, "index": true, "rows": this.commentList, "pagination": { page: _vm.pagination.page, limit: _vm.pagination.limit, total: _vm.pagination.total, details: true } }, on: { "paginate": function($event) {
       _vm.pagination.page = $event.page;
     } }, scopedSlots: _vm._u([{ key: "header", fn: function({ columnIndex, label }) {
-      return [_c("span", { attrs: { "title": label } }, [columnIndex === "verified" ? _c("k-icon", { staticStyle: { "color": "var(--color-yellow-700)" }, attrs: { "type": "sparkling" } }) : columnIndex === "spamlevel" ? _c("k-icon", { staticStyle: { "color": "var(--color-red-700)" }, attrs: { "type": "alert" } }) : _c("span", [_vm._v(_vm._s(label))])], 1)];
+      return [_c("span", { attrs: { "title": label } }, [columnIndex === "verified" ? _c("k-icon", { staticStyle: { "color": "var(--color-yellow-700)" }, attrs: { "type": "sparkling" } }) : columnIndex === "spamlevel" ? _c("k-icon", { staticStyle: { "color": "var(--color-red-700)" }, attrs: { "type": "flag" } }) : _c("span", [_vm._v(_vm._s(label))])], 1)];
+    } }, { key: "options", fn: function({ row }) {
+      return [_c("k-options-dropdown", { attrs: { "options": _vm.dropdownOptions(row) } })];
     } }]) })], 1)]);
+  };
+  var _sfc_staticRenderFns$6 = [];
+  _sfc_render$6._withStripped = true;
+  var __component__$6 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$6,
+    _sfc_render$6,
+    _sfc_staticRenderFns$6
+  );
+  __component__$6.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/View.vue";
+  const View = __component__$6.exports;
+  const _sfc_main$5 = {
+    mixins: ["drawer"],
+    props: {
+      comment: {
+        type: Object,
+        default: {}
+      }
+    }
+  };
+  var _sfc_render$5 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [_c("k-box", { staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "text" } }, [_c("k-text", [_vm._v(_vm._s(_vm.comment.content))])], 1), _c("div", { staticClass: "k-table" }, [_c("table", { staticStyle: { "table-layout": "auto" } }, [_c("tbody", [_c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Id")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.id))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Type")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.type))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Language")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.language))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Published")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.published))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Verified")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.verified))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Reply To")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.parentid))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Spam level")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.spamlevel))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Upvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.upvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Downvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.downvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Created at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.createdat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Updated at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.updatedat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Permalink")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.permalink))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Author")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorname))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Avatar")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoravatar))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Email")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoremail))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Url")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorurl))])])])])])], 1);
+  };
+  var _sfc_staticRenderFns$5 = [];
+  _sfc_render$5._withStripped = true;
+  var __component__$5 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$5,
+    _sfc_render$5,
+    _sfc_staticRenderFns$5
+  );
+  __component__$5.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerDetails.vue";
+  const DrawerDetails = __component__$5.exports;
+  const _sfc_main$4 = {
+    mixins: ["drawer"],
+    props: {
+      comment: {
+        type: Object,
+        default: {}
+      }
+    }
+  };
+  var _sfc_render$4 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [!_vm.comment.published ? _c("k-box", { key: "notice", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "notice", "text": "This comment is not published yet. When you reply, it will be published along with your reply." } }) : _vm._e(), _c("k-box", { staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "text" } }, [_c("k-text", [_vm._v(_vm._s(_vm.comment.content))])], 1), _c("k-writer-field", { staticStyle: { "margin-bottom": "var(--spacing-1)" }, attrs: { "autofocus": true, "label": `Reply to ${_vm.comment.authorname}`, "value": _vm.value }, on: { "input": function($event) {
+      _vm.value = $event;
+    } } }), _c("k-button", { key: "green", attrs: { "theme": "green", "variant": "filled" } }, [_vm._v(" Send reply ")])], 1);
   };
   var _sfc_staticRenderFns$4 = [];
   _sfc_render$4._withStripped = true;
@@ -87,8 +196,8 @@
     _sfc_render$4,
     _sfc_staticRenderFns$4
   );
-  __component__$4.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/View.vue";
-  const View = __component__$4.exports;
+  __component__$4.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerReply.vue";
+  const DrawerReply = __component__$4.exports;
   const _sfc_main$3 = {
     props: {
       komment: Object,
@@ -242,7 +351,9 @@
       "k-komments-view": View,
       KommentDetails,
       KommentList,
-      NoKomments
+      NoKomments,
+      "komments-detail-drawer": DrawerDetails,
+      "komments-reply-drawer": DrawerReply
     },
     fields: {
       // komments: KommentsView,
