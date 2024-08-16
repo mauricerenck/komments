@@ -1,8 +1,6 @@
 <template>
     <k-drawer v-bind="$props">
-        <k-box theme="text" style="margin-bottom: var(--spacing-6)">
-            <k-text>{{ comment.content }}</k-text>
-        </k-box>
+        <CommentContent :spamlevel="comment.spamlevel" :content="comment.content" />
 
         <div class="k-table">
             <table style="table-layout: auto">

@@ -111,7 +111,7 @@ export default {
                 component: 'komments-reply-drawer',
                 props: {
                     icon: 'chat',
-                    title: 'Comment',
+                    title: 'Reply to comment',
                     comment: comment,
                 },
             })

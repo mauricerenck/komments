@@ -2,6 +2,8 @@
 
 namespace mauricerenck\Komments;
 
+use Kirby\Uuid\Uuid;
+
 class KommentModeration
 {
     public function getComment(string $id): mixed
@@ -63,6 +65,44 @@ class KommentModeration
         }
 
         return false;
+    }
+
+    public function replyToComment(string $id, array $formData) {
+        $storage = StorageFactory::create();
+        $comment = $storage->getSingleComment($id);
+
+        $publishResult = $comment->published()->isTrue() ? true : $this->publishComment($id);
+
+        $commentId = Uuid::generate();
+        $author = kirby()->user();
+        $avatar = $author->avatar() ?? 'https://www.gravatar.com/avatar/' .  md5($author->email());
+
+        $newComment = $storage->createComment(
+            id: $commentId,
+            pageUuid: $formData['pageUuid'],
+            parentId: $id,
+            type: 'comment',
+            content: $formData['content'],
+            authorName: $author->username(),
+            authorAvatar: $avatar,
+            authorEmail: $author->email(),
+            authorUrl: site()->url(),
+            published: $publishResult,
+            verified: true,
+            spamlevel: 0,
+            language: $formData['language'],
+            upvotes: 0,
+            downvotes: 0,
+            createdAt: date('Y-m-d H:i:s', time()),
+            updatedAt: date('Y-m-d H:i:s', time()),
+        );
+
+        $saveResult = $storage->saveComment($newComment);
+
+        return [
+            'created' => $saveResult,
+            'published' => $publishResult
+        ];
     }
 
     // TESTING NOT POSSIBLE RIGHT NOW
