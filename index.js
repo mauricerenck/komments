@@ -12,7 +12,7 @@
       options
     };
   }
-  const _sfc_main$6 = {
+  const _sfc_main$7 = {
     props: {
       queuedKomments: Object,
       affectedPages: Array
@@ -68,7 +68,7 @@
           component: "komments-reply-drawer",
           props: {
             icon: "chat",
-            title: "Comment",
+            title: "Reply to comment",
             comment
           }
         });
@@ -126,7 +126,7 @@
       }
     }
   };
-  var _sfc_render$6 = function render() {
+  var _sfc_render$7 = function render() {
     var _vm = this, _c = _vm._self._c;
     return _c("k-inside", [_c("div", { staticClass: "k-komments-view" }, [_c("k-headline", { attrs: { "tag": "h2" } }, [_vm._v("Comments")]), _c("k-table", { attrs: { "columns": {
       author: { label: "Author", type: "html" },
@@ -143,16 +143,16 @@
       return [_c("k-options-dropdown", { attrs: { "options": _vm.dropdownOptions(row) } })];
     } }]) })], 1)]);
   };
-  var _sfc_staticRenderFns$6 = [];
-  _sfc_render$6._withStripped = true;
-  var __component__$6 = /* @__PURE__ */ normalizeComponent(
-    _sfc_main$6,
-    _sfc_render$6,
-    _sfc_staticRenderFns$6
+  var _sfc_staticRenderFns$7 = [];
+  _sfc_render$7._withStripped = true;
+  var __component__$7 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$7,
+    _sfc_render$7,
+    _sfc_staticRenderFns$7
   );
-  __component__$6.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/View.vue";
-  const View = __component__$6.exports;
-  const _sfc_main$5 = {
+  __component__$7.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/View.vue";
+  const View = __component__$7.exports;
+  const _sfc_main$6 = {
     mixins: ["drawer"],
     props: {
       comment: {
@@ -161,9 +161,57 @@
       }
     }
   };
+  var _sfc_render$6 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [_c("CommentContent", { attrs: { "spamlevel": _vm.comment.spamlevel, "content": _vm.comment.content } }), _c("div", { staticClass: "k-table" }, [_c("table", { staticStyle: { "table-layout": "auto" } }, [_c("tbody", [_c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Id")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.id))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Type")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.type))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Language")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.language))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Published")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.published))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Verified")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.verified))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Reply To")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.parentid))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Spam level")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.spamlevel))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Upvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.upvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Downvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.downvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Created at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.createdat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Updated at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.updatedat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Permalink")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.permalink))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Author")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorname))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Avatar")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoravatar))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Email")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoremail))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Url")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorurl))])])])])])], 1);
+  };
+  var _sfc_staticRenderFns$6 = [];
+  _sfc_render$6._withStripped = true;
+  var __component__$6 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$6,
+    _sfc_render$6,
+    _sfc_staticRenderFns$6
+  );
+  __component__$6.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerDetails.vue";
+  const DrawerDetails = __component__$6.exports;
+  const _sfc_main$5 = {
+    mixins: ["drawer"],
+    props: {
+      comment: {
+        type: Object,
+        default: {}
+      }
+    },
+    data() {
+      return {
+        originPublished: this.comment.published,
+        replyCreated: null,
+        isSending: false
+      };
+    },
+    methods: {
+      sendReply() {
+        this.isSending = true;
+        panel.api.post(`komments/reply/${this.comment.id}`, {
+          content: this.content,
+          pageUuid: this.comment.pageuuid,
+          language: this.comment.language
+        }).then((response) => {
+          this.originPublished = response["published"];
+          this.replyCreated = response["created"];
+          this.isSending = false;
+        }).catch(() => {
+          this.replyCreated = false;
+          this.isSending = false;
+        });
+      }
+    }
+  };
   var _sfc_render$5 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [_c("k-box", { staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "text" } }, [_c("k-text", [_vm._v(_vm._s(_vm.comment.content))])], 1), _c("div", { staticClass: "k-table" }, [_c("table", { staticStyle: { "table-layout": "auto" } }, [_c("tbody", [_c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Id")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.id))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Type")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.type))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Language")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.language))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Published")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.published))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Verified")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.verified))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Reply To")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.parentid))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Spam level")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.spamlevel))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Upvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.upvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Downvotes")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.downvotes))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Created at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.createdat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Updated at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.updatedat))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Permalink")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.permalink))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Author")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorname))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Avatar")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoravatar))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Email")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoremail))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Url")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorurl))])])])])])], 1);
+    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [!this.originPublished ? _c("k-box", { key: "unpublished", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "notice", "text": "This comment is not published yet. When you reply, it will be published along with your reply." } }) : _vm._e(), this.replyCreated ? _c("k-box", { key: "created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "positive", "text": "Your reply has been published." } }) : this.replyCreated === false ? _c("k-box", { key: "not-created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "negative", "text": "Your reply could not be published. Please try again." } }) : _vm._e(), _c("CommentContent", { attrs: { "spamlevel": _vm.comment.spamlevel, "content": _vm.comment.content } }), _c("k-writer-field", { staticStyle: { "margin-bottom": "var(--spacing-1)" }, attrs: { "autofocus": true, "label": `Reply to ${_vm.comment.authorname}`, "value": _vm.content }, on: { "input": function($event) {
+      _vm.content = $event;
+    } } }), _c("k-button", { key: "green", attrs: { "theme": "green", "variant": "filled", "icon": _vm.isSending ? _vm.loader : null, "disabled": _vm.isSending }, on: { "click": this.sendReply } }, [_vm._v(" Send reply ")])], 1);
   };
   var _sfc_staticRenderFns$5 = [];
   _sfc_render$5._withStripped = true;
@@ -172,22 +220,17 @@
     _sfc_render$5,
     _sfc_staticRenderFns$5
   );
-  __component__$5.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerDetails.vue";
-  const DrawerDetails = __component__$5.exports;
+  __component__$5.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerReply.vue";
+  const DrawerReply = __component__$5.exports;
   const _sfc_main$4 = {
-    mixins: ["drawer"],
     props: {
-      comment: {
-        type: Object,
-        default: {}
-      }
+      spamlevel: Number,
+      content: String
     }
   };
   var _sfc_render$4 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [!_vm.comment.published ? _c("k-box", { key: "notice", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "notice", "text": "This comment is not published yet. When you reply, it will be published along with your reply." } }) : _vm._e(), _c("k-box", { staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "text" } }, [_c("k-text", [_vm._v(_vm._s(_vm.comment.content))])], 1), _c("k-writer-field", { staticStyle: { "margin-bottom": "var(--spacing-1)" }, attrs: { "autofocus": true, "label": `Reply to ${_vm.comment.authorname}`, "value": _vm.value }, on: { "input": function($event) {
-      _vm.value = $event;
-    } } }), _c("k-button", { key: "green", attrs: { "theme": "green", "variant": "filled" } }, [_vm._v(" Send reply ")])], 1);
+    return _c("div", [_vm.spamlevel > 0 ? _c("k-box", { key: "spam", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "warning", "text": "This comment is marked as spam. Its content is shown as plain text to prevent accidental exposure to harmful content." } }) : _vm._e(), _c("k-box", { staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "text" } }, [_vm.spamlevel === 0 ? _c("k-text", { domProps: { "innerHTML": _vm._s(_vm.content) } }) : _c("k-text", [_vm._v(_vm._s(_vm.content))])], 1)], 1);
   };
   var _sfc_staticRenderFns$4 = [];
   _sfc_render$4._withStripped = true;
@@ -196,8 +239,8 @@
     _sfc_render$4,
     _sfc_staticRenderFns$4
   );
-  __component__$4.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/DrawerReply.vue";
-  const DrawerReply = __component__$4.exports;
+  __component__$4.options.__file = "/Users/mauricerenck/Sites/kirby-plugins/komments/src/components/CommentContent.vue";
+  const CommentContent = __component__$4.exports;
   const _sfc_main$3 = {
     props: {
       komment: Object,
@@ -352,6 +395,7 @@
       KommentDetails,
       KommentList,
       NoKomments,
+      CommentContent,
       "komments-detail-drawer": DrawerDetails,
       "komments-reply-drawer": DrawerReply
     },

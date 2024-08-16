@@ -66,22 +66,6 @@ return [
                         return $result;
                     }
                 ],
-                'comment/flag/(:any)/(:any)' => [
-                    'load' => function (string $id, string $type) {
-                        return [
-                            'component' => 'k-text-dialog',
-                            'props' => [
-                                'text' => 'Do you really want to flag this comment?'
-                            ]
-                        ];
-                    },
-                    'submit' => function (string $id, string $type) {
-                        $kommentModeration = new KommentModeration();
-                        $result = $kommentModeration->flagComment($id, $type);
-
-                        return $result;
-                    }
-                ]
             ]
         ];
     },
