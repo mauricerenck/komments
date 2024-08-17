@@ -17,7 +17,7 @@ return [
                     'pattern' => 'komments',
                     'action' => function () {
                         $kommentModeration = new KommentModeration();
-                        $comments = $kommentModeration->getComments(type: 'comment');
+                        $comments = $kommentModeration->getPendingComments(type: 'comment');
 
                         return [
                             'component' => 'k-komments-view',

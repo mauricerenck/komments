@@ -106,7 +106,7 @@ class KommentModeration
     }
 
     // TESTING NOT POSSIBLE RIGHT NOW
-    public function getComments(?bool $published = false, ?string $type = 'comment'): mixed
+    public function getPendingComments(?bool $published = false, ?string $type = 'comment'): mixed
     {
         $storage = StorageFactory::create();
         $comments = $storage->getCommentsOfSite();
@@ -114,6 +114,31 @@ class KommentModeration
 
         $pages = [];
 
+        foreach ($filteredComments as $comment) {
+            $uuid = $comment->pageuuid()->value();
+            $page = page($uuid);
+
+            $pages[] = [
+                'uuid' => $uuid,
+                'title' => $page->title()->value(),
+                'panel' => $page->panel()->url()
+            ];
+        }
+
+        return [
+            'comments' => $filteredComments->toJson(),
+            'affectedPages' => $pages
+        ];
+    }
+
+    public function getAllPageComments(string $pageUuid = null): mixed
+    {
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfPage($pageUuid);
+        $filteredComments = $comments->sortBy('updatedAt','desc');
+
+
+        $pages = [];
         foreach ($filteredComments as $comment) {
             $uuid = $comment->pageuuid()->value();
             $page = page($uuid);

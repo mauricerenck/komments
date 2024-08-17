@@ -1,13 +1,12 @@
-.k-komments-view .author-entry {
+.k-komments-view h2 {
+  font-size: var(--text-3xl);
+  margin: 2em 0 1em 0;
+}.k-komments-view .author-entry {
   display: flex;
   gap: 10px;
   align-items: center;
   color: var(--color-black);
   text-decoration: none;
-}
-.k-komments-view h2 {
-  font-size: var(--text-3xl);
-  margin: 2em 0 1em 0;
 }
 .k-komments-view .center-icon {
   display: flex;
