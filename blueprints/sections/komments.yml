@@ -1,88 +1,17 @@
 label: Komments
 type: fields
 fields:
-  kommentsEnabledOnpage:
-    type: toggle
-    label: Komments enabled
-    default: true
-    text:
-      - Disabled
-      - Enabled
-    width: 1/3
-  kommentsInbox:
-    type: structure
-    label: Inbox
-    # translate: false
-    fields:
-      author:
-        type: text
-        label: Author
-        width: 1/3
-      avatar:
-        type: url
-        label: Avatar
-        width: 2/3
-      authorUrl:
-        type: url
-        label: Author Url
-        width: 2/3
-      authorEmail:
-        type: email
-        label: Author email
-        width: 1/3
-      kommentType:
-        type: select
-        label: Type
-        width: 1/3
-        options:
-          LIKE: Like
-          REPOST: Repost
-          REPLY: Reply
-          MENTION: Mention
-          KOMMENT: Komment
-          SPAM: Spam
-      komment:
-        type: textarea
-        label: Komment
-        size: medium
-        width: 1/1
-
-      source:
-        type: hidden
-        label: Source
-      target:
-        type: hidden
-        label: Target
-      mentionOf:
-        type: hidden
-        label: Mentioned
-      property:
-        type: hidden
-        label: Type
-
-      published:
-        type: date
-        label: Published
-        time: true
-        width: 2/4
-      status:
+    kommentsEnabledOnpage:
         type: toggle
-        label: Status
+        label: Komments enabled
+        default: true
         text:
-          - Pending
-          - Published
-        width: 1/4
-      verified:
-        type: toggle
-        label: Verified
-        text:
-          - Unverified
-          - Verified
-        width: 1/4
-    columns:
-      author:
-        width: 1/4
-      komment:
-        width: 2/4
-      status:
-        width: 1/4
+            - Disabled
+            - Enabled
+        width: 1/3
+    kommentsInbox:
+        type: CommentsTable
+        label: Inbox
+        # columns:
+        #     - author
+        #     - content
