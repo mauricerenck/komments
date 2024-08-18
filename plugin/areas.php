@@ -17,7 +17,7 @@ return [
                     'pattern' => 'komments',
                     'action' => function () {
                         $kommentModeration = new KommentModeration();
-                        $comments = $kommentModeration->getPendingComments(type: 'comment');
+                        $comments = $kommentModeration->getPendingComments();
 
                         return [
                             'component' => 'k-komments-view',
@@ -25,6 +25,7 @@ return [
                             'props' => [
                                 'queuedKomments' => json_decode($comments['comments']),
                                 'affectedPages' => $comments['affectedPages'],
+                                'webmentions' => option('mauricerenck.komments.panel.webmentions', false),
                             ],
                         ];
                     },

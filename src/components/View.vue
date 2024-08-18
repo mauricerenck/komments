@@ -2,7 +2,11 @@
     <k-inside>
         <div class="k-komments-view">
             <k-headline tag="h2">Comments</k-headline>
-            <CommentsTable :comments="this.queuedKomments" :affectedPages="this.affectedPages" />
+            <CommentsTable
+                :comments="this.queuedKomments"
+                :affectedPages="this.affectedPages"
+                :webmentions="this.webmentions"
+            />
         </div>
     </k-inside>
 </template>
@@ -12,6 +16,7 @@ export default {
     props: {
         queuedKomments: Object,
         affectedPages: Array,
+        webmentions: Boolean,
     },
 }
 </script>
