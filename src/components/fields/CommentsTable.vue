@@ -32,6 +32,7 @@ export default {
         comments: Object,
         affectedPages: Array,
         columns: Array,
+        webmentions: Boolean,
     },
     data() {
         return {
@@ -98,33 +99,33 @@ export default {
 
             const commentList = []
             this.pagination.total = 0
-            this.comments.forEach((comment) => {
+            const comments = this.webmentions
+                ? this.comments
+                : this.comments.filter((comment) => comment.type === 'comment')
+
+            comments.forEach((comment) => {
                 const pageOfComment = this.affectedPages.find((page) => page.uuid === comment.pageuuid)
+
                 const content = comment.content
                     ? comment.content.replace(/<[^>]*>/g, '')
                     : `(${actionTypes[comment.type]})`
+
+                const publishDate = this.$library.dayjs
+                    .pattern('YYYY-MM-DD HH:mm')
+                    .format(this.$library.dayjs(comment.updatedat))
 
                 const newComment = {
                     id: comment.id,
                     pageTitle: `<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`,
                     author: `<span class="author-entry"><img src="${comment.authoravatar}" width="30px" height="30px" />${comment.authorname}</span>`,
                     content: content,
-                    updatedAt: comment.updatedat,
-                    type: `<span title="${comment.type}"><svg aria-hidden="true" data-type="${
-                        typeIcons[comment.type]
-                    }" class="k-icon" style="color: var(--color-blue-700);"><use xlink:href="#icon-${
-                        typeIcons[comment.type]
-                    }"></use></svg></span>`,
-                    spamlevel:
-                        comment.spamlevel > 0
-                            ? '<svg aria-hidden="true" data-type="flag" class="k-icon" style="color: var(--color-red-700);"><use xlink:href="#icon-flag"></use></svg>'
-                            : '',
-                    verified: comment.verified
-                        ? '<svg aria-hidden="true" data-type="sparkling" class="k-icon" style="color: var(--color-yellow-700);"><use xlink:href="#icon-sparkling"></use></svg>'
-                        : '',
+                    updatedAt: publishDate,
+                    type: this.tableIcon(typeIcons[comment.type], '--color-blue-700', comment.type),
+                    spamlevel: comment.spamlevel > 0 ? this.tableIcon('flag', '--color-red-700') : '',
+                    verified: comment.verified ? this.tableIcon('sparkling', '--color-yellow-700') : '',
                     published: comment.published
-                        ? '<svg aria-hidden="true" data-type="preview" class="k-icon" style="color: var(--color-green-700);"><use xlink:href="#icon-preview"></use></svg>'
-                        : '<svg aria-hidden="true" data-type="hidden" class="k-icon" style="color: var(--color-red-700);"><use xlink:href="#icon-hidden"></use></svg>',
+                        ? this.tableIcon('preview', '--color-green-700')
+                        : this.tableIcon('hidden', '--color-red-700'),
                 }
 
                 commentList.push(newComment)
@@ -213,6 +214,10 @@ export default {
                     click: () => this.deleteComment(row.id),
                 },
             ]
+        },
+
+        tableIcon(icon, color, title = '') {
+            return `<span title="${title}"><svg aria-hidden="true" data-type="${icon}" class="k-icon" style="color: var(${color});"><use xlink:href="#icon-${icon}"></use></svg></span>`
         },
     },
 }

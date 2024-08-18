@@ -39,8 +39,11 @@ return [
                 return $comments['affectedPages'];
             },
             'columns' => function (?array $userColumns = null) {
-                $defaultColumns = ['author', 'content', 'type', 'published', 'spamlevel', 'verified'];
+                $defaultColumns = ['author', 'content', 'spamlevel', 'verified', 'published', 'type'];
                 return $userColumns ?? $defaultColumns;
+            },
+            'webmentions' => function (bool $webmentions = true) {
+                return $webmentions;
             },
         ],
     ],

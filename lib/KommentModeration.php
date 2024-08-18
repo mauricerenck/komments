@@ -106,11 +106,15 @@ class KommentModeration
     }
 
     // TESTING NOT POSSIBLE RIGHT NOW
-    public function getPendingComments(?bool $published = false, ?string $type = 'comment'): mixed
+    public function getPendingComments(?bool $published = false, ?string $type = null): mixed
     {
         $storage = StorageFactory::create();
         $comments = $storage->getCommentsOfSite();
-        $filteredComments = $comments->filterBy('published', $published)->filterBy('type', $type)->sortBy('updatedAt','desc');
+        $filteredComments = $comments->filterBy('published', $published)->sortBy('updatedAt','desc');
+
+        if($type) {
+            $filteredComments = $filteredComments->filterBy('type', $type);
+        }
 
         $pages = [];
 

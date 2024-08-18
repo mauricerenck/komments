@@ -10,6 +10,7 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | Option                            | Default  | Description                                                                                      |
 | --------------------------------- | -------- | ------------------------------------------------------------------------------------------------ |
 | `debug`                           | `false`  | Enables debug mode and logs all webmentions to a file                                            |
+| `comments.disabled`               | `false`  | Disable comments if you only want to show webmentions                                            |
 | `enable-webmention-support`       | `true`   | Listen to Webmentions and save them as komment                                                   |
 | `webmention-auto-publish`         | `true`   | When you receive a webmention set status to published                                            |
 | `auto-delete-spam`                | `true`   | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM |
@@ -54,3 +55,10 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | Option               | Default | Description                                                                |
 | -------------------- | ------- | -------------------------------------------------------------------------- |
 | `privacy.storeEmail` | `false` | Enable to also store the email address of the comment sender in plain text |
+
+## Panel settings
+
+| Option               | Default | Description                                                                |
+| -------------------- | ------- | -------------------------------------------------------------------------- |
+| `panel.enable`       | `true`  | Adds a comment moderation view to the panel showing pending comments       |
+| `panel.webmentions`  | `false` | Shows received Webmentions in the moderation view                          |
