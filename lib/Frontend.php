@@ -3,6 +3,7 @@
 namespace mauricerenck\Komments;
 
 use Kirby\Cms\Structure;
+use Kirby\Toolkit\V;
 
 class KommentsFrontend
 {
@@ -54,49 +55,4 @@ class KommentsFrontend
         return $publishedComments;
     }
 
-    // FIXME deprecated ?
-    public function convertToNestedComments($comments)
-    {
-        $nestedComments = [];
-        foreach ($comments as $comment) {
-            $nestedComments[$comment['id']] = $comment;
-        }
-
-        foreach ($nestedComments as $reply) {
-            $mentionOf = $reply['mentionof'];
-            if (!empty($nestedComments[$mentionOf])) {
-                $nestedComments[$mentionOf]['replies'][] = $reply['id'];
-            }
-        }
-
-        return $this->buildTree($nestedComments);
-    }
-
-    // FIXME deprecated ?
-    public function buildTree($flatArray)
-    {
-        $tree = [];
-
-        foreach ($flatArray as $key => $flat) {
-            $nodes = [];
-            $tree = [];
-            foreach ($flatArray as $key => &$node) {
-                $node['replies'] = [];
-                $id = $node['id'];
-                $parent_id = $node['mentionof'];
-                $nodes[$id] = &$node;
-                if (array_key_exists($parent_id, $nodes)) {
-                    $nodes[$parent_id]['replies'][] = &$node;
-                } else {
-                    $tree[] = &$node;
-                }
-            }
-        }
-        return $tree;
-    }
-
-    private function transformToReply($komment)
-    {
-        deprecated('`transformToReply()` is deprecated. `transformToReply()` will be removed in future versions.');
-    }
 }

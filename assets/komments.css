@@ -1,267 +1,118 @@
 #kommentform {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-areas: "quote" "replyHandle" "komment" "email" "author" "authorsite" "privacy" "button" "tweet";
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-}
-#kommentform .replyHandleDisplay {
-  grid-area: replyHandle;
-}
-#kommentform #url {
-  position: relative;
-  left: -200vw;
-  height: 0;
-}
-#kommentform input[name=email] {
-  grid-area: email;
-}
-#kommentform input[name=author] {
-  grid-area: author;
-}
-#kommentform input[type=url] {
-  grid-area: authorsite;
-}
-#kommentform input[type=submit] {
-  grid-area: button;
-}
-#kommentform .share {
-  grid-area: tweet;
-  align-self: start;
-}
-#kommentform textarea {
-  grid-area: komment;
-  width: 100%;
-}
-#kommentform .visible-quote {
-  grid-area: quote;
-}
-#kommentform .komment-privacy {
-  grid-area: privacy;
-  font-size: smaller;
-}
-#kommentform.spam-indicator {
-  grid-area: spamindicator;
-  width: 100%;
-}
-#kommentform .progress {
-  transition: width 1s, background 2s, height 0.2s;
-  transition-timing-function: linear;
-  display: inline-block;
-  width: 0%;
-  height: 5px;
-  background: red;
-}
-#kommentform .progress.orange {
-  background: orange;
-}
-#kommentform .progress.yellow {
-  background: yellowgreen;
-}
-#kommentform .progress.green {
-  background: green;
-}
-#kommentform .progress.done {
-  background: green;
-  height: 0;
-}
-#kommentform .form-feedback {
-  padding: 10px;
-}
-#kommentform .form-feedback.error {
-  background: orange;
-  color: white;
-}
-#kommentform .form-feedback.moderation-note {
-  background: green;
-  color: white;
-}
-#kommentform .lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-#kommentform .lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-#kommentform .sk-cube-grid {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto;
-}
-#kommentform .loading-invisible {
-  display: none;
-}
-#kommentform .sk-cube-grid .sk-cube {
-  width: 33%;
-  height: 33%;
-  background-color: var(--color-card-text);
-  float: left;
-  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-}
-#kommentform .sk-cube-grid .sk-cube1 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-#kommentform .sk-cube-grid .sk-cube2 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-#kommentform .sk-cube-grid .sk-cube3 {
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-#kommentform .sk-cube-grid .sk-cube4 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-#kommentform .sk-cube-grid .sk-cube5 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-#kommentform .sk-cube-grid .sk-cube6 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-#kommentform .sk-cube-grid .sk-cube7 {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-#kommentform .sk-cube-grid .sk-cube8 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-#kommentform .sk-cube-grid .sk-cube9 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-areas:
+        'message message message'
+        'replyHandleDisplay empty empty'
+        'comment comment comment'
+        'email author authorsite'
+        'privacy privacy button';
 
-#kommentsWebmentions {
-  /* .single-komment {
-      display: grid;
-      grid-template-columns: 20px 40px 1fr;
+    grid-gap: 1em;
 
-      grid-template-areas:
-          'icon avatar action'
-          'icon avatar content';
-
-      grid-column-gap: 10px;
-      grid-row-gap: 10px;
-
-      line-height: 1.2;
-
-      border-bottom: 1px solid grey;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-  } */
-}
-#kommentsWebmentions .list-reposts,
-#kommentsWebmentions .list-mentions,
-#kommentsWebmentions .list-likes {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-#kommentsWebmentions .list-reposts .author-action,
-#kommentsWebmentions .list-mentions .author-action,
-#kommentsWebmentions .list-likes .author-action {
-  display: none;
-}
-#kommentsWebmentions .list-comments .single-komment,
-#kommentsWebmentions .list-replies .single-komment {
-  display: grid;
-  grid-template-columns: 20px 40px 1fr;
-  grid-template-areas: "icon avatar action" "icon avatar content";
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  line-height: 1.2;
-  border-bottom: 1px solid grey;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
-#kommentsWebmentions .type-of {
-  grid-area: icon;
-  line-height: 40px;
-}
-#kommentsWebmentions .author-avatar {
-  grid-area: avatar;
-  position: relative;
-}
-#kommentsWebmentions .author-avatar img {
-  max-width: 40px;
-  border-radius: 3px;
-}
-#kommentsWebmentions .author-action {
-  grid-area: action;
-  color: grey;
-  line-height: 40px;
-}
-#kommentsWebmentions .mention-content {
-  grid-area: content;
-  padding-bottom: 20px;
-}
-#kommentsWebmentions .komment-text {
-  padding: 20;
-  line-height: 1.5;
-}
-
-/* .splitted-komments {
-
-    .single-komment {
-        display: block;
+    .form-feedback {
+        grid-area: message;
     }
 
-    .single-komment .author-avatar img {
-        max-width: 60px;
+    .replyHandleDisplay {
+        grid-area: replyHandleDisplay;
     }
 
-    .single-komment .author-action,
-    .single-komment .type-of {
-        display: none;
-    }
+    label[for='comment'] {
+        grid-area: comment;
 
-    .list-replies {
-        list-style-type: none;
-        padding-left: 0;
-
-        .single-komment .author-action,
-        .single-komment .type-of {
-            display: block;
+        textarea {
+            width: 100%;
         }
     }
 
-    .kommentReply {
-        display: block;
-        text-align: right;
+    label[for='email'] {
+        grid-area: email;
     }
-} */
-@-webkit-keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
-  }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
-  }
-}
-@keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
-  }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
-  }
+
+    label[for='author'] {
+        grid-area: author;
+    }
+
+    label[for='author_url'] {
+        grid-area: authorsite;
+    }
+
+    .komment-privacy {
+        grid-area: privacy;
+        font-size: smaller;
+    }
+
+    input[type='submit'] {
+        grid-area: button;
+    }
+
+    #url {
+        position: relative;
+        left: -200vw;
+        height: 0;
+    }
+
+    .msg {
+        border: 1px solid #ccc;
+        padding: 1em;
+        background-color: #f9f9f9;
+        opacity: 0;
+        display: none;
+
+        &.visible {
+            display: block;
+            animation: kmsg-fade 1s linear forwards;
+            animation-delay: 0.5s;
+        }
+
+        &.msg-success {
+            border-color: green;
+            background-color: #e9f9e9;
+        }
+
+        &.msg-error {
+            border-color: red;
+            background-color: #f9e9e9;
+        }
+
+        &.msg-info {
+            border-color: blue;
+            background-color: #e9e9f9;
+        }
+    }
+
+    .loader {
+        display: none;
+        animation: none;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            animation: kspin infinite 1s linear forwards;
+        }
+
+        &.visible {
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
-/*# sourceMappingURL=komments.css.map */
+@keyframes kspin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes kkmsg-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
