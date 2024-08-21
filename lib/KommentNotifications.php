@@ -2,19 +2,20 @@
 
 namespace mauricerenck\Komments;
 
-class KommentNotificationUtils
+class KommentNotifications
 {
     private $pendingComments;
 
-    public function sendNotifications()
+    public function sendNotifications(): void
     {
-        $kommentModeration = new KommentModeration();
-        $this->pendingComments = $kommentModeration->getSiteWideComments('pending');
+        $storage = StorageFactory::create();
+        $allComments = $storage->getCommentsOfSite();
+        $count = $allComments->filter('published', '==', false)->count();
 
-        $this->sendEmailNotification();
+        $this->sendEmailNotification($count);
     }
 
-    public function sendEmailNotification()
+    public function sendEmailNotification(int $count): void
     {
         if (!option('mauricerenck.komments.notifications.email.enable', false)) {
             return;
@@ -23,16 +24,14 @@ class KommentNotificationUtils
         $receipients = option('mauricerenck.komments.notifications.email.emailReceiverList', []);
         $panelUrl = site()->url() . '/panel/komments';
 
-        $pendingCommentsCount = count($this->pendingComments);
-
-        if ($pendingCommentsCount > 0) {
+        if ($count > 0) {
             kirby()->email([
                 'from' => option('mauricerenck.komments.notifications.email.sender'),
                 'to' => $receipients,
                 'subject' => 'New Comments received',
                 'template' => 'newcomments',
                 'data' => [
-                    'pendingComments' => $pendingCommentsCount,
+                    'pendingComments' => $count,
                     'panelUrl' => $panelUrl,
                 ],
             ]);
