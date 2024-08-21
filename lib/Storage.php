@@ -37,7 +37,7 @@ class Storage {
         string $content,
         string $authorName,
         string $authorAvatar,
-        string $authorEmail,
+        ?string $authorEmail,
         string $authorUrl,
         bool $published,
         bool $verified,

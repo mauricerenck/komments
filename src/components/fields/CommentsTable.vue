@@ -4,6 +4,7 @@
             :columns="this.visibleColumns"
             :index="true"
             :rows="this.commentList"
+            empty="No comments found"
             :pagination="{ page: pagination.page, limit: pagination.limit, total: pagination.total, details: true }"
             @paginate="pagination.page = $event.page"
         >

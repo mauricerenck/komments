@@ -60,7 +60,7 @@ class StorageMarkdown extends Storage {
      */
     public function convertToStructure(Obj|Collection $databaseResults): Structure {}
 
-    // FIXME beokmment Content obect rein
+    // FIXME hier wegwerfe, weil das schon in der parent class ist?
     public function createComment(
         string $id,
         string $pageUuid,
@@ -69,7 +69,7 @@ class StorageMarkdown extends Storage {
         string $content,
         string $authorName,
         string $authorAvatar,
-        string $authorEmail,
+        ?string $authorEmail,
         string $authorUrl,
         bool $published,
         bool $verified,

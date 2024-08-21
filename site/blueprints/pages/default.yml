@@ -7,18 +7,7 @@ tabs:
               sections:
                   komments:
                       extends: sections/komments
-                  mastodon:
-                      type: fields
-                      fields:
-                          extends: fields/mastodonUrl
-            - width: 1/3
-              sections:
-                  customFields:
-                      type: fields
-                      fields:
-                          kommentsPending:
-                              type: kommentsPending
-                              label: Pending Komments
+
     testtab:
         label: Stats
         icon: text
