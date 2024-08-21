@@ -2,15 +2,21 @@
 
 namespace mauricerenck\Komments;
 
-use mauricerenck\Komments\KommentBaseUtils;
-
 return [
     'numberOfPendingComments' => function () {
-        $kommentBaseUtils = new KommentBaseUtils();
-        return $kommentBaseUtils->getSiteWideCommentCount('pending');
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfSite();
+        $unpublishedComments = $comments->filterBy('published', false);
+
+        return $unpublishedComments->count();
     },
     'numberOfSpamComments' => function () {
-        $kommentBaseUtils = new KommentBaseUtils();
-        return $kommentBaseUtils->getSiteWideCommentCount('spam');
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfSite();
+        $spamComments = $comments->filter(
+            fn ($child) => $child->spamlevel()->value() >= option('mauricerenck.komments.spam.sensibility', 60)
+        );
+
+        return $spamComments->count();
     },
 ];

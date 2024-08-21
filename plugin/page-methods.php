@@ -3,9 +3,17 @@
 namespace mauricerenck\Komments;
 
 return [
-    'kommentCount' => function ($language = null) {
-        $baseUtils = new KommentBaseUtils();
-        return $baseUtils->getCommentsCountOfPage($this, 'published');
+    'kommentCount' => function ($language = null): int {
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfPage($this->uuid());
+        $publishedComments = $comments->filterBy('published', true);
+
+        if (!is_null($language)) {
+            $publishedComments = $publishedComments->filterBy('language', $language);
+        }
+
+        return $publishedComments->count();
+
     },
     'kommentsAreEnabled' => function () {
         $kommentsFrontend = new KommentsFrontend();
@@ -15,13 +23,6 @@ return [
         }
 
         return $this->kommentsEnabledOnpage()->isEmpty() || $this->kommentsEnabledOnpage()->isTrue();
-    },
-    'mastodonStatusUrl' => function () {
-        if(class_exists('mauricerenck\IndieConnector\MastodonSender')) {
-            return $this->icGetMastodonUrl();
-        }
-
-        return null;
     },
     'comments' => function () {
         $kommentsFrontend = new KommentsFrontend();
