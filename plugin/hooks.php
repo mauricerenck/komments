@@ -3,19 +3,18 @@
 namespace mauricerenck\Komments;
 
 return [
-    'indieConnector.webmention.received' => function ($webmention, $targetPage) {
+    'indieConnector.webmention.received' => function ($webmention, $page) {
         if (option('mauricerenck.komments.debug', false)) {
             $time = time();
             file_put_contents('webmentionhook.' . $time . '.json', json_encode($webmention));
         }
 
-        $kommentReceiver = new KommentReceiver();
-        $newEntry = $kommentReceiver->createKomment($webmention);
-        $kommentReceiver->storeData($newEntry, $targetPage);
+        $webmentionReceiver = new WebmentionReceiver();
+        $webmentionReceiver->saveWebmention($webmention, $page);
     },
     'komments.comment.received' => function () {
         if (option('mauricerenck.komments.notifications.email.notificationMode', 'instant') === 'instant') {
-            $notifications = new KommentNotificationUtils();
+            $notifications = new KommentNotifications();
             $notifications->sendNotifications();
         }
     },
