@@ -19,6 +19,7 @@
                 <li>kommentsAreEnabled: <?php var_dump($page->kommentsAreEnabled()) ?></li>
                 <li>KommentCount: <?php echo $page->kommentCount() ?></li>
                 <li>Pending Comments: <?php echo $site->numberOfPendingComments() ?></li>
+                <li>Spam Comments: <?php echo $site->numberOfSpamComments() ?></li>
             </ul>
 
             <h2>Form</h2>
