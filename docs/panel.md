@@ -3,7 +3,7 @@
 
 ## Moderation view
 
-By default Komments comes with a panel view for moderation. You don't need to do anything for this. In the panel menu you should see an entry called "Komments". 
+By default Komments comes with a panel view for moderation. You don't need to do anything for this. In the panel menu you should see an entry called "Komments".
 
 ![the dashboard](../doc-assets/komments-dashboard.png)
 
@@ -45,19 +45,6 @@ To get the number of pending comments use the site method `numberOfPendingCommen
 
 To learn more about Kirby stats, please have a look here: https://getkirby.com/docs/reference/panel/sections/stats
 
-## Show number of pending Komments in Panel
+## DEPRECATED! Show number of pending Komments in Panel
 
-If you want to have the number of pending komments in view, you can add the `kommentsPending` panel field wherever you want. It's refreshing every minute, so you won't miss a new Komment. Just add the field to the blueprint:
-
-```
-fields:
-  kommentsPending:
-    type: kommentsPending
-    label: Pending Komments
-```
-
-You could add it to your site.yml blueprint so you see the number of pending Komments right after logging in.
-
-![komment section](../doc-assets/komments-pending.png)
-
-
+The field `kommentsPending` is deprecated, please use the Panel Stats section instead.

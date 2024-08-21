@@ -2,11 +2,10 @@
 
 namespace mauricerenck\Komments;
 
-use mauricerenck\Komments\KommentModeration;
-use mauricerenck\Komments\KommentReceiver;
 use Kirby\Cms\App as Kirby;
 use Kirby\Http\Response;
 use Kirby\Toolkit\I18n;
+use Kirby\Uuid\Uuid;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
@@ -33,49 +32,79 @@ Kirby::plugin('mauricerenck/komments', [
                 $formData = kirby()->request()->data();
                 $shouldReturnJson = ($headers['X-Return-Type'] === 'json');
 
-                $kommentReceiver = new KommentReceiver();
-                $kommentModeration = new KommentModeration();
+                $page = page($formData['pageUuid']);
 
-                $targetPage = $kommentReceiver->getPageFromUrl($formData['wmTarget']);
-                $spamlevel = 0;
-
-                if (is_null($targetPage)) {
-                    return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.pagenotfound', 404, $shouldReturnJson);
+                if (is_null($page)) {
+                    return new Response('Page Not Found', 'application/json', 404);
                 }
 
-                if ($kommentReceiver->isSpam($formData)) {
-                    if (option('mauricerenck.komments.auto-delete-spam') === true) {
-                        return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.lookslikespam', 403, $shouldReturnJson);
-                    } else {
-                        $spamlevel = 100;
+                $receiver = new KommentReceiver();
+
+                $invalidFields = $receiver->validateFields($formData);
+                if (count($invalidFields) > 0) {
+                    $errorMessage = [
+                        'status' => 'error',
+                        'message' => I18n::translate('mauricerenck.komments.invalidfieldvalues', null , $formData['language']),
+                        'fields' => $invalidFields
+                    ];
+
+                    return new Response(json_encode($errorMessage), 'application/json', 406);
+                }
+
+                $spamlevel = $receiver->getSpamlevel($formData);
+                if ($spamlevel > option('mauricerenck.komments.spam.sensibility', 60)) {
+                    $errorMessage = [
+                        'status' => 'error',
+                        'message' => I18n::translate('mauricerenck.komments.lookslikespam', null , $formData['language'])
+                    ];
+
+                    if (option('mauricerenck.komments.spam.delete', true) === true) {
+                        return new Response(json_encode($errorMessage), 'application/json', 403);
                     }
                 }
 
-                $webmention = $kommentReceiver->convertToWebmention($formData, $targetPage);
-                $isVerified = $kommentReceiver->isVerified($formData['email']);
-                $autoPublish = $kommentReceiver->autoPublish($formData['email']);
+                $storage = StorageFactory::create();
 
-                if (!$kommentReceiver->requiredFieldsAreValid($webmention)) {
-                    return $kommentReceiver->sendReponseToClient('mauricerenck.komments.error', 'mauricerenck.komments.invalidfieldvalues', 412, $shouldReturnJson);
-                }
+                $id = Uuid::generate();
+                $date = date('c', time());
 
-                $newEntry = $kommentReceiver->createKomment($webmention, $spamlevel, $isVerified, $autoPublish);
-                $kommentReceiver->storeData($newEntry, $targetPage);
+                $verified = $receiver->isVerified($formData['email']);
+                $autoPublish = $receiver->autoPublish($formData['email'], $verified);
+
+                $comment = $storage->createComment(
+                    id: $id,
+                    pageUuid: $receiver->createSafeString($formData['pageUuid']),
+                    parentId: $receiver->getParentId($formData['replyTo']),
+                    type: 'comment',
+                    content: $receiver->createSafeString($formData['comment']),
+                    authorName: $receiver->createSafeString($formData['author']),
+                    authorAvatar: $receiver->getAvatarFromEmail($formData['email']),
+                    authorEmail: $receiver->getEmail($formData['email']),
+                    authorUrl: $receiver->createSafeString($formData['author_url']),
+                    published: $autoPublish,
+                    verified: $verified,
+                    spamlevel: $spamlevel,
+                    language: $receiver->createSafeString($formData['language']),
+                    upvotes: 0,
+                    downvotes: 0,
+                    createdAt: $date,
+                    updatedAt: $date,
+                );
+
+                $storage->saveComment($comment);
 
                 kirby()->trigger('komments.comment.received', []);
 
                 if ($shouldReturnJson) {
                     $response = [
                         'status' => 'success',
-                        'pending' => true,
-                        'message' => I18n::translate('mauricerenck.komments.thankyou', null , kirby()->languageCode()),
-                        'data' => $webmention
+                        'message' => I18n::translate('mauricerenck.komments.thankyou', null , $formData['language']),
                     ];
 
-                    return new Response(json_encode($response), 'application/json');
+                    return new Response(json_encode($response), 'application/json', 200);
                 }
 
-                go($targetPage . '#inModeration');
+                go($page->url());
             }
         ],
         [

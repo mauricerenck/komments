@@ -7,8 +7,7 @@
     "private": true,
     "scripts": {
         "dev": "npx -y kirbyup src/index.js --watch",
-        "build": "npx -y kirbyup src/index.js",
-        "build-css": "sass  src/komments.scss assets/komments.css"
+        "build": "npx -y kirbyup src/index.js"
     },
     "posthtml": {
         "recognizeSelfClosing": true
@@ -24,7 +23,6 @@
         "@semantic-release/git": "^10.0.1",
         "@vue/component-compiler-utils": "^3.1.2",
         "cssnano": "^4.1.10",
-        "sass": "^1.32.6",
         "stylus": "^0.54.7",
         "vue-template-compiler": "^2.6.11"
     }

@@ -11,9 +11,9 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | --------------------------------- | -------- | ------------------------------------------------------------------------------------------------ |
 | `debug`                           | `false`  | Enables debug mode and logs all webmentions to a file                                            |
 | `comments.disabled`               | `false`  | Disable comments if you only want to show webmentions                                            |
-| `enable-webmention-support`       | `true`   | Listen to Webmentions and save them as komment                                                   |
-| `webmention-auto-publish`         | `true`   | When you receive a webmention set status to published                                            |
-| `auto-delete-spam`                | `true`   | When comment spam is detected it will be rejected, set to false to just mark the comment as SPAM |
+| `enable-webmention-support`       | `true`   | DEPRECATED - see `webmentions.enabled` |
+| `webmention-auto-publish`         | `true`   | DEPRECATED - see `webmentions.publish` |
+| `auto-delete-spam`                | `true`   | DEPRECATED - See `spam.delete` |
 | `auto-disable-komments`           | `0`      | Disables the komment form after `n` number of days. Use `0` to never disable komments (default)  |
 | `auto-disable-komments-datefield` | `'date'` | Set a field to function as publish date field used for `auto-disable-komments`                   |
 
@@ -21,15 +21,15 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 
 | Option                     | Default                                                             | Description                                        |
 | -------------------------- | ------------------------------------------------------------------- | -------------------------------------------------- |
-| `komment-icon-like`        | '❤️'                                                                 | The icon for likes in your komment list            |
-| `komment-icon-reply`       | '💬'                                                                 | The icon for replies/comments in your komment list |
-| `komment-icon-repost`      | '♻️'                                                                 | The icon for reposts in your komment list          |
-| `komment-icon-mention`     | '♻️'                                                                 | The icon for mention in your komment list          |
-| `komment-icon-verified`    | '✅'                                                                 | The icon for the verify badge list                 |
-| `replyClassNames`          | ''                                                                  | add classnames to the reply link                   |
-| `form.submit.classNames`   | `'button button-tiny button-primary'`                               | add classnames to the submit button                |
-| `form.twitter.classNames`  | `'button button-tiny button-outlined share komment-share-twitter'`  | add classnames to the twitter button               |
-| `form.mastodon.classNames` | `'button button-tiny button-outlined share komment-share-mastodon'` | add classnames to the mastodon button              |
+| `komment-icon-like`        | -                                                                 | DEPRECATED            |
+| `komment-icon-reply`       | -                                                                 | DEPRECATED |
+| `komment-icon-repost`      | -                                                                | DEPRECATED          |
+| `komment-icon-mention`     | -                                                                 | DEPRECATED          |
+| `komment-icon-verified`    | -                                                                | DEPRECATED                 |
+| `replyClassNames`          | -                                                                  | DEPRECATED                   |
+| `form.submit.classNames`   | -                              | DEPRECATED                |
+| `form.twitter.classNames`  | -  | DEPRECATED               |
+| `form.mastodon.classNames` | - | DEPRECATED              |
 
 ## Notification settings
 
@@ -47,8 +47,24 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | Option                   | Default | Description                                                                     |
 | ------------------------ | ------- | ------------------------------------------------------------------------------- |
 | `komment-auto-publish`   | `false` | When you receive a komment set status to published                              |
-| `auto-publish-verified`  | `true`  | New comments by verified users are automatically published                      |
+| `auto-publish-verified`  | `true`  |DEPRECATED                      |
+| `moderation.publish-verified`  | `true`  | New comments by verified users are automatically published                      |
 | `moderation.autoPublish` | `[]`    | An array of email addresses which comments will be published without moderation |
+
+## Webmention settings
+
+| Option                   | Default | Description                                                                     |
+| ------------------------ | ------- | ------------------------------------------------------------------------------- |
+| `webmentions.enabled` | `true`    | Weather to listen to webmentions (using the IndieConnector plugin) |
+| `webmentions.publish` | `true`    | Auto publish webmentions or keep them unpublished until review |
+
+
+## Spam settings
+
+| Option                   | Default | Description                                                                     |
+| ------------------------ | ------- | ------------------------------------------------------------------------------- |
+| `spam.delete` | `true`    | Weather to directly delete comments marked as spam or only flag them |
+| `spam.sensibility` | `60`    | An integer from 0 to 100 - Defines when a comment should be marked as spam, the higher the number to higher the possibilty of spam |
 
 ## Privacy settings
 
@@ -60,5 +76,5 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 
 | Option               | Default | Description                                                                |
 | -------------------- | ------- | -------------------------------------------------------------------------- |
-| `panel.enable`       | `true`  | Adds a comment moderation view to the panel showing pending comments       |
+| `panel.enabled`      | `true`  | Adds a comment moderation view to the panel showing pending comments       |
 | `panel.webmentions`  | `false` | Shows received Webmentions in the moderation view                          |

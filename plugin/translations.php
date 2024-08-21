@@ -27,8 +27,9 @@ return [
         'mauricerenck.komments.pagenotfound' => 'The page you wrote a comment for could not be found.',
         'mauricerenck.komments.error' => 'Error',
         'mauricerenck.komments.lookslikespam' => 'Your comment was rejected because it looks like spam.',
-        'mauricerenck.komments.invalidfieldvalues' => 'Invalid field values',
+        'mauricerenck.komments.invalidfieldvalues' => 'Invalid field values', // used in the form validation
         'mauricerenck.komments.thankyou' => 'Thank you! Your comment is awaiting moderation.',
+        'mauricerenck.komments.sending' => 'Sending comment...',
     ],
     'de' => [
         'mauricerenck.komments.liked' => 'hat ein like spendiert',
@@ -56,6 +57,7 @@ return [
         'mauricerenck.komments.lookslikespam' => 'Dein Kommentar wurde als Spam eingestuft und abgelehnt.',
         'mauricerenck.komments.invalidfieldvalues' => 'Falsche Eingabewerte',
         'mauricerenck.komments.thankyou' => 'Danke. Dein Kommentar wartet auf seine Freischaltung.',
+        'mauricerenck.komments.sending' => 'Kommentar wird gesendet...',
     ],
     'fr' => [
         'mauricerenck.komments.liked' => 'a apprécié',
@@ -84,5 +86,6 @@ return [
         'mauricerenck.komments.lookslikespam' => 'Votre commentaire a été rejeté parce qu’il ressemble à un spam.',
         'mauricerenck.komments.invalidfieldvalues' => 'Valeurs de champs non valides',
         'mauricerenck.komments.thankyou' => 'Merci ! Votre commentaire est en attente de modération.',
+        'mauricerenck.komments.sending' => 'Envoi du commentaire...',
     ],
 ];
