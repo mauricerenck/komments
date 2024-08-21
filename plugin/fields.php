@@ -9,9 +9,11 @@ return [
     'kommentsPending' => [
         'props' => [
             'queuedComments' => function () {
-                $kommentUtils = new KommentBaseUtils();
-                $pendingComments = $kommentUtils->getSiteWideCommentCount('pending');
-                return $pendingComments;
+                $storage = StorageFactory::create();
+                $comments = $storage->getCommentsOfSite();
+                $unpublishedComments = $comments->filterBy('published', false);
+
+                return $unpublishedComments->count();
             },
         ],
     ],
