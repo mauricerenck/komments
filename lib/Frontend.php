@@ -3,7 +3,6 @@
 namespace mauricerenck\Komments;
 
 use Kirby\Cms\Structure;
-use Kirby\Toolkit\V;
 
 class KommentsFrontend
 {
@@ -12,7 +11,6 @@ class KommentsFrontend
 
     public function __construct(private ?int $expireAfterNumOfDays = null, private ?string $dateField = null)
     {
-        $this->baseUtils = new KommentBaseUtils();
         $this->storage = StorageFactory::create();
 
         $this->expireAfterNumOfDays = $expireAfterNumOfDays ?? option('mauricerenck.komments.auto-disable-komments', 0);
