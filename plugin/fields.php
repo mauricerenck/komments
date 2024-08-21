@@ -15,15 +15,7 @@ return [
             },
         ],
     ],
-    'komments' => [
-        'props' => [
-            'queuedComments' => function () {
-                $kommentModeration = new KommentModeration();
-                return null;
-                // return $kommentModeration->getSiteWideComments('pending');
-            },
-        ],
-    ],
+
     'CommentsTable' => [
         'props' => [
             'comments' => function () {

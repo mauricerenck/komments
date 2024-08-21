@@ -1,7 +1,7 @@
 <?php
 namespace mauricerenck\Komments;
 
-if (option('mauricerenck.komments.comments.disabled', false) === true) {
+if (option('mauricerenck.komments.panel.enabled', true) === false) {
     return null;
 }
 
@@ -32,14 +32,11 @@ return [
                 ],
             ],
             'dialogs' => [
-                // the key of the dialog defines its routing pattern
                 'comment/read/(:any)' => [
-                    // dialog callback functions
                     'load' => function ($id) {
                         $kommentModeration = new KommentModeration();
                         $comment = $kommentModeration->getComment($id);
                         return [
-                            // what dialog component to use
                             'component' => 'k-komments-details',
                             'props' => [
                                 'text' => $comment['content'],
@@ -47,7 +44,6 @@ return [
                         ];
                     },
                     'submit' => function () {
-                        // create todo
                         return true;
                     }
                 ],
