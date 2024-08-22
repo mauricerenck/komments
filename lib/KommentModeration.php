@@ -6,61 +6,51 @@ use Kirby\Uuid\Uuid;
 
 class KommentModeration
 {
+    private $storage;
+
+    public function __construct(private ?string $storageType = null)
+    {
+        $this->storage = StorageFactory::create($storageType);
+    }
+
     public function getComment(string $id): mixed
     {
-        $storage = StorageFactory::create();
-        $comment = $storage->getSingleComment($id);
-        $pages = [];
-
-
-        $uuid = $comment->pageuuid()->value();
-        $page = page($uuid);
-
-        $pages[] = [
-            'uuid' => $uuid,
-            'title' => $page->title()->value(),
-            'panel' => $page->panel()->url()
-        ];
-
-
+        $comment = $this->storage->getSingleComment($id);
         return $comment->toArray();
     }
 
     public function deleteComment(string $id): mixed
     {
-        $storage = StorageFactory::create();
-        $result = $storage->deleteComment($id);
+        $result = $this->storage->deleteComment($id);
         return $result;
     }
 
     public function publishComment(string $id): mixed
     {
-        $storage = StorageFactory::create();
-        $comment = $storage->getSingleComment($id);
+        $comment = $this->storage->getSingleComment($id);
         $newStatus = $comment->published()->isTrue() ? false : true;
-        $result = $storage->updateComment($id, ['published' => $newStatus]);
+        $result = $this->storage->updateComment($id, ['published' => $newStatus]);
         return $result ? $newStatus : $comment->published();
     }
 
     public function flagComment(string $id, string $flag): mixed
     {
-        $storage = StorageFactory::create();
-        $comment = $storage->getSingleComment($id);
+        $comment = $this->storage->getSingleComment($id);
 
         switch($flag) {
             case 'spamlevel':
                 if($comment->spamlevel()->value() > 0) {
-                    return $storage->updateComment($id, ['spamlevel' => 0]) ? 0 : $comment->spamlevel();
+                    return $this->storage->updateComment($id, ['spamlevel' => 0]) ? 0 : $comment->spamlevel();
                 }
                 else {
-                    return ($storage->updateComment($id, ['spamlevel' => 100, 'published' => false, 'verified' => false])) ? 100 : $comment->spamlevel();
+                    return ($this->storage->updateComment($id, ['spamlevel' => 100, 'published' => false, 'verified' => false])) ? 100 : $comment->spamlevel();
                 }
             case 'verified':
                 if($comment->verified()->isTrue()) {
-                    return $storage->updateComment($id, ['verified' => false]) ? false : $comment->verified();
+                    return $this->storage->updateComment($id, ['verified' => false]) ? false : $comment->verified();
                 }
                 else {
-                    return $storage->updateComment($id, ['spamlevel' => 0, 'verified' => true]) ? true : $comment->verified();
+                    return $this->storage->updateComment($id, ['spamlevel' => 0, 'verified' => true]) ? true : $comment->verified();
                 }
         }
 
@@ -68,8 +58,8 @@ class KommentModeration
     }
 
     public function replyToComment(string $id, array $formData) {
-        $storage = StorageFactory::create();
-        $comment = $storage->getSingleComment($id);
+
+        $comment = $this->storage->getSingleComment($id);
 
         $publishResult = $comment->published()->isTrue() ? true : $this->publishComment($id);
 
@@ -77,7 +67,7 @@ class KommentModeration
         $author = kirby()->user();
         $avatar = $author->avatar() ?? 'https://www.gravatar.com/avatar/' .  md5($author->email());
 
-        $newComment = $storage->createComment(
+        $newComment = $this->storage->createComment(
             id: $commentId,
             pageUuid: $formData['pageUuid'],
             parentId: $id,
@@ -97,7 +87,7 @@ class KommentModeration
             updatedAt: date('Y-m-d H:i:s', time()),
         );
 
-        $saveResult = $storage->saveComment($newComment);
+        $saveResult = $this->storage->saveComment($newComment);
 
         return [
             'created' => $saveResult,
@@ -105,11 +95,9 @@ class KommentModeration
         ];
     }
 
-    // TESTING NOT POSSIBLE RIGHT NOW
     public function getPendingComments(?bool $published = false, ?string $type = null): mixed
     {
-        $storage = StorageFactory::create();
-        $comments = $storage->getCommentsOfSite();
+        $comments = $this->storage->getCommentsOfSite();
         $filteredComments = $comments->filterBy('published', $published)->sortBy('updatedAt','desc');
 
         if($type) {
@@ -117,7 +105,6 @@ class KommentModeration
         }
 
         $pages = [];
-
         foreach ($filteredComments as $comment) {
             $uuid = $comment->pageuuid()->value();
             $page = page($uuid);
@@ -128,6 +115,8 @@ class KommentModeration
                 'panel' => $page->panel()->url()
             ];
         }
+
+        $pages = array_unique($pages, SORT_REGULAR);
 
         return [
             'comments' => $filteredComments->toJson(),
@@ -137,10 +126,8 @@ class KommentModeration
 
     public function getAllPageComments(string $pageUuid = null): mixed
     {
-        $storage = StorageFactory::create();
-        $comments = $storage->getCommentsOfPage($pageUuid);
+        $comments = $this->storage->getCommentsOfPage($pageUuid);
         $filteredComments = $comments->sortBy('updatedAt','desc');
-
 
         $pages = [];
         foreach ($filteredComments as $comment) {
@@ -153,6 +140,8 @@ class KommentModeration
                 'panel' => $page->panel()->url()
             ];
         }
+
+        $pages = array_unique($pages, SORT_REGULAR);
 
         return [
             'comments' => $filteredComments->toJson(),
