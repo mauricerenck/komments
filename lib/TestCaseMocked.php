@@ -5,9 +5,12 @@ namespace mauricerenck\Komments;
 use Kirby\Cms\Page;
 use Kirby\Uuid\Uuid;
 use PHPUnit\Framework\TestCase;
+use Kirby\Toolkit\Obj;
 
 class TestCaseMocked extends TestCase
 {
+    public $defaultDate = '2024-01-02 10:00:00';
+
     public function setUp(): void
     {
         parent::setUp();
@@ -35,7 +38,7 @@ class TestCaseMocked extends TestCase
         $defaultContentEN = [
             'Textfield' => "Hello World",
             'kommentsInbox' => '
-            - 
+            -
               author: Unknown user
               avatar: >
                 https://www.gravatar.com/avatar/c67cfe10182e385fcd4181c06334a527
@@ -53,7 +56,7 @@ class TestCaseMocked extends TestCase
               verified: "false"
               id: 1bfffa3f189b3c5b5d6f3ed3271d3342
               spamlevel: 0
-            - 
+            -
               author: Verified User
               avatar: >
                 https://www.gravatar.com/avatar/8b77c0a84579af62f82da07d9abedf56
@@ -71,7 +74,7 @@ class TestCaseMocked extends TestCase
               verified: "true"
               id: c62bc1426c1d39eb6d8a6b4f5b3ef3ee
               spamlevel: 0
-            - 
+            -
               author: SpamBot
               avatar: >
                 https://www.gravatar.com/avatar/fa5d3b1755664ea7cb3c8ef1e00a5a52
@@ -96,7 +99,7 @@ class TestCaseMocked extends TestCase
         $defaultContentDE = [
           'Textfield' => "Hello World",
           'kommentsInbox' => '
-          - 
+          -
             author: Unknown user
             avatar: >
               https://www.gravatar.com/avatar/c67cfe10182e385fcd4181c06334a527
@@ -143,5 +146,51 @@ class TestCaseMocked extends TestCase
         ]);
 
         return $pageMock;
+    }
+
+    function getCommentMock(array $comment = []): Obj
+    {
+        $defaultComment = [
+            'id' => 'comment-id',
+            'pageUuid' => 'page://uzeaX0oDEG6ZYGKS', // phpunit page
+            'parentId' => '',
+            'type' => 'comment',
+            'content' => 'lorem ipsum dolor sit amet.',
+            'authorName' => 'Author Name',
+            'authorAvatar' => 'https://api.dicebear.com/9.x/pixel-art/png?seed=AuthorName',
+            'authorEmail' => 'author@example.com',
+            'authorUrl' => 'https://example.com',
+            'published' => true,
+            'verified' => false,
+            'spamlevel' => 0,
+            'language' => null,
+            'upvotes' => 0,
+            'downvotes' => 0,
+            'createdAt' => '2024-01-02 10:00:00',
+            'updatedAt' => '2024-01-02 10:00:00',
+        ];
+
+        $comment = array_merge($defaultComment, $comment);
+
+        return new Obj([
+            'id' => $comment['id'],
+            'page_uuid' => $comment['pageUuid'],
+            'parent_id' => $comment['parentId'],
+            'type' => $comment['type'],
+            'content' => $comment['content'],
+            'author_name' => $comment['authorName'],
+            'author_avatar' => $comment['authorAvatar'],
+            'author_email' => $comment['authorEmail'],
+            'author_url' => $comment['authorUrl'],
+            'published' => $comment['published'],
+            'verified' => $comment['verified'],
+            'spamlevel' => $comment['spamlevel'],
+            'language' => $comment['language'],
+            'upvotes' => $comment['upvotes'],
+            'downvotes' => $comment['downvotes'],
+            'created_at' => $comment['createdAt'],
+            'updated_at' => $comment['updatedAt'],
+            'permalink' => '/@/comment/' . $comment['id'],
+        ]);
     }
 }

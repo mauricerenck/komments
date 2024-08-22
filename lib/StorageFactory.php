@@ -5,8 +5,9 @@ use Exception;
 
 class StorageFactory
 {
-    public static function create(?string $storageType = null): StorageSqlite | StorageMarkdown
+    public static function create(?string $storageType = null): StorageSqlite | StorageMarkdown | StoragePhpunit
     {
+
         $storageType = $storageType ?? option('mauricerenck.komments.storage.type', 'markdown');
 
         switch ($storageType) {
@@ -14,6 +15,8 @@ class StorageFactory
                 return new StorageMarkdown();
             case 'sqlite':
                 return new StorageSqlite();
+            case 'phpunit':
+                return new StoragePhpunit();
             // case 'json':
             //     return new StorageJson();
             default:

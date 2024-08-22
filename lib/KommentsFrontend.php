@@ -44,7 +44,6 @@ class KommentsFrontend
         return false;
     }
 
-    // TODO write tests
     public function getCommentList($page): Structure
     {
         $comments = $this->storage->getCommentsOfPage($page->uuid());
