@@ -6,7 +6,13 @@ use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 
 class KommentReceiver {
-    public function validateFields(array $fields) {
+
+    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null) {
+        $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
+        $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
+    }
+
+    public function validateFields(array $fields): array {
         $inValidFields = [];
 
         if(V::notEmpty($fields['author_url']) && !V::url($fields['author_url'])) {
@@ -22,7 +28,7 @@ class KommentReceiver {
         }
 
         if (V::empty($fields['comment']) || !V::minWords($fields['comment'], 1)) {
-            $inValidFields[] = 'v';
+            $inValidFields[] = 'comment';
         }
 
         return $inValidFields;
@@ -66,11 +72,11 @@ class KommentReceiver {
 
     public function autoPublish(string $email, bool $isVerified): bool
     {
-        if(option('mauricerenck.komments.moderation.publish-verified', false) && $isVerified) {
+        if($this->autoPublishVerified && $isVerified) {
             return true;
         }
 
-        return in_array($email, option('mauricerenck.komments.moderation.autoPublish', []));
+        return in_array($email, $this->autoPublish);
     }
 
     public function getParentId(string $replyTo): string
