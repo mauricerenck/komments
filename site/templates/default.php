@@ -11,9 +11,7 @@
                     $migration->convertCommentsFromMarkdownToSqlite();
                 ?>
                 </pre>
-            <pre>
-                <?php dump($page->mastodonStatusUrl()) ?>
-            </pre>
+
             <h2>FIELDS</h2>
             <ul>
                 <li>kommentsAreEnabled: <?php var_dump($page->kommentsAreEnabled()) ?></li>
