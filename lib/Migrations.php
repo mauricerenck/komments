@@ -83,12 +83,11 @@ class Migrations
         $markdownConverter = new MarkdownConverter();
 
         // if there are already comments in the sqlite database, we don't need to convert them again
-        // $existingComments = $storage->getCommentsOfSite();
-        // if($existingComments->count() > 0) {
-        //     return;
-        // }
-        // FIXME: This is a workaround for now, because the above code is not working as expected
-        return;
+        $existingComments = $storage->getCommentsOfSite();
+        if($existingComments->count() > 0) {
+            return;
+        }
+
         $pageList = site()->index();
         foreach ($pageList as $page) {
             $comments = $markdownConverter->getCommentsOfPage($page);
