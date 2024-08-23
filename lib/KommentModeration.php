@@ -39,7 +39,7 @@ class KommentModeration
 
         switch($flag) {
             case 'spamlevel':
-                if($comment->spamlevel()->value() > 0) {
+                if($comment->spamlevel()->toInt() > 0) {
                     return $this->storage->updateComment($id, ['spamlevel' => 0]) ? 0 : $comment->spamlevel();
                 }
                 else {
