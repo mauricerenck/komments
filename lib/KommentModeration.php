@@ -105,18 +105,23 @@ class KommentModeration
         }
 
         $pages = [];
+        $knownUuids = [];
         foreach ($filteredComments as $comment) {
             $uuid = $comment->pageuuid()->value();
+
+            if(in_array($uuid, $knownUuids)) {
+                continue;
+            }
+
             $page = page($uuid);
+            $knownUuids[] = $uuid;
 
             $pages[] = [
                 'uuid' => $uuid,
-                'title' => $page->title()->value(),
-                'panel' => $page->panel()->url()
+                'title' => $page->title()->value() ?? 'Deleted Page',
+                'panel' => $page->panel()->url() ?? '#'
             ];
         }
-
-        $pages = array_unique($pages, SORT_REGULAR);
 
         return [
             'comments' => $filteredComments->toJson(),
@@ -130,14 +135,21 @@ class KommentModeration
         $filteredComments = $comments->sortBy('updatedAt','desc');
 
         $pages = [];
+        $knownUuids = [];
         foreach ($filteredComments as $comment) {
             $uuid = $comment->pageuuid()->value();
+
+            if(in_array($uuid, $knownUuids)) {
+                continue;
+            }
+
             $page = page($uuid);
+            $knownUuids[] = $uuid;
 
             $pages[] = [
                 'uuid' => $uuid,
-                'title' => $page->title()->value(),
-                'panel' => $page->panel()->url()
+                'title' => $page->title()->value() ?? 'Deleted Page',
+                'panel' => $page->panel()->url() ?? '#'
             ];
         }
 
