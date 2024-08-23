@@ -3,10 +3,11 @@
 namespace mauricerenck\Komments;
 
 use Kirby\Cms\Structure;
+use Kirby\Toolkit\Collection;
 use Kirby\Content\Content;
 use Kirby\Toolkit\Obj;
-use Kirby\Toolkit\Collection;
-use Kirby\Uuid\Uuid;
+use Kirby\Data\Yaml;
+use Kirby\Cms\Page;
 
 class StorageMarkdown extends Storage {
 
@@ -14,7 +15,24 @@ class StorageMarkdown extends Storage {
         parent::__construct();
     }
 
-    public function getSingleComment(string $commentId):Content {}
+    public function getSingleComment(string $commentId): Content {
+        $comments = $this->getCommentsOfSite();
+
+        if (is_null($comments)) {
+            return [];
+        }
+
+        $comment = array_filter($comments->toArray(), function ($comment) use ($commentId) {
+            return $comment['id'] === $commentId;
+        });
+
+        if (is_null($comment)) {
+            return [];
+        }
+
+        $comment = reset($comment);
+        return new Content($comment);
+    }
 
     public function getCommentsOfPage(string $pageUuid): Structure {
         $page = site()->find($pageUuid);
@@ -23,88 +41,138 @@ class StorageMarkdown extends Storage {
             return [];
         }
 
-        $baseUtils = new KommentBaseUtils();
-        $allPageInboxes = $baseUtils->getAllCommentsOfPage($page);
-
-        if (is_null($allPageInboxes)) {
-            return [];
-        }
-
-        return $allPageInboxes;
+        return $page->kommentsInboxData()->toStructure();
     }
 
-    public function getCommentsOfSite(): Collection {
+    public function getCommentsOfSite(): Structure {
         $comments = [];
         $collection = site()->index();
 
-        foreach ($collection as $item) {
-            $comments = array_merge($comments, $this->getCommentsOfPage($item));
+        foreach ($collection as $page) {
+            $comments[] = $this->getCommentsOfPage($page);
         }
 
-        usort($comments, function ($a, $b) {
-            return $b['published'] <=> $a['published'];
-        });
-
-        return $comments;
+        return new Structure($comments);
     }
 
-    public function saveComment(Content $comment): bool {}
+    public function saveComment(Content $comment): bool {
+        $page = page($comment->pageUuid());
 
-    public function updateComment(string $commentId, array $values): bool {}
+        if(!$page) {
+            return false;
+        }
 
-    public function deleteComment(string $commentId): bool {}
+        // if(!is_null(kirby()->defaultLanguage())) {
+        //     $page = $page->translation(kirby()->defaultLanguage()->code());
+        // }
+
+        if($page->kommentsInboxData()->isNotEmpty()) {
+            $fieldData = $page->kommentsInboxData()->yaml();
+        }
+
+        $fieldData[] = $comment->toArray();
+        $fieldData = Yaml::encode($fieldData);
+
+        $this->saveToFile($fieldData, $page);
+
+        return true;
+    }
+
+    public function updateComment(string $commentId, array $values): bool {
+        $page = $this->findPageOfComment($commentId);
+
+        if (is_null($page)) {
+            return false;
+        }
+
+        $comments = $page->kommentsInboxData()->yaml();
+
+        foreach($comments as $key => $comment) {
+            if($comment['id'] === $commentId) {
+                $comments[$key] = array_merge($comment, $values);
+            }
+        }
+
+        $fieldData = Yaml::encode($comments);
+        $this->saveToFile($fieldData, $page);
+
+        return true;
+    }
+
+    public function deleteComment(string $commentId): bool {
+        $page = $this->findPageOfComment($commentId);
+
+        if (is_null($page)) {
+            return false;
+        }
+
+        $filteredComments = array_filter($page->kommentsInboxData()->yaml(), function ($comment) use ($commentId) {
+            return $comment['id'] !== $commentId;
+        });
+
+        $fieldData = Yaml::encode($filteredComments);
+
+        $this->saveToFile($fieldData, $page);
+        return true;
+    }
+
+    public function findPageOfComment(string $commentId): ?Page {
+        $comments = $this->getCommentsOfSite();
+
+        if (is_null($comments)) {
+            return null;
+        }
+
+        foreach($comments as $comment) {
+            if($comment->id() === $commentId) {
+                return page($comment->pageUuid());
+            }
+        }
+
+        return null;
+    }
 
     /**
      * @param array<Obj|Collection> $databaseResults
      * @return Collection
      */
-    public function convertToStructure(Obj|Collection $databaseResults): Structure {}
+     public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
+     {
+         $comments = [];
+         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
-    // FIXME hier wegwerfe, weil das schon in der parent class ist?
-    public function createComment(
-        string $id,
-        string $pageUuid,
-        string $parentId,
-        string $type,
-        string $content,
-        string $authorName,
-        string $authorAvatar,
-        ?string $authorEmail,
-        string $authorUrl,
-        bool $published,
-        bool $verified,
-        int $spamlevel,
-        ?string $language,
-        int $upvotes,
-        int $downvotes,
-        string $createdAt,
-        string | null $updatedAt
-    ):Content {
-        $uuid = Uuid::generate();
+         foreach($databaseResults as $databaseResult) {
+             $comment = $this->createComment(
+                 id: $databaseResult->id,
+                 pageUuid: $databaseResult->page_uuid,
+                 parentId: $databaseResult->parent_id,
+                 type: $databaseResult->type,
+                 content: $databaseResult->content,
+                 authorName: $databaseResult->author_name,
+                 authorAvatar: $databaseResult->author_avatar,
+                 authorEmail: $databaseResult->author_email,
+                 authorUrl: $databaseResult->author_url,
+                 published: $databaseResult->published,
+                 verified: $databaseResult->verified,
+                 spamlevel: $databaseResult->spamlevel,
+                 language: $databaseResult->language,
+                 upvotes: $databaseResult->upvotes,
+                 downvotes: $databaseResult->downvotes,
+                 createdAt: $databaseResult->created_at,
+                 updatedAt: $databaseResult->updated_at
+             );
 
-        return new Content([
-            'id' => $uuid,
-            'page_uuid' => $pageUuid,
-            'parent_id' => $parentId,
-            'type' => $type,
-            'content' => $content,
-            'author' => [
-                'name' => $authorName,
-                'avatar' => $authorAvatar,
-                'email' => $authorEmail,
-                'url' => $authorUrl,
-            ],
-            'status' => [
-                'published' => $published,
-                'verified' => $verified,
-                'spamlevel' => $spamlevel,
-            ],
-            'reactions' => [
-                'upvotes' => $upvotes,
-                'downvotes' => $downvotes,
-            ],
-            'created_at' => $createdAt,
-            'updated_at' => $updatedAt,
+             $comments[] = $comment;
+         }
+
+         $collection = new Structure($comments);
+         return $collection;
+     }
+    public function saveToFile(string $fieldData, $page): void {
+        $kirby = kirby();
+        $kirby->impersonate('kirby');
+        $page->update([
+            'kommentsInboxData' => $fieldData
         ]);
     }
 }
