@@ -68,51 +68,65 @@ class Migrations
 
     public function convertCommentsFromMarkdownToSqlite(): void
     {
-        if ($this->storageType === 'sqlite') {
-            $storageMarkdown = new StorageMarkdown();
-            $storageSqlite = new StorageSqlite();
-            $kommentBaseUtils = new KommentBaseUtils();
 
-            // if there are already comments in the sqlite database, we don't need to convert them again
-            $existingComments = $storageSqlite->getCommentsOfSite();
-            if($existingComments->count() > 0) {
+        switch ($this->storageType) {
+            case 'sqlite':
+                $storage = new StorageSqlite();
+                break;
+            case 'markdown':
+                $storage = new StorageMarkdown();
+                break;
+            default:
                 return;
-            }
+        }
 
-            $pageList = site()->index();
-            foreach ($pageList as $page) {
+        $markdownConverter = new MarkdownConverter();
 
-                $comments = $storageMarkdown->getCommentsOfPage($page);
+        // if there are already comments in the sqlite database, we don't need to convert them again
+        // $existingComments = $storage->getCommentsOfSite();
+        // if($existingComments->count() > 0) {
+        //     return;
+        // }
+        // FIXME: This is a workaround for now, because the above code is not working as expected
+        return;
+        $pageList = site()->index();
+        foreach ($pageList as $page) {
+            $comments = $markdownConverter->getCommentsOfPage($page);
+            $languageCodes = $markdownConverter->getAllLanguages();
 
-                $languageCodes = $kommentBaseUtils->getAllLanguages();
-                $inboxes = new Structure();
+            if (count($languageCodes) === 0) {
+                $inbox = $markdownConverter->getInboxByLanguage($page);
 
-                if (count($languageCodes) === 0) {
-                    $inbox = $kommentBaseUtils->getInboxByLanguage($page);
-                    if (!is_null($inbox)) {
-                        foreach ($inbox as $comment) {
-                            $transformedComment = $this->convertComment($comment, null, $page->uuid(), $storageSqlite);
-                            $storageSqlite->saveComment($transformedComment);
-                        }
+                if (!is_null($inbox)) {
+                    foreach ($inbox as $comment) {
+                        $transformedComment = $this->convertCommentToNewFormat($comment, null, $page->uuid(), $storage);
+                        $storage->saveComment($transformedComment);
                     }
-
-                    continue;
                 }
 
-                foreach ($languageCodes as $language) {
-                    $inbox = $kommentBaseUtils->getInboxByLanguage($page, $language);
-                    if (!is_null($inbox)) {
-                        foreach ($inbox->toStructure() as $comment) {
-                            $transformedComment = $this->convertComment($comment, $language, $page->uuid(), $storageSqlite);
-                            $storageSqlite->saveComment($transformedComment);
+                continue;
+            }
+
+            $knownCommentIds = [];
+            foreach ($languageCodes as $language) {
+                $inbox = $markdownConverter->getInboxByLanguage($page, $language);
+
+                if (!is_null($inbox)) {
+                    foreach ($inbox->toStructure() as $comment) {
+                        if(in_array($comment->id(),$knownCommentIds)) {
+                            continue;
                         }
+                        $knownCommentIds[] = $comment->id();
+                        echo $comment->id().'<br>';
+                        $transformedComment = $this->convertCommentToNewFormat($comment, $language, $page->uuid(), $storage);
+                        $storage->saveComment($transformedComment);
                     }
                 }
             }
         }
     }
 
-    public function convertComment($comment, ?string $language, string $pageUuid, $storageSqlite): Content {
+    public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content {
         $id = $comment->id() ?? Uuid::generate();
         $parentId = V::url($comment->mentionof()) ? '' : $comment->mentionof();
 
@@ -120,7 +134,7 @@ class Migrations
             $id = Uuid::generate();
         }
 
-        return $storageSqlite->createComment(
+        return $storage->createComment(
             id: $id,
             pageUuid: $pageUuid,
             parentId: $parentId,

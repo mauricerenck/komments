@@ -23,48 +23,8 @@ class KommentBaseUtils
         return $page;
     }
 
-    // NO NEED TO TEST
-    public function getAllLanguages()
-    {
-        // this method is used for easy mocking in tests
-        if (!is_null($this->languageCodes)) {
-            return $this->languageCodes;
-        }
-
-        $languages = kirby()->languages();
-
-        $languageCodes = [];
-        foreach ($languages as $language) {
-            $languageCodes[] = $language->code();
-        }
-
-        return $languageCodes;
-    }
-
     // TESTED
-    public function getAllCommentsOfPage($page)
-    {
-        $languageCodes = $this->getAllLanguages();
-        $inboxes = new Structure();
 
-        if (count($languageCodes) === 0) {
-            $inbox = $this->getInboxByLanguage($page);
-            if (!is_null($inbox)) {
-                $inboxes->add($inbox->toStructure());
-            }
-
-            return $inboxes;
-        }
-
-        foreach ($languageCodes as $language) {
-            $inbox = $this->getInboxByLanguage($page, $language);
-            if (!is_null($inbox)) {
-                $inboxes->add($inbox->toStructure());
-            }
-        }
-
-        return $inboxes;
-    }
 
     // TESTED
     public function filterCommentsByType($inbox, $type = 'all')
@@ -92,18 +52,7 @@ class KommentBaseUtils
     }
 
     // TESTED
-    public function getInboxByLanguage($page, $language = null)
-    {
-        if (is_null($language)) {
-            return $page->kommentsInbox();
-        }
 
-        if (is_string($language)) {
-            return $page->content($language)->kommentsInbox();
-        }
-
-        return null;
-    }
 
     // TESTED
     public function getCommentsCountOfPage($page, $filter = 'all'): int
