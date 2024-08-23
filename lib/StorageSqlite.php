@@ -37,7 +37,7 @@ class StorageSqlite extends Storage {
         return $structuredComment;
     }
 
-    public function getCommentsOfSite(): Collection {
+    public function getCommentsOfSite(): Structure {
         $comments = $this->database->select('comments', ['*']);
 
         if(!$comments) {
@@ -95,7 +95,7 @@ class StorageSqlite extends Storage {
      * @param array<Obj|Collection> $databaseResults
      * @return Collection
      */
-    public function convertToStructure(Obj|Collection $databaseResults): Structure
+    public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
     {
         $comments = [];
         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;

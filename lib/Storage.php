@@ -11,11 +11,11 @@ class Storage {
 
     public function __construct() {}
 
-    public function getSingleComment(string $commentId):Content {}
+    public function getSingleComment(string $commentId): Content {}
 
     public function getCommentsOfPage(string $pageUuid): Structure {}
 
-    public function getCommentsOfSite(): Collection {}
+    public function getCommentsOfSite(): Structure {}
 
     public function saveComment(Content $comment): bool {}
 
@@ -27,7 +27,7 @@ class Storage {
      * @param array<Obj|Collection> $databaseResults
      * @return Collection
      */
-    public function convertToStructure(Obj|Collection $databaseResults): Structure {}
+    public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure {}
 
     public function createComment(
         string $id,
