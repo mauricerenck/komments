@@ -34,7 +34,7 @@ return [
                 return new Response(json_encode($errorMessage), 'application/json', 406);
             }
 
-            $spamlevel = $receiver->getSpamlevel($formData);
+            $spamlevel = $receiver->getSpamlevel($formData, $page);
             if ($spamlevel > option('mauricerenck.komments.spam.sensibility', 60)) {
                 $errorMessage = [
                     'status' => 'error',
