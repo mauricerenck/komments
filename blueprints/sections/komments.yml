@@ -12,6 +12,3 @@ fields:
     kommentsInbox:
         type: CommentsTable
         label: Inbox
-        # columns:
-        #     - author
-        #     - content
