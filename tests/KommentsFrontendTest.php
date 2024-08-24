@@ -6,14 +6,12 @@ use mauricerenck\Komments\TestCaseMocked;
 final class KommentsFrontendTest extends TestCaseMocked
 {
     private $frontendUtilsMock;
-    private $baseUtilsMock;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->frontendUtilsMock = Mockery::mock('mauricerenck\Komments\KommentsFrontend[getAllCommentsOfPage]');
-        $this->baseUtilsMock = Mockery::mock('mauricerenck\Komments\KommentBaseUtils[getAllLanguages]');
     }
 
     /**

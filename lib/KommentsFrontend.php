@@ -6,7 +6,6 @@ use Kirby\Cms\Structure;
 
 class KommentsFrontend
 {
-    private $baseUtils;
     private $storage;
 
     public function __construct(private ?int $expireAfterNumOfDays = null, private ?string $dateField = null)
