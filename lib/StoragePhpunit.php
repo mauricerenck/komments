@@ -28,7 +28,7 @@ class StoragePhpunit extends Storage {
         return $structuredComment;
     }
 
-    public function getCommentsOfSite(): Collection {
+    public function getCommentsOfSite(): Structure {
         $comments = $this->getCommentCollection();
         $structuredComment = $this->convertToStructure($comments);
         return $structuredComment;

@@ -62,10 +62,6 @@ class StorageMarkdown extends Storage {
             return false;
         }
 
-        // if(!is_null(kirby()->defaultLanguage())) {
-        //     $page = $page->translation(kirby()->defaultLanguage()->code());
-        // }
-
         if($page->kommentsInboxData()->isNotEmpty()) {
             $fieldData = $page->kommentsInboxData()->yaml();
         }
