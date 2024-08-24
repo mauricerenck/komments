@@ -3,6 +3,7 @@
 return [
     'debug' => true,
     'languages' => true,
+
     'email' => [
         'transport' => [
             'type' => 'smtp',
@@ -34,7 +35,14 @@ return [
                 'autoPublish' => [
                     'test@phpunit.de'
                 ]
-            ]
+            ],
+            'storage' => [
+                'type' => 'markdown',
+                'sqlitePath' => '.sqlite',
+            ],
+            'spam' => [
+                'delete' => false,
+            ],
         ]
     ]
 ];
