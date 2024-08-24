@@ -65,6 +65,8 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | ------------------------ | ------- | ------------------------------------------------------------------------------- |
 | `spam.delete` | `true`    | Weather to directly delete comments marked as spam or only flag them |
 | `spam.sensibility` | `60`    | An integer from 0 to 100 - Defines when a comment should be marked as spam, the higher the number to higher the possibilty of spam |
+| `spam.akismet` | `false`    | Set to true to enable akismet spam detection (needs an api key) |
+| `spam.akismet_api_key` | `''`    | Akismet API key, see https://akismet.com/ |
 
 ## Privacy settings
 
