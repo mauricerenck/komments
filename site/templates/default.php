@@ -29,7 +29,6 @@
             <?php snippet('komments/list/replies');?>
             <?php snippet('komments/list/reposts');?>
             <?php snippet('komments/list/comments');?>
-
         </div>
     </body>
 </html>
