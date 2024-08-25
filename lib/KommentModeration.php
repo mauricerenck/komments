@@ -137,17 +137,15 @@ class KommentModeration
         $pages = [];
         $knownUuids = [];
         foreach ($filteredComments as $comment) {
-            $uuid = $comment->pageuuid()->value();
-
-            if(in_array($uuid, $knownUuids)) {
+            if(in_array($pageUuid, $knownUuids)) {
                 continue;
             }
 
-            $page = page($uuid);
-            $knownUuids[] = $uuid;
+            $page = page($pageUuid);
+            $knownUuids[] = $pageUuid;
 
             $pages[] = [
-                'uuid' => $uuid,
+                'uuid' => $pageUuid,
                 'title' => $page->title()->value() ?? 'Deleted Page',
                 'panel' => $page->panel()->url() ?? '#'
             ];
