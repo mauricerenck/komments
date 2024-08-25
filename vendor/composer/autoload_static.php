@@ -51,17 +51,19 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         'Kirby\\ComposerInstaller\\Plugin' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
         'Kirby\\ComposerInstaller\\PluginInstaller' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
         'mauricerenck\\Komments\\DatabaseAbstraction' => __DIR__ . '/../..' . '/lib/DatabaseAbstraction.php',
-        'mauricerenck\\Komments\\KommentBaseUtils' => __DIR__ . '/../..' . '/lib/base.php',
         'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/lib/KommentModeration.php',
-        'mauricerenck\\Komments\\KommentNotificationUtils' => __DIR__ . '/../..' . '/lib/notifications.php',
-        'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/lib/receiveKomment.php',
-        'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/lib/Frontend.php',
+        'mauricerenck\\Komments\\KommentNotifications' => __DIR__ . '/../..' . '/lib/KommentNotifications.php',
+        'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/lib/KommentReceiver.php',
+        'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/lib/KommentsFrontend.php',
+        'mauricerenck\\Komments\\MarkdownConverter' => __DIR__ . '/../..' . '/lib/MarkdownConverter.php',
         'mauricerenck\\Komments\\Migrations' => __DIR__ . '/../..' . '/lib/Migrations.php',
         'mauricerenck\\Komments\\Storage' => __DIR__ . '/../..' . '/lib/Storage.php',
         'mauricerenck\\Komments\\StorageFactory' => __DIR__ . '/../..' . '/lib/StorageFactory.php',
         'mauricerenck\\Komments\\StorageMarkdown' => __DIR__ . '/../..' . '/lib/StorageMarkdown.php',
+        'mauricerenck\\Komments\\StoragePhpunit' => __DIR__ . '/../..' . '/lib/StoragePhpunit.php',
         'mauricerenck\\Komments\\StorageSqlite' => __DIR__ . '/../..' . '/lib/StorageSqlite.php',
         'mauricerenck\\Komments\\TestCaseMocked' => __DIR__ . '/../..' . '/lib/TestCaseMocked.php',
+        'mauricerenck\\Komments\\WebmentionReceiver' => __DIR__ . '/../..' . '/lib/WebmentionReceiver.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

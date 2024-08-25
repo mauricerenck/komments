@@ -151,13 +151,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevelZero()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => '',
             'comment' => 'hello world'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(0, $result);
     }
 
@@ -168,13 +169,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevel12()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => '',
             'comment' => 'hello world https://example.com'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(12, $result);
     }
 
@@ -185,13 +187,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevel14()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => '',
             'comment' => 'hello world https://example.com https://example-2.com'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(14, $result);
     }
 
@@ -202,13 +205,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevel60()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => '',
             'comment' => 'hello <strong>world</strong>'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(60, $result);
     }
 
@@ -219,13 +223,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevel80()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => 'hi',
             'comment' => 'hello world'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(80, $result);
     }
 
@@ -236,13 +241,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevel100()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => 'https://example.com',
             'comment' => 'hello world'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(100, $result);
     }
 
@@ -253,13 +259,14 @@ final class KommentReceiverTest extends TestCaseMocked
     public function testGetSpamlevelMax100()
     {
         $receiverClass = new KommentReceiver();
+        $page = $this->getPageMock();
 
         $fields = [
             'url' => 'https://example.com',
             'comment' => 'hello <strong>world</strong>'
         ];
 
-        $result = $receiverClass->getSpamlevel($fields);
+        $result = $receiverClass->getSpamlevel($fields, $page);
         $this->assertEquals(100, $result);
     }
 
