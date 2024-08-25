@@ -19,7 +19,7 @@ class StorageSqlite extends Storage {
         $comment = $this->database->select('comments', ['*'], 'WHERE id = "' . $commentId . '"')->first();
 
         if(!$comment) {
-            return [];
+            return new Content([]);
         }
 
         $structuredComment = $this->convertToStructure($comment);
@@ -30,7 +30,7 @@ class StorageSqlite extends Storage {
         $comments = $this->database->select('comments', ['*'], 'WHERE page_uuid = "' . $pageUuid .'"');
 
         if(!$comments) {
-            return [];
+            return new Structure([]);
         }
 
         $structuredComment = $this->convertToStructure($comments);
@@ -41,7 +41,7 @@ class StorageSqlite extends Storage {
         $comments = $this->database->select('comments', ['*']);
 
         if(!$comments) {
-            return [];
+            return new Structure([]);
         }
 
         $structuredComment = $this->convertToStructure($comments);

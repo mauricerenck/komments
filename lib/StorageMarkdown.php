@@ -27,7 +27,7 @@ class StorageMarkdown extends Storage {
         });
 
         if (is_null($comment)) {
-            return [];
+            return new Content([]);
         }
 
         $comment = reset($comment);
@@ -35,10 +35,9 @@ class StorageMarkdown extends Storage {
     }
 
     public function getCommentsOfPage(string $pageUuid): Structure {
-        $page = site()->find($pageUuid);
-
+        $page = page($pageUuid);
         if (is_null($page)) {
-            return [];
+            return new Structure([]);
         }
 
         return $page->kommentsInboxData()->toStructure();

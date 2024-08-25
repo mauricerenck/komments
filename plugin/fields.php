@@ -22,14 +22,23 @@ return [
         'props' => [
             'comments' => function () {
                 $kommentModeration = new KommentModeration();
-                $comments = $kommentModeration->getAllPageComments(pageUuid: $this->model()->uuid());
+                // TODO this is a woraround: https://github.com/getkirby/kirby/issues/4955
+                $uuid = (string) $this->model()->content()->get('uuid');
+                $comments = $kommentModeration->getAllPageComments(pageUuid: 'page://' . $uuid);
+
+                // ORIGINAL returns the uuid as page://UUID
+                // $comments = $kommentModeration->getAllPageComments(pageUuid: $this->model()->uuid());
 
                 return json_decode($comments['comments']);
             },
             'affectedPages' => function () {
                 $kommentModeration = new KommentModeration();
-                $comments = $kommentModeration->getAllPageComments(pageUuid: $this->model()->uuid());
+                // TODO this is a woraround: https://github.com/getkirby/kirby/issues/4955
+                $uuid = (string) $this->model()->content()->get('uuid');
+                $comments = $kommentModeration->getAllPageComments(pageUuid: 'page://' . $uuid);
 
+                // ORIGINAL returns the uuid as page://UUID
+                // $comments = $kommentModeration->getAllPageComments(pageUuid: $this->model()->uuid());
                 return $comments['affectedPages'];
             },
             'columns' => function (?array $userColumns = null) {
