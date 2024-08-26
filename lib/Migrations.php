@@ -116,7 +116,6 @@ class Migrations
                             continue;
                         }
                         $knownCommentIds[] = $comment->id();
-                        echo $comment->id().'<br>';
                         $transformedComment = $this->convertCommentToNewFormat($comment, $language, $page->uuid(), $storage);
                         $storage->saveComment($transformedComment);
                     }

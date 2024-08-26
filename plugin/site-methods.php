@@ -8,6 +8,10 @@ return [
         $comments = $storage->getCommentsOfSite();
         $unpublishedComments = $comments->filterBy('published', false);
 
+        if(!option('mauricerenck.komments.panel.webmentions', false)) {
+            $unpublishedComments = $unpublishedComments->filterBy('type', 'comment');
+        }
+
         return $unpublishedComments->count();
     },
     'numberOfSpamComments' => function () {
