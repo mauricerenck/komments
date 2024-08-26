@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <span class="replyHandleDisplay">@test</span>
+    <span class="replyHandleDisplay"></span>
 
     <label for="comment" class="comment">
         <?php echo t('mauricerenck.komments.form.label.comment'); ?>
