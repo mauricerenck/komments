@@ -58,11 +58,11 @@ Replace `TYPE` with the type of comments you want to display. The following type
 
 The list snippets take care of fetching the comments and filtering them by type. You can customize the list by copying the files from the plugin folder to your `snippets/komments` folder. The files are:
 
-- `list-comments.php`
-- `list-likes.php`
-- `list-mentions.php`
-- `list-replies.php`
-- `list-reposts.php`
+- `list/comments.php`
+- `list/likes.php`
+- `list/mentions.php`
+- `list/replies.php`
+- `list/reposts.php`
 
 ## Response type snippets
 
@@ -105,9 +105,9 @@ You can use it like so:
 
 You can customize the response snippets by copying the files from the plugin folder to your `snippets/komments` folder. The files are:
 
-- `response-comment.php`
-- `response-like.php`
-- `response-mention.php`
-- `response-reply.php`
-- `response-repost.php`
-- `response-base.php` (base snippet all the others are relying on)
+- `response/comment.php`
+- `response/like.php`
+- `response/mention.php`
+- `response/reply.php`
+- `response/repost.php`
+- `response/base.php` (base snippet all the others are relying on)
