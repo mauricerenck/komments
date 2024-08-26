@@ -10,15 +10,13 @@
     <?php if ($header = $slots->header()): ?>
         <?= $header ?>
     <?php else: ?>
-        <header>
-            <header class="h-card">
-                <img class="u-photo" src="<?= $comment->authorAvatar(); ?>" alt="<?= $comment->authorName(); ?>"/>
-                <?php if ($comment->authorUrl()->isNotEmpty()): ?>
-                    <a class="u-author" href="<?= $comment->authorUrl(); ?>" rel="nofollow" target="_blank"><?= $comment->authorName(); ?></a>
-                <?php else: ?>
-                    <span class="p-author"><?= $comment->authorName(); ?></span>
-                <?php endif; ?>
-            </header>
+        <header class="h-card">
+            <img class="u-photo" src="<?= $comment->authorAvatar(); ?>" alt="<?= $comment->authorName(); ?>"/>
+            <?php if ($comment->authorUrl()->isNotEmpty()): ?>
+                <a class="u-author" href="<?= $comment->authorUrl(); ?>" rel="nofollow" target="_blank"><?= $comment->authorName(); ?></a>
+            <?php else: ?>
+                <span class="p-author"><?= $comment->authorName(); ?></span>
+            <?php endif; ?>
         </header>
     <?php endif; ?>
 
