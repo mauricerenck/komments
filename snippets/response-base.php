@@ -27,7 +27,7 @@
     <?php endif; ?>
 
     <?php if ($footer = $slots->footer()): ?>
-        <?= $body ?>
+        <?= $footer ?>
     <?php else: ?>
         <footer>
             <a class="u-url" href="<?= $comment->permalink(); ?>">
