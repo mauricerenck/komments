@@ -3,10 +3,16 @@
 namespace mauricerenck\Komments;
 
 return [
-    'indieConnector.webmention.received' => function ($webmention, $page) {
+    'indieConnector.webmention.received' => function ($webmention, $targetPage) {
         if (option('mauricerenck.komments.debug', false)) {
             $time = time();
             file_put_contents('webmentionhook.' . $time . '.json', json_encode($webmention));
+        }
+
+        $page = page($targetPage);
+
+        if (is_null($page)) {
+            return;
         }
 
         $webmentionReceiver = new WebmentionReceiver();

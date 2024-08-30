@@ -17,7 +17,7 @@ class WebmentionReceiver {
         $comment = $storage->createComment(
             id: $id,
             pageUuid: $page->uuid(),
-            parentId: null,
+            parentId: '',
             type: $webmention['type'],
             content: $webmention['content'],
             authorName: $webmention['author']['name'],
