@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/mauricerenck/komments/compare/v2.1.1...v2.1.2) (2024-09-02)
+
+
+### Bug Fixes
+
+* new webmention format can be a string for targetpage ([a3714ea](https://github.com/mauricerenck/komments/commit/a3714eae7c36c4859a97811fe4039cc2dd960bb4)), closes [#68](https://github.com/mauricerenck/komments/issues/68)
+
 ## [2.1.1](https://github.com/mauricerenck/komments/compare/v2.1.0...v2.1.1) (2024-08-10)
 
 
