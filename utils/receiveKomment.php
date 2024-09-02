@@ -11,6 +11,11 @@ class KommentReceiver
 {
     public function storeData(array $newEntry, $targetPage)
     {
+
+        if(is_string($targetPage)) {
+            $targetPage = page($targetPage);
+        }
+
         $fieldData = $targetPage->kommentsInbox()->yaml();
         $fieldData[] = $newEntry;
         $fieldData = yaml::encode($fieldData);
