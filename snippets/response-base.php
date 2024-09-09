@@ -36,4 +36,7 @@
             <a href="#kommentform" class="kommentReply" data-id="<?= $comment->id(); ?>" data-handle="<?= $comment->authorName(); ?>"><?= t('mauricerenck.komments.action.reply.text'); ?></a>
         </footer>
     <?php endif; ?>
+    <?php if ($replies = $slots->replies()): ?>
+        <?= $replies ?>
+    <?php endif; ?>
 </li>

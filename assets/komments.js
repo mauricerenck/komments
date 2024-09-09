@@ -81,7 +81,7 @@ const replyLinksInit = () => {
 
             formReplyTo.value = kommentId
             formReplyHandle.value = kommentHandle
-            formReplyHandleDisplay.innerHTML = `<a href="#komment_${kommentId}">@${kommentHandle}</a>`
+            formReplyHandleDisplay.innerHTML = `<a href="/@/comment/${kommentId}">@${kommentHandle}</a>`
         })
     })
 }
