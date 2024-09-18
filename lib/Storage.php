@@ -34,7 +34,7 @@ class Storage {
         string $pageUuid,
         string $parentId,
         string $type,
-        string $content,
+        ?string $content,
         string $authorName,
         string $authorAvatar,
         ?string $authorEmail,
