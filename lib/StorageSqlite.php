@@ -7,18 +7,21 @@ use Kirby\Toolkit\Collection;
 use Kirby\Content\Content;
 use Kirby\Toolkit\Obj;
 
-class StorageSqlite extends Storage {
+class StorageSqlite extends Storage
+{
 
-    public function __construct(private ?DatabaseAbstraction $database = null, private ?string $sqlitePath = null) {
+    public function __construct(private ?DatabaseAbstraction $database = null, private ?string $sqlitePath = null)
+    {
         parent::__construct();
         $this->sqlitePath = $sqlitePath ?? option('mauricerenck.komments.storage.sqlitePath', '.sqlite/');
         $this->database = $database ?? new DatabaseAbstraction($this->sqlitePath, 'komments.sqlite');
     }
 
-    public function getSingleComment(string $commentId): Content {
+    public function getSingleComment(string $commentId): Content
+    {
         $comment = $this->database->select('comments', ['*'], 'WHERE id = "' . $commentId . '"')->first();
 
-        if(!$comment) {
+        if (!$comment) {
             return new Content([]);
         }
 
@@ -26,10 +29,11 @@ class StorageSqlite extends Storage {
         return $structuredComment->first();
     }
 
-    public function getCommentsOfPage(string $pageUuid): Structure {
-        $comments = $this->database->select('comments', ['*'], 'WHERE page_uuid = "' . $pageUuid .'"');
+    public function getCommentsOfPage(string $pageUuid): Structure
+    {
+        $comments = $this->database->select('comments', ['*'], 'WHERE page_uuid = "' . $pageUuid . '"');
 
-        if(!$comments) {
+        if (!$comments) {
             return new Structure([]);
         }
 
@@ -37,10 +41,11 @@ class StorageSqlite extends Storage {
         return $structuredComment;
     }
 
-    public function getCommentsOfSite(): Structure {
+    public function getCommentsOfSite(): Structure
+    {
         $comments = $this->database->select('comments', ['*']);
 
-        if(!$comments) {
+        if (!$comments) {
             return new Structure([]);
         }
 
@@ -48,7 +53,8 @@ class StorageSqlite extends Storage {
         return $structuredComment;
     }
 
-    public function saveComment(Content $comment): bool {
+    public function saveComment(Content $comment): bool
+    {
         return $this->database->insert(
             'comments',
             ['id', 'page_uuid', 'parent_id', 'type', 'language', 'content', 'author_name', 'author_avatar', 'author_email', 'author_url', 'published', 'verified', 'spamlevel', 'upvotes', 'downvotes', 'created_at', 'updated_at'],
@@ -75,11 +81,12 @@ class StorageSqlite extends Storage {
     }
 
 
-    public function updateComment(string $commentId, array $values): bool {
+    public function updateComment(string $commentId, array $values): bool
+    {
         $fields = [];
         $newValues = [];
 
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $fields[] = $key;
             $newValues[] = $value;
         }
@@ -87,7 +94,8 @@ class StorageSqlite extends Storage {
         return $this->database->update('comments', $fields, $newValues, 'WHERE id = "' . $commentId . '"');
     }
 
-    public function deleteComment(string $commentId): bool {
+    public function deleteComment(string $commentId): bool
+    {
         return $this->database->delete('comments', 'WHERE id = "' . $commentId . '"');
     }
 
@@ -100,7 +108,7 @@ class StorageSqlite extends Storage {
         $comments = [];
         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
-        foreach($databaseResults as $databaseResult) {
+        foreach ($databaseResults as $databaseResult) {
             $comment = $this->createComment(
                 id: $databaseResult->id,
                 pageUuid: $databaseResult->page_uuid,
