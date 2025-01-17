@@ -37,19 +37,17 @@ class KommentModeration
     {
         $comment = $this->storage->getSingleComment($id);
 
-        switch($flag) {
+        switch ($flag) {
             case 'spamlevel':
-                if($comment->spamlevel()->toInt() > 0) {
+                if ($comment->spamlevel()->toInt() > 0) {
                     return $this->storage->updateComment($id, ['spamlevel' => 0]) ? 0 : $comment->spamlevel();
-                }
-                else {
+                } else {
                     return ($this->storage->updateComment($id, ['spamlevel' => 100, 'published' => false, 'verified' => false])) ? 100 : $comment->spamlevel();
                 }
             case 'verified':
-                if($comment->verified()->isTrue()) {
+                if ($comment->verified()->isTrue()) {
                     return $this->storage->updateComment($id, ['verified' => false]) ? false : $comment->verified();
-                }
-                else {
+                } else {
                     return $this->storage->updateComment($id, ['spamlevel' => 0, 'verified' => true]) ? true : $comment->verified();
                 }
         }
@@ -57,7 +55,8 @@ class KommentModeration
         return false;
     }
 
-    public function replyToComment(string $id, array $formData) {
+    public function replyToComment(string $id, array $formData)
+    {
 
         $comment = $this->storage->getSingleComment($id);
 
@@ -65,7 +64,7 @@ class KommentModeration
 
         $commentId = Uuid::generate();
         $author = kirby()->user();
-        $avatar = $author->avatar() ?? 'https://www.gravatar.com/avatar/' .  md5($author->email());
+        $avatar = $author->avatar() ? $author->avatar()->url() : 'https://www.gravatar.com/avatar/' .  md5($author->email());
 
         $newComment = $this->storage->createComment(
             id: $commentId,
@@ -91,16 +90,17 @@ class KommentModeration
 
         return [
             'created' => $saveResult,
-            'published' => $publishResult
+            'published' => $publishResult,
+            'newComment' => $newComment->toArray()
         ];
     }
 
     public function getPendingComments(?bool $published = false, ?string $type = null): mixed
     {
         $comments = $this->storage->getCommentsOfSite();
-        $filteredComments = $comments->filterBy('published', $published)->sortBy('updatedAt','desc');
+        $filteredComments = $comments->filterBy('published', $published)->sortBy('updatedAt', 'desc');
 
-        if($type) {
+        if ($type) {
             $filteredComments = $filteredComments->filterBy('type', $type);
         }
 
@@ -109,7 +109,7 @@ class KommentModeration
         foreach ($filteredComments as $comment) {
             $uuid = $comment->pageuuid()->value();
 
-            if(in_array($uuid, $knownUuids)) {
+            if (in_array($uuid, $knownUuids)) {
                 continue;
             }
 
@@ -132,12 +132,12 @@ class KommentModeration
     public function getAllPageComments(string $pageUuid = null): mixed
     {
         $comments = $this->storage->getCommentsOfPage($pageUuid);
-        $filteredComments = $comments->sortBy('updatedAt','desc');
+        $filteredComments = $comments->sortBy('updatedAt', 'desc');
 
         $pages = [];
         $knownUuids = [];
         foreach ($filteredComments as $comment) {
-            if(in_array($pageUuid, $knownUuids)) {
+            if (in_array($pageUuid, $knownUuids)) {
                 continue;
             }
 
