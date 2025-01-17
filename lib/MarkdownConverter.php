@@ -7,7 +7,8 @@ use Kirby\Toolkit\Collection;
 use Kirby\Uuid\Uuid;
 use Kirby\Toolkit\Obj;
 
-class MarkdownConverter {
+class MarkdownConverter
+{
 
     public function __construct(private ?array $languageCodes = null)
     {
@@ -19,6 +20,10 @@ class MarkdownConverter {
         // this method is used for easy mocking in tests
         if (!is_null($this->languageCodes)) {
             return $this->languageCodes;
+        }
+
+        if (!kirby()->multilang()) {
+            return [null];
         }
 
         $languages = kirby()->languages();
@@ -44,7 +49,8 @@ class MarkdownConverter {
         return null;
     }
 
-    public function getCommentsOfPage(string $pageUuid): Structure {
+    public function getCommentsOfPage(string $pageUuid): Structure
+    {
         $page = site()->find($pageUuid);
 
         if (is_null($page)) {
@@ -84,7 +90,8 @@ class MarkdownConverter {
         return $inboxes;
     }
 
-    public function getCommentsOfSite(): Collection {
+    public function getCommentsOfSite(): Collection
+    {
         $comments = [];
         $collection = site()->index();
 
@@ -107,11 +114,11 @@ class MarkdownConverter {
     {
         $storageMarkdown = new StorageMarkdown();
 
-        foreach($markdownResults as $oldComment) {
+        foreach ($markdownResults as $oldComment) {
             $id = $oldComment->id() ?? Uuid::generate();
             $parentId = V::url($oldComment->mentionof()) ? '' : $oldComment->mentionof();
 
-            if($id == 0) {
+            if ($id == 0) {
                 $id = Uuid::generate();
             }
 
@@ -136,5 +143,4 @@ class MarkdownConverter {
             );
         }
     }
-
 }

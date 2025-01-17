@@ -7,6 +7,9 @@
                 :affectedPages="this.affectedPages"
                 :webmentions="this.webmentions"
             />
+
+            <k-headline tag="h2">Converter</k-headline>
+            <Converter />
         </div>
     </k-inside>
 </template>

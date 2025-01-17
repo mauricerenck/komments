@@ -37,7 +37,7 @@ return [
                 ]
             ],
             'storage' => [
-                'type' => 'markdown',
+                'type' => 'sqlite',
                 'sqlitePath' => '.sqlite',
             ],
             'spam' => [

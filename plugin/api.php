@@ -36,5 +36,25 @@ return [
                 return new Response(json_encode($result), 'application/json');
             },
         ],
+        [
+            'pattern' => 'komments/converter/get-comments',
+            'method' => 'GET',
+            'action' => function () {
+                $kommentModeration = new Migrations();
+                $result = $kommentModeration->getListOfAllComments();
+                return new Response(json_encode($result), 'application/json');
+            },
+        ],
+        [
+            'pattern' => 'komments/converter/convert',
+            'method' => 'POST',
+            'action' => function () {
+                $formData = kirby()->request()->data();
+
+                $kommentModeration = new Migrations();
+                $result = $kommentModeration->convertSingleComment(comment: $formData['comment'], language: $formData['language'], uuid: $formData['pageUuid']);
+                return new Response(json_encode($result), 'application/json');
+            },
+        ],
     ],
 ];

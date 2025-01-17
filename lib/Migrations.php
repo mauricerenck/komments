@@ -63,9 +63,73 @@ class Migrations
         }
     }
 
+    public function getListOfAllComments()
+    {
+        $commentList = [];
+        $pageList = site()->index();
+
+        $markdownConverter = new MarkdownConverter();
+        $languageCodes = $markdownConverter->getAllLanguages();
+
+        foreach ($pageList as $page) {
+            $knownCommentIds = [];
+
+            foreach ($languageCodes as $language) {
+                $inbox = $markdownConverter->getInboxByLanguage($page, $language);
+
+                if (!is_null($inbox)) {
+                    foreach ($inbox->toStructure() as $comment) {
+                        if (in_array($comment->id(), $knownCommentIds)) {
+                            continue;
+                        }
+
+                        $knownCommentIds[] = $comment->id();
+                        $commentList[] = [
+                            'pageUuid' => $page->uuid()->id(),
+                            'pageTitle' => $page->title()->value(),
+                            'comment' => $comment->toArray(),
+                            'language' => $language,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $commentList;
+    }
+
+    public function convertSingleComment($comment, $language, $uuid): array
+    {
+        // FIXME move to constructor?
+        switch ($this->storageType) {
+            case 'sqlite':
+                $storage = new StorageSqlite();
+                break;
+            case 'markdown':
+                $storage = new StorageMarkdown();
+                break;
+        }
+
+        try {
+            $transformedComment = $this->convertCommentToNewFormat($comment, $language, $uuid, $storage);
+            $storage->saveComment($transformedComment);
+
+            return [
+                'status' => 'success',
+                'pageUuid' => $uuid,
+                'comment' => $transformedComment->id()->value(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => 'failed',
+                'pageUuid' => $uuid,
+                'comment' => null,
+            ];
+        }
+    }
+
     public function convertCommentsFromMarkdownToSqlite(): void
     {
-
         switch ($this->storageType) {
             case 'sqlite':
                 $storage = new StorageSqlite();
@@ -123,8 +187,8 @@ class Migrations
 
     public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content
     {
-        $id = $comment->id() ?? Uuid::generate();
-        $parentId = V::url($comment->mentionof()) ? '' : $comment->mentionof();
+        $id = $comment['id'] ?? Uuid::generate();
+        $parentId = V::url($comment['mentionof']) ? '' : $comment['mentionof'] ?? '';
 
         if ($id == 0) {
             $id = Uuid::generate();
@@ -132,24 +196,54 @@ class Migrations
 
         return $storage->createComment(
             id: $id,
-            pageUuid: $pageUuid,
+            pageUuid: 'page://' . $pageUuid,
             parentId: $parentId,
-            type: $this->transformTypes($comment->kommenttype()),
-            content: $comment->komment(),
-            authorName: $comment->author(),
-            authorAvatar: $comment->avatar(),
-            authorEmail: $comment->authoremail(),
-            authorUrl: $comment->authorurl(),
-            published: $comment->status() == 'true' ? true : false,
-            verified: $comment->verified() == 'true' ? true : false,
-            spamlevel: $comment->spamlevel()->value() ?? 0,
+            type: $this->transformTypes($comment['kommenttype']),
+            content: $comment['komment'],
+            authorName: $comment['author'],
+            authorAvatar: $comment['avatar'],
+            authorEmail: $comment['authoremail'],
+            authorUrl: $comment['authorurl'],
+            published: $comment['status'] == 'true' ? true : false,
+            verified: $comment['verified'] == 'true' ? true : false,
+            spamlevel: $comment['spamlevel'] ?? 0,
             language: $language,
             upvotes: 0,
             downvotes: 0,
-            createdAt: $comment->published(),
-            updatedAt: $comment->published(),
+            createdAt: $comment['published'],
+            updatedAt: $comment['published'],
         );
     }
+
+    // public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content
+    // {
+    //     $id = $comment->id() ?? Uuid::generate();
+    //     $parentId = V::url($comment->mentionof()) ? '' : $comment->mentionof();
+
+    //     if ($id == 0) {
+    //         $id = Uuid::generate();
+    //     }
+
+    //     return $storage->createComment(
+    //         id: $id,
+    //         pageUuid: $pageUuid,
+    //         parentId: $parentId,
+    //         type: $this->transformTypes($comment->kommenttype()),
+    //         content: $comment->komment(),
+    //         authorName: $comment->author(),
+    //         authorAvatar: $comment->avatar(),
+    //         authorEmail: $comment->authoremail(),
+    //         authorUrl: $comment->authorurl(),
+    //         published: $comment->status() == 'true' ? true : false,
+    //         verified: $comment->verified() == 'true' ? true : false,
+    //         spamlevel: $comment->spamlevel()->value() ?? 0,
+    //         language: $language,
+    //         upvotes: 0,
+    //         downvotes: 0,
+    //         createdAt: $comment->published(),
+    //         updatedAt: $comment->published(),
+    //     );
+    // }
 
     public function removeMarkdownComments(): void
     {

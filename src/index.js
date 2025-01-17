@@ -4,12 +4,14 @@ import DrawerReply from './components/DrawerReply.vue'
 import TableIcon from './components/TableIcon.vue'
 import CommentContent from './components/fields/CommentContent.vue'
 import CommentsTable from './components/fields/CommentsTable.vue'
+import Converter from './components/fields/Converter.vue'
 
 panel.plugin('mauricerenck/komments', {
     components: {
         'k-komments-view': View,
         CommentContent: CommentContent,
         CommentsTable: CommentsTable,
+        Converter: Converter,
         TableIcon: TableIcon,
         'komments-detail-drawer': DrawerDetails,
         'komments-reply-drawer': DrawerReply,
