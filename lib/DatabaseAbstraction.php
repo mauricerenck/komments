@@ -1,4 +1,5 @@
 <?php
+
 namespace mauricerenck\Komments;
 
 use Kirby\Database\Database;

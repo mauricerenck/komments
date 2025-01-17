@@ -7,7 +7,6 @@ use Kirby\Filesystem\F;
 use Kirby\Toolkit\V;
 use Kirby\Uuid\Uuid;
 use Kirby\Content\Content;
-use Kirby\Cms\Structure;
 
 class Migrations
 {
@@ -60,8 +59,6 @@ class Migrations
                         }
                     }
                 }
-
-                $database->insert('migrations', ['version'], [$version]);
             }
         }
     }
@@ -84,7 +81,7 @@ class Migrations
 
         // if there are already comments in the sqlite database, we don't need to convert them again
         $existingComments = $storage->getCommentsOfSite();
-        if($existingComments->count() > 0) {
+        if ($existingComments->count() > 0) {
             return;
         }
 
@@ -112,7 +109,7 @@ class Migrations
 
                 if (!is_null($inbox)) {
                     foreach ($inbox->toStructure() as $comment) {
-                        if(in_array($comment->id(),$knownCommentIds)) {
+                        if (in_array($comment->id(), $knownCommentIds)) {
                             continue;
                         }
                         $knownCommentIds[] = $comment->id();
@@ -124,11 +121,12 @@ class Migrations
         }
     }
 
-    public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content {
+    public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content
+    {
         $id = $comment->id() ?? Uuid::generate();
         $parentId = V::url($comment->mentionof()) ? '' : $comment->mentionof();
 
-        if($id == 0) {
+        if ($id == 0) {
             $id = Uuid::generate();
         }
 
@@ -153,7 +151,8 @@ class Migrations
         );
     }
 
-    public function removeMarkdownComments(): void {
+    public function removeMarkdownComments(): void
+    {
         // TODO remove markdown comments
     }
 

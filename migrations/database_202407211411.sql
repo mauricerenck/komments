@@ -21,3 +21,6 @@ CREATE TABLE IF NOT EXISTS comments (
     created_at TEXT,
     updated_at TEXT
 );
+
+-- Always add the migration version to the migrations table:
+INSERT INTO migrations (version) VALUES (202407211411);
