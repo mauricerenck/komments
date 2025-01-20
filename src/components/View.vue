@@ -8,8 +8,10 @@
                 :webmentions="this.webmentions"
             />
 
-            <k-headline tag="h2">Converter</k-headline>
-            <Converter />
+            <div v-if="showMigration">
+                <k-headline tag="h2">Converter</k-headline>
+                <Converter />
+            </div>
         </div>
     </k-inside>
 </template>
@@ -20,6 +22,7 @@ export default {
         queuedKomments: Object,
         affectedPages: Array,
         webmentions: Boolean,
+        showMigration: Boolean,
     },
 }
 </script>

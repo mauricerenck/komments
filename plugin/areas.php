@@ -1,4 +1,5 @@
 <?php
+
 namespace mauricerenck\Komments;
 
 if (option('mauricerenck.komments.panel.enabled', true) === false) {
@@ -26,6 +27,7 @@ return [
                                 'queuedKomments' => json_decode($comments['comments']),
                                 'affectedPages' => $comments['affectedPages'],
                                 'webmentions' => option('mauricerenck.komments.panel.webmentions', false),
+                                'showMigration' => option('mauricerenck.komments.migrations', true),
                             ],
                         ];
                     },
