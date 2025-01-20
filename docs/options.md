@@ -9,7 +9,7 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | Option                            | Default  | Description                                                                                     |
 | --------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
 | `debug`                           | `false`  | Enables debug mode and logs all webmentions to a file                                           |
-| `migration`                       | `true `  | Enables migration mode                                                                          |
+| `migrations`                      | `true `  | Enables migration mode                                                                          |
 | `comments.disabled`               | `false`  | Disable comments if you only want to show webmentions                                           |
 | `enable-webmention-support`       | `true`   | DEPRECATED - see `webmentions.enabled`                                                          |
 | `webmention-auto-publish`         | `true`   | DEPRECATED - see `webmentions.publish`                                                          |
