@@ -34,7 +34,7 @@ Add the stylesheet within the `<head></head>` of your site:
 
 ## Disable komment form after n days
 
-You can let the plugin automatically disable the comment form after a certain number of days after the page was published. So you could set `auto-disable-komments` to `14`. When you publish a page the comment form on that page will be disabled 14 days after the publish date. Only webmentions will be received after this. You can define any date field as a source by using the option `auto-disable-komments-datefield`. The default datefield is `date`.
+You can let the plugin automatically disable the comment form after a certain number of days after the page was published. So you could set `autoDisable.ttl` to `14`. When you publish a page the comment form on that page will be disabled 14 days after the publish date. Only webmentions will be received after this. You can define any date field as a source by using the option `autoDisable.datefield`. The default datefield is `date`.
 
 Please be aware: If you configure a non-existing date field, this will result in a disabled komment state for all pages.
 

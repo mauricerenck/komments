@@ -12,8 +12,8 @@ class KommentsFrontend
     {
         $this->storage = StorageFactory::create();
 
-        $this->expireAfterNumOfDays = $expireAfterNumOfDays ?? option('mauricerenck.komments.auto-disable-komments', 0);
-        $this->dateField = $dateField ?? option('mauricerenck.komments.auto-disable-komments-datefield', 'date');
+        $this->expireAfterNumOfDays = $expireAfterNumOfDays ?? option('mauricerenck.komments.autoDisable.ttl', 0);
+        $this->dateField = $dateField ?? option('mauricerenck.komments.autoDisable.datefield', 'date');
     }
 
     public function kommentsAreExpired($page)
@@ -50,5 +50,4 @@ class KommentsFrontend
 
         return $publishedComments;
     }
-
 }

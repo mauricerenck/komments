@@ -39,8 +39,8 @@ return [
         'storeEmail' => false,
     ],
 
-    'auto-disable-komments' => 0,
-    'auto-disable-komments-datefield' => 'date',
+    'autoDisable.ttl' => 0,
+    'autoDisable.datefield' => 'date',
 
     'form.submit.classNames' => 'button button-primary',
 

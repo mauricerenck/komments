@@ -6,30 +6,42 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 
 ## General settings
 
-| Option                            | Default  | Description                                                                                     |
-| --------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
-| `debug`                           | `false`  | Enables debug mode and logs all webmentions to a file                                           |
-| `migrations`                      | `true `  | Enables migration mode                                                                          |
-| `comments.disabled`               | `false`  | Disable comments if you only want to show webmentions                                           |
-| `enable-webmention-support`       | `true`   | DEPRECATED - see `webmentions.enabled`                                                          |
-| `webmention-auto-publish`         | `true`   | DEPRECATED - see `webmentions.publish`                                                          |
-| `auto-delete-spam`                | `true`   | DEPRECATED - See `spam.delete`                                                                  |
-| `auto-disable-komments`           | `0`      | Disables the komment form after `n` number of days. Use `0` to never disable komments (default) |
-| `auto-disable-komments-datefield` | `'date'` | Set a field to function as publish date field used for `auto-disable-komments`                  |
+| Option                      | Default  | Description                                                                                     |
+| --------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| `comments.disabled`         | `false`  | Disable comments if you only want to show webmentions                                           |
+| `autoDisable.ttl`           | `0`      | Disables the komment form after `n` number of days. Use `0` to never disable komments (default) |
+| `autoDisable.datefield`     | `'date'` | Set a field to function as publish date field used for `autoDisable.ttl`                        |
+| `enable-webmention-support` | `true`   | DEPRECATED - see `webmentions.enabled`                                                          |
+| `webmention-auto-publish`   | `true`   | DEPRECATED - see `webmentions.publish`                                                          |
+| `auto-delete-spam`          | `true`   | DEPRECATED - See `spam.delete`                                                                  |
+
+## Storage Settings
+
+| Option               | Default             | Description                                       |
+| -------------------- | ------------------- | ------------------------------------------------- |
+| `storage.type`       | `sqlite `           | `sqlite` or `markdown`                            |
+| `storage.sqlitePath` | `../relative/path ` | Path to a folder in which the database is stored. |
+
+## Migration Settings
+
+| Option                | Default  | Description                                       |
+| --------------------- | -------- | ------------------------------------------------- |
+| `migrations.comments` | `true `  | Migrate comments to new format                    |
+| `migrations.disabled` | `false ` | Disables database migrations after plugin updates |
 
 ## UI settings
 
-| Option                     | Default | Description |
-| -------------------------- | ------- | ----------- |
-| `komment-icon-like`        | -       | DEPRECATED  |
-| `komment-icon-reply`       | -       | DEPRECATED  |
-| `komment-icon-repost`      | -       | DEPRECATED  |
-| `komment-icon-mention`     | -       | DEPRECATED  |
-| `komment-icon-verified`    | -       | DEPRECATED  |
-| `replyClassNames`          | -       | DEPRECATED  |
-| `form.submit.classNames`   | -       | DEPRECATED  |
-| `form.twitter.classNames`  | -       | DEPRECATED  |
-| `form.mastodon.classNames` | -       | DEPRECATED  |
+| Option                     | Default                | Description                   |
+| -------------------------- | ---------------------- | ----------------------------- |
+| `form.submit.classNames`   | 'button button-primary | CSS classes for submit button |
+| `komment-icon-like`        | -                      | DEPRECATED                    |
+| `komment-icon-reply`       | -                      | DEPRECATED                    |
+| `komment-icon-repost`      | -                      | DEPRECATED                    |
+| `komment-icon-mention`     | -                      | DEPRECATED                    |
+| `komment-icon-verified`    | -                      | DEPRECATED                    |
+| `replyClassNames`          | -                      | DEPRECATED                    |
+| `form.twitter.classNames`  | -                      | DEPRECATED                    |
+| `form.mastodon.classNames` | -                      | DEPRECATED                    |
 
 ## Notification settings
 
@@ -46,15 +58,15 @@ You can fine tune the komments plugin to behave as you whish. Use these options 
 | Option                        | Default | Description                                                                     |
 | ----------------------------- | ------- | ------------------------------------------------------------------------------- |
 | `komment-auto-publish`        | `false` | When you receive a komment set status to published                              |
-| `auto-publish-verified`       | `true`  | DEPRECATED                                                                      |
 | `moderation.publish-verified` | `true`  | New comments by verified users are automatically published                      |
 | `moderation.autoPublish`      | `[]`    | An array of email addresses which comments will be published without moderation |
+| `auto-publish-verified`       | `true`  | DEPRECATED                                                                      |
 
 ## Webmention settings
 
 | Option                | Default | Description                                                        |
 | --------------------- | ------- | ------------------------------------------------------------------ |
-| `webmentions.enabled` | `true`  | Weather to listen to webmentions (using the IndieConnector plugin) |
+| `webmentions.enabled` | `true`  | Whether to listen to webmentions (using the IndieConnector plugin) |
 | `webmentions.publish` | `true`  | Auto publish webmentions or keep them unpublished until review     |
 
 ## Spam settings

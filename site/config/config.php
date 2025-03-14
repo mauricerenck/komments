@@ -20,7 +20,7 @@ return [
             'migrations' => false,
             'auto-publish-verified' => true,
             'auto-delete-spam' => false,
-            'auto-disable-komments' => 0,
+            'autoDisable.ttl' => 0,
             'privacy' => [
                 'storeEmail' => false,
             ],
