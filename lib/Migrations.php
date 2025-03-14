@@ -15,9 +15,9 @@ class Migrations
         private ?string $sqlitePath = null,
         private ?bool $disableMigrations = null,
     ) {
-        $this->storageType = $storageType ?? option('mauricerenck.komments.storage.type', 'markdown');
+        $this->storageType = $storageType ?? option('mauricerenck.komments.storage.type', 'sqlite');
         $this->sqlitePath = $sqlitePath ?? option('mauricerenck.komments.storage.sqlitePath', '.sqlite/');
-        $this->disableMigrations = $disableMigrations ?? option('mauricerenck.komments.disableMigrations', false);
+        $this->disableMigrations = $disableMigrations ?? option('mauricerenck.komments.migrations.disabled', false);
     }
 
     public function migrate()
@@ -100,7 +100,6 @@ class Migrations
 
     public function convertSingleComment($comment, $language, $uuid): array
     {
-        // FIXME move to constructor?
         switch ($this->storageType) {
             case 'sqlite':
                 $storage = new StorageSqlite();
@@ -128,60 +127,14 @@ class Migrations
         }
     }
 
-    public function convertCommentsFromMarkdownToSqlite(): void
+    public function convertComments(): void
     {
-        switch ($this->storageType) {
-            case 'sqlite':
-                $storage = new StorageSqlite();
-                break;
-            case 'markdown':
-                $storage = new StorageMarkdown();
-                break;
-            default:
-                return;
-        }
+        $allComments = $this->getListOfAllComments();
 
-        $markdownConverter = new MarkdownConverter();
-
-        // if there are already comments in the sqlite database, we don't need to convert them again
-        $existingComments = $storage->getCommentsOfSite();
-        if ($existingComments->count() > 0) {
-            return;
-        }
-
-        $pageList = site()->index();
-        foreach ($pageList as $page) {
-            $comments = $markdownConverter->getCommentsOfPage($page);
-            $languageCodes = $markdownConverter->getAllLanguages();
-
-            if (count($languageCodes) === 0) {
-                $inbox = $markdownConverter->getInboxByLanguage($page);
-
-                if (!is_null($inbox)) {
-                    foreach ($inbox as $comment) {
-                        $transformedComment = $this->convertCommentToNewFormat($comment, null, $page->uuid(), $storage);
-                        $storage->saveComment($transformedComment);
-                    }
-                }
-
-                continue;
-            }
-
-            $knownCommentIds = [];
-            foreach ($languageCodes as $language) {
-                $inbox = $markdownConverter->getInboxByLanguage($page, $language);
-
-                if (!is_null($inbox)) {
-                    foreach ($inbox->toStructure() as $comment) {
-                        if (in_array($comment->id(), $knownCommentIds)) {
-                            continue;
-                        }
-                        $knownCommentIds[] = $comment->id();
-                        $transformedComment = $this->convertCommentToNewFormat($comment, $language, $page->uuid(), $storage);
-                        $storage->saveComment($transformedComment);
-                    }
-                }
-            }
+        foreach ($allComments as $comment) {
+            $result = $this->convertSingleComment(comment: $comment['comment'], language: $comment['language'], uuid: $comment['pageUuid']);
+            echo $result['comment'] . ' ' . $result['status'] . ' ' . $result['pageUuid'] . PHP_EOL;
+            flush();
         }
     }
 
@@ -213,41 +166,6 @@ class Migrations
             createdAt: $comment['published'],
             updatedAt: $comment['published'],
         );
-    }
-
-    // public function convertCommentToNewFormat($comment, ?string $language, string $pageUuid, $storage): Content
-    // {
-    //     $id = $comment->id() ?? Uuid::generate();
-    //     $parentId = V::url($comment->mentionof()) ? '' : $comment->mentionof();
-
-    //     if ($id == 0) {
-    //         $id = Uuid::generate();
-    //     }
-
-    //     return $storage->createComment(
-    //         id: $id,
-    //         pageUuid: $pageUuid,
-    //         parentId: $parentId,
-    //         type: $this->transformTypes($comment->kommenttype()),
-    //         content: $comment->komment(),
-    //         authorName: $comment->author(),
-    //         authorAvatar: $comment->avatar(),
-    //         authorEmail: $comment->authoremail(),
-    //         authorUrl: $comment->authorurl(),
-    //         published: $comment->status() == 'true' ? true : false,
-    //         verified: $comment->verified() == 'true' ? true : false,
-    //         spamlevel: $comment->spamlevel()->value() ?? 0,
-    //         language: $language,
-    //         upvotes: 0,
-    //         downvotes: 0,
-    //         createdAt: $comment->published(),
-    //         updatedAt: $comment->published(),
-    //     );
-    // }
-
-    public function removeMarkdownComments(): void
-    {
-        // TODO remove markdown comments
     }
 
     public function transformTypes(string $type): string

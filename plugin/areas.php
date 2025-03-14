@@ -27,7 +27,8 @@ return [
                                 'queuedKomments' => json_decode($comments['comments']),
                                 'affectedPages' => $comments['affectedPages'],
                                 'webmentions' => option('mauricerenck.komments.panel.webmentions', false),
-                                'showMigration' => option('mauricerenck.komments.migrations', true),
+                                'showMigration' => option('mauricerenck.komments.migrations.comments', true),
+                                'storageType' => option('mauricerenck.komments.storage.type', 'sqlite')
                             ],
                         ];
                     },
@@ -61,6 +62,54 @@ return [
                     'submit' => function (string $id) {
                         $kommentModeration = new KommentModeration();
                         $result = $kommentModeration->deleteComment($id);
+
+                        return $result;
+                    }
+                ],
+                'comments/delete/spam' => [
+                    'load' => function () {
+                        return [
+                            'component' => 'k-remove-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to delete all comments marked as spam? This action cannot be undone.'
+                            ]
+                        ];
+                    },
+                    'submit' => function () {
+                        $kommentModeration = new KommentModeration();
+                        $result = $kommentModeration->deleteCommentsInBatch('spam');
+
+                        return $result;
+                    }
+                ],
+                'comments/delete/pending' => [
+                    'load' => function () {
+                        return [
+                            'component' => 'k-remove-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to delete all pending comments? This action cannot be undone.'
+                            ]
+                        ];
+                    },
+                    'submit' => function () {
+                        $kommentModeration = new KommentModeration();
+                        $result = $kommentModeration->deleteCommentsInBatch('pending');
+
+                        return $result;
+                    }
+                ],
+                'comments/publish/pending' => [
+                    'load' => function () {
+                        return [
+                            'component' => 'k-text-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to publish all pending comments?'
+                            ]
+                        ];
+                    },
+                    'submit' => function () {
+                        $kommentModeration = new KommentModeration();
+                        $result = $kommentModeration->publishCommentsInBatch();
 
                         return $result;
                     }

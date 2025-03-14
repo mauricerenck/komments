@@ -4,8 +4,6 @@ namespace mauricerenck\Komments;
 
 class KommentNotifications
 {
-    private $pendingComments;
-
     public function sendNotifications(): void
     {
         $storage = StorageFactory::create();

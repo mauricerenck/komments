@@ -1,5 +1,41 @@
 <template>
     <div class="k-komments-view">
+        <k-button-group
+            style="margin-bottom: var(--spacing-6)"
+            layout="collapsed"
+            v-if="this.storageType !== 'markdown'"
+        >
+            <k-button
+                variant="filled"
+                icon="toggle-off"
+                theme="green-icon"
+                :disabled="!this.hasPendingComments"
+                :click="this.publishPendingComments"
+            >
+                Publish all
+            </k-button>
+
+            <k-button
+                variant="filled"
+                icon="flag"
+                theme="orange-icon"
+                :disabled="!this.hasSpamComments"
+                :click="this.deleteSpamComments"
+            >
+                Delete spam
+            </k-button>
+
+            <k-button
+                variant="filled"
+                icon="trash"
+                theme="red-icon"
+                :disabled="!this.hasPendingComments"
+                :click="this.deletePendingComments"
+            >
+                Delete all pending
+            </k-button>
+        </k-button-group>
+
         <k-table
             :columns="this.visibleColumns"
             :index="true"
@@ -34,6 +70,7 @@ export default {
         affectedPages: Array,
         columns: Array,
         webmentions: Boolean,
+        storageType: String,
     },
     data() {
         return {
@@ -48,6 +85,7 @@ export default {
         index() {
             return (this.pagination.page - 1) * this.pagination.limit + 1
         },
+
         visibleColumns() {
             const availableColumns = [
                 'author',
@@ -61,7 +99,7 @@ export default {
             ]
 
             const visibleColumns = this.columns || availableColumns
-            const filteredColumns = [...visibleColumns].filter((column) => availableColumns.includes(column))
+            const filteredColumns = visibleColumns.filter((column) => availableColumns.includes(column))
 
             const columnConfigs = {
                 author: { label: 'Author', type: 'html' },
@@ -135,6 +173,12 @@ export default {
 
             return commentList.slice(this.index - 1, this.pagination.limit * this.pagination.page)
         },
+        hasSpamComments() {
+            return this.comments.some((comment) => comment.spamlevel > 0)
+        },
+        hasPendingComments() {
+            return this.comments.some((comment) => comment.published === false)
+        },
     },
     methods: {
         showCommentDetails(id) {
@@ -167,8 +211,20 @@ export default {
             })
         },
 
+        publishPendingComments() {
+            panel.dialog.open(`comments/publish/pending`)
+        },
+
         deleteComment(id) {
             panel.dialog.open(`comment/delete/${id}`)
+        },
+
+        deleteSpamComments() {
+            panel.dialog.open(`comments/delete/spam`)
+        },
+
+        deletePendingComments() {
+            panel.dialog.open(`comments/delete/pending`)
         },
 
         flagComment(id, type) {

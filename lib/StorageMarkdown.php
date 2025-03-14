@@ -9,17 +9,20 @@ use Kirby\Toolkit\Obj;
 use Kirby\Data\Yaml;
 use Kirby\Cms\Page;
 
-class StorageMarkdown extends Storage {
+class StorageMarkdown extends Storage
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function getSingleComment(string $commentId): Content {
+    public function getSingleComment(string $commentId): Content
+    {
         $comments = $this->getCommentsOfSite();
 
         if (is_null($comments)) {
-            return [];
+            return new Content([]);
         }
 
         $comment = array_filter($comments->toArray(), function ($comment) use ($commentId) {
@@ -34,7 +37,8 @@ class StorageMarkdown extends Storage {
         return new Content($comment);
     }
 
-    public function getCommentsOfPage(string $pageUuid): Structure {
+    public function getCommentsOfPage(string $pageUuid): Structure
+    {
         $page = page($pageUuid);
         if (is_null($page)) {
             return new Structure([]);
@@ -43,7 +47,8 @@ class StorageMarkdown extends Storage {
         return $page->kommentsInboxData()->toStructure();
     }
 
-    public function getCommentsOfSite(): Structure {
+    public function getCommentsOfSite(): Structure
+    {
         $comments = [];
         $collection = site()->index();
 
@@ -54,14 +59,15 @@ class StorageMarkdown extends Storage {
         return new Structure($comments);
     }
 
-    public function saveComment(Content $comment): bool {
+    public function saveComment(Content $comment): bool
+    {
         $page = page($comment->pageUuid());
 
-        if(!$page) {
+        if (!$page) {
             return false;
         }
 
-        if($page->kommentsInboxData()->isNotEmpty()) {
+        if ($page->kommentsInboxData()->isNotEmpty()) {
             $fieldData = $page->kommentsInboxData()->yaml();
         }
 
@@ -73,7 +79,8 @@ class StorageMarkdown extends Storage {
         return true;
     }
 
-    public function updateComment(string $commentId, array $values): bool {
+    public function updateComment(string $commentId, array $values): bool
+    {
         $page = $this->findPageOfComment($commentId);
 
         if (is_null($page)) {
@@ -82,8 +89,8 @@ class StorageMarkdown extends Storage {
 
         $comments = $page->kommentsInboxData()->yaml();
 
-        foreach($comments as $key => $comment) {
-            if($comment['id'] === $commentId) {
+        foreach ($comments as $key => $comment) {
+            if ($comment['id'] === $commentId) {
                 $comments[$key] = array_merge($comment, $values);
             }
         }
@@ -94,7 +101,13 @@ class StorageMarkdown extends Storage {
         return true;
     }
 
-    public function deleteComment(string $commentId): bool {
+    public function publishPendingComments(): bool // FIXME
+    {
+        throw new \Exception('Not implemented: Batch publishing pending comments when using markdown storage is not supported yet');
+    }
+
+    public function deleteComment(string $commentId): bool
+    {
         $page = $this->findPageOfComment($commentId);
 
         if (is_null($page)) {
@@ -111,15 +124,23 @@ class StorageMarkdown extends Storage {
         return true;
     }
 
-    public function findPageOfComment(string $commentId): ?Page {
+
+    public function deleteComments(string $type): bool // FIXME
+    {
+        throw new \Exception('Not implemented: Batch deleting comments when using markdown storage is not supported yet');
+    }
+
+
+    public function findPageOfComment(string $commentId): ?Page
+    {
         $comments = $this->getCommentsOfSite();
 
         if (is_null($comments)) {
             return null;
         }
 
-        foreach($comments as $comment) {
-            if($comment->id() === $commentId) {
+        foreach ($comments as $comment) {
+            if ($comment->id() === $commentId) {
                 return page($comment->pageUuid());
             }
         }
@@ -131,39 +152,41 @@ class StorageMarkdown extends Storage {
      * @param array<Obj|Collection> $databaseResults
      * @return Collection
      */
-     public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
-     {
-         $comments = [];
-         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
+    public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
+    {
+        $comments = [];
+        $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
-         foreach($databaseResults as $databaseResult) {
-             $comment = $this->createComment(
-                 id: $databaseResult->id,
-                 pageUuid: $databaseResult->page_uuid,
-                 parentId: $databaseResult->parent_id,
-                 type: $databaseResult->type,
-                 content: $databaseResult->content,
-                 authorName: $databaseResult->author_name,
-                 authorAvatar: $databaseResult->author_avatar,
-                 authorEmail: $databaseResult->author_email,
-                 authorUrl: $databaseResult->author_url,
-                 published: $databaseResult->published,
-                 verified: $databaseResult->verified,
-                 spamlevel: $databaseResult->spamlevel,
-                 language: $databaseResult->language,
-                 upvotes: $databaseResult->upvotes,
-                 downvotes: $databaseResult->downvotes,
-                 createdAt: $databaseResult->created_at,
-                 updatedAt: $databaseResult->updated_at
-             );
+        foreach ($databaseResults as $databaseResult) {
+            $comment = $this->createComment(
+                id: $databaseResult->id,
+                pageUuid: $databaseResult->page_uuid,
+                parentId: $databaseResult->parent_id,
+                type: $databaseResult->type,
+                content: $databaseResult->content,
+                authorName: $databaseResult->author_name,
+                authorAvatar: $databaseResult->author_avatar,
+                authorEmail: $databaseResult->author_email,
+                authorUrl: $databaseResult->author_url,
+                published: $databaseResult->published,
+                verified: $databaseResult->verified,
+                spamlevel: $databaseResult->spamlevel,
+                language: $databaseResult->language,
+                upvotes: $databaseResult->upvotes,
+                downvotes: $databaseResult->downvotes,
+                createdAt: $databaseResult->created_at,
+                updatedAt: $databaseResult->updated_at
+            );
 
-             $comments[] = $comment;
-         }
+            $comments[] = $comment;
+        }
 
-         $collection = new Structure($comments);
-         return $collection;
-     }
-    public function saveToFile(string $fieldData, $page): void {
+        $collection = new Structure($comments);
+        return $collection;
+    }
+
+    public function saveToFile(string $fieldData, $page): void
+    {
         $kirby = kirby();
         $kirby->impersonate('kirby');
         $page->update([

@@ -25,12 +25,23 @@ class KommentModeration
         return $result;
     }
 
+    public function deleteCommentsInBatch(string $type): mixed
+    {
+        $result = $this->storage->deleteComments($type);
+        return $result;
+    }
+
     public function publishComment(string $id): mixed
     {
         $comment = $this->storage->getSingleComment($id);
         $newStatus = $comment->published()->isTrue() ? false : true;
         $result = $this->storage->updateComment($id, ['published' => $newStatus]);
         return $result ? $newStatus : $comment->published();
+    }
+
+    public function publishCommentsInBatch(): mixed
+    {
+        return $this->storage->publishPendingComments();
     }
 
     public function flagComment(string $id, string $flag): mixed
@@ -129,7 +140,7 @@ class KommentModeration
         ];
     }
 
-    public function getAllPageComments(string $pageUuid = null): mixed
+    public function getAllPageComments(?string $pageUuid = null): mixed
     {
         $comments = $this->storage->getCommentsOfPage($pageUuid);
         $filteredComments = $comments->sortBy('updatedAt', 'desc');

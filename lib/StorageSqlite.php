@@ -80,7 +80,6 @@ class StorageSqlite extends Storage
         );
     }
 
-
     public function updateComment(string $commentId, array $values): bool
     {
         $fields = [];
@@ -94,9 +93,26 @@ class StorageSqlite extends Storage
         return $this->database->update('comments', $fields, $newValues, 'WHERE id = "' . $commentId . '"');
     }
 
+    public function publishPendingComments(): bool
+    {
+        return $this->database->update('comments', ['published'], [1], 'WHERE published != 1');
+    }
+
     public function deleteComment(string $commentId): bool
     {
         return $this->database->delete('comments', 'WHERE id = "' . $commentId . '"');
+    }
+
+    public function deleteComments(string $type): bool
+    {
+        switch ($type) {
+            case 'spam':
+                return $this->database->delete('comments', 'WHERE published != 1 AND spamlevel > "0"');
+            case 'pending':
+                return $this->database->delete('comments', 'WHERE published != 1');
+            default:
+                return false;
+        }
     }
 
     /**

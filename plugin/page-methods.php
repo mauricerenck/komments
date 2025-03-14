@@ -3,7 +3,7 @@
 namespace mauricerenck\Komments;
 
 return [
-    'kommentCount' => function ($language = null): int {
+    'commentCount' => function ($language = null): int {
         $storage = StorageFactory::create();
         $comments = $storage->getCommentsOfPage($this->uuid());
         $publishedComments = $comments->filterBy('published', true);
@@ -13,9 +13,8 @@ return [
         }
 
         return $publishedComments->count();
-
     },
-    'kommentsAreEnabled' => function () {
+    'commentsAreEnabled' => function () {
         $kommentsFrontend = new KommentsFrontend();
 
         if ($kommentsFrontend->kommentsAreExpired($this)) {

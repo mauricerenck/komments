@@ -3,11 +3,15 @@
 namespace mauricerenck\Komments;
 
 use Kirby\Uuid\Uuid;
-use Kirby\Content\Content;
 
-class WebmentionReceiver {
+class WebmentionReceiver
+{
+    public function saveWebmention(array $webmention, $page)
+    {
+        if (!option('mauricerenck.komments.webmentions.enabled', true)) {
+            return null;
+        }
 
-    public function saveWebmention(array $webmention, $page): Content {
         $storage = StorageFactory::create();
         $id = Uuid::generate();
 
@@ -20,8 +24,8 @@ class WebmentionReceiver {
             parentId: '',
             type: $webmention['type'],
             content: $webmention['content'],
-            authorName: $webmention['author']['name'],
-            authorAvatar: $webmention['author']['avatar'],
+            authorName: $webmention['author']['name'] ?? 'unknown',
+            authorAvatar: $webmention['author']['avatar'] ?? '',
             authorEmail: null,
             authorUrl: $webmention['source'],
             published: $autoPublish,

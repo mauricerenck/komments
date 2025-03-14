@@ -3,7 +3,7 @@
         'name' => 'mauricerenck/komments',
         'pretty_version' => '2.0.5',
         'version' => '2.0.5.0',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'mauricerenck/komments' => array(
             'pretty_version' => '2.0.5',
             'version' => '2.0.5.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

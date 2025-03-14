@@ -1,16 +1,18 @@
 <template>
     <k-inside>
         <div class="k-komments-view">
-            <k-headline tag="h2">Comments</k-headline>
-            <CommentsTable
-                :comments="this.queuedKomments"
-                :affectedPages="this.affectedPages"
-                :webmentions="this.webmentions"
-            />
-
             <div v-if="showMigration">
                 <k-headline tag="h2">Converter</k-headline>
-                <Converter />
+                <Converter :storageType="this.storageType" />
+            </div>
+            <div v-else>
+                <k-headline tag="h2">Comments</k-headline>
+                <CommentsTable
+                    :comments="this.queuedKomments"
+                    :affectedPages="this.affectedPages"
+                    :webmentions="this.webmentions"
+                    :storageType="this.storageType"
+                />
             </div>
         </div>
     </k-inside>
@@ -23,6 +25,7 @@ export default {
         affectedPages: Array,
         webmentions: Boolean,
         showMigration: Boolean,
+        storageType: String,
     },
 }
 </script>

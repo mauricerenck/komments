@@ -40,8 +40,8 @@ return [
             'pattern' => 'komments/converter/get-comments',
             'method' => 'GET',
             'action' => function () {
-                $kommentModeration = new Migrations();
-                $result = $kommentModeration->getListOfAllComments();
+                $migrations = new Migrations();
+                $result = $migrations->getListOfAllComments();
                 return new Response(json_encode($result), 'application/json');
             },
         ],
@@ -51,8 +51,8 @@ return [
             'action' => function () {
                 $formData = kirby()->request()->data();
 
-                $kommentModeration = new Migrations();
-                $result = $kommentModeration->convertSingleComment(comment: $formData['comment'], language: $formData['language'], uuid: $formData['pageUuid']);
+                $migrations = new Migrations();
+                $result = $migrations->convertSingleComment(comment: $formData['comment'], language: $formData['language'], uuid: $formData['pageUuid']);
                 return new Response(json_encode($result), 'application/json');
             },
         ],

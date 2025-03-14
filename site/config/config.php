@@ -15,9 +15,9 @@ return [
     'mauricerenck.komments.notifications.email.enable' => true,
     'mauricerenck.komments.notifications.email.sender' => 'test@domain.tld',
     'mauricerenck.komments.notifications.email.emailReceiverList' => ['test@domain.tld'],
-
     'mauricerenck' => [
         'komments' => [
+            'migrations' => false,
             'auto-publish-verified' => true,
             'auto-delete-spam' => false,
             'auto-disable-komments' => 0,
@@ -37,6 +37,7 @@ return [
                 ]
             ],
             'storage' => [
+                // 'type' => 'markdown',
                 'type' => 'sqlite',
                 'sqlitePath' => '.sqlite',
             ],

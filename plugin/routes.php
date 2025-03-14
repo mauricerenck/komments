@@ -27,7 +27,7 @@ return [
             if (count($invalidFields) > 0) {
                 $errorMessage = [
                     'status' => 'error',
-                    'message' => I18n::translate('mauricerenck.komments.invalidfieldvalues', null , $formData['language']),
+                    'message' => I18n::translate('mauricerenck.komments.invalidfieldvalues', null, $formData['language']),
                     'fields' => $invalidFields
                 ];
 
@@ -38,7 +38,7 @@ return [
             if ($spamlevel > option('mauricerenck.komments.spam.sensibility', 60)) {
                 $errorMessage = [
                     'status' => 'error',
-                    'message' => I18n::translate('mauricerenck.komments.lookslikespam', null , $formData['language'])
+                    'message' => I18n::translate('mauricerenck.komments.lookslikespam', null, $formData['language'])
                 ];
 
                 if (option('mauricerenck.komments.spam.delete', true) === true) {
@@ -81,7 +81,7 @@ return [
             if ($shouldReturnJson) {
                 $response = [
                     'status' => 'success',
-                    'message' => I18n::translate('mauricerenck.komments.thankyou', null , $formData['language']),
+                    'message' => I18n::translate('mauricerenck.komments.thankyou', null, $formData['language']),
                 ];
 
                 return new Response(json_encode($response), 'application/json', 200);
@@ -95,7 +95,7 @@ return [
         'method' => 'GET',
         'action' => function ($secret) {
             if (option('mauricerenck.komments.notifications.cronSecret', '') === $secret) {
-                $notifications = new KommentNotificationUtils();
+                $notifications = new KommentNotifications();
                 $notifications->sendNotifications();
 
                 return new Response('sent', 'text/plain');

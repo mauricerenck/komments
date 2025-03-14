@@ -6,9 +6,11 @@ use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 use Kirby\Http\Remote;
 
-class KommentReceiver {
+class KommentReceiver
+{
 
-    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null) {
+    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null)
+    {
         $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
         $this->akismet = $akismet ?? option('mauricerenck.komments.spam.akismet', false);
@@ -16,14 +18,15 @@ class KommentReceiver {
         $this->debug = $debug ?? option('mauricerenck.komments.debug', false);
     }
 
-    public function validateFields(array $fields): array {
+    public function validateFields(array $fields): array
+    {
         $inValidFields = [];
 
-        if(V::notEmpty($fields['author_url']) && !V::url($fields['author_url'])) {
+        if (V::notEmpty($fields['author_url']) && !V::url($fields['author_url'])) {
             $inValidFields[] = 'author_url';
         }
 
-        if(!V::email($fields['email'])) {
+        if (!V::email($fields['email'])) {
             $inValidFields[] = 'email';
         }
 
@@ -52,7 +55,7 @@ class KommentReceiver {
         $url_pattern = '/https?:\/\/[^\s]+/';
         preg_match_all($url_pattern, $fields['comment'], $matches);
 
-        if(count($matches[0]) > 0) {
+        if (count($matches[0]) > 0) {
             $spamlevel += 10 + count($matches[0]) * 2;
         }
 
@@ -60,7 +63,7 @@ class KommentReceiver {
         $html_pattern = '/<[^>]*>/';
         preg_match_all($html_pattern, $fields['comment'], $matches);
 
-        if(count($matches[0]) > 0) {
+        if (count($matches[0]) > 0) {
             $spamlevel += 60;
         }
 
@@ -69,14 +72,14 @@ class KommentReceiver {
         return $spamlevel > 100 ? 100 : $spamlevel;
     }
 
-    public function isVerified(string $email): bool
+    public function isVerified(): bool
     {
         return (!is_null(kirby()->user()) && kirby()->user()->isLoggedIn()) ? true : false;
     }
 
     public function autoPublish(string $email, bool $isVerified): bool
     {
-        if($this->autoPublishVerified && $isVerified) {
+        if ($this->autoPublishVerified && $isVerified) {
             return true;
         }
 
@@ -86,7 +89,6 @@ class KommentReceiver {
     public function getParentId(string $replyTo): string
     {
         return V::notEmpty($replyTo) ? $replyTo : '';
-
     }
 
     public function getAvatarFromEmail(string $email): ?string
@@ -101,7 +103,7 @@ class KommentReceiver {
 
     public function getEmail(string $email): ?string
     {
-        if(!option('mauricerenck.komments.privacy.storeEmail', false)) {
+        if (!option('mauricerenck.komments.privacy.storeEmail', false)) {
             return null;
         }
 
@@ -120,7 +122,7 @@ class KommentReceiver {
 
     public function akismetCheck(array $fields, $page): int
     {
-        if(!$this->akismet) {
+        if (!$this->akismet) {
             return 0;
         }
 
@@ -140,7 +142,7 @@ class KommentReceiver {
                 'honeypot_field_name' => urlencode('url'),
             ];
 
-            if($this->debug) {
+            if ($this->debug) {
                 $data['is_test'] = true;
             }
 
@@ -160,6 +162,5 @@ class KommentReceiver {
         } catch (\Exception $e) {
             return 0;
         }
-
     }
 }

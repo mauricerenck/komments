@@ -7,48 +7,56 @@ use Kirby\Toolkit\Collection;
 use Kirby\Content\Content;
 use Kirby\Toolkit\Obj;
 
-class StoragePhpunit extends Storage {
+class StoragePhpunit extends Storage
+{
 
     private Collection $commentDatabase;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->commentDatabase = new Collection();
     }
 
-    public function getSingleComment(string $commentId): Content {
+    public function getSingleComment(string $commentId): Content
+    {
         $comment = $this->getCommentMock(['id' => $commentId]);
         $structuredComment = $this->convertToStructure($comment);
         return $structuredComment->first();
     }
 
-    public function getCommentsOfPage(string $pageUuid): Structure {
+    public function getCommentsOfPage(string $pageUuid): Structure
+    {
         $comments = $this->getCommentCollection();
         $structuredComment = $this->convertToStructure($comments);
         return $structuredComment;
     }
 
-    public function getCommentsOfSite(): Structure {
+    public function getCommentsOfSite(): Structure
+    {
         $comments = $this->getCommentCollection();
         $structuredComment = $this->convertToStructure($comments);
         return $structuredComment;
     }
 
-    public function saveComment(Content $comment): bool {
+    public function saveComment(Content $comment): bool
+    {
         $this->commentDatabase->append($comment);
     }
 
 
-    public function updateComment(string $commentId, array $values): bool {
+    public function updateComment(string $commentId, array $values): bool
+    {
         $filteredComments = $this->commentDatabase->filterBy('id', $commentId);
-        $filteredComment = $filteredComment->first();
+        $filteredComment = $filteredComments->first();
         $newComment = $filteredComment->merge($values);
 
         $this->commentDatabase->remove($commentId);
         $this->commentDatabase->append($newComment);
     }
 
-    public function deleteComment(string $commentId): bool {
+    public function deleteComment(string $commentId): bool
+    {
         $this->commentDatabase->remove($commentId);
     }
 
@@ -61,7 +69,7 @@ class StoragePhpunit extends Storage {
         $comments = [];
         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
-        foreach($databaseResults as $databaseResult) {
+        foreach ($databaseResults as $databaseResult) {
             $comment = $this->createComment(
                 id: $databaseResult->id,
                 pageUuid: $databaseResult->page_uuid,
@@ -89,7 +97,8 @@ class StoragePhpunit extends Storage {
         return $collection;
     }
 
-    public function fillCommentDb(): void {
+    public function fillCommentDb(): void
+    {
         $this->commentDatabase = $this->getCommentCollection();
     }
 
@@ -144,11 +153,10 @@ class StoragePhpunit extends Storage {
         $comments = [
             $this->getCommentMock(['id' => 'comment-id-1']),
             $this->getCommentMock(['id' => 'comment-id-2', 'published' => false]),
-            $this->getCommentMock(['id' => 'comment-id-3', 'verified' => true ]),
+            $this->getCommentMock(['id' => 'comment-id-3', 'verified' => true]),
             $this->getCommentMock(['id' => 'comment-id-4', 'spamlevel' => 100]),
         ];
 
         return new Collection($comments);
     }
-
 }
