@@ -6,7 +6,7 @@
 
 ---
 
-![the dashboard](/doc-assets/komments-dashboard.png)
+![the dashboard](/doc-assets/panel-moderation-view)
 
 ## Installation
 
@@ -17,11 +17,7 @@ Use one of these methods to install the plugin:
 
 ## Setup
 
--   [Setting up the panel](docs/panel.md)
--   [Setting up your templates](docs/templates.md)
--   [Receive Webmentions](docs/webmentions.md)
--   [Get notifications for new comments](docs/notifications.md)
--   [All available options](docs/options.md)
+The new documentation can be found [here](https://maurice-renck.de/kirby/komments).
 
 ## Features
 
@@ -43,12 +39,5 @@ Use one of these methods to install the plugin:
 -   E-Mail notifications for new comments (instant or via cronjob)
 
 ---
-
-## Roadmap
-
--   [ ] Up- Down-Vote comments
--   [ ] Login via IndieAuth, Mastodon, GitHub
--   [x] Reply from within panel
--   [x] Comments list on panel page level
 
 Please use the [IndieConnector Plugin](https://github.com/mauricerenck/indieConnector) to receive and send webmentions
