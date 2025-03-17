@@ -27,7 +27,7 @@ return [
                                 'queuedKomments' => json_decode($comments['comments']),
                                 'affectedPages' => $comments['affectedPages'],
                                 'webmentions' => option('mauricerenck.komments.panel.webmentions', false),
-                                'showMigration' => option('mauricerenck.komments.migrations.comments', true),
+                                'showMigration' => option('mauricerenck.komments.migrations.comments', false),
                                 'storageType' => option('mauricerenck.komments.storage.type', 'sqlite')
                             ],
                         ];

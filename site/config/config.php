@@ -17,7 +17,9 @@ return [
     'mauricerenck.komments.notifications.email.emailReceiverList' => ['test@domain.tld'],
     'mauricerenck' => [
         'komments' => [
-            'migrations' => false,
+            'migrations' => [
+                'comments' => false,
+            ],
             'auto-publish-verified' => true,
             'auto-delete-spam' => false,
             'autoDisable.ttl' => 0,

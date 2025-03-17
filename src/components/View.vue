@@ -1,5 +1,5 @@
 <template>
-    <k-inside>
+    <k-panel-inside>
         <div class="k-komments-view">
             <div v-if="showMigration">
                 <k-headline tag="h2">Converter</k-headline>
@@ -15,7 +15,7 @@
                 />
             </div>
         </div>
-    </k-inside>
+    </k-panel-inside>
 </template>
 
 <script>
