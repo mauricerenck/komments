@@ -1,3 +1,44 @@
+# [3.0.0](https://github.com/mauricerenck/komments/compare/v2.1.2...v3.0.0) (2025-03-18)
+
+
+### Features
+
+* komments version 3 ([#69](https://github.com/mauricerenck/komments/issues/69)) ([c9553bc](https://github.com/mauricerenck/komments/commit/c9553bca7380ac54df5c8146fb51f1a6d17ef368))
+
+
+### BREAKING CHANGES
+
+* old comments have to be migrated
+
+* feat: SQLite storage
+
+* feat: new folder structure
+
+* feat: database migrations
+
+* feat: comments deep link via uuid
+
+* feat: new snippets for lists and responses
+* old snippets are deprecated, new snippets with different names and more condensed
+
+* feat: new panel view
+
+* feat: new comment moderation panel view
+
+* feat: reply from panel
+
+* feat: manage comments on page level
+
+* feat: show or hide webmentions in moderation view via field config or options
+
+* feat: updated comment form with less overhead
+
+* feat: new markdown inbox format
+
+* feat: akismet spam detection
+
+* feat: migration flow in panel
+
 ## [2.1.2](https://github.com/mauricerenck/komments/compare/v2.1.1...v2.1.2) (2024-09-02)
 
 
