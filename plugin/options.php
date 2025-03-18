@@ -5,9 +5,8 @@ return [
     'commentMigration' => true,
     'migrations' => [
         'disabled' => false,
-        'comments' => true
+        'comments' => false
     ],
-
     'spam' => [
         'akismet' => false,
         'akismet_api_key' => '',
