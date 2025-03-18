@@ -6,23 +6,18 @@
 
 ---
 
-![the dashboard](/doc-assets/komments-dashboard.png)
+![the dashboard](/doc-assets/panel-moderation-view)
 
 ## Installation
 
-Use one of these three methods to install the plugin:
+Use one of these methods to install the plugin:
 
 -   composer (recommended): `composer require mauricerenck/komments`
 -   zip file: unzip [main.zip](https://github.com/mauricerenck/komments/releases/latest) as folder `site/plugins/komments`
 
 ## Setup
 
--   [How to configure the plugin](docs/options.md)
--   [Setting up the panel](docs/panel.md)
--   [Setting up your templates](docs/templates.md)
--   [Receive Webmentions](docs/webmentions.md)
--   [Get notifications for new comments](docs/notifications.md)
--   [FAQ](docs/faq.md)
+The new documentation can be found [here](https://maurice-renck.de/kirby/komments).
 
 ## Features
 
@@ -38,18 +33,11 @@ Use one of these three methods to install the plugin:
     -   Disable/enable comments per page
 -   Disable comments after a certain number of days in relation to the publish date
 -   Reply to comments
--   Verified badge for logged in users
+-   Verified users
 -   Automatically publish comments of verified users
 -   Automatically publish comments of specified users
 -   E-Mail notifications for new comments (instant or via cronjob)
 
 ---
 
-## Roadmap
-
--   [ ] Reply from within panel
--   [ ] Comments list on panel page level
--   [ ] Login via IndieAuth, Mastodon, GitHub
--   [ ] Up- Down-Vote comments
-
-Please use the [IndieConnector Plugin](https://github.com/mauricerenck/indieConnector) in addition to send webmentions
+Please use the [IndieConnector Plugin](https://github.com/mauricerenck/indieConnector) to receive and send webmentions

@@ -24,7 +24,7 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
     public static $prefixDirsPsr4 = array (
         'mauricerenck\\Komments\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/utils',
+            0 => __DIR__ . '/../..' . '/lib',
         ),
         'Kirby\\' => 
         array (
@@ -50,14 +50,20 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         'Kirby\\ComposerInstaller\\Installer' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Installer.php',
         'Kirby\\ComposerInstaller\\Plugin' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
         'Kirby\\ComposerInstaller\\PluginInstaller' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
-        'mauricerenck\\Komments\\KommentBaseUtils' => __DIR__ . '/../..' . '/utils/base.php',
-        'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/utils/moderation.php',
-        'mauricerenck\\Komments\\KommentNotificationUtils' => __DIR__ . '/../..' . '/utils/notifications.php',
-        'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/utils/receiveKomment.php',
-        'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/utils/Frontend.php',
-        'mauricerenck\\Komments\\MastodonSender' => __DIR__ . '/../..' . '/utils/sendMastodon.php',
-        'mauricerenck\\Komments\\TestCaseMocked' => __DIR__ . '/../..' . '/utils/TestCaseMocked.php',
-        'mauricerenck\\Komments\\WebmentionSender' => __DIR__ . '/../..' . '/utils/sendWebmention.php',
+        'mauricerenck\\Komments\\DatabaseAbstraction' => __DIR__ . '/../..' . '/lib/DatabaseAbstraction.php',
+        'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/lib/KommentModeration.php',
+        'mauricerenck\\Komments\\KommentNotifications' => __DIR__ . '/../..' . '/lib/KommentNotifications.php',
+        'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/lib/KommentReceiver.php',
+        'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/lib/KommentsFrontend.php',
+        'mauricerenck\\Komments\\MarkdownConverter' => __DIR__ . '/../..' . '/lib/MarkdownConverter.php',
+        'mauricerenck\\Komments\\Migrations' => __DIR__ . '/../..' . '/lib/Migrations.php',
+        'mauricerenck\\Komments\\Storage' => __DIR__ . '/../..' . '/lib/Storage.php',
+        'mauricerenck\\Komments\\StorageFactory' => __DIR__ . '/../..' . '/lib/StorageFactory.php',
+        'mauricerenck\\Komments\\StorageMarkdown' => __DIR__ . '/../..' . '/lib/StorageMarkdown.php',
+        'mauricerenck\\Komments\\StoragePhpunit' => __DIR__ . '/../..' . '/lib/StoragePhpunit.php',
+        'mauricerenck\\Komments\\StorageSqlite' => __DIR__ . '/../..' . '/lib/StorageSqlite.php',
+        'mauricerenck\\Komments\\TestCaseMocked' => __DIR__ . '/../..' . '/lib/TestCaseMocked.php',
+        'mauricerenck\\Komments\\WebmentionReceiver' => __DIR__ . '/../..' . '/lib/WebmentionReceiver.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

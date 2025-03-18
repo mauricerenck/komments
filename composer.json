@@ -13,10 +13,10 @@
     ],
     "autoload": {
         "psr-4": {
-            "mauricerenck\\Komments\\": "utils/"
+            "mauricerenck\\Komments\\": "lib/"
         },
         "classmap": [
-            "utils"
+            "lib"
         ]
     },
     "require-dev": {

@@ -36,3 +36,6 @@
 /kirby
 /site/cache
 /~
+/.sqlite
+/.ddev
+/komments.zip
