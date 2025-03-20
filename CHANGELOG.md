@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/mauricerenck/komments/compare/v3.0.0...v3.0.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* single language handling in form ([132050c](https://github.com/mauricerenck/komments/commit/132050c93ff343988427aafd69d66be422d4ff8c))
+
 # [3.0.0](https://github.com/mauricerenck/komments/compare/v2.1.2...v3.0.0) (2025-03-18)
 
 
