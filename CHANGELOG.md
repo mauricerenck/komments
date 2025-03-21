@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/mauricerenck/komments/compare/v3.0.1...v3.0.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* use textare field to avoid html content in replis ([ba5188a](https://github.com/mauricerenck/komments/commit/ba5188a54f1f7c7544c3410696355f9c17dda078))
+
 ## [3.0.1](https://github.com/mauricerenck/komments/compare/v3.0.0...v3.0.1) (2025-03-20)
 
 
