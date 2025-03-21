@@ -25,7 +25,7 @@
 
         <CommentContent :spamlevel="comment.spamlevel" :content="comment.content" />
 
-        <k-writer-field
+        <k-textarea-field
             :autofocus="true"
             :label="`Reply to ${comment.authorname}`"
             :value="content"
