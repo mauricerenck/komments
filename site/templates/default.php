@@ -7,12 +7,7 @@
 <body>
   <div style="max-width: 500px; margin: 0 auto;">
 
-    <pre>
-      <?php
-      $migration = new mauricerenck\Komments\Migrations();
-      // $migration->convertCommentsFromMarkdownToSqlite();
-      ?>
-    </pre>
+    <h1><?= $page->title() ?></h1>
     <h2>FIELDS</h2>
     <ul>
       <li>comments are enabled: <?php var_dump($page->commentsAreEnabled()) ?></li>
