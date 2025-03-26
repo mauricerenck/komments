@@ -108,8 +108,7 @@ class KommentReceiver
         }
 
         if (V::email($email)) {
-            $mailHash = md5($email);
-            return 'https://www.gravatar.com/avatar/' . $mailHash;
+            return $email;
         }
 
         return null;
