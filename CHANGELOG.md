@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/mauricerenck/komments/compare/v3.0.2...v3.0.3) (2025-03-26)
+
+
+### Bug Fixes
+
+* gravatar link is saved instead of the e-mail address ([#71](https://github.com/mauricerenck/komments/issues/71)) ([2a42356](https://github.com/mauricerenck/komments/commit/2a42356cc5991daf85ed3b71d3b71694b082a91f))
+
 ## [3.0.2](https://github.com/mauricerenck/komments/compare/v3.0.1...v3.0.2) (2025-03-21)
 
 
