@@ -13,7 +13,7 @@ return [
         'action' => function () {
             $headers = kirby()->request()->headers();
             $formData = kirby()->request()->data();
-            $shouldReturnJson = ($headers['X-Return-Type'] === 'json');
+            $shouldReturnJson = (array_key_exists('X-Return-Type', $headers) && $headers['X-Return-Type'] === 'json');
 
             $page = page($formData['pageUuid']);
 
