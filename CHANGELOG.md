@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/mauricerenck/komments/compare/v3.0.4...v3.1.0) (2025-04-04)
+
+
+### Features
+
+* reply via webmention ([#74](https://github.com/mauricerenck/komments/issues/74)) ([4f634a0](https://github.com/mauricerenck/komments/commit/4f634a0bc1814db5472e2079b302766eb39cd85a))
+
 ## [3.0.4](https://github.com/mauricerenck/komments/compare/v3.0.3...v3.0.4) (2025-04-04)
 
 
