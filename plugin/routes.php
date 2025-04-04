@@ -5,6 +5,7 @@ namespace mauricerenck\Komments;
 use Kirby\Http\Response;
 use Kirby\Toolkit\I18n;
 use Kirby\Uuid\Uuid;
+use Kirby\Cms\Page;
 
 return [
     [
@@ -110,6 +111,32 @@ return [
         'action' => function ($id) {
             $storage = StorageFactory::create();
             $comment = $storage->getSingleComment($id);
+
+            if (!$comment) {
+                return new Response('Not Found', 'text/plain', 404);
+            }
+
+            $page = page($comment->pageUuid());
+
+            if (!$page) {
+                return new Response('Not Found', 'text/plain', 404);
+            }
+
+            if (option('mauricerenck.komments.webmentions.sendReplies', false)) {
+                return new Page([
+                    'slug' => '@/comment/' . $id,
+                    'template' => 'komment-response',
+                    'content' => [
+                        'title' => $page->title(),
+                        'text'  => $comment->content(),
+                        'inReplyTo' => $comment->parentId(),
+                        'authorUrl' => $comment->authorUrl(),
+                        'authorName' => $comment->authorName(),
+                        'authorAvatar' => $comment->authorAvatar(),
+                        'commentLink' => '/@/comment/' . $id
+                    ]
+                ]);
+            }
 
             go($comment->pageUuid() . '#c' . $comment->id());
         }

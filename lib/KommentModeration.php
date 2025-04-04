@@ -102,7 +102,8 @@ class KommentModeration
         return [
             'created' => $saveResult,
             'published' => $publishResult,
-            'newComment' => $newComment->toArray()
+            'newComment' => $newComment->toArray(),
+            'inReplyTo' => $comment->toArray(),
         ];
     }
 

@@ -33,6 +33,21 @@ return [
 
                 $kommentModeration = new KommentModeration();
                 $result = $kommentModeration->replyToComment($id, $formData);
+
+                if (option('mauricerenck.komments.webmentions.sendReplies', false)) {
+                    if ($result['created'] === true && $result['inReplyTo']['type'] !== 'comment') {
+                        $page = page($result['newComment']['pageuuid']);
+
+                        if ($page !== null) {
+                            kirby()->trigger('indieConnector.webmention.send', [
+                                'page' => $page,
+                                'targetUrl' => $result['inReplyTo']['authorurl'],
+                                'sourceUrl' => site()->url('') . '/@/comment/' . $result['newComment']['id'],
+                            ]);
+                        }
+                    }
+                }
+
                 return new Response(json_encode($result), 'application/json');
             },
         ],
