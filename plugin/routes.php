@@ -125,7 +125,7 @@ return [
             if (option('mauricerenck.komments.webmentions.sendReplies', false)) {
                 return new Page([
                     'slug' => '@/comment/' . $id,
-                    'template' => 'response',
+                    'template' => 'komment-response',
                     'content' => [
                         'title' => $page->title(),
                         'text'  => $comment->content(),
