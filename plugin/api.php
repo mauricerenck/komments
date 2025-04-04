@@ -35,7 +35,7 @@ return [
                 $result = $kommentModeration->replyToComment($id, $formData);
 
                 if (option('mauricerenck.komments.webmentions.sendReplies', false)) {
-                    if ($result['created'] === true) {
+                    if ($result['created'] === true && $result['inReplyTo']['type'] !== 'comment') {
                         $page = page($result['newComment']['pageuuid']);
 
                         if ($page !== null) {
