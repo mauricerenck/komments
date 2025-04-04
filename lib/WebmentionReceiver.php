@@ -18,13 +18,15 @@ class WebmentionReceiver
         $autoPublish = option('mauricerenck.komments.webmentions.publish', true);
         $spamlevel = 0;
 
+        $webmentionHost = parse_url($webmention['source'], PHP_URL_HOST);
+
         $comment = $storage->createComment(
             id: $id,
             pageUuid: $page->uuid(),
             parentId: '',
             type: $webmention['type'],
             content: $webmention['content'],
-            authorName: $webmention['author']['name'] ?? 'unknown',
+            authorName: $webmention['author']['name'] ?? $webmentionHost,
             authorAvatar: $webmention['author']['avatar'] ?? '',
             authorEmail: null,
             authorUrl: $webmention['source'],
