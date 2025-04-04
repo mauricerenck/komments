@@ -42,7 +42,7 @@ return [
                             kirby()->trigger('indieConnector.webmention.send', [
                                 'page' => $page,
                                 'targetUrl' => $result['inReplyTo']['authorurl'],
-                                'sourceUrl' => site()->url('') . '/@/comment/' . $result['inReplyTo']['id'],
+                                'sourceUrl' => site()->url('') . '/@/comment/' . $result['newComment']['id'],
                             ]);
                         }
                     }
