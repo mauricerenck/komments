@@ -22,7 +22,9 @@ if (!$parentComment) {
         <article class="h-entry">
             <h1 class="p-name"><?= $page->title() ?></h1>
 
-            <p class="p-summary"><?= Str::short($page->text()->kt(), 200); ?></p>
+            <div class="p-summary">
+                <p><?= Str::short($page->text()->kt(), 200); ?></p>
+            </div>
             <p class="e-content"><?= $page->text()->kt(); ?></p>
             <a class="u-url" href="<?= $page->commentLink() ?>">Permalink</a>
 
