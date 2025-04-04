@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/mauricerenck/komments/compare/v3.0.3...v3.0.4) (2025-04-04)
+
+
+### Bug Fixes
+
+* use hostname as author of webmentions when not author name present ([9655e20](https://github.com/mauricerenck/komments/commit/9655e2085e88c30075f6fc2107f0e7c1415a64b3))
+
 ## [3.0.3](https://github.com/mauricerenck/komments/compare/v3.0.2...v3.0.3) (2025-03-26)
 
 
