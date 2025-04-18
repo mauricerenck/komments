@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/mauricerenck/komments/compare/v3.1.0...v3.1.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* check if the x-return-type header is in request header ([#72](https://github.com/mauricerenck/komments/issues/72)) ([2131b85](https://github.com/mauricerenck/komments/commit/2131b853ee01c1feabcdb52f5c9d5ab51d687658))
+
 # [3.1.0](https://github.com/mauricerenck/komments/compare/v3.0.4...v3.1.0) (2025-04-04)
 
 
