@@ -9,9 +9,10 @@ use Kirby\Http\Remote;
 class KommentReceiver
 {
 
-    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null)
+    public function __construct(private null|array|\Closure $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null)
     {
-        $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
+        $autoPublishOption = option('mauricerenck.komments.moderation.autoPublish', []);
+        $this->autoPublish = $autoPublish ?? is_callable($autoPublishOption) ? $autoPublishOption() : $autoPublishOption;
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
         $this->akismet = $akismet ?? option('mauricerenck.komments.spam.akismet', false);
         $this->akismetApiKey = $akismetApiKey ?? option('mauricerenck.komments.spam.akismet_api_key', '');
