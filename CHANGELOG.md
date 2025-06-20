@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/mauricerenck/komments/compare/v3.1.1...v3.2.0) (2025-06-20)
+
+
+### Features
+
+* use different avatar services ([4609a43](https://github.com/mauricerenck/komments/commit/4609a4338d5805b8b7218ff0081fee624d027c51))
+
 ## [3.1.1](https://github.com/mauricerenck/komments/compare/v3.1.0...v3.1.1) (2025-04-18)
 
 
