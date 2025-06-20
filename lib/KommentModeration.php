@@ -36,6 +36,9 @@ class KommentModeration
         $comment = $this->storage->getSingleComment($id);
         $newStatus = $comment->published()->isTrue() ? false : true;
         $result = $this->storage->updateComment($id, ['published' => $newStatus]);
+
+        kirby()->trigger('komments.comment.published', ['comment' => $comment]);
+
         return $result ? $newStatus : $comment->published();
     }
 
@@ -98,6 +101,8 @@ class KommentModeration
         );
 
         $saveResult = $this->storage->saveComment($newComment);
+
+        kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
 
         return [
             'created' => $saveResult,

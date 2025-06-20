@@ -77,7 +77,11 @@ return [
 
             $storage->saveComment($comment);
 
-            kirby()->trigger('komments.comment.received', []);
+            kirby()->trigger('komments.comment.received', ['comment' => $comment]);
+
+            if ($comment->parentId()->isNotEmpty()) {
+                kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
+            }
 
             if ($shouldReturnJson) {
                 $response = [
