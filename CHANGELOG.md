@@ -1,3 +1,15 @@
+# [3.3.0](https://github.com/mauricerenck/komments/compare/v3.2.3...v3.3.0) (2025-06-20)
+
+
+### Bug Fixes
+
+* hand empty string secrets ([91ac5b0](https://github.com/mauricerenck/komments/commit/91ac5b0a1fa82bddb4cb9fe7cf546db2d9617f5d))
+
+
+### Features
+
+* new moderation hooks [#76](https://github.com/mauricerenck/komments/issues/76) ([7d7e355](https://github.com/mauricerenck/komments/commit/7d7e3558fedd1a11f945b40e3ab7f9c9a020cbd8))
+
 ## [3.2.3](https://github.com/mauricerenck/komments/compare/v3.2.2...v3.2.3) (2025-06-20)
 
 
