@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/mauricerenck/komments/compare/v3.2.1...v3.2.2) (2025-06-20)
+
+
+### Bug Fixes
+
+* allow different return types ([5fe9e44](https://github.com/mauricerenck/komments/commit/5fe9e4458830646a045bf375657953f746d72c11))
+
 ## [3.2.1](https://github.com/mauricerenck/komments/compare/v3.2.0...v3.2.1) (2025-06-20)
 
 
