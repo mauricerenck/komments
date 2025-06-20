@@ -5,9 +5,9 @@ namespace mauricerenck\Komments;
 class AvatarHandler
 {
 
-    public function __construct(private ?string $avatarReturnSvg = null, private ?string $avatarService = null)
+    public function __construct(private ?string $avatarReturnType = null, private ?string $avatarService = null)
     {
-        $this->avatarReturnSvg = $avatarReturnSvg ?? option('mauricerenck.komments.avatar.svg', true);
+        $this->avatarReturnType = $avatarReturnType ?? option('mauricerenck.komments.avatar.returnType', 'img');
         $this->avatarService = $avatarService ?? option('mauricerenck.komments.avatar.service', 'gravatar');
     }
 
@@ -15,7 +15,11 @@ class AvatarHandler
     {
         $avatarString = $this->getAvatarByType($authorGravatar, $authorName);
 
-        if ($this->avatarService !== 'gravatar' && $this->avatarReturnSvg) {
+        if ($this->avatarService !== 'gravatar' && $this->avatarReturnType === 'svg') {
+            return $avatarString;
+        }
+
+        if ($this->avatarReturnType === 'url') {
             return $avatarString;
         }
 
@@ -30,7 +34,7 @@ class AvatarHandler
             return $authorGravatar;
         }
 
-        if ($this->avatarReturnSvg) {
+        if ($this->avatarReturnType) {
             return $this->author_initials_svg_data_uri($authorName)['svg'];
         }
 
