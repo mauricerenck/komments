@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/mauricerenck/komments/compare/v3.2.0...v3.2.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* reset default avatar service to gravatar ([3b042e6](https://github.com/mauricerenck/komments/commit/3b042e60fc6deb9dda072c48f2678076ce6f43c3))
+
 # [3.2.0](https://github.com/mauricerenck/komments/compare/v3.1.1...v3.2.0) (2025-06-20)
 
 
