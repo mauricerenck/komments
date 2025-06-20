@@ -1,3 +1,10 @@
+## [3.2.3](https://github.com/mauricerenck/komments/compare/v3.2.2...v3.2.3) (2025-06-20)
+
+
+### Bug Fixes
+
+* allow different outputs for better backwards compatibility ([47856c5](https://github.com/mauricerenck/komments/commit/47856c5fb51362e3549e8c1fadf6296ed9c80d7a))
+
 ## [3.2.2](https://github.com/mauricerenck/komments/compare/v3.2.1...v3.2.2) (2025-06-20)
 
 
