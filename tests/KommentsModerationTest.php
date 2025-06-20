@@ -5,7 +5,7 @@ use mauricerenck\Komments\TestCaseMocked;
 
 final class KommentsModerationTest extends TestCaseMocked
 {
-    private $avatar = '<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="komment-avatar-initials"> <style> .author-initials-bg { fill: var(--author-bg, #1391a4); } .author-initials-text { fill: var(--author-text, #fff); font-family: var(--author-font-family, system-ui, sans-serif); font-size: var(--author-font-size, 40px); font-weight: var(--author-font-weight, bold); dominant-baseline: middle; text-anchor: middle; text-transform: uppercase; } </style> <rect class="author-initials-bg" width="100" height="100"/> <text x="50" y="55" class="author-initials-text" dominant-baseline="middle" text-anchor="middle" >AN</text> </svg>';
+    private $avatar = '<img class="u-photo" src="https://api.dicebear.com/9.x/pixel-art/png?seed=AuthorName" alt="Author Name" />';
 
     public function setUp(): void
     {

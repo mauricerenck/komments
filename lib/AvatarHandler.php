@@ -5,15 +5,16 @@ namespace mauricerenck\Komments;
 class AvatarHandler
 {
 
-    public function __construct(private ?string $avatarReturnType = null, private ?string $avatarService = null)
+    public function __construct(private ?string $avatarReturnType = null, private ?string $avatarService = null, private ?bool $webmentionAvatars = null)
     {
         $this->avatarReturnType = $avatarReturnType ?? option('mauricerenck.komments.avatar.returnType', 'img');
         $this->avatarService = $avatarService ?? option('mauricerenck.komments.avatar.service', 'gravatar');
+        $this->webmentionAvatars = $avatarService ?? option('mauricerenck.komments.avatar.webmentionAvatars', true);
     }
 
-    public function getAvatar(string $authorGravatar, string $authorName): ?string
+    public function getAvatar(string $authorAvatarUrl, string $authorName): ?string
     {
-        $avatarString = $this->getAvatarByType($authorGravatar, $authorName);
+        $avatarString = $this->getAvatarByType($authorAvatarUrl, $authorName);
 
         if ($this->avatarService !== 'gravatar' && $this->avatarReturnType === 'svg') {
             return $avatarString;
@@ -24,17 +25,23 @@ class AvatarHandler
         }
 
         return <<<HTMLTAG
-            <img class="u-photo" src="$avatarString" alt="$authorName" />
+        <img class="u-photo" src="$avatarString" alt="$authorName" />
         HTMLTAG;
     }
 
-    public function getAvatarByType(string $authorGravatar, string $authorName): ?string
+    public function getAvatarByType(string $authorAvatarUrl, string $authorName): ?string
     {
         if ($this->avatarService === 'gravatar') {
-            return $authorGravatar;
+            return $authorAvatarUrl;
         }
 
-        if ($this->avatarReturnType) {
+        if ($this->avatarService !== 'gravatar' && $this->webmentionAvatars) {
+            if (strpos($authorAvatarUrl, 'gravatar.com') === false) {
+                return $authorAvatarUrl;
+            }
+        }
+
+        if ($this->avatarReturnType === 'svg') {
             return $this->author_initials_svg_data_uri($authorName)['svg'];
         }
 
