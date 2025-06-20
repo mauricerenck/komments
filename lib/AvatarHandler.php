@@ -8,7 +8,7 @@ class AvatarHandler
     public function __construct(private ?string $avatarReturnSvg = null, private ?string $avatarService = null)
     {
         $this->avatarReturnSvg = $avatarReturnSvg ?? option('mauricerenck.komments.avatar.svg', true);
-        $this->avatarService = $avatarService ?? option('mauricerenck.komments.avatar.service', 'initials');
+        $this->avatarService = $avatarService ?? option('mauricerenck.komments.avatar.service', 'gravatar');
     }
 
     public function getAvatar(string $authorGravatar, string $authorName): ?string
