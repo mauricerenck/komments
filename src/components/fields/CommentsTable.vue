@@ -156,7 +156,7 @@ export default {
                 const newComment = {
                     id: comment.id,
                     pageTitle: `<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`,
-                    author: `<span class="author-entry"><img src="${comment.authoravatar}" width="30px" height="30px" />${comment.authorname}</span>`,
+                    author: `<span class="author-entry">${comment.authoravatar} ${comment.authorname}</span>`,
                     content: content,
                     updatedAt: publishDate,
                     type: this.tableIcon(typeIcons[comment.type], '--color-blue-700', comment.type),
@@ -287,6 +287,13 @@ export default {
         align-items: center;
         color: var(--color-black);
         text-decoration: none;
+
+        svg,
+        img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+        }
     }
 
     .center-icon {

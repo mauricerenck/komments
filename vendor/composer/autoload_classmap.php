@@ -13,6 +13,7 @@ return array(
     'Kirby\\ComposerInstaller\\Installer' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/Installer.php',
     'Kirby\\ComposerInstaller\\Plugin' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
     'Kirby\\ComposerInstaller\\PluginInstaller' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/PluginInstaller.php',
+    'mauricerenck\\Komments\\AvatarHandler' => $baseDir . '/lib/AvatarHandler.php',
     'mauricerenck\\Komments\\DatabaseAbstraction' => $baseDir . '/lib/DatabaseAbstraction.php',
     'mauricerenck\\Komments\\KommentModeration' => $baseDir . '/lib/KommentModeration.php',
     'mauricerenck\\Komments\\KommentNotifications' => $baseDir . '/lib/KommentNotifications.php',

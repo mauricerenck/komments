@@ -1,17 +1,17 @@
 <?php
-    $classNames = ['u-comment', 'h-cite'];
-    $classNames[] = 'comment-type_' . $comment->type();
+$classNames = ['u-comment', 'h-cite'];
+$classNames[] = 'comment-type_' . $comment->type();
 
-    if ($comment->verified()->isTrue()) {
-        $classNames[] = 'verified';
-    }
+if ($comment->verified()->isTrue()) {
+    $classNames[] = 'verified';
+}
 ?>
 <li class="<?= implode(' ', $classNames); ?>" id="c<?= $comment->id(); ?>">
     <?php if ($header = $slots->header()): ?>
         <?= $header ?>
     <?php else: ?>
         <header class="h-card">
-            <img class="u-photo" src="<?= $comment->authorAvatar(); ?>" alt="<?= $comment->authorName(); ?>"/>
+            <?= $comment->authorAvatar(); ?>
             <?php if ($comment->authorUrl()->isNotEmpty()): ?>
                 <a class="u-author" href="<?= $comment->authorUrl(); ?>" rel="nofollow" target="_blank"><?= $comment->authorName(); ?></a>
             <?php else: ?>

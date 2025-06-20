@@ -7,7 +7,8 @@ use Kirby\Content\Content;
 use Kirby\Toolkit\Obj;
 use Kirby\Toolkit\Collection;
 
-class Storage {
+class Storage
+{
 
     public function __construct() {}
 
@@ -49,6 +50,9 @@ class Storage {
         string | null $updatedAt
     ): Content {
 
+        $avatarHandler = new AvatarHandler();
+        $avatar = $avatarHandler->getAvatar($authorAvatar, $authorName);
+
         return new Content([
             'id' => $id,
             'pageUuid' => $pageUuid,
@@ -56,7 +60,7 @@ class Storage {
             'type' => $type,
             'content' => $content,
             'authorName' => $authorName,
-            'authorAvatar' => $authorAvatar,
+            'authorAvatar' => $avatar,
             'authorEmail' => $authorEmail,
             'authorUrl' => $authorUrl,
             'published' => $published,

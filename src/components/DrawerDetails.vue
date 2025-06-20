@@ -60,7 +60,7 @@
                     </tr>
                     <tr>
                         <th data-mobile="true">Avatar</th>
-                        <td data-mobile="true">{{ comment.authoravatar }}</td>
+                        <td data-mobile="true" v-html="comment.authoravatar"></td>
                     </tr>
                     <tr>
                         <th data-mobile="true">Email</th>
