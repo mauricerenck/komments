@@ -99,7 +99,7 @@ return [
         'pattern' => 'komments/cron/notification/(:any)',
         'method' => 'GET',
         'action' => function ($secret) {
-            if (option('mauricerenck.komments.notifications.cronSecret', '') === $secret) {
+            if (option('mauricerenck.komments.notifications.cronSecret', '') === $secret && $secret !== '') {
                 $notifications = new KommentNotifications();
                 $notifications->sendNotifications();
 
