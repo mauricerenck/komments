@@ -154,10 +154,14 @@ class StorageMarkdown extends Storage
      */
     public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
     {
+        $avatarHandler = new AvatarHandler();
+
         $comments = [];
         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
         foreach ($databaseResults as $databaseResult) {
+            $avatar = $avatarHandler->getAvatar($databaseResult->author_avatar, $databaseResult->author_name);
+
             $comment = $this->createComment(
                 id: $databaseResult->id,
                 pageUuid: $databaseResult->page_uuid,
@@ -165,7 +169,7 @@ class StorageMarkdown extends Storage
                 type: $databaseResult->type,
                 content: $databaseResult->content,
                 authorName: $databaseResult->author_name,
-                authorAvatar: $databaseResult->author_avatar,
+                authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
                 published: $databaseResult->published,

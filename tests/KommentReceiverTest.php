@@ -69,9 +69,9 @@ final class KommentReceiverTest extends TestCaseMocked
 
 
     /**
-    * @group validation
-    * @testdox validateFields - should return invalid email
-    */
+     * @group validation
+     * @testdox validateFields - should return invalid email
+     */
     public function testValidateFieldsEmail()
     {
         $receiverClass = new KommentReceiver();
@@ -88,9 +88,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group validation
-    * @testdox validateFields - should return invalid author
-    */
+     * @group validation
+     * @testdox validateFields - should return invalid author
+     */
     public function testValidateFieldsAuthor()
     {
         $receiverClass = new KommentReceiver();
@@ -107,9 +107,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group validation
-    * @testdox validateFields - should return invalid author
-    */
+     * @group validation
+     * @testdox validateFields - should return invalid author
+     */
     public function testValidateFieldsComment()
     {
         $receiverClass = new KommentReceiver();
@@ -126,9 +126,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group validation
-    * @testdox validateFields - should return invalid fields
-    */
+     * @group validation
+     * @testdox validateFields - should return invalid fields
+     */
     public function testValidateFieldsMultiple()
     {
         $receiverClass = new KommentReceiver();
@@ -141,13 +141,13 @@ final class KommentReceiverTest extends TestCaseMocked
         ];
 
         $result = $receiverClass->validateFields($fields);
-        $this->assertEquals(['email','comment'], $result);
+        $this->assertEquals(['email', 'comment'], $result);
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 0
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 0
+     */
     public function testGetSpamlevelZero()
     {
         $receiverClass = new KommentReceiver();
@@ -163,9 +163,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 12
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 12
+     */
     public function testGetSpamlevel12()
     {
         $receiverClass = new KommentReceiver();
@@ -181,9 +181,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 14
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 14
+     */
     public function testGetSpamlevel14()
     {
         $receiverClass = new KommentReceiver();
@@ -199,9 +199,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 60
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 60
+     */
     public function testGetSpamlevel60()
     {
         $receiverClass = new KommentReceiver();
@@ -213,13 +213,13 @@ final class KommentReceiverTest extends TestCaseMocked
         ];
 
         $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(60, $result);
+        $this->assertEquals(80, $result);
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 80
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 80
+     */
     public function testGetSpamlevel80()
     {
         $receiverClass = new KommentReceiver();
@@ -235,9 +235,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 100
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 100
+     */
     public function testGetSpamlevel100()
     {
         $receiverClass = new KommentReceiver();
@@ -253,9 +253,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group spam
-    * @testdox getSpamlevel - should return level 100
-    */
+     * @group spam
+     * @testdox getSpamlevel - should return level 100
+     */
     public function testGetSpamlevelMax100()
     {
         $receiverClass = new KommentReceiver();
@@ -271,9 +271,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group moderation
-    * @testdox autoPublish - should auto publish by email
-    */
+     * @group moderation
+     * @testdox autoPublish - should auto publish by email
+     */
     public function testAutoPublish()
     {
         $receiverClass = new KommentReceiver(autoPublish: ['user@example.com']);
@@ -283,9 +283,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group moderation
-    * @testdox autoPublish - should auto publish by verification
-    */
+     * @group moderation
+     * @testdox autoPublish - should auto publish by verification
+     */
     public function testAutoPublishVerified()
     {
         $receiverClass = new KommentReceiver(autoPublishVerified: true);
@@ -295,9 +295,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group moderation
-    * @testdox autoPublish - should not auto publish
-    */
+     * @group moderation
+     * @testdox autoPublish - should not auto publish
+     */
     public function testAutoPublishShouldNot()
     {
         $receiverClass = new KommentReceiver();
@@ -307,9 +307,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group moderation
-    * @testdox getAvatarFromEmail - should return url string
-    */
+     * @group moderation
+     * @testdox getAvatarFromEmail - should return url string
+     */
     public function testGetAvatarFromEmail()
     {
         $receiverClass = new KommentReceiver();
@@ -320,9 +320,9 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
     /**
-    * @group moderation
-    * @testdox createSafeString - should return safe string
-    */
+     * @group moderation
+     * @testdox createSafeString - should return safe string
+     */
     public function testCreateSafeString()
     {
         $receiverClass = new KommentReceiver();

@@ -49,10 +49,6 @@ class Storage
         string $createdAt,
         string | null $updatedAt
     ): Content {
-
-        $avatarHandler = new AvatarHandler();
-        $avatar = $avatarHandler->getAvatar($authorAvatar, $authorName);
-
         return new Content([
             'id' => $id,
             'pageUuid' => $pageUuid,
@@ -60,7 +56,7 @@ class Storage
             'type' => $type,
             'content' => $content,
             'authorName' => $authorName,
-            'authorAvatar' => $avatar,
+            'authorAvatar' => $authorAvatar,
             'authorEmail' => $authorEmail,
             'authorUrl' => $authorUrl,
             'published' => $published,

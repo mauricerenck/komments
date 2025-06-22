@@ -5,7 +5,7 @@ use mauricerenck\Komments\TestCaseMocked;
 
 final class KommentsModerationTest extends TestCaseMocked
 {
-    private $avatar = '<img class="u-photo" src="https://api.dicebear.com/9.x/pixel-art/png?seed=AuthorName" alt="Author Name" />';
+    private $avatar = 'https://api.dicebear.com/9.x/pixel-art/png?seed=AuthorName';
 
     public function setUp(): void
     {
