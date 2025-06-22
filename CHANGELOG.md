@@ -1,3 +1,11 @@
+## [3.3.1](https://github.com/mauricerenck/komments/compare/v3.3.0...v3.3.1) (2025-06-22)
+
+
+### Bug Fixes
+
+* avatar return string prevented saving comments in some cases ([f14a03f](https://github.com/mauricerenck/komments/commit/f14a03f329a72a7d89991d71800e7c25b2e3df0d))
+* prevent malicious chars in comment text ([01d0ca4](https://github.com/mauricerenck/komments/commit/01d0ca49329bf8a4be3be3332553d818c9d42d32))
+
 # [3.3.0](https://github.com/mauricerenck/komments/compare/v3.2.3...v3.3.0) (2025-06-20)
 
 
