@@ -67,9 +67,26 @@ class KommentReceiver
             $spamlevel += 60;
         }
 
-        $spamlevel += $this->akismetCheck($fields, $page);;
+        // detect sanitation
+        $comment = $this->sanitize_string($fields['comment']);
+        if ($comment !== $fields['comment']) {
+            $spamlevel += 20;
+        }
+
+        $spamlevel += $this->akismetCheck($fields, $page);
 
         return $spamlevel > 100 ? 100 : $spamlevel;
+    }
+
+    public function sanitize_string($comment)
+    {
+        // Remove non-printable characters
+        $comment = preg_replace('/[^\P{C}\n]+/u', '', $comment);
+        // Convert special characters to HTML entities
+        $comment = htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');
+        // Trim whitespace
+        $comment = trim($comment);
+        return $comment;
     }
 
     public function isVerified(): bool
@@ -116,7 +133,7 @@ class KommentReceiver
 
     public function createSafeString(string $fieldValue): string
     {
-        return Str::unhtml($fieldValue);
+        return $this->sanitize_string(Str::unhtml($fieldValue));
     }
 
     public function akismetCheck(array $fields, $page): int
