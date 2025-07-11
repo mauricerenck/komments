@@ -20,6 +20,14 @@ class WebmentionReceiver
 
         $webmentionHost = parse_url($webmention['source'], PHP_URL_HOST);
 
+        if ($comments = $storage->getCommentsOfPage($page->uuid()->toString())) {
+            $comment = $comments->filterBy('authorUrl', $webmention['source'])->filterBy('type', $webmention['type']);
+
+            if ($comment->count() > 0) {
+                return $comment->first();
+            }
+        }
+
         $comment = $storage->createComment(
             id: $id,
             pageUuid: $page->uuid(),
