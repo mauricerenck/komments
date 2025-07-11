@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/mauricerenck/komments/compare/v3.3.1...v3.4.0) (2025-07-11)
+
+
+### Features
+
+* detect duplicated webmentions and dont store them again ([3593d11](https://github.com/mauricerenck/komments/commit/3593d11100036e89d7394917a8d2573804b7dc1a))
+
 ## [3.3.1](https://github.com/mauricerenck/komments/compare/v3.3.0...v3.3.1) (2025-06-22)
 
 
