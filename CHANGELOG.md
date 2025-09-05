@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/mauricerenck/komments/compare/v3.4.0...v3.5.0) (2025-09-05)
+
+
+### Features
+
+* Enriched Notifications ([e991980](https://github.com/mauricerenck/komments/commit/e9919809f9964714efad767bfa573d4a492fb5b5)), closes [#78](https://github.com/mauricerenck/komments/issues/78) [#78](https://github.com/mauricerenck/komments/issues/78) [#75](https://github.com/mauricerenck/komments/issues/75)
+
 # [3.4.0](https://github.com/mauricerenck/komments/compare/v3.3.1...v3.4.0) (2025-07-11)
 
 
