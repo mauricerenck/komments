@@ -2,7 +2,7 @@
 
 return [
     'debug' => true,
-    'languages' => true,
+    'languages' => false,
 
     'email' => [
         'transport' => [
@@ -12,14 +12,13 @@ return [
             'security' => false
         ]
     ],
-    'mauricerenck.komments.notifications.email.enable' => true,
-    'mauricerenck.komments.notifications.email.sender' => 'test@domain.tld',
-    'mauricerenck.komments.notifications.email.emailReceiverList' => ['test@domain.tld'],
     'mauricerenck' => [
         'komments' => [
+            'debug' => true,
             'migrations' => [
                 'comments' => false,
             ],
+            'webmentions.sendReplies' => true,
             'auto-publish-verified' => true,
             'auto-delete-spam' => false,
             'autoDisable.ttl' => 0,
@@ -27,8 +26,9 @@ return [
                 'storeEmail' => false,
             ],
             'notifications' => [
+                'skipSpam' => false,
                 'email' => [
-                    'enable' => false,
+                    'enable' => true,
                     'sender' => 'test@domain.tld',
                     'emailReceiverList' => ['test@domain.tld'],
                 ]
@@ -46,6 +46,11 @@ return [
             'spam' => [
                 'delete' => false,
             ],
+            'avatar' => [
+                'service' => 'initials',
+                'size' => 64,
+            ]
+
         ]
     ]
 ];
