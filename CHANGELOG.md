@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/mauricerenck/komments/compare/v3.5.0...v3.6.0) (2025-10-08)
+
+
+### Features
+
+* spam phrases and keywords ([cfa7bb7](https://github.com/mauricerenck/komments/commit/cfa7bb7d156120acdbdf0152cee959eb4391803c))
+
 # [3.5.0](https://github.com/mauricerenck/komments/compare/v3.4.0...v3.5.0) (2025-09-05)
 
 
