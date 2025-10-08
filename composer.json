@@ -20,7 +20,7 @@
         ]
     },
     "require-dev": {
-        "getkirby/cms": "^4",
+        "getkirby/cms": "^5",
         "phpunit/phpunit": "^9.5.",
         "mockery/mockery": "^1.6"
     },
@@ -31,7 +31,7 @@
         "ext-json": "*"
     },
     "suggests": {
-        "mauricerenck/indieconnector": "1.8"
+        "mauricerenck/indieconnector": "2"
     },
     "config": {
         "optimize-autoloader": true,

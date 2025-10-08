@@ -9,12 +9,14 @@ use Kirby\Http\Remote;
 class KommentReceiver
 {
 
-    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null)
+    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null, private ?array $spamKeywords = null, private ?array $spamPhrases = null)
     {
         $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
         $this->akismet = $akismet ?? option('mauricerenck.komments.spam.akismet', false);
         $this->akismetApiKey = $akismetApiKey ?? option('mauricerenck.komments.spam.akismet_api_key', '');
+        $this->spamKeywords = $spamKeywords ?? option('mauricerenck.komments.spam.keywords', []);
+        $this->spamPhrases = $spamPhrases ?? option('mauricerenck.komments.spam.phrases', []);
         $this->debug = $debug ?? option('mauricerenck.komments.debug', false);
     }
 
@@ -71,6 +73,20 @@ class KommentReceiver
         $comment = $this->sanitize_string($fields['comment']);
         if ($comment !== $fields['comment']) {
             $spamlevel += 20;
+        }
+
+        // detect spam keywords
+        foreach ($this->spamKeywords as $keyword) {
+            if (stripos($fields['comment'], $keyword) !== false) {
+                $spamlevel += 10;
+            }
+        }
+
+        // detect spam phrases
+        foreach ($this->spamPhrases as $phrase) {
+            if (stripos($fields['comment'], $phrase) !== false) {
+                $spamlevel += 15;
+            }
         }
 
         $spamlevel += $this->akismetCheck($fields, $page);
