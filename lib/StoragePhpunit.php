@@ -80,6 +80,7 @@ class StoragePhpunit extends Storage
                 authorAvatar: $databaseResult->author_avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
+                status: $databaseResult->status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
                 spamlevel: $databaseResult->spamlevel,
@@ -115,6 +116,7 @@ class StoragePhpunit extends Storage
             'authorEmail' => 'author@example.com',
             'authorUrl' => 'https://example.com',
             'published' => true,
+            'status' => 'PUBLISHED',
             'verified' => false,
             'spamlevel' => 0,
             'language' => null,
@@ -137,6 +139,7 @@ class StoragePhpunit extends Storage
             'author_email' => $comment['authorEmail'],
             'author_url' => $comment['authorUrl'],
             'published' => $comment['published'],
+            'status' => $comment['status'],
             'verified' => $comment['verified'],
             'spamlevel' => $comment['spamlevel'],
             'language' => $comment['language'],
@@ -159,4 +162,6 @@ class StoragePhpunit extends Storage
 
         return new Collection($comments);
     }
+
+    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool {}
 }

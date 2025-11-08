@@ -13,7 +13,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Reply elsewhere',
         'mauricerenck.komments.form.submit' => 'send',
         'mauricerenck.komments.form.privacy' =>
-            'By submitting your data, you agree that all entered data may be saved and displayed as a comment.',
+        'By submitting your data, you agree that all entered data may be saved and displayed as a comment.',
         'mauricerenck.komments.form.label.comment' => 'Comment',
         'mauricerenck.komments.form.label.email' => 'E-mail',
         'mauricerenck.komments.form.label.name' => 'Name',
@@ -29,6 +29,7 @@ return [
         'mauricerenck.komments.lookslikespam' => 'Your comment was rejected because it looks like spam.',
         'mauricerenck.komments.invalidfieldvalues' => 'Invalid field values', // used in the form validation
         'mauricerenck.komments.thankyou' => 'Thank you! Your comment is awaiting moderation.',
+        'mauricerenck.komments.verify' => 'Thank you! Please check your mails to verify your comment.',
         'mauricerenck.komments.sending' => 'Sending comment...',
     ],
     'de' => [
@@ -41,7 +42,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Woanders antworten',
         'mauricerenck.komments.form.submit' => 'Abschicken',
         'mauricerenck.komments.form.privacy' =>
-            'Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
+        'Mit dem Absenden stimmst du zu, dass die eingegebenen Daten gespeichert und in Form eines Kommentars dargestellt werden dürfen.',
         'mauricerenck.komments.form.label.comment' => 'Kommentar',
         'mauricerenck.komments.form.label.email' => 'E-Mail',
         'mauricerenck.komments.form.label.name' => 'Name',
@@ -57,6 +58,7 @@ return [
         'mauricerenck.komments.lookslikespam' => 'Dein Kommentar wurde als Spam eingestuft und abgelehnt.',
         'mauricerenck.komments.invalidfieldvalues' => 'Falsche Eingabewerte',
         'mauricerenck.komments.thankyou' => 'Danke. Dein Kommentar wartet auf seine Freischaltung.',
+        'mauricerenck.komments.verify' => 'Danke. Bitte schau in deine Mails, um deinen Kommentar zu bestätigen',
         'mauricerenck.komments.sending' => 'Kommentar wird gesendet...',
     ],
     'fr' => [
@@ -69,7 +71,7 @@ return [
         'mauricerenck.komments.externalReply' => 'Répondre ailleurs',
         'mauricerenck.komments.form.submit' => 'envoyer',
         'mauricerenck.komments.form.privacy' =>
-            'En soumettant vos données, vous acceptez que toutes les données saisies soient sauvegardées et affichées sous forme de commentaire.',
+        'En soumettant vos données, vous acceptez que toutes les données saisies soient sauvegardées et affichées sous forme de commentaire.',
         'mauricerenck.komments.form.label.kommentar' => 'Commentaire',
         'mauricerenck.komments.form.label.email' => 'E-mail',
         'mauricerenck.komments.form.label.name' => 'Nom',
@@ -81,11 +83,12 @@ return [
         'mauricerenck.komments.headline.comments' => 'Commentaires',
         'mauricerenck.komments.action.reply.text' => 'répondre',
         'mauricerenck.komments.pagenotfound' =>
-            'La page pour laquelle vous avez écrit un commentaire n’a pas pu être trouvée.',
+        'La page pour laquelle vous avez écrit un commentaire n’a pas pu être trouvée.',
         'mauricerenck.komments.error' => 'Erreur',
         'mauricerenck.komments.lookslikespam' => 'Votre commentaire a été rejeté parce qu’il ressemble à un spam.',
         'mauricerenck.komments.invalidfieldvalues' => 'Valeurs de champs non valides',
         'mauricerenck.komments.thankyou' => 'Merci ! Votre commentaire est en attente de modération.',
+        'mauricerenck.komments.verify' => 'Merci ! Veuillez vérifier votre boîte mail pour confirmer votre commentaire.',
         'mauricerenck.komments.sending' => 'Envoi du commentaire...',
     ],
 ];

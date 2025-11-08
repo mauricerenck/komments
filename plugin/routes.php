@@ -65,6 +65,7 @@ return [
                 authorAvatar: $receiver->getAvatarFromEmail($formData['email']),
                 authorEmail: $receiver->getEmail($formData['email']),
                 authorUrl: $receiver->createSafeString($formData['author_url']),
+                status: $autoPublish ? 'PUBLISHED' : 'PENDING',
                 published: $autoPublish,
                 verified: $verified,
                 spamlevel: $spamlevel,
@@ -77,6 +78,8 @@ return [
 
             $storage->saveComment($comment);
 
+            $receiver->sendVerificationMail(email: $receiver->getEmail($formData['email']), username: $receiver->createSafeString($formData['author']), commentId: $id);
+
             kirby()->trigger('komments.comment.received', ['comment' => $comment]);
 
             if ($comment->parentId()->isNotEmpty()) {
@@ -84,15 +87,51 @@ return [
             }
 
             if ($shouldReturnJson) {
+                $translationCode = option('mauricerenck.komments.spam.verification.enabled', false) ? 'mauricerenck.komments.verify' : 'mauricerenck.komments.thankyou';
                 $response = [
                     'status' => 'success',
-                    'message' => I18n::translate('mauricerenck.komments.thankyou', null, $formData['language']),
+                    'message' => I18n::translate($translationCode, null, $formData['language']),
                 ];
 
                 return new Response(json_encode($response), 'application/json', 200);
             }
 
             go($page->url());
+        }
+    ],
+    [
+        'pattern' => 'komments/verify-comment/(:any)',
+        'method' => 'GET',
+        'action' => function ($token) {
+            $verification = new CommentVerification();
+
+            if (!$verification->isVerificationEnabled()) {
+                return new Response('Not found!', 'text/plain', 404);
+            }
+
+            $result = $verification->verifyToken(token: $token);
+
+            if ($result === false) {
+                return new Response('Forbidden', 'text/plain', 401);
+            }
+
+            $home = page('home');
+            $data = [
+                'slug' => 'comment-verified',
+                'parent' => $home,
+                'template' => 'comment-verified',
+                'content' => [
+                    'title' => option('mauricerenck.komments.spam.verification.title', 'Thank you'),
+                    'commentId' => $result,
+                    'uuid' => Uuid::generate(),
+                ],
+            ];
+
+            $page = Page::factory($data);
+
+            site()->visit($page);
+
+            return $page;
         }
     ],
     [

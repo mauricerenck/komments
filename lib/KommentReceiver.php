@@ -9,8 +9,18 @@ use Kirby\Http\Remote;
 class KommentReceiver
 {
 
-    public function __construct(private ?array $autoPublish = null, private ?bool $autoPublishVerified = null, private ?bool $akismet = null, private ?string $akismetApiKey = null, private ?bool $debug = null, private ?array $spamKeywords = null, private ?array $spamPhrases = null)
-    {
+    public function __construct(
+        private ?array $autoPublish = null,
+        private ?bool $autoPublishVerified = null,
+        private ?bool $akismet = null,
+        private ?string $akismetApiKey = null,
+        private ?bool $debug = null,
+        private ?array $spamKeywords = null,
+        private ?array $spamPhrases = null,
+        private ?bool $verificationEnabled = null,
+        private ?bool $verificationTtl = null,
+        private ?bool $verificationSecret = null
+    ) {
         $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
         $this->akismet = $akismet ?? option('mauricerenck.komments.spam.akismet', false);
@@ -194,5 +204,33 @@ class KommentReceiver
         } catch (\Exception $e) {
             return 0;
         }
+    }
+
+    public function sendVerificationMail(string $email, string $username, string $commentId): void
+    {
+
+        $verification = new CommentVerification();
+        if (!$verification->isVerificationEnabled()) {
+            return;
+        }
+
+        $verificationUrl = $verification->getVerificationUrl(email: $email, commentId: $commentId);
+
+        if (!$verificationUrl) {
+            return;
+        }
+
+        kirby()->email([
+            'from' => option('mauricerenck.komments.notifications.email.sender'),
+            'to' => $email,
+            'subject' => 'Verify your Comment',
+            'template' => 'mailverification',
+            'data' => [
+                'username' => $username,
+                'commentId' => $commentId,
+                'expireHours' => option('mauricerenck.komments.spam.verification.ttl'),
+                'verificationUrl' => $verificationUrl,
+            ],
+        ]);
     }
 }

@@ -172,6 +172,7 @@ class StorageMarkdown extends Storage
                 authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
+                status: $databaseResult->status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
                 spamlevel: $databaseResult->spamlevel,
@@ -197,4 +198,6 @@ class StorageMarkdown extends Storage
             'kommentsInboxData' => $fieldData
         ]);
     }
+
+    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool {}
 }

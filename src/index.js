@@ -1,9 +1,9 @@
 import View from './components/View.vue'
 import DrawerDetails from './components/DrawerDetails.vue'
-import DrawerReply from './components/DrawerReply.vue'
 import TableIcon from './components/TableIcon.vue'
 import CommentContent from './components/fields/CommentContent.vue'
 import CommentsTable from './components/fields/CommentsTable.vue'
+import TokenTable from './components/fields/TokenTable.vue'
 import Converter from './components/fields/Converter.vue'
 
 panel.plugin('mauricerenck/komments', {
@@ -11,10 +11,10 @@ panel.plugin('mauricerenck/komments', {
         'k-komments-view': View,
         CommentContent: CommentContent,
         CommentsTable: CommentsTable,
+        TokenTable: TokenTable,
         Converter: Converter,
         TableIcon: TableIcon,
         'komments-detail-drawer': DrawerDetails,
-        'komments-reply-drawer': DrawerReply,
     },
     fields: {
         CommentsTable: CommentsTable,

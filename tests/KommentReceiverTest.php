@@ -330,4 +330,43 @@ final class KommentReceiverTest extends TestCaseMocked
         $result = $receiverClass->createSafeString('<strong>hello</strong>');
         $this->assertEquals('hello', $result);
     }
+
+    /**
+     * @group verification
+     * @testdox generateToken - returns token on success
+     */
+    // public function testGenerateTokenReturnsTokenOnSuccess()
+    // {
+    //     $receiver = new KommentReceiver(
+    //         verificationTtl: 1,
+    //         verificationSecret: 'secret'
+    //     );
+
+    //     $token = $receiver->generateToken('test@example.com', 'comment123');
+    //     $this->assertIsString($token);
+    //     $parts = explode('.', $token);
+    //     $this->assertCount(2, $parts);
+    //     $this->assertNotEmpty($parts[0]); // hash
+    //     $this->assertNotEmpty($parts[1]); // base64 timestamp
+    //     $this->assertEquals(base64_decode($parts[1]), time() + 1 * 60 * 60, '', 2); // allow small time drift
+    // }
+
+    /**
+     * @group verification
+     * @testdox generateToken - returns false on failure
+     */
+    // public function testGenerateTokenReturnsFalseOnStorageFailure()
+    // {
+    //     $storageMock = $this->createMock(StorageClass::class);
+    //     $storageMock->method('saveVerificationToken')->willReturn(false);
+    //     StorageFactory::$mock = $storageMock;
+
+    //     $receiver = new KommentReceiver(
+    //         verificationTtl: 1,
+    //         verificationSecret: 'secret'
+    //     );
+
+    //     $token = $receiver->generateToken('test@example.com', 'comment123');
+    //     $this->assertFalse($token);
+    // }
 }

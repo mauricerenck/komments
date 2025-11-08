@@ -23,7 +23,7 @@ return [
             'auto-delete-spam' => false,
             'autoDisable.ttl' => 0,
             'privacy' => [
-                'storeEmail' => false,
+                'storeEmail' => true,
             ],
             'notifications' => [
                 'skipSpam' => false,
@@ -45,6 +45,13 @@ return [
             ],
             'spam' => [
                 'delete' => false,
+                'verification' => [
+                    'enabled' => true,
+                    'ttl' => 1,
+                    'secret' => 'my-extremly-secure-secret',
+                    'autoPublish' => false,
+                    'deletionMode' => 'delete'
+                ],
             ],
             'avatar' => [
                 'service' => 'initials',

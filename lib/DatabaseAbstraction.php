@@ -39,7 +39,7 @@ class DatabaseAbstraction
         try {
             $values = $this->convertValuesToSaveDbString($values);
             $query =
-                'INSERT INTO ' . $table . '(' . implode(',', $fields) . ') VALUES("' . implode('","', $values) . '")';
+                'INSERT INTO ' . $table . '(' . implode(',', $fields) . ') VALUES(\'' . implode('\',\'', $values) . '\')';
 
             $this->db->query($query);
 
@@ -61,13 +61,14 @@ class DatabaseAbstraction
                 ',',
                 array_map(
                     function ($field, $value) {
-                        return $field . '="' . $value . '"';
+                        return $field . '=\'' . $value . '\'';
                     },
                     $fields,
                     $values
                 )
             );
             $query .= ' ' . $filters;
+
             $this->db->query($query);
 
             return true;

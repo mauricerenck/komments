@@ -13,7 +13,9 @@ Kirby::plugin('mauricerenck/komments', [
     'snippets' => require_once(__DIR__ . '/plugin/snippets.php'),
     'templates' => [
         'emails/newcomments' => __DIR__ . '/templates/emails/newComments.php',
-        'komment-response' => __DIR__ . '/templates/pages/response.php'
+        'emails/mailverification' => __DIR__ . '/templates/emails/mailverification.php',
+        'komment-response' => __DIR__ . '/templates/pages/response.php',
+        'comment-verified' => __DIR__ . '/templates/pages/comment-verified.php',
     ],
     'blueprints' => require_once(__DIR__ . '/plugin/blueprints.php'),
     'pageMethods' => require_once(__DIR__ . '/plugin/page-methods.php'),

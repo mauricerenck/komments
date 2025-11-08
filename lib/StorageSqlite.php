@@ -57,7 +57,7 @@ class StorageSqlite extends Storage
     {
         return $this->database->insert(
             'comments',
-            ['id', 'page_uuid', 'parent_id', 'type', 'language', 'content', 'author_name', 'author_avatar', 'author_email', 'author_url', 'published', 'verified', 'spamlevel', 'upvotes', 'downvotes', 'created_at', 'updated_at'],
+            ['id', 'page_uuid', 'parent_id', 'type', 'language', 'content', 'author_name', 'author_avatar', 'author_email', 'author_url', 'published', 'verified', 'spamlevel', 'upvotes', 'downvotes', 'created_at', 'updated_at', 'status'],
             [
                 $comment->id(),
                 $comment->pageUuid(),
@@ -75,7 +75,8 @@ class StorageSqlite extends Storage
                 $comment->upvotes(),
                 $comment->downvotes(),
                 $comment->createdAt(),
-                $comment->createdAt()
+                $comment->createdAt(),
+                $comment->status(),
             ]
         );
     }
@@ -93,6 +94,19 @@ class StorageSqlite extends Storage
         return $this->database->update('comments', $fields, $newValues, 'WHERE id = "' . $commentId . '"');
     }
 
+    public function updateCommentsById(array $ids, array $values): bool
+    {
+        $fields = [];
+        $newValues = [];
+
+        foreach ($values as $key => $value) {
+            $fields[] = $key;
+            $newValues[] = $value;
+        }
+
+        return $this->database->update('comments', $fields, $newValues, 'WHERE id IN (\'' . implode('\',\'', $ids) . '\')');
+    }
+
     public function publishPendingComments(): bool
     {
         return $this->database->update('comments', ['published'], [1], 'WHERE published != 1');
@@ -103,13 +117,17 @@ class StorageSqlite extends Storage
         return $this->database->delete('comments', 'WHERE id = "' . $commentId . '"');
     }
 
-    public function deleteComments(string $type): bool
+    public function deleteComments(string $type, array $ids = [])
     {
         switch ($type) {
             case 'spam':
                 return $this->database->delete('comments', 'WHERE published != 1 AND spamlevel > "0"');
             case 'pending':
                 return $this->database->delete('comments', 'WHERE published != 1');
+            case 'byId':
+                if (count($ids) > 0) {
+                    return $this->database->delete('comments', 'WHERE id IN (\'' . implode('\',\'', $ids) . '\')');
+                }
             default:
                 return false;
         }
@@ -139,6 +157,7 @@ class StorageSqlite extends Storage
                 authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
+                status: $databaseResult->status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
                 spamlevel: $databaseResult->spamlevel,
@@ -154,5 +173,64 @@ class StorageSqlite extends Storage
 
         $collection = new Structure($comments);
         return $collection;
+    }
+
+    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool
+    {
+
+        $date = date('c', time());
+
+        return $this->database->insert(
+            'comment_verification',
+            [
+                'hash',
+                'comment_id',
+                'expires_at',
+                'created_at',
+            ],
+            [
+                $hash,
+                $commentId,
+                $expiresAt,
+                $date
+            ]
+        );
+    }
+
+    public function getVerificationToken(string $hash): Collection
+    {
+        return $this->database->select('comment_verification', ['*'], 'WHERE hash = "' . $hash . '"');
+    }
+
+    public function getVerificationTokens(): Collection
+    {
+        return $this->database->select('comment_verification', ['*']);
+    }
+
+    public function deleteVerificationToken(string $hash): bool
+    {
+        return $this->database->delete('comment_verification', 'WHERE hash = "' . $hash . '"');
+    }
+
+    public function cleanupVerificationTokens(string $deletionMode): bool
+    {
+        $time = time();
+
+        $affectedTokens = $this->database->select('comment_verification', ['*'], 'WHERE expires_at < ' . $time);
+        $commentIds = [];
+
+        foreach ($affectedTokens as $token) {
+            $commentIds[] = $token->comment_id();
+        }
+
+        if (count($commentIds) > 0) {
+            if ($deletionMode === 'delete') {
+                $this->database->delete('comments', 'WHERE id IN (\'' . implode('\',\'', $commentIds) . '\')');
+            } else {
+                $this->database->update('comments', ['spamlevel'], ['100'], 'WHERE id IN (\'' . implode('\',\'', $commentIds) . '\')');
+            }
+        }
+
+        return $this->database->delete('comment_verification', 'WHERE expires_at < ' . $time);
     }
 }

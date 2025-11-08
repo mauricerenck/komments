@@ -18,6 +18,8 @@ return [
                     'pattern' => 'komments',
                     'action' => function () {
                         $kommentModeration = new KommentModeration();
+                        $verification = new CommentVerification();
+
                         $comments = $kommentModeration->getPendingComments();
 
                         return [
@@ -28,7 +30,10 @@ return [
                                 'affectedPages' => $comments['affectedPages'],
                                 'webmentions' => option('mauricerenck.komments.panel.webmentions', false),
                                 'showMigration' => option('mauricerenck.komments.migrations.comments', false),
-                                'storageType' => option('mauricerenck.komments.storage.type', 'sqlite')
+                                'storageType' => option('mauricerenck.komments.storage.type', 'sqlite'),
+                                'isVerificationEnabled' => $verification->isVerificationEnabled(),
+                                'queuedVerifications' => json_decode($verification->getVerficationTokens()->toJson()),
+                                'verificationTtl' => option('mauricerenck.komments.spam.verification.ttl', 48),
                             ],
                         ];
                     },
@@ -112,6 +117,22 @@ return [
                         $result = $kommentModeration->publishCommentsInBatch();
 
                         return $result;
+                    }
+                ],
+                'tokens/delete/expired' => [
+                    'load' => function () {
+                        return [
+                            'component' => 'k-remove-dialog',
+                            'props' => [
+                                'text' => 'Do you really want to delete all expired tokens? This action cannot be undone.'
+                            ]
+                        ];
+                    },
+                    'submit' => function () {
+                        $verification = new CommentVerification();
+                        $verification->cleanupTokens();
+
+                        return true;
                     }
                 ],
             ]

@@ -17,6 +17,31 @@ return [
             },
         ],
         [
+            'pattern' => 'komments/batch-delete',
+            'method' => 'POST',
+            'action' => function () {
+                $data = kirby()->request()->data();
+                $ids = $data['ids'];
+
+                $kommentModeration = new KommentModeration();
+                $result = $kommentModeration->deleteCommentsInBatch('byId', $ids);
+                return new Response(json_encode(['success' => $result]), 'application/json');
+            },
+        ],
+        [
+            'pattern' => 'komments/batch-flag',
+            'method' => 'POST',
+            'action' => function () {
+                $data = kirby()->request()->data();
+                $ids = $data['ids'];
+                $type = $data['type'];
+
+                $kommentModeration = new KommentModeration();
+                $result = $kommentModeration->flagCommentsInBatch($type, $ids);
+                return new Response(json_encode(['success' => $result]), 'application/json');
+            },
+        ],
+        [
             'pattern' => 'komments/publish/(:any)',
             'method' => 'POST',
             'action' => function (string $id) {

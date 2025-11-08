@@ -40,6 +40,7 @@ class Storage
         string $authorAvatar,
         ?string $authorEmail,
         string $authorUrl,
+        string $status,
         bool $published,
         bool $verified,
         int $spamlevel,
@@ -59,6 +60,7 @@ class Storage
             'authorAvatar' => $authorAvatar,
             'authorEmail' => $authorEmail,
             'authorUrl' => $authorUrl,
+            'status' => $status,
             'published' => $published,
             'verified' => $verified,
             'spamlevel' => $spamlevel,
@@ -70,4 +72,6 @@ class Storage
             'permalink' => '/@/comment/' . $id,
         ]);
     }
+
+    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool {}
 }

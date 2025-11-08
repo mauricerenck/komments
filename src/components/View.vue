@@ -12,7 +12,19 @@
                     :affectedPages="this.affectedPages"
                     :webmentions="this.webmentions"
                     :storageType="this.storageType"
+                    :relatedComment="this.relatedComment"
+                    :markRelatedComment="markRelatedComment"
                 />
+
+                <div v-if="isVerificationEnabled">
+                    <k-headline tag="h2">Pending Verifications</k-headline>
+                    <TokenTable
+                        :queuedVerifications="this.queuedVerifications"
+                        :relatedComment="this.relatedComment"
+                        :markRelatedComment="markRelatedComment"
+                        :verificationTtl="verificationTtl"
+                    />
+                </div>
             </div>
         </div>
     </k-panel-inside>
@@ -26,10 +38,23 @@ export default {
         webmentions: Boolean,
         showMigration: Boolean,
         storageType: String,
+        isVerificationEnabled: Boolean,
+        queuedVerifications: Object,
+        verificationTtl: Number,
+    },
+    data() {
+        return {
+            relatedComment: null,
+        }
+    },
+    methods: {
+        markRelatedComment(id) {
+            this.relatedComment = id
+        },
     },
 }
 </script>
-<style lang="scss">
+<style lang="css">
 .k-komments-view {
     h2 {
         font-size: var(--text-3xl);

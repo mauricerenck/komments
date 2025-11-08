@@ -5,10 +5,54 @@
             layout="collapsed"
             v-if="this.storageType !== 'markdown'"
         >
+            <k-button variant="filled" icon="checklist" :click="this.toggleSelect"> Select </k-button>
+
+            <k-button
+                variant="filled"
+                icon="toggle-off"
+                theme="green"
+                v-if="this.selectMode === true"
+                :disabled="this.selection.length === 0"
+                :click="this.publishSelectedComments"
+            >
+                Publish {{ this.selection.length }}
+            </k-button>
+            <k-button
+                variant="filled"
+                icon="badge"
+                theme="yellow"
+                v-if="this.selectMode === true"
+                :disabled="this.selection.length === 0"
+                :click="this.markSelectedCommentsAsVerified"
+            >
+                Verify {{ this.selection.length }}
+            </k-button>
+            <k-button
+                variant="filled"
+                icon="flag"
+                theme="orange"
+                v-if="this.selectMode === true"
+                :disabled="this.selection.length === 0"
+                :click="this.markSelectedCommentsAsSpam"
+            >
+                Spam {{ this.selection.length }}
+            </k-button>
+            <k-button
+                variant="filled"
+                icon="trash"
+                theme="red"
+                v-if="this.selectMode === true"
+                :disabled="this.selection.length === 0"
+                :click="this.deleteSelectedComments"
+            >
+                Delete {{ this.selection.length }}
+            </k-button>
+
             <k-button
                 variant="filled"
                 icon="toggle-off"
                 theme="green-icon"
+                v-if="this.selectMode === false"
                 :disabled="!this.hasPendingComments"
                 :click="this.publishPendingComments"
             >
@@ -19,6 +63,7 @@
                 variant="filled"
                 icon="flag"
                 theme="orange-icon"
+                v-if="this.selectMode === false"
                 :disabled="!this.hasSpamComments"
                 :click="this.deleteSpamComments"
             >
@@ -29,6 +74,7 @@
                 variant="filled"
                 icon="trash"
                 theme="red-icon"
+                v-if="this.selectMode === false"
                 :disabled="!this.hasPendingComments"
                 :click="this.deletePendingComments"
             >
@@ -41,18 +87,17 @@
             :index="true"
             :rows="this.commentList"
             empty="No comments found"
+            :selecting="this.selectMode"
+            @cell="openDrawer"
             :pagination="{ page: pagination.page, limit: pagination.limit, total: pagination.total, details: true }"
             @paginate="pagination.page = $event.page"
+            @select="selectRow"
         >
             <template #header="{ columnIndex, label }">
                 <span :title="label">
-                    <k-icon v-if="columnIndex === 'verified'" type="sparkling" style="color: var(--color-yellow-700)" />
+                    <k-icon v-if="columnIndex === 'verified'" type="badge" style="color: var(--color-yellow-700)" />
                     <k-icon v-else-if="columnIndex === 'spamlevel'" type="flag" style="color: var(--color-red-700)" />
-                    <k-icon
-                        v-else-if="columnIndex === 'published'"
-                        type="preview"
-                        style="color: var(--color-green-700)"
-                    />
+                    <k-icon v-else-if="columnIndex === 'status'" type="preview" style="color: var(--color-green-700)" />
                     <k-icon v-else-if="columnIndex === 'type'" type="box" style="color: var(--color-blue-700)" />
                     <span v-else>{{ label }}</span>
                 </span>
@@ -71,6 +116,8 @@ export default {
         columns: Array,
         webmentions: Boolean,
         storageType: String,
+        relatedComment: String,
+        markRelatedComment: Function,
     },
     data() {
         return {
@@ -79,7 +126,17 @@ export default {
                 limit: 20,
                 total: 0,
             },
+            selectMode: false,
+            selection: [],
         }
+    },
+    watch: {
+        relatedComment(commentId) {
+            if (!commentId) {
+                return
+            }
+            this.showCommentDetails(commentId)
+        },
     },
     computed: {
         index() {
@@ -94,7 +151,7 @@ export default {
                 'updatedAt',
                 'spamlevel',
                 'verified',
-                'published',
+                'status',
                 'type',
             ]
 
@@ -108,7 +165,7 @@ export default {
                 updatedAt: { label: 'Last Update', type: 'html' },
                 spamlevel: { label: 'Spamlevel', type: 'html', width: '40px', align: 'center' },
                 verified: { label: 'Verified', type: 'html', width: '40px', align: 'center' },
-                published: { label: 'Published', type: 'html', width: '40px', align: 'center' },
+                status: { label: 'Status', type: 'html', width: '40px', align: 'center' },
                 type: { label: 'Type', type: 'html', width: '40px', align: 'center' },
             }
 
@@ -153,6 +210,20 @@ export default {
                     .pattern('YYYY-MM-DD HH:mm')
                     .format(this.$library.dayjs(comment.updatedat))
 
+                let statusIcon
+
+                switch (comment.status) {
+                    case 'VERIFIED':
+                        statusIcon = 'circle-half'
+                        break
+                    case 'PUBLISHED':
+                        statusIcon = 'check'
+                        break
+                    default:
+                        statusIcon = 'clock'
+                        break
+                }
+
                 const newComment = {
                     id: comment.id,
                     pageTitle: `<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`,
@@ -161,10 +232,8 @@ export default {
                     updatedAt: publishDate,
                     type: this.tableIcon(typeIcons[comment.type], '--color-blue-700', comment.type),
                     spamlevel: comment.spamlevel > 0 ? this.tableIcon('flag', '--color-red-700') : '',
-                    verified: comment.verified ? this.tableIcon('sparkling', '--color-yellow-700') : '',
-                    published: comment.published
-                        ? this.tableIcon('preview', '--color-green-700')
-                        : this.tableIcon('hidden', '--color-red-700'),
+                    verified: comment.verified ? this.tableIcon('badge', '--color-yellow-700') : '',
+                    status: this.tableIcon(statusIcon, '--color-black'),
                 }
 
                 commentList.push(newComment)
@@ -181,38 +250,45 @@ export default {
         },
     },
     methods: {
+        removeMarkedComment() {
+            this.markRelatedComment(null)
+        },
         showCommentDetails(id) {
             const comment = this.comments.find((comment) => comment.id === id)
 
             panel.drawer.open({
                 component: 'komments-detail-drawer',
                 props: {
-                    icon: 'info',
+                    icon: 'chat',
                     title: 'Comment',
                     comment: comment,
                 },
-            })
-        },
-        replyToComment(id) {
-            const comment = this.comments.find((comment) => comment.id === id)
-
-            panel.drawer.open({
-                component: 'komments-reply-drawer',
-                props: {
-                    icon: 'chat',
-                    title: 'Reply to comment',
-                    comment: comment,
+                on: {
+                    submit: () => {
+                        this.removeMarkedComment()
+                    },
+                    cancel: () => {
+                        this.removeMarkedComment()
+                    },
+                    close: () => {
+                        this.removeMarkedComment()
+                    },
                 },
             })
         },
         publishComment(id) {
             panel.api.post(`komments/publish/${id}`).then((response) => {
                 this.comments.find((item) => item.id === id).published = response.published
+                this.comments.find((item) => item.id === id).status = response.published ? 'PUBLISHED' : 'PENDING'
             })
         },
 
         publishPendingComments() {
             panel.dialog.open(`comments/publish/pending`)
+        },
+
+        publishSelectedComments() {
+            this.flagSelectedComments('published')
         },
 
         deleteComment(id) {
@@ -223,8 +299,26 @@ export default {
             panel.dialog.open(`comments/delete/spam`)
         },
 
+        markSelectedCommentsAsSpam() {
+            this.flagSelectedComments('spamlevel')
+        },
+
+        markSelectedCommentsAsVerified() {
+            this.flagSelectedComments('verified')
+        },
+
         deletePendingComments() {
             panel.dialog.open(`comments/delete/pending`)
+        },
+
+        deleteSelectedComments() {
+            panel.api.post(`komments/batch-delete`, { ids: this.selection }).then((response) => {
+                if (response.success === true) {
+                    this.selection = []
+                    this.selectMode = false
+                    panel.reload()
+                }
+            })
         },
 
         flagComment(id, type) {
@@ -233,24 +327,34 @@ export default {
             })
         },
 
+        flagSelectedComments(type) {
+            panel.api.post(`komments/batch-flag`, { type, ids: this.selection }).then((response) => {
+                if (response.success === true) {
+                    this.selection = []
+                    this.selectMode = false
+                    panel.reload()
+                }
+            })
+        },
+
         dropdownOptions(row) {
             const comment = this.comments.find((item) => item.id === row.id)
 
             return [
+                {
+                    label: 'Reply to',
+                    icon: 'chat',
+                    click: () => this.showCommentDetails(row.id),
+                },
+                '-',
                 {
                     label: comment.published ? 'Unpublish' : 'Publish',
                     icon: comment.published ? 'toggle-on' : 'toggle-off',
                     click: () => this.publishComment(row.id),
                 },
                 {
-                    label: 'Reply to',
-                    icon: 'chat',
-                    click: () => this.replyToComment(row.id),
-                },
-                '-',
-                {
                     label: comment.verified ? 'Mark as unverified' : 'Mark as verified',
-                    icon: comment.verified ? 'cancel-small' : 'sparkling',
+                    icon: comment.verified ? 'cancel-small' : 'badge',
                     disabled: comment.spamlevel > 0,
                     click: () => this.flagComment(row.id, 'verified'),
                 },
@@ -258,11 +362,6 @@ export default {
                     label: comment.spamlevel > 0 ? 'Remove from spam' : 'Mark as spam' + row.spamlevel,
                     icon: comment.spamlevel > 0 ? 'cancel-small' : 'flag',
                     click: () => this.flagComment(row.id, 'spamlevel'),
-                },
-                {
-                    label: 'View Details',
-                    icon: 'info',
-                    click: () => this.showCommentDetails(row.id),
                 },
                 '-',
                 {
@@ -275,6 +374,41 @@ export default {
 
         tableIcon(icon, color, title = '') {
             return `<span title="${title}"><svg aria-hidden="true" data-type="${icon}" class="k-icon" style="color: var(${color});"><use xlink:href="#icon-${icon}"></use></svg></span>`
+        },
+
+        toggleSelect() {
+            this.selectMode = !this.selectMode
+        },
+
+        selectRow(row) {
+            const index = this.selection.indexOf(row.id)
+
+            if (index > -1) {
+                // ID exists, remove it
+                this.selection.splice(index, 1)
+            } else {
+                // ID does not exist, add it
+                this.selection.push(row.id)
+            }
+        },
+
+        openDrawer(cell) {
+            const commentId = cell.row.id
+            const blockedColumns = ['spamlevel', 'verified']
+
+            if (blockedColumns.indexOf(cell.columnIndex) !== -1) {
+                switch (cell.columnIndex) {
+                    case 'spamlevel':
+                        this.flagComment(commentId, 'spamlevel')
+                        break
+                    case 'verified':
+                        this.flagComment(commentId, 'verified')
+                        break
+                }
+
+                return
+            }
+            this.showCommentDetails(commentId)
         },
     },
 }
