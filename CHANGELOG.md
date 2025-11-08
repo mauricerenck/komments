@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/mauricerenck/komments/compare/v3.6.0...v3.7.0) (2025-11-08)
+
+
+### Features
+
+* email verification ([414b04e](https://github.com/mauricerenck/komments/commit/414b04ed4fcf2cb7d39db84fa56398b43b12f079))
+
 # [3.6.0](https://github.com/mauricerenck/komments/compare/v3.5.0...v3.6.0) (2025-10-08)
 
 
