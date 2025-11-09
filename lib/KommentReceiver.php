@@ -228,7 +228,7 @@ class KommentReceiver
             'data' => [
                 'username' => $username,
                 'commentId' => $commentId,
-                'expireHours' => option('mauricerenck.komments.spam.verification.ttl'),
+                'expireHours' => option('mauricerenck.komments.spam.verification.ttl', 48),
                 'verificationUrl' => $verificationUrl,
             ],
         ]);

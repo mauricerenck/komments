@@ -199,12 +199,23 @@ class StorageSqlite extends Storage
 
     public function getVerificationToken(string $hash): Collection
     {
-        return $this->database->select('comment_verification', ['*'], 'WHERE hash = "' . $hash . '"');
+        $result = $this->database->select('comment_verification', ['*'], 'WHERE hash = "' . $hash . '"');
+        if (!$result) {
+            return new Collection([]);
+        }
+
+        return $result;
     }
 
     public function getVerificationTokens(): Collection
     {
-        return $this->database->select('comment_verification', ['*']);
+        $result = $this->database->select('comment_verification', ['*']);
+
+        if (!$result) {
+            return new Collection([]);
+        }
+
+        return $result;
     }
 
     public function deleteVerificationToken(string $hash): bool

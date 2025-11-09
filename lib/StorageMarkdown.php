@@ -199,5 +199,28 @@ class StorageMarkdown extends Storage
         ]);
     }
 
-    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool {}
+    public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool
+    {
+        return false;
+    }
+
+    public function getVerificationToken(string $hash): Collection
+    {
+        return new Collection();
+    }
+
+    public function getVerificationTokens(): Collection
+    {
+        return new Collection();
+    }
+
+    public function deleteVerificationToken(string $hash): bool
+    {
+        return false;
+    }
+
+    public function cleanupVerificationTokens(string $deletionMode): bool
+    {
+        return false;
+    }
 }

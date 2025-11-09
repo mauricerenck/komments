@@ -9,13 +9,13 @@ class CommentVerification
 
     public function __construct(
         private ?bool $verificationEnabled = null,
-        private ?bool $verificationTtl = null,
-        private ?bool $verificationSecret = null,
+        private ?int $verificationTtl = null,
+        private ?string $verificationSecret = null,
         private ?bool $verificationAutoPublish = null,
         private ?string $verificationDeletionMode = null,
     ) {
         $this->verificationEnabled = $verificationEnabled ?? option('mauricerenck.komments.spam.verification.enabled', false);
-        $this->verificationTtl = $verificationTtl ?? option('mauricerenck.komments.spam.verification.ttl', '48');
+        $this->verificationTtl = $verificationTtl ?? option('mauricerenck.komments.spam.verification.ttl', 48);
         $this->verificationSecret = $verificationSecret ?? option('mauricerenck.komments.spam.verification.secret', false);
         $this->verificationAutoPublish = $verificationAutoPublish ?? option('mauricerenck.komments.spam.verification.autoPublish', false);
         $this->verificationDeletionMode = $verificationDeletionMode ?? option('mauricerenck.komments.spam.verification.deletionMode', 'spam');
