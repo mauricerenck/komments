@@ -1,3 +1,10 @@
+## [3.7.1](https://github.com/mauricerenck/komments/compare/v3.7.0...v3.7.1) (2025-11-09)
+
+
+### Bug Fixes
+
+* type mixups ([4448fec](https://github.com/mauricerenck/komments/commit/4448fece42abfc8c365acea95b53e6808deb65e5))
+
 # [3.7.0](https://github.com/mauricerenck/komments/compare/v3.6.0...v3.7.0) (2025-11-08)
 
 
