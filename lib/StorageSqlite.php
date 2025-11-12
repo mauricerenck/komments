@@ -57,7 +57,7 @@ class StorageSqlite extends Storage
     {
         return $this->database->insert(
             'comments',
-            ['id', 'page_uuid', 'parent_id', 'type', 'language', 'content', 'author_name', 'author_avatar', 'author_email', 'author_url', 'published', 'verified', 'spamlevel', 'upvotes', 'downvotes', 'created_at', 'updated_at', 'status'],
+            ['id', 'page_uuid', 'parent_id', 'type', 'language', 'content', 'author_name', 'author_avatar', 'author_email', 'author_url', 'published', 'verified', 'spamlevel', 'upvotes', 'downvotes', 'created_at', 'updated_at', 'verification_status'],
             [
                 $comment->id(),
                 $comment->pageUuid(),
@@ -76,7 +76,7 @@ class StorageSqlite extends Storage
                 $comment->downvotes(),
                 $comment->createdAt(),
                 $comment->createdAt(),
-                $comment->status(),
+                $comment->verification_status(),
             ]
         );
     }
@@ -157,7 +157,7 @@ class StorageSqlite extends Storage
                 authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
-                status: $databaseResult->status,
+                verification_status: $databaseResult->verification_status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
                 spamlevel: $databaseResult->spamlevel,

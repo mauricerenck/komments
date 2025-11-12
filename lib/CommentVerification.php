@@ -91,7 +91,7 @@ class CommentVerification
         }
 
         $updateValues = [];
-        $updateValues['status'] = ($this->verificationAutoPublish === true) ? 'PUBLISHED' : 'VERIFIED';
+        $updateValues['verification_status'] = ($this->verificationAutoPublish === true) ? 'PUBLISHED' : 'VERIFIED';
 
         if ($this->verificationAutoPublish === true) {
             $updateValues['published'] = true;

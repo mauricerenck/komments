@@ -36,7 +36,7 @@ class KommentModeration
     {
         $comment = $this->storage->getSingleComment($id);
         $newStatus = $comment->published()->isTrue() ? false : true;
-        $result = $this->storage->updateComment($id, ['published' => $newStatus, 'status' => $newStatus ? 'PUBLISHED' : 'PENDING']);
+        $result = $this->storage->updateComment($id, ['published' => $newStatus, 'verification_status' => $newStatus ? 'PUBLISHED' : 'PENDING']);
 
         kirby()->trigger('komments.comment.published', ['comment' => $comment]);
 
@@ -81,7 +81,7 @@ class KommentModeration
                 $result = $this->storage->updateCommentsById($ids, ['verified' => true]);
                 return $result;
             case 'published':
-                $result = $this->storage->updateCommentsById($ids, ['published' => true, 'status' => 'PUBLISHED']);
+                $result = $this->storage->updateCommentsById($ids, ['published' => true, 'verification_status' => 'PUBLISHED']);
                 return $result;
         }
 
@@ -109,7 +109,7 @@ class KommentModeration
             authorAvatar: $avatar,
             authorEmail: $author->email(),
             authorUrl: site()->url(),
-            status: $publishResult ? 'PUBLISHED' : 'PENDING',
+            verification_status: $publishResult ? 'PUBLISHED' : 'PENDING',
             published: $publishResult,
             verified: true,
             spamlevel: 0,

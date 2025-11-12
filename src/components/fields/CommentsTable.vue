@@ -212,7 +212,7 @@ export default {
 
                 let statusIcon
 
-                switch (comment.status) {
+                switch (comment.verification_status) {
                     case 'VERIFIED':
                         statusIcon = 'circle-half'
                         break

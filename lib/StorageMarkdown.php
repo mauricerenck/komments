@@ -172,7 +172,7 @@ class StorageMarkdown extends Storage
                 authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
-                status: $databaseResult->status,
+                verification_status: $databaseResult->verification_status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
                 spamlevel: $databaseResult->spamlevel,

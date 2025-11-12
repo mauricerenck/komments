@@ -1,2 +1,2 @@
 ALTER TABLE comments DROP COLUMN status;
-ALTER TABLE comments ADD COLUMN status TEXT DEFAULT "PENDING";
+ALTER TABLE comments ADD COLUMN verification_status TEXT DEFAULT "PENDING";

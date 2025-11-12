@@ -52,7 +52,7 @@ class TestCaseMocked extends TestCase
               mentionof: https://komments.test:8890/phpunit
               property: KOMMENT
               published: 2021-11-10 13:50:00
-              status: "PENDING"
+              verification_status: "PENDING"
               verified: "false"
               id: 1bfffa3f189b3c5b5d6f3ed3271d3342
               spamlevel: 0
@@ -70,7 +70,7 @@ class TestCaseMocked extends TestCase
               mentionof: https://komments.test:8890/phpunit
               property: KOMMENT
               published: 2021-11-10 13:50:00
-              status: "PENDING"
+              verification_status: "PENDING"
               verified: "true"
               id: c62bc1426c1d39eb6d8a6b4f5b3ef3ee
               spamlevel: 0
@@ -88,7 +88,7 @@ class TestCaseMocked extends TestCase
               mentionof: https://komments.test:8890/phpunit
               property: KOMMENT
               published: 2021-11-10 13:50:00
-              status: "PENDING"
+              verification_status: "PENDING"
               verified: "false"
               id: 594a3bdc4947c1a8496d2beb8a065cb1
               spamlevel: 100'
@@ -113,7 +113,7 @@ class TestCaseMocked extends TestCase
             mentionof: https://komments.test:8890/phpunit
             property: KOMMENT
             published: 2021-11-10 13:50:00
-            status: "PUBLISHED"
+            verification_status: "PUBLISHED"
             verified: "false"
             id: 1bfffa3f189b3c5b5d6f3ed3271d3342
             spamlevel: 0'
@@ -161,7 +161,7 @@ class TestCaseMocked extends TestCase
             'authorEmail' => 'author@example.com',
             'authorUrl' => 'https://example.com',
             'published' => true,
-            'status' => 'PUBLISHED',
+            'verification_status' => 'PUBLISHED',
             'verified' => false,
             'spamlevel' => 0,
             'language' => null,
@@ -184,7 +184,7 @@ class TestCaseMocked extends TestCase
             'author_email' => $comment['authorEmail'],
             'author_url' => $comment['authorUrl'],
             'published' => $comment['published'],
-            'status' => $comment['status'],
+            'verification_status' => $comment['verification_status'],
             'verified' => $comment['verified'],
             'spamlevel' => $comment['spamlevel'],
             'language' => $comment['language'],

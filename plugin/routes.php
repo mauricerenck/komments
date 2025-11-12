@@ -65,7 +65,7 @@ return [
                 authorAvatar: $receiver->getAvatarFromEmail($formData['email']),
                 authorEmail: $receiver->getEmail($formData['email']),
                 authorUrl: $receiver->createSafeString($formData['author_url']),
-                status: $autoPublish ? 'PUBLISHED' : 'PENDING',
+                verification_status: $autoPublish ? 'PUBLISHED' : 'PENDING',
                 published: $autoPublish,
                 verified: $verified,
                 spamlevel: $spamlevel,
