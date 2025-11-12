@@ -1,3 +1,10 @@
+## [3.7.2](https://github.com/mauricerenck/komments/compare/v3.7.1...v3.7.2) (2025-11-12)
+
+
+### Bug Fixes
+
+* remove sqlite status check ([38280af](https://github.com/mauricerenck/komments/commit/38280afe5a73b9fc6ef208e6e2960a2b499c15ba))
+
 ## [3.7.1](https://github.com/mauricerenck/komments/compare/v3.7.0...v3.7.1) (2025-11-09)
 
 
