@@ -1,3 +1,10 @@
+## [3.7.3](https://github.com/mauricerenck/komments/compare/v3.7.2...v3.7.3) (2025-11-12)
+
+
+### Bug Fixes
+
+* change field name due to issues ([fe01021](https://github.com/mauricerenck/komments/commit/fe0102182c8a50560ee84d4653fd38e5aaf3afb5))
+
 ## [3.7.2](https://github.com/mauricerenck/komments/compare/v3.7.1...v3.7.2) (2025-11-12)
 
 
