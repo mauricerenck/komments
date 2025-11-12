@@ -46,7 +46,7 @@ return [
             'spam' => [
                 'delete' => false,
                 'verification' => [
-                    'enabled' => false,
+                    'enabled' => true,
                     'ttl' => 1,
                     'secret' => 'my-extremly-secure-secret',
                     'autoPublish' => false,
