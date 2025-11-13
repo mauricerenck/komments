@@ -8,9 +8,10 @@ class KommentModeration
 {
     private $storage;
 
-    public function __construct(private ?string $storageType = null)
+    public function __construct(private ?string $storageType = null, private ?bool $filterUnverified = null,)
     {
         $this->storage = StorageFactory::create($storageType);
+        $this->filterUnverified = $filterUnverified ?? option('mauricerenck.komments.spam.verification.filterUnverfied', true);
     }
 
     public function getComment(string $id): mixed
@@ -135,7 +136,10 @@ class KommentModeration
     public function getPendingComments(?bool $published = false, ?string $type = null): mixed
     {
         $comments = $this->storage->getCommentsOfSite();
-        $filteredComments = $comments->filterBy('published', $published)->sortBy('updatedAt', 'desc');
+        $filters = $this->filterUnverified ? 'VERIFIED' : 'PENDING';
+        $filters = $published ? 'PUBLISHED' : $filters;
+
+        $filteredComments = $comments->filterBy('verification_status', $filters)->sortBy('updatedAt', 'desc');
 
         if ($type) {
             $filteredComments = $filteredComments->filterBy('type', $type);

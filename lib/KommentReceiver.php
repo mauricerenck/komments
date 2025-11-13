@@ -17,9 +17,6 @@ class KommentReceiver
         private ?bool $debug = null,
         private ?array $spamKeywords = null,
         private ?array $spamPhrases = null,
-        private ?bool $verificationEnabled = null,
-        private ?bool $verificationTtl = null,
-        private ?bool $verificationSecret = null
     ) {
         $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
