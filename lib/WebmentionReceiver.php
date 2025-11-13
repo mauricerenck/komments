@@ -38,7 +38,7 @@ class WebmentionReceiver
             authorAvatar: $webmention['author']['avatar'] ?? '',
             authorEmail: null,
             authorUrl: $webmention['source'],
-            status: $autoPublish ? 'PUBISHED' : 'PENDING',
+            verification_status: $autoPublish ? 'PUBLISHED' : 'PENDING',
             published: $autoPublish,
             verified: false,
             spamlevel: $spamlevel,
