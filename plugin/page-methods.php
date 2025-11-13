@@ -6,7 +6,7 @@ return [
     'commentCount' => function ($language = null): int {
         $storage = StorageFactory::create();
         $comments = $storage->getCommentsOfPage($this->uuid());
-        $publishedComments = $comments->filterBy('published', true);
+        $publishedComments = $comments->filterBy('verification_status', 'PUBLISHED');
 
         if (!is_null($language)) {
             $publishedComments = $publishedComments->filterBy('language', $language);

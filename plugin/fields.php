@@ -11,7 +11,7 @@ return [
             'queuedComments' => function () {
                 $storage = StorageFactory::create();
                 $comments = $storage->getCommentsOfSite();
-                $unpublishedComments = $comments->filterBy('published', false);
+                $unpublishedComments = $comments->filterBy('verification_status', 'PUBLISHED');
 
                 return $unpublishedComments->count();
             },

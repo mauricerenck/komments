@@ -46,7 +46,7 @@ class KommentsFrontend
     public function getCommentList($page): Structure
     {
         $comments = $this->storage->getCommentsOfPage($page->uuid());
-        $publishedComments = $comments->filterBy('published', true);
+        $publishedComments = $comments->filterBy('verification_status', 'PUBLISHED');
 
         return $publishedComments;
     }
