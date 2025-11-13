@@ -1,3 +1,11 @@
+## [3.7.5](https://github.com/mauricerenck/komments/compare/v3.7.4...v3.7.5) (2025-11-13)
+
+
+### Bug Fixes
+
+* correct status for webmentions ([5980e4d](https://github.com/mauricerenck/komments/commit/5980e4daba42cda03d1c13cdb95c0ca8396067fb))
+* filter comments by new status field ([c56fae1](https://github.com/mauricerenck/komments/commit/c56fae17991b620109f8ec013f844f7f014fd503))
+
 ## [3.7.4](https://github.com/mauricerenck/komments/compare/v3.7.3...v3.7.4) (2025-11-13)
 
 
