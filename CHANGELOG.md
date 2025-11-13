@@ -1,3 +1,10 @@
+## [3.7.4](https://github.com/mauricerenck/komments/compare/v3.7.3...v3.7.4) (2025-11-13)
+
+
+### Bug Fixes
+
+* filter unverified comments in panel and notifications ([89d5c82](https://github.com/mauricerenck/komments/commit/89d5c828f75b60196a25b2738163786a945dfb45))
+
 ## [3.7.3](https://github.com/mauricerenck/komments/compare/v3.7.2...v3.7.3) (2025-11-12)
 
 
