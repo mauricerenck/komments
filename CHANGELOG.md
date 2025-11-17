@@ -1,3 +1,10 @@
+## [3.7.6](https://github.com/mauricerenck/komments/compare/v3.7.5...v3.7.6) (2025-11-17)
+
+
+### Bug Fixes
+
+* migrate existing comment status ([ac66a7b](https://github.com/mauricerenck/komments/commit/ac66a7b40388732c116b6edd6b549f42a58e8392))
+
 ## [3.7.5](https://github.com/mauricerenck/komments/compare/v3.7.4...v3.7.5) (2025-11-13)
 
 
