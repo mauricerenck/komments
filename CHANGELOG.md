@@ -1,3 +1,10 @@
+## [3.7.7](https://github.com/mauricerenck/komments/compare/v3.7.6...v3.7.7) (2025-11-18)
+
+
+### Bug Fixes
+
+* migration history ([01f948c](https://github.com/mauricerenck/komments/commit/01f948c55fea08e81723dcfc924f7e45784b4aad))
+
 ## [3.7.6](https://github.com/mauricerenck/komments/compare/v3.7.5...v3.7.6) (2025-11-17)
 
 
