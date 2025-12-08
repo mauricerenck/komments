@@ -1,3 +1,11 @@
+## [3.7.8](https://github.com/mauricerenck/komments/compare/v3.7.7...v3.7.8) (2025-12-08)
+
+
+### Bug Fixes
+
+* catch type error when verification disabled ([5482429](https://github.com/mauricerenck/komments/commit/5482429307dd87ab9866f0956c528e767e660817))
+* typo [#83](https://github.com/mauricerenck/komments/issues/83) ([80c4440](https://github.com/mauricerenck/komments/commit/80c4440c1f3d76bad613a0cfb500826520acf04a))
+
 ## [3.7.7](https://github.com/mauricerenck/komments/compare/v3.7.6...v3.7.7) (2025-11-18)
 
 
