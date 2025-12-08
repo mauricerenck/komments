@@ -78,7 +78,12 @@ return [
 
             $storage->saveComment($comment);
 
-            $receiver->sendVerificationMail(email: $receiver->getEmail($formData['email']), username: $receiver->createSafeString($formData['author']), commentId: $id);
+            if (option('mauricerenck.komments.spam.verification.enabled', false)) {
+                $email = $receiver->getEmail($formData['email'], true);
+                if (!is_null($email)) {
+                    $receiver->sendVerificationMail(email: $email, username: $receiver->createSafeString($formData['author']), commentId: $id);
+                }
+            }
 
             kirby()->trigger('komments.comment.received', ['comment' => $comment]);
 

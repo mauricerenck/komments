@@ -141,9 +141,9 @@ class KommentReceiver
         return null;
     }
 
-    public function getEmail(string $email): ?string
+    public function getEmail(string $email, ?bool $alwaysReturn = false): ?string
     {
-        if (!option('mauricerenck.komments.privacy.storeEmail', false)) {
+        if (!option('mauricerenck.komments.privacy.storeEmail', false) && !$alwaysReturn) {
             return null;
         }
 

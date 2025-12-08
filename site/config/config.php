@@ -23,7 +23,7 @@ return [
             'auto-delete-spam' => false,
             'autoDisable.ttl' => 0,
             'privacy' => [
-                'storeEmail' => true,
+                'storeEmail' => false,
             ],
             'notifications' => [
                 'skipSpam' => false,
