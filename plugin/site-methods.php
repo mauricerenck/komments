@@ -7,7 +7,7 @@ return [
         $storage = StorageFactory::create();
         $comments = $storage->getCommentsOfSite();
 
-        $filter = option('mauricerenck.komments.spam.verification.filterUnverfied', true) ? 'VERIFIED' : 'PENDING';
+        $filter = option('mauricerenck.komments.spam.verification.filterUnverified', true) ? 'VERIFIED' : 'PENDING';
         $unpublishedComments = $comments->filterBy('verification_status', $filter);
 
         if (!option('mauricerenck.komments.panel.webmentions', false)) {

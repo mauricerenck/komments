@@ -11,7 +11,7 @@ class KommentModeration
     public function __construct(private ?string $storageType = null, private ?bool $filterUnverified = null,)
     {
         $this->storage = StorageFactory::create($storageType);
-        $this->filterUnverified = $filterUnverified ?? option('mauricerenck.komments.spam.verification.filterUnverfied', true);
+        $this->filterUnverified = $filterUnverified ?? option('mauricerenck.komments.spam.verification.filterUnverified', true);
     }
 
     public function getComment(string $id): mixed

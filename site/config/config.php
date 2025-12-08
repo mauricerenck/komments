@@ -47,7 +47,7 @@ return [
                 'delete' => false,
                 'verification' => [
                     'enabled' => true,
-                    'filterUnverfied' => true,
+                    'filterUnverified' => true,
                     'ttl' => 1,
                     'secret' => 'my-extremly-secure-secret',
                     'autoPublish' => false,
