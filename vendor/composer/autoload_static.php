@@ -11,31 +11,31 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
     );
 
     public static $prefixLengthsPsr4 = array (
-        'm' => 
+        'm' =>
         array (
             'mauricerenck\\Komments\\' => 22,
         ),
-        'K' => 
+        'K' =>
         array (
             'Kirby\\' => 6,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'mauricerenck\\Komments\\' => 
+        'mauricerenck\\Komments\\' =>
         array (
             0 => __DIR__ . '/../..' . '/lib',
         ),
-        'Kirby\\' => 
+        'Kirby\\' =>
         array (
             0 => __DIR__ . '/..' . '/getkirby/composer-installer/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'I' => 
+        'I' =>
         array (
-            'IndieWeb' => 
+            'IndieWeb' =>
             array (
                 0 => __DIR__ . '/..' . '/indieweb/mention-client/src',
             ),

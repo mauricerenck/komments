@@ -157,6 +157,7 @@ class Migrations
             authorAvatar: $comment['avatar'],
             authorEmail: $comment['authoremail'],
             authorUrl: $comment['authorurl'],
+            verification_status: 'PUBLISHED',
             published: $comment['status'] == 'true' ? true : false,
             verified: $comment['verified'] == 'true' ? true : false,
             spamlevel: $comment['spamlevel'] ?? 0,
