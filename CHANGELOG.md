@@ -1,3 +1,10 @@
+## [3.7.9](https://github.com/mauricerenck/komments/compare/v3.7.8...v3.7.9) (2026-01-14)
+
+
+### Bug Fixes
+
+* migration script with verification status ([7599932](https://github.com/mauricerenck/komments/commit/7599932158aeb08225175377f5af6b364d1d6700))
+
 ## [3.7.8](https://github.com/mauricerenck/komments/compare/v3.7.7...v3.7.8) (2025-12-08)
 
 
