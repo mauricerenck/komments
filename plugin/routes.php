@@ -54,6 +54,11 @@ return [
 
             $verified = $receiver->isVerified($formData['email']);
             $autoPublish = $receiver->autoPublish($formData['email'], $verified);
+            $verificationStatus = $autoPublish ? 'PUBLISHED' : 'VERIFIED';
+
+            if (option('mauricerenck.komments.spam.verification.enabled', false)) {
+                $verificationStatus = $autoPublish ? 'PUBLISHED' : 'PENDING';
+            }
 
             $comment = $storage->createComment(
                 id: $id,
@@ -65,7 +70,7 @@ return [
                 authorAvatar: $receiver->getAvatarFromEmail($formData['email']),
                 authorEmail: $receiver->getEmail($formData['email']),
                 authorUrl: $receiver->createSafeString($formData['author_url']),
-                verification_status: $autoPublish ? 'PUBLISHED' : 'PENDING',
+                verification_status: $verificationStatus,
                 published: $autoPublish,
                 verified: $verified,
                 spamlevel: $spamlevel,
