@@ -1,3 +1,10 @@
+## [3.7.10](https://github.com/mauricerenck/komments/compare/v3.7.9...v3.7.10) (2026-02-04)
+
+
+### Bug Fixes
+
+* wrong status for new comments when verification is disabled ([3aa297b](https://github.com/mauricerenck/komments/commit/3aa297b63382ee13ba75b8da514922cd5571487e))
+
 ## [3.7.9](https://github.com/mauricerenck/komments/compare/v3.7.8...v3.7.9) (2026-01-14)
 
 
