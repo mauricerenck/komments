@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "semver": "^7.7.1",
-        "vue": "^2.6.11",
+        "vue": "^3.0.0",
         "vue-hot-reload-api": "^2.3.4"
     },
     "devDependencies": {
