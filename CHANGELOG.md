@@ -1,3 +1,15 @@
+# [3.8.0](https://github.com/mauricerenck/komments/compare/v3.7.10...v3.8.0) (2026-03-10)
+
+
+### Bug Fixes
+
+* **responsecollector:** response template avatar ([8260168](https://github.com/mauricerenck/komments/commit/8260168f7e13f1bf9c1424c0da3c1ceaf0f65a24))
+
+
+### Features
+
+* list latest comments ([b1f47c8](https://github.com/mauricerenck/komments/commit/b1f47c855a98843258e6e9c8540f6f395bc422fc)), closes [#90](https://github.com/mauricerenck/komments/issues/90) [#91](https://github.com/mauricerenck/komments/issues/91)
+
 ## [3.7.10](https://github.com/mauricerenck/komments/compare/v3.7.9...v3.7.10) (2026-02-04)
 
 
