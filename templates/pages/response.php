@@ -37,7 +37,7 @@ if (!$parentComment) {
             </time>
 
             <p class="h-card" style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 50px;">
-                <img class="u-photo" src="<?= $page->authorAvatar() ?>" alt="" />
+                <?= $page->authorAvatar() ?>
                 <a class="p-name u-url" href="<?= $site->url() ?>"><?= $page->authorName() ?></a>
             </p>
         </article>
