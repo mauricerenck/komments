@@ -31,6 +31,9 @@ return [
         'mauricerenck.komments.thankyou' => 'Thank you! Your comment is awaiting moderation.',
         'mauricerenck.komments.verify' => 'Thank you! Please check your mails to verify your comment.',
         'mauricerenck.komments.sending' => 'Sending comment...',
+        'mauricerenck.komments.comments' => 'comments',
+        'mauricerenck.komments.latestBy' => 'latest by',
+
     ],
     'de' => [
         'mauricerenck.komments.liked' => 'hat ein like spendiert',
@@ -60,6 +63,8 @@ return [
         'mauricerenck.komments.thankyou' => 'Danke. Dein Kommentar wartet auf seine Freischaltung.',
         'mauricerenck.komments.verify' => 'Danke. Bitte schau in deine Mails, um deinen Kommentar zu bestätigen',
         'mauricerenck.komments.sending' => 'Kommentar wird gesendet...',
+        'mauricerenck.komments.comments' => 'Kommentare',
+        'mauricerenck.komments.latestBy' => 'zuletzt von',
     ],
     'fr' => [
         'mauricerenck.komments.liked' => 'a apprécié',
@@ -90,5 +95,7 @@ return [
         'mauricerenck.komments.thankyou' => 'Merci ! Votre commentaire est en attente de modération.',
         'mauricerenck.komments.verify' => 'Merci ! Veuillez vérifier votre boîte mail pour confirmer votre commentaire.',
         'mauricerenck.komments.sending' => 'Envoi du commentaire...',
+        'mauricerenck.komments.comments' => 'Commentaires',
+        'mauricerenck.komments.latestBy' => 'Dernières nouvelles par',
     ],
 ];

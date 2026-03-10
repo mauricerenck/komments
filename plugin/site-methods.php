@@ -25,4 +25,33 @@ return [
 
         return $spamComments->count();
     },
+    'latestComments' => function ($limit = 5, $showWebmentions = false) {
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfSite();
+
+        $publishedComments = $comments->filterBy('verification_status', 'PUBLISHED')
+            ->sortBy('createdAt', 'desc');
+
+        if (!$showWebmentions) {
+            $publishedComments = $publishedComments->filterBy('type', 'comment');
+        }
+
+        return $publishedComments->limit($limit);;
+    },
+    'latestCommentsPerPage' => function ($limit = 5, $showWebmentions = false) {
+        $storage = StorageFactory::create();
+        $comments = $storage->getCommentsOfSite();
+
+        $publishedComments = $comments->filterBy('verification_status', 'PUBLISHED');
+
+        if (!$showWebmentions) {
+            $publishedComments = $publishedComments->filterBy('type', 'comment');
+        }
+
+        $publishedComments = $publishedComments
+            ->sortBy('createdAt', 'desc')
+            ->groupBy('pageUuid');
+
+        return $publishedComments->limit($limit);
+    },
 ];

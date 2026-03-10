@@ -26,4 +26,7 @@ return [
     'komments/list/mentions' => __DIR__ . '/../snippets/list-mentions.php',
     'komments/list/replies' => __DIR__ . '/../snippets/list-replies.php',
     'komments/list/reposts' => __DIR__ . '/../snippets/list-reposts.php',
+
+    'komments/latest-comments' => __DIR__ . '/../snippets/latest-comments.php',
+    'komments/latest-pages' => __DIR__ . '/../snippets/latest-comment-pages.php',
 ];

@@ -16,6 +16,9 @@
       <li>Spam Comments: <?php echo $site->numberOfSpamComments() ?></li>
     </ul>
 
+    <?php snippet('komments/latest-comments'); ?>
+    <?php snippet('komments/latest-pages'); ?>
+
     <h2>Form</h2>
     <?php snippet('komments/form'); ?>
 
