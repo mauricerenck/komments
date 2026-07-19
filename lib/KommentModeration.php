@@ -23,12 +23,16 @@ class KommentModeration
     public function deleteComment(string $id): mixed
     {
         $result = $this->storage->deleteComment($id);
+        kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
+        kirby()->trigger('komments.comment.deleted', ['commentIds' => [$id]]);
         return $result;
     }
 
     public function deleteCommentsInBatch(string $type, array $ids = []): mixed
     {
         $result = $this->storage->deleteComments($type, $ids);
+        kirby()->trigger('komments.comment.changed', ['commentIds' => $ids]);
+        kirby()->trigger('komments.comment.deleted', ['commentIds' => $ids]);
         return $result;
     }
 
@@ -39,6 +43,7 @@ class KommentModeration
         $newStatus = $comment->published()->isTrue() ? false : true;
         $result = $this->storage->updateComment($id, ['published' => $newStatus, 'verification_status' => $newStatus ? 'PUBLISHED' : 'PENDING']);
 
+        kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.published', ['comment' => $comment]);
 
         return $result ? $newStatus : $comment->published();
@@ -46,6 +51,8 @@ class KommentModeration
 
     public function publishCommentsInBatch(): mixed
     {
+        kirby()->trigger('komments.comment.changed', ['commentIds' => []]);
+        kirby()->trigger('komments.comment.published', []);
         return $this->storage->publishPendingComments();
     }
 
@@ -68,6 +75,8 @@ class KommentModeration
                 }
         }
 
+        kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
+        kirby()->trigger('komments.comment.flagged', ['commentIds' => [$id]]);
         return false;
     }
 
@@ -86,6 +95,8 @@ class KommentModeration
                 return $result;
         }
 
+        kirby()->trigger('komments.comment.changed', ['commentIds' => $ids]);
+        kirby()->trigger('komments.comment.flagged', ['commentIds' => $ids]);
         return false;
     }
 
@@ -123,6 +134,7 @@ class KommentModeration
 
         $saveResult = $this->storage->saveComment($newComment);
 
+        kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
 
         return [
