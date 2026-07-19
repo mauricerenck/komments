@@ -1,3 +1,10 @@
+## [3.8.2](https://github.com/mauricerenck/komments/compare/v3.8.1...v3.8.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* **hooks:** also trigger received and published on webmentions ([7af2baa](https://github.com/mauricerenck/komments/commit/7af2baa4065ddaaa044832fdbfb69cbb58799a33))
+
 ## [3.8.1](https://github.com/mauricerenck/komments/compare/v3.8.0...v3.8.1) (2026-07-19)
 
 
