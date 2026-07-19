@@ -1,3 +1,10 @@
+## [3.8.1](https://github.com/mauricerenck/komments/compare/v3.8.0...v3.8.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* **hooks:** added hooks for comment changes [#98](https://github.com/mauricerenck/komments/issues/98) ([034c079](https://github.com/mauricerenck/komments/commit/034c079c4d7bd23b00bcdbea7983e33517e73087))
+
 # [3.8.0](https://github.com/mauricerenck/komments/compare/v3.7.10...v3.8.0) (2026-03-10)
 
 
