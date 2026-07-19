@@ -50,6 +50,11 @@ class WebmentionReceiver
         );
 
         $storage->saveComment($comment);
+        kirby()->trigger('komments.comment.received', ['comment' => $comment]);
+
+        if ($autoPublish) {
+            kirby()->trigger('komments.comment.published', ['comment' => $comment]);
+        }
 
         return $comment;
     }
