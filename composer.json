@@ -26,7 +26,6 @@
     },
     "require": {
         "getkirby/composer-installer": "^1.2",
-        "indieweb/mention-client": "^1.2",
         "php": ">=8.0.0",
         "ext-json": "*"
     },
