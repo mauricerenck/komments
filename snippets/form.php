@@ -30,12 +30,12 @@ if (!is_null($user) && $user->isLoggedIn()) {
 
     <label for="email">
         <?php echo t('mauricerenck.komments.form.label.email'); ?>
-        <input type="email" name="email" id="email" placeholder="<?php echo t('mauricerenck.komments.form.label.email'); ?>*" required value="<?php echo $formEmail; ?>">
+        <input type="email" name="email" id="email" placeholder="<?php echo t('mauricerenck.komments.form.label.email'); ?>" value="<?php echo $formEmail; ?>">
     </label>
 
     <label for="author">
         <?php echo t('mauricerenck.komments.form.label.name'); ?>
-        <input type="text" name="author" id="author" placeholder="<?php echo t('mauricerenck.komments.form.label.name'); ?>*" required value="<?php echo $formName; ?>">
+        <input type="text" name="author" id="author" placeholder="<?php echo t('mauricerenck.komments.form.label.name'); ?>" value="<?php echo $formName; ?>">
     </label>
 
     <label for="author_url">

@@ -2,6 +2,7 @@
 
 use mauricerenck\Komments\KommentReceiver;
 use mauricerenck\Komments\TestCaseMocked;
+use mauricerenck\Komments\CommentVerification;
 
 final class KommentReceiverTest extends TestCaseMocked
 {
@@ -143,6 +144,72 @@ final class KommentReceiverTest extends TestCaseMocked
         $result = $receiverClass->validateFields($fields);
         $this->assertEquals(['email', 'comment'], $result);
     }
+
+    /**
+     * @group validation
+     * @testdox isEmailRequired - required option true
+     */
+    public function testIsEmailRequiredTrue()
+    {
+        $receiver = new KommentReceiver(
+            requireEmail: true,
+            storeEmail: false,
+        );
+
+        $this->assertTrue($receiver->isEmailRequired());
+    }
+
+    /**
+     * @group validation
+     * @testdox isEmailRequired - store option true
+     */
+    public function testIsEmailRequiredFalse()
+    {
+
+        $receiver = new KommentReceiver(
+            requireEmail: false,
+            storeEmail: true,
+        );
+
+        $this->assertTrue($receiver->isEmailRequired());
+    }
+
+    /**
+     * @group validation
+     * @testdox isEmailRequired - verification option true
+     */
+    public function testReturnsTrueWhenVerificationIsEnabled(): void
+    {
+        $verificationMock = $this->createMock(CommentVerification::class);
+        $verificationMock->method('isVerificationEnabled')->willReturn(true);
+
+        $receiver = new KommentReceiver(
+            requireEmail: false,
+            storeEmail: false,
+            commentVerification: $verificationMock,
+        );
+
+        $this->assertTrue($receiver->isEmailRequired());
+    }
+
+    /**
+     * @group validation
+     * @testdox isEmailRequired - no mail required
+     */
+    public function testReturnsFalseWhenNothingRequiresEmail(): void
+    {
+        $verificationMock = $this->createMock(CommentVerification::class);
+        $verificationMock->method('isVerificationEnabled')->willReturn(false);
+
+        $receiver = new KommentReceiver(
+            requireEmail: false,
+            storeEmail: false,
+            commentVerification: $verificationMock,
+        );
+
+        $this->assertFalse($receiver->isEmailRequired());
+    }
+
 
     /**
      * @group spam

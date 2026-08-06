@@ -17,6 +17,9 @@ class KommentReceiver
         private ?bool $debug = null,
         private ?array $spamKeywords = null,
         private ?array $spamPhrases = null,
+        private ?bool $requireEmail = null,
+        private ?bool $storeEmail = null,
+        private ?CommentVerification $commentVerification = null,
     ) {
         $this->autoPublish = $autoPublish ?? option('mauricerenck.komments.moderation.autoPublish', []);
         $this->autoPublishVerified = $autoPublishVerified ?? option('mauricerenck.komments.moderation.publish-verified', false);
@@ -25,6 +28,9 @@ class KommentReceiver
         $this->spamKeywords = $spamKeywords ?? option('mauricerenck.komments.spam.keywords', []);
         $this->spamPhrases = $spamPhrases ?? option('mauricerenck.komments.spam.phrases', []);
         $this->debug = $debug ?? option('mauricerenck.komments.debug', false);
+        $this->requireEmail = $requireEmail ?? option('mauricerenck.privacy.requireEmail', true);
+        $this->storeEmail = $storeEmail ?? option('mauricerenck.privacy.storeEmail', true);
+        $this->commentVerification = $commentVerification ?? new CommentVerification();
     }
 
     public function validateFields(array $fields): array
@@ -35,8 +41,10 @@ class KommentReceiver
             $inValidFields[] = 'author_url';
         }
 
-        if (!V::email($fields['email'])) {
-            $inValidFields[] = 'email';
+        if ($this->isEmailRequired()) {
+            if (!V::email($fields['email'])) {
+                $inValidFields[] = 'email';
+            }
         }
 
         if (V::empty($fields['author'])) {
@@ -99,6 +107,23 @@ class KommentReceiver
         $spamlevel += $this->akismetCheck($fields, $page);
 
         return $spamlevel > 100 ? 100 : $spamlevel;
+    }
+
+    public function isEmailRequired(): bool
+    {
+        if ($this->requireEmail === true) {
+            return true;
+        }
+
+        if ($this->storeEmail === true) {
+            return true;
+        }
+
+        if ($this->commentVerification->isVerificationEnabled()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function sanitize_string($comment)
