@@ -206,9 +206,7 @@ export default {
                     ? comment.content.replace(/<[^>]*>/g, '')
                     : `(${actionTypes[comment.type]})`
 
-                const publishDate = this.$library.dayjs
-                    .pattern('YYYY-MM-DD HH:mm')
-                    .format(this.$library.dayjs(comment.updatedat))
+                const publishDate = this.$library.dayjs(comment.updatedat).format('YYYY-MM-DD HH:mm')
 
                 let statusIcon
 
