@@ -30,48 +30,5 @@ class Storage
      */
     public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure {}
 
-    public function createComment(
-        string $id,
-        string $pageUuid,
-        string $parentId,
-        string $type,
-        ?string $content,
-        string $authorName,
-        string $authorAvatar,
-        ?string $authorEmail,
-        string $authorUrl,
-        string $verification_status,
-        bool $published,
-        bool $verified,
-        int $spamlevel,
-        ?string $language,
-        int $upvotes,
-        int $downvotes,
-        string $createdAt,
-        string | null $updatedAt
-    ): Content {
-        return new Content([
-            'id' => $id,
-            'pageUuid' => $pageUuid,
-            'parentId' => $parentId,
-            'type' => $type,
-            'content' => $content,
-            'authorName' => $authorName,
-            'authorAvatar' => $authorAvatar,
-            'authorEmail' => $authorEmail,
-            'authorUrl' => $authorUrl,
-            'verification_status' => $verification_status,
-            'published' => $published,
-            'verified' => $verified,
-            'spamlevel' => $spamlevel,
-            'language' => $language,
-            'upvotes' => $upvotes,
-            'downvotes' => $downvotes,
-            'createdAt' => $createdAt,
-            'updatedAt' => $updatedAt,
-            'permalink' => '/@/comment/' . $id,
-        ]);
-    }
-
     public function saveVerificationToken(string $hash, string $commentId, string $expiresAt): bool {}
 }

@@ -140,27 +140,28 @@ class StorageSqlite extends Storage
     public function convertToStructure(Obj|Collection|Structure $databaseResults): Structure
     {
         $avatarHandler = new AvatarHandler();
+        $utils = new KommentUtils();
 
         $comments = [];
         $databaseResults = ($databaseResults instanceof Obj) ? [$databaseResults] : $databaseResults;
 
         foreach ($databaseResults as $databaseResult) {
-            $avatar = $avatarHandler->getAvatar($databaseResult->author_avatar, $databaseResult->author_name);
+            $avatar = $avatarHandler->avatar($databaseResult->author_avatar, $databaseResult->author_name);
 
-            $comment = $this->createComment(
+            $comment = $utils->createStructuredComment(
                 id: $databaseResult->id,
                 pageUuid: $databaseResult->page_uuid,
                 parentId: $databaseResult->parent_id,
                 type: $databaseResult->type,
-                content: $databaseResult->content,
+                comment: $databaseResult->content,
                 authorName: $databaseResult->author_name,
                 authorAvatar: $avatar,
                 authorEmail: $databaseResult->author_email,
                 authorUrl: $databaseResult->author_url,
-                verification_status: $databaseResult->verification_status,
+                verificationStatus: $databaseResult->verification_status,
                 published: $databaseResult->published,
                 verified: $databaseResult->verified,
-                spamlevel: $databaseResult->spamlevel,
+                spamLevel: $databaseResult->spamlevel,
                 language: $databaseResult->language,
                 upvotes: $databaseResult->upvotes,
                 downvotes: $databaseResult->downvotes,

@@ -27,4 +27,10 @@ return [
         $kommentsFrontend = new KommentsFrontend();
         return $kommentsFrontend->getCommentList($this);
     },
+    'isFieldRequired' => function ($fieldName) {
+        $kommentsFrontend = new KommentsFrontend();
+        $requiredFields =  $kommentsFrontend->requiredFormFields();
+
+        return in_array($fieldName, $requiredFields);
+    },
 ];

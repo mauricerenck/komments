@@ -24,6 +24,7 @@ return [
 
             $receiver = new KommentReceiver();
 
+            // VALIDATE FIELDS
             $invalidFields = $receiver->validateFields($formData);
             if (count($invalidFields) > 0) {
                 $errorMessage = [
@@ -35,8 +36,10 @@ return [
                 return new Response(json_encode($errorMessage), 'application/json', 406);
             }
 
-            $spamlevel = $receiver->getSpamlevel($formData, $page);
-            if ($spamlevel > option('mauricerenck.komments.spam.sensibility', 60)) {
+            // CHECK FOR SPAM
+            $spamHandler = new SpamHandler();
+            $spamLevel = $spamHandler->getSpamlevel($formData, $page);
+            if ($spamLevel > option('mauricerenck.komments.spam.sensibility', 60)) {
                 $errorMessage = [
                     'status' => 'error',
                     'message' => I18n::translate('mauricerenck.komments.lookslikespam', null, $formData['language'])
@@ -47,65 +50,46 @@ return [
                 }
             }
 
+            $commentData = $receiver->transformFormData($formData, $spamLevel);
+
             $storage = StorageFactory::create();
+            $storage->saveComment($commentData);
 
-            $id = Uuid::generate();
-            $date = date('c', time());
-
-            $verified = $receiver->isVerified($formData['email']);
-            $autoPublish = $receiver->autoPublish($formData['email'], $verified);
-            $verificationStatus = $autoPublish ? 'PUBLISHED' : 'VERIFIED';
-
+            // COMMENT EMAIL VERIFICATION
             if (option('mauricerenck.komments.spam.verification.enabled', false)) {
-                $verificationStatus = $autoPublish ? 'PUBLISHED' : 'PENDING';
-            }
+                $email = $commentData->email();
 
-            $comment = $storage->createComment(
-                id: $id,
-                pageUuid: $receiver->createSafeString($formData['pageUuid']),
-                parentId: $receiver->getParentId($formData['replyTo']),
-                type: 'comment',
-                content: $receiver->createSafeString($formData['comment']),
-                authorName: $receiver->createSafeString($formData['author']),
-                authorAvatar: $receiver->getAvatarFromEmail($formData['email']),
-                authorEmail: $receiver->getEmail($formData['email']),
-                authorUrl: $receiver->createSafeString($formData['author_url']),
-                verification_status: $verificationStatus,
-                published: $autoPublish,
-                verified: $verified,
-                spamlevel: $spamlevel,
-                language: $receiver->createSafeString($formData['language']),
-                upvotes: 0,
-                downvotes: 0,
-                createdAt: $date,
-                updatedAt: $date,
-            );
-
-            $storage->saveComment($comment);
-
-            if (option('mauricerenck.komments.spam.verification.enabled', false)) {
-                $email = $receiver->getEmail($formData['email'], true);
                 if (!is_null($email)) {
-                    $receiver->sendVerificationMail(email: $email, username: $receiver->createSafeString($formData['author']), commentId: $id);
+                    $receiver->sendVerificationMail(
+                        email: $email->value(),
+                        username: $commentData->author()->value(),
+                        commentId: $commentData->id()->value()
+                    );
                 }
             }
 
-            kirby()->trigger('komments.comment.received', ['comment' => $comment]);
+            // TRIGGER HOOKS
+            kirby()->trigger('komments.comment.received', ['comment' => $commentData]);
 
-            if ($comment->parentId()->isNotEmpty()) {
-                kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
+            if ($commentData->parentId()->isNotEmpty()) {
+                kirby()->trigger('komments.comment.replied', ['comment' => $commentData]);
             }
 
+            // RETURN json in case of javascript enabled form
             if ($shouldReturnJson) {
-                $translationCode = option('mauricerenck.komments.spam.verification.enabled', false) ? 'mauricerenck.komments.verify' : 'mauricerenck.komments.thankyou';
+                $translationCode = option('mauricerenck.komments.spam.verification.enabled', false)
+                    ? 'mauricerenck.komments.verify'
+                    : 'mauricerenck.komments.thankyou';
+
                 $response = [
                     'status' => 'success',
-                    'message' => I18n::translate($translationCode, null, $formData['language']),
+                    'message' => I18n::translate($translationCode, null, $commentData->language()->value()),
                 ];
 
                 return new Response(json_encode($response), 'application/json', 200);
             }
 
+            // go back to page on regular form submit
             go($page->url());
         }
     ],
@@ -193,5 +177,5 @@ return [
 
             go($comment->pageUuid() . '#c' . $comment->id());
         }
-    ],
+    ]
 ];

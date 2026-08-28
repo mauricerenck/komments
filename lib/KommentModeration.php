@@ -102,37 +102,24 @@ class KommentModeration
 
     public function replyToComment(string $id, array $formData)
     {
-
         $comment = $this->storage->getSingleComment($id);
-
         $publishResult = $comment->published()->isTrue() ? true : $this->publishComment($id);
 
-        $commentId = Uuid::generate();
+        $receiver = new KommentReceiver();
         $author = kirby()->user();
-        $avatar = $author->avatar() ? $author->avatar()->url() : 'https://www.gravatar.com/avatar/' .  md5($author->email());
 
-        $newComment = $this->storage->createComment(
-            id: $commentId,
-            pageUuid: $formData['pageUuid'],
-            parentId: $id,
-            type: 'comment',
-            content: $formData['content'],
-            authorName: $author->username(),
-            authorAvatar: $avatar,
-            authorEmail: $author->email(),
-            authorUrl: site()->url(),
-            verification_status: $publishResult ? 'PUBLISHED' : 'PENDING',
-            published: $publishResult,
-            verified: true,
-            spamlevel: 0,
-            language: $formData['language'],
-            upvotes: 0,
-            downvotes: 0,
-            createdAt: date('Y-m-d H:i:s', time()),
-            updatedAt: date('Y-m-d H:i:s', time()),
-        );
+        /* the panel will provide:
+            - comment
+            - pageUuid
+            - language
+        */
+        $formData['replyTo'] = $id;
+        $formData['author'] = $author->name();
+        $formData['author_url'] = site()->url();
+        $formData['email'] = $author->email();
 
-        $saveResult = $this->storage->saveComment($newComment);
+        $commentData = $receiver->transformFormData(formData: $formData, spamLevel: 0, forceAutoPublish: true);
+        $saveResult = $this->storage->saveComment(comment: $commentData);
 
         kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
@@ -140,7 +127,7 @@ class KommentModeration
         return [
             'created' => $saveResult,
             'published' => $publishResult,
-            'newComment' => $newComment->toArray(),
+            'newComment' => $commentData->toArray(),
             'inReplyTo' => $comment->toArray(),
         ];
     }

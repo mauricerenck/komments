@@ -3,6 +3,8 @@
 use mauricerenck\Komments\KommentReceiver;
 use mauricerenck\Komments\TestCaseMocked;
 use mauricerenck\Komments\CommentVerification;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 
 final class KommentReceiverTest extends TestCaseMocked
 {
@@ -11,18 +13,19 @@ final class KommentReceiverTest extends TestCaseMocked
         parent::setUp();
     }
 
-    /**
-     * @group validation
-     * @testdox validateFields - should return no invalid fields
-     */
-    public function testValidateFields()
+    /* ********************************
+    ** validation author url
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('validateFields - AuthorUrl not set')]
+    public function testValidateFieldsAuthorUrlNotSet()
     {
         $receiverClass = new KommentReceiver();
 
         $fields = [
-            'author_url' => 'https://www.example.com',
             'email' => 'user@example.com',
-            'author' => 'Author Name',
+            'author' => 'Example Author',
             'comment' => 'lorem ipsum dolor sit amet.'
         ];
 
@@ -30,29 +33,8 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertEquals([], $result);
     }
 
-    /**
-     * @group validation
-     * @testdox validateFields - should return invalid author url
-     */
-    public function testValidateFieldsAuthorUrl()
-    {
-        $receiverClass = new KommentReceiver();
-
-        $fields = [
-            'author_url' => 'no-url',
-            'email' => 'user@example.com',
-            'author' => 'Author Name',
-            'comment' => 'lorem ipsum dolor sit amet.'
-        ];
-
-        $result = $receiverClass->validateFields($fields);
-        $this->assertEquals(['author_url'], $result);
-    }
-
-    /**
-     * @group validation
-     * @testdox validateFields - should not return invalid author url
-     */
+    #[Group('validation')]
+    #[TestDox('validateFields - AuthorUrl empty')]
     public function testValidateFieldsAuthorUrlEmpty()
     {
         $receiverClass = new KommentReceiver();
@@ -60,7 +42,7 @@ final class KommentReceiverTest extends TestCaseMocked
         $fields = [
             'author_url' => '',
             'email' => 'user@example.com',
-            'author' => 'Author Name',
+            'author' => 'Example Author',
             'comment' => 'lorem ipsum dolor sit amet.'
         ];
 
@@ -68,19 +50,69 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertEquals([], $result);
     }
 
-
-    /**
-     * @group validation
-     * @testdox validateFields - should return invalid email
-     */
-    public function testValidateFieldsEmail()
+    #[Group('validation')]
+    #[TestDox('validateFields - AuthorUrl set')]
+    public function testValidateFieldsAuthorUrlSet()
     {
         $receiverClass = new KommentReceiver();
 
         $fields = [
             'author_url' => 'https://www.example.com',
-            'email' => 'user_example.com',
-            'author' => 'Author Name',
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals([], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - AuthorUrl invalid')]
+    public function testValidateFieldsAuthorUrlInvalid()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'author_url' => 'no-valid-url',
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals(['author_url'], $result);
+    }
+
+    /* ********************************
+    ** validation email
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('validateFields - email required and set')]
+    public function testValidateFieldsEmailRequiredSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals([], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - email required and not set')]
+    public function testValidateFieldsEmailRequiredNotSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => '',
+            'author' => 'Example Author',
             'comment' => 'lorem ipsum dolor sit amet.'
         ];
 
@@ -88,16 +120,101 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertEquals(['email'], $result);
     }
 
-    /**
-     * @group validation
-     * @testdox validateFields - should return invalid author
-     */
-    public function testValidateFieldsAuthor()
+    #[Group('validation')]
+    #[TestDox('validateFields - email required and invalid')]
+    public function testValidateFieldsEmailRequiredInvalid()
     {
         $receiverClass = new KommentReceiver();
 
         $fields = [
-            'author_url' => 'https://www.example.com',
+            'email' => 'no-valid-email',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals(['email'], $result);
+    }
+
+    /* ********************************
+    ** validation comment
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('validateFields - comment required and set')]
+    public function testValidateFieldsCommentRequiredSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals([], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - comment required and not set')]
+    public function testValidateFieldsCommentRequiredNotSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => ''
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals(['comment'], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - comment required and whitespace only')]
+    public function testValidateFieldsCommentRequiredTooShort()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => ' '
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals(['comment'], $result);
+    }
+
+    /* ********************************
+    ** validation author
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('validateFields - author required and set')]
+    public function testValidateFieldsAuthorRequiredSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals([], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - author required and not set')]
+    public function testValidateFieldsAuthorRequiredNotSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
             'email' => 'user@example.com',
             'author' => '',
             'comment' => 'lorem ipsum dolor sit amet.'
@@ -107,48 +224,45 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertEquals(['author'], $result);
     }
 
-    /**
-     * @group validation
-     * @testdox validateFields - should return invalid author
-     */
-    public function testValidateFieldsComment()
+    #[Group('validation')]
+    #[TestDox('validateFields - author required and set')]
+    public function testValidateFieldsAuthorNotRequiredSet()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireAuthor: false);
 
         $fields = [
-            'author_url' => 'https://www.example.com',
             'email' => 'user@example.com',
-            'author' => 'Author Name',
-            'comment' => ''
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
         ];
 
         $result = $receiverClass->validateFields($fields);
-        $this->assertEquals(['comment'], $result);
+        $this->assertEquals([], $result);
     }
 
-    /**
-     * @group validation
-     * @testdox validateFields - should return invalid fields
-     */
-    public function testValidateFieldsMultiple()
+    #[Group('validation')]
+    #[TestDox('validateFields - author required and not set')]
+    public function testValidateFieldsAuthorNotRequiredNotSet()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireAuthor: false);
 
         $fields = [
-            'author_url' => 'https://www.example.com',
-            'email' => 'user_example.com',
-            'author' => 'Author Name',
-            'comment' => ''
+            'email' => 'user@example.com',
+            'author' => '',
+            'comment' => 'lorem ipsum dolor sit amet.'
         ];
 
         $result = $receiverClass->validateFields($fields);
-        $this->assertEquals(['email', 'comment'], $result);
+        $this->assertEquals([], $result);
     }
 
-    /**
-     * @group validation
-     * @testdox isEmailRequired - required option true
-     */
+
+    /* ********************************
+    ** isEmailRequired
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('isEmailRequired - required option true')]
     public function testIsEmailRequiredTrue()
     {
         $receiver = new KommentReceiver(
@@ -159,10 +273,8 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertTrue($receiver->isEmailRequired());
     }
 
-    /**
-     * @group validation
-     * @testdox isEmailRequired - store option true
-     */
+    #[Group('validation')]
+    #[TestDox('isEmailRequired - store option true')]
     public function testIsEmailRequiredFalse()
     {
 
@@ -174,10 +286,8 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertTrue($receiver->isEmailRequired());
     }
 
-    /**
-     * @group validation
-     * @testdox isEmailRequired - verification option true
-     */
+    #[Group('validation')]
+    #[TestDox('isEmailRequired - verification option true')]
     public function testReturnsTrueWhenVerificationIsEnabled(): void
     {
         $verificationMock = $this->createMock(CommentVerification::class);
@@ -192,10 +302,8 @@ final class KommentReceiverTest extends TestCaseMocked
         $this->assertTrue($receiver->isEmailRequired());
     }
 
-    /**
-     * @group validation
-     * @testdox isEmailRequired - no mail required
-     */
+    #[Group('validation')]
+    #[TestDox('isEmailRequired - no mail required')]
     public function testReturnsFalseWhenNothingRequiresEmail(): void
     {
         $verificationMock = $this->createMock(CommentVerification::class);
@@ -211,6 +319,43 @@ final class KommentReceiverTest extends TestCaseMocked
     }
 
 
+    /* ********************************
+    ** validation general
+    ********************************** */
+
+    #[Group('validation')]
+    #[TestDox('validateFields - all set')]
+    public function testValidateFieldsAllSet()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => 'user@example.com',
+            'author_url' => 'https://example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals([], $result);
+    }
+
+    #[Group('validation')]
+    #[TestDox('validateFields - some missing or invalid')]
+    public function testValidateFieldsMissingInvalid()
+    {
+        $receiverClass = new KommentReceiver();
+
+        $fields = [
+            'email' => '',
+            'author_url' => 'example.com',
+            'author' => 'Example Author',
+            'comment' => 'lorem ipsum dolor sit amet.'
+        ];
+
+        $result = $receiverClass->validateFields($fields);
+        $this->assertEquals(['author_url', 'email'], $result);
+    }
     /**
      * @group spam
      * @testdox getSpamlevel - should return level 0

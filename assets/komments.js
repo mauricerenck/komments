@@ -38,24 +38,54 @@ const kommentFormInit = () => {
             headers: { 'Content-Type': 'application/json', 'X-Return-Type': 'json' },
             body: JSON.stringify(Object.fromEntries(new FormData(event.target))),
         })
-            .then(function (response) {
+            .then(async (response) => {
+                const responseBody = await response.json()
                 kommentFormLoader.classList.remove('visible')
+
+                if (response.status === 406) {
+                    const message = responseBody.message || 'An error occurred'
+
+                    kommentFormMsg.innerHTML = `<p>${message}</p>`
+                    kommentFormMsg.classList.add('msg-error')
+                    kommentFormMsg.classList.add('visible')
+
+                    if (!responseBody.fields || responseBody.fields.length === 0) {
+                        return
+                    }
+
+                    responseBody.fields.forEach((field) => {
+                        const affectedField = kommentForm.querySelector(`input[name=${field}]`)
+
+                        if (!affectedField) {
+                            return
+                        }
+
+                        affectedField.classList.add('form-error')
+                    })
+                    return
+                }
 
                 if (response.status !== 200) {
                     throw response
                 }
 
-                return response.json()
-            })
-            .then((response) => {
-                kommentFormMsg.innerHTML = `<p>${response.message}</p>`
+                kommentFormMsg.innerHTML = `<p>${responseBody.message}</p>`
                 kommentFormMsg.classList.add('msg-success')
                 kommentFormMsg.classList.add('visible')
                 kommentForm.reset()
+
+                const prevErrorFields = kommentForm.querySelectorAll(`.form-error`)
+
+                if (prevErrorFields) {
+                    prevErrorFields.forEach((field) => {
+                        field.classList.remove('form-error')
+                    })
+                }
+
+                return responseBody
             })
-            .catch((response) => {
-                const error = response.json()
-                const message = error.message || 'An error occurred'
+            .catch((_error) => {
+                const message = 'An unknown error occurred'
 
                 kommentFormMsg.innerHTML = `<p>${message}</p>`
                 kommentFormMsg.classList.add('msg-error')

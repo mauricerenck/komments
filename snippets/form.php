@@ -1,6 +1,7 @@
 <?php
 $formName = '';
 $formEmail = '';
+$formRequiredFields = $page->commentsFieldsRequired();
 $pageLanguage = $kirby->language() ? $kirby->language()->code() : 'en';
 $user = $kirby->user();
 
@@ -25,17 +26,20 @@ if (!is_null($user) && $user->isLoggedIn()) {
 
     <label for="comment" class="comment">
         <?php echo t('mauricerenck.komments.form.label.comment'); ?>
-        <textarea name="comment" id="comment" cols="30" rows="5" placeholder="<?php echo t('mauricerenck.komments.form.label.comment'); ?>*" required></textarea>
+        <?php echo $page->isFieldRequired('comment') ? '*' : '' ?>
+        <textarea name="comment" id="comment" cols="30" rows="5" placeholder="<?php echo t('mauricerenck.komments.form.label.comment'); ?>*" <?php echo $page->isFieldRequired('comment') ? 'required' : '' ?>></textarea>
     </label>
 
     <label for="email">
         <?php echo t('mauricerenck.komments.form.label.email'); ?>
-        <input type="email" name="email" id="email" placeholder="<?php echo t('mauricerenck.komments.form.label.email'); ?>" value="<?php echo $formEmail; ?>">
+        <?php echo $page->isFieldRequired('email') ? '*' : '' ?>
+        <input type="email" name="email" id="email" placeholder="<?php echo t('mauricerenck.komments.form.label.email'); ?>" value="<?php echo $formEmail; ?>" <?php echo $page->isFieldRequired('email') ? 'required' : '' ?>>
     </label>
 
     <label for="author">
         <?php echo t('mauricerenck.komments.form.label.name'); ?>
-        <input type="text" name="author" id="author" placeholder="<?php echo t('mauricerenck.komments.form.label.name'); ?>" value="<?php echo $formName; ?>">
+        <?php echo $page->isFieldRequired('author') ? '*' : '' ?>
+        <input type="text" name="author" id="author" placeholder="<?php echo t('mauricerenck.komments.form.label.name'); ?>" value="<?php echo $formName; ?>" <?php echo $page->isFieldRequired('author') ? 'required' : '' ?>>
     </label>
 
     <label for="author_url">

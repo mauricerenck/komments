@@ -47,6 +47,10 @@
         grid-area: button;
     }
 
+    input.form-error {
+        border-color: red;
+    }
+
     #url {
         position: relative;
         left: -200vw;

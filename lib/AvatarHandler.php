@@ -5,50 +5,67 @@ namespace mauricerenck\Komments;
 class AvatarHandler
 {
 
-    public function __construct(private ?string $avatarReturnType = null, private ?string $avatarService = null, private ?bool $webmentionAvatars = null)
+    public function __construct(private ?string $avatarReturnType = null, private ?string $avatarService = null, private ?string $avatarDefault = null, private ?int $avatarSize = null, private ?bool $webmentionAvatars = null)
     {
         $this->avatarReturnType = $avatarReturnType ?? option('mauricerenck.komments.avatar.returnType', 'img');
         $this->avatarService = $avatarService ?? option('mauricerenck.komments.avatar.service', 'gravatar');
-        $this->webmentionAvatars = $avatarService ?? option('mauricerenck.komments.avatar.webmentionAvatars', true);
+        $this->avatarDefault = $avatarDefault ?? option('mauricerenck.komments.avatar.gravatarDefault', 'identicon');
+        $this->avatarSize = $avatarSize ?? option('mauricerenck.komments.avatar.size', 100);
+        $this->webmentionAvatars = $webmentionAvatars ?? option('mauricerenck.komments.avatar.webmentionAvatars', true);
     }
 
-    public function getAvatar(string $authorAvatarUrl, string $authorName): ?string
-    {
-        $avatarString = $this->getAvatarByType($authorAvatarUrl, $authorName);
 
-        if ($this->avatarService !== 'gravatar' && $this->avatarReturnType === 'svg') {
-            return $avatarString;
+    public function avatar(string | null $md5hash, ?string $altText = '')
+    {
+        // no email data, return initials svg
+        if (!isset($md5hash) || empty($md5hash)) {
+            return $this->returnInitialsAvatar($altText);
         }
 
+        // gravatar disabled, return initials svg
+        if ($this->avatarService === 'initials') {
+            return $this->returnInitialsAvatar($altText);
+        }
+
+        // FEAT: local caching of avatars
+        $cachedAvatar = null;
+
+        // return gravatar, return type is always img
+        if (!$cachedAvatar) {
+            $avatarString = 'https://www.gravatar.com/avatar/' . $md5hash . '?d=' . $this->avatarDefault . '&s=' . $this->avatarSize;
+
+            return <<<HTMLTAG
+            <img class="u-photo" src="$avatarString" alt="$altText" />
+            HTMLTAG;
+        }
+
+        // fallback return initials svg
+        return $this->returnInitialsAvatar($altText);
+    }
+
+    public function returnInitialsAvatar(string $altText)
+    {
+        $svgAvatar = $this->author_initials_svg_data_uri($altText);
+
+        // return type: url
         if ($this->avatarReturnType === 'url') {
-            return $avatarString;
+            return $svgAvatar['dataUri'];
         }
 
-        return <<<HTMLTAG
-        <img class="u-photo" src="$avatarString" alt="$authorName" />
-        HTMLTAG;
-    }
-
-    public function getAvatarByType(string $authorAvatarUrl, string $authorName): ?string
-    {
-        if ($this->avatarService === 'gravatar') {
-            return $authorAvatarUrl;
-        }
-
-        if ($this->avatarService !== 'gravatar' && $this->webmentionAvatars) {
-            if (strpos($authorAvatarUrl, 'gravatar.com') === false) {
-                return $authorAvatarUrl;
-            }
-        }
-
+        // return type: svg
         if ($this->avatarReturnType === 'svg') {
-            return $this->author_initials_svg_data_uri($authorName)['svg'];
+            return $svgAvatar['svg'];
         }
 
-        return $this->author_initials_svg_data_uri($authorName)['dataUri'];
+        // return type: img
+        $dataUri = $svgAvatar['dataUri'];
+        return <<<HTMLTAG
+                <img class="u-photo" src="$dataUri" alt="$altText" />
+                HTMLTAG;
     }
 
-    public function author_initials_svg_data_uri($author)
+
+    public function author_initials_svg_data_uri(string $author): array
     {
         // Extract initials
         $words = preg_split('/\s+/', trim($author));
@@ -62,9 +79,12 @@ class AvatarHandler
         }
         $initials = htmlspecialchars($initials);
 
+        $textPositionX = $this->avatarSize / 2;
+        $textPositionY = $this->avatarSize / 2 + 5;
+
         // SVG string
         $svg = <<<SVG
-    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="komment-avatar-initials">
+    <svg width="$this->avatarSize" height="$this->avatarSize" viewBox="0 0 $this->avatarSize $this->avatarSize" xmlns="http://www.w3.org/2000/svg" class="komment-avatar-initials">
     <style>
         .author-initials-bg { fill: var(--author-bg, #1391a4); }
         .author-initials-text {
@@ -77,10 +97,10 @@ class AvatarHandler
           text-transform: uppercase;
         }
       </style>
-      <rect class="author-initials-bg" width="100" height="100"/>
+      <rect class="author-initials-bg" width="$this->avatarSize" height="$this->avatarSize"/>
       <text
-        x="50"
-        y="55"
+        x="$textPositionX"
+        y="$textPositionY"
         class="author-initials-text"
         dominant-baseline="middle"
         text-anchor="middle"
