@@ -1,3 +1,23 @@
+# [3.9.0](https://github.com/mauricerenck/komments/compare/v3.8.2...v3.9.0) (2026-08-29)
+
+
+### Bug Fixes
+
+* komment receiver tests ([d5513a4](https://github.com/mauricerenck/komments/commit/d5513a4c000275cd74d9759add197085709c7733))
+* moderation test ([91bb5ec](https://github.com/mauricerenck/komments/commit/91bb5ece9e4a18abc414205148b3f7c868e4b880))
+* remove old dependencies [#99](https://github.com/mauricerenck/komments/issues/99) ([70562b5](https://github.com/mauricerenck/komments/commit/70562b59f2c5aabe9808138b75905c1ad89450c7))
+* removed unused dependency webmention-client [#99](https://github.com/mauricerenck/komments/issues/99) ([35b77cd](https://github.com/mauricerenck/komments/commit/35b77cdb0c5b38332f8ec5fa061d876999cc2bc3))
+
+
+### Features
+
+* edit comments ([7df393d](https://github.com/mauricerenck/komments/commit/7df393ded54467aaa4582fb0a27686d2fdcaad27))
+* email optional ([e40ede4](https://github.com/mauricerenck/komments/commit/e40ede40cbec0facaef9ccee1fff9e658f2aa8d2))
+* optional fields ([be0c214](https://github.com/mauricerenck/komments/commit/be0c214331fdeeda584e97957a34fafdc3aef487))
+* slim down comment drawer ([5e0ae6c](https://github.com/mauricerenck/komments/commit/5e0ae6cc47d616ae98a26d6ee46cdf454691fbaa))
+* spamhandler tests ([3d67d4b](https://github.com/mauricerenck/komments/commit/3d67d4b9671df6c67cac2da2d2bfe4621ff8629f))
+* utils tests ([e3b02bc](https://github.com/mauricerenck/komments/commit/e3b02bcc8a530f343fd4cdd3a9b1740de9498814))
+
 ## [3.8.2](https://github.com/mauricerenck/komments/compare/v3.8.1...v3.8.2) (2026-07-19)
 
 
