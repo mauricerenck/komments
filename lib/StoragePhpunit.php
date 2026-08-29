@@ -120,7 +120,7 @@ class StoragePhpunit extends Storage
             'verification_status' => 'PUBLISHED',
             'verified' => false,
             'spamlevel' => 0,
-            'language' => null,
+            'language' => 'en',
             'upvotes' => 0,
             'downvotes' => 0,
             'createdAt' => '2024-01-02 10:00:00',
