@@ -7,8 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'IndieWeb\\MentionClient' => $vendorDir . '/indieweb/mention-client/src/IndieWeb/MentionClient.php',
-    'IndieWeb\\MentionClientTest' => $vendorDir . '/indieweb/mention-client/src/IndieWeb/MentionClientTest.php',
     'Kirby\\ComposerInstaller\\CmsInstaller' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/CmsInstaller.php',
     'Kirby\\ComposerInstaller\\Installer' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/Installer.php',
     'Kirby\\ComposerInstaller\\Plugin' => $vendorDir . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
@@ -19,9 +17,11 @@ return array(
     'mauricerenck\\Komments\\KommentModeration' => $baseDir . '/lib/KommentModeration.php',
     'mauricerenck\\Komments\\KommentNotifications' => $baseDir . '/lib/KommentNotifications.php',
     'mauricerenck\\Komments\\KommentReceiver' => $baseDir . '/lib/KommentReceiver.php',
+    'mauricerenck\\Komments\\KommentUtils' => $baseDir . '/lib/KommentUtils.php',
     'mauricerenck\\Komments\\KommentsFrontend' => $baseDir . '/lib/KommentsFrontend.php',
     'mauricerenck\\Komments\\MarkdownConverter' => $baseDir . '/lib/MarkdownConverter.php',
     'mauricerenck\\Komments\\Migrations' => $baseDir . '/lib/Migrations.php',
+    'mauricerenck\\Komments\\SpamHandler' => $baseDir . '/lib/SpamHandler.php',
     'mauricerenck\\Komments\\Storage' => $baseDir . '/lib/Storage.php',
     'mauricerenck\\Komments\\StorageFactory' => $baseDir . '/lib/StorageFactory.php',
     'mauricerenck\\Komments\\StorageMarkdown' => $baseDir . '/lib/StorageMarkdown.php',

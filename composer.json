@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "getkirby/cms": "^5",
-        "phpunit/phpunit": "^9.5.",
+        "phpunit/phpunit": "^12",
         "mockery/mockery": "^1.6"
     },
     "require": {

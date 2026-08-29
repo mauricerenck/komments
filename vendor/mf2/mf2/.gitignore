@@ -1,8 +1,0 @@
-.DS_Store
-/nbproject
-composer.phar
-composer.lock
-/vendor/
-/tmp
-.idea/
-/bin/test

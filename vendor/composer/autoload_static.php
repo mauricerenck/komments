@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
 {
-    public static $files = array (
-        '757772e28a0943a9afe83def8db95bdf' => __DIR__ . '/..' . '/mf2/mf2/Mf2/Parser.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'm' =>
         array (
@@ -32,20 +28,8 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'I' =>
-        array (
-            'IndieWeb' =>
-            array (
-                0 => __DIR__ . '/..' . '/indieweb/mention-client/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'IndieWeb\\MentionClient' => __DIR__ . '/..' . '/indieweb/mention-client/src/IndieWeb/MentionClient.php',
-        'IndieWeb\\MentionClientTest' => __DIR__ . '/..' . '/indieweb/mention-client/src/IndieWeb/MentionClientTest.php',
         'Kirby\\ComposerInstaller\\CmsInstaller' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/CmsInstaller.php',
         'Kirby\\ComposerInstaller\\Installer' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Installer.php',
         'Kirby\\ComposerInstaller\\Plugin' => __DIR__ . '/..' . '/getkirby/composer-installer/src/ComposerInstaller/Plugin.php',
@@ -56,9 +40,11 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         'mauricerenck\\Komments\\KommentModeration' => __DIR__ . '/../..' . '/lib/KommentModeration.php',
         'mauricerenck\\Komments\\KommentNotifications' => __DIR__ . '/../..' . '/lib/KommentNotifications.php',
         'mauricerenck\\Komments\\KommentReceiver' => __DIR__ . '/../..' . '/lib/KommentReceiver.php',
+        'mauricerenck\\Komments\\KommentUtils' => __DIR__ . '/../..' . '/lib/KommentUtils.php',
         'mauricerenck\\Komments\\KommentsFrontend' => __DIR__ . '/../..' . '/lib/KommentsFrontend.php',
         'mauricerenck\\Komments\\MarkdownConverter' => __DIR__ . '/../..' . '/lib/MarkdownConverter.php',
         'mauricerenck\\Komments\\Migrations' => __DIR__ . '/../..' . '/lib/Migrations.php',
+        'mauricerenck\\Komments\\SpamHandler' => __DIR__ . '/../..' . '/lib/SpamHandler.php',
         'mauricerenck\\Komments\\Storage' => __DIR__ . '/../..' . '/lib/Storage.php',
         'mauricerenck\\Komments\\StorageFactory' => __DIR__ . '/../..' . '/lib/StorageFactory.php',
         'mauricerenck\\Komments\\StorageMarkdown' => __DIR__ . '/../..' . '/lib/StorageMarkdown.php',
@@ -73,7 +59,6 @@ class ComposerStaticInit60056fecad9d217d765a4dde54e59e86
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit60056fecad9d217d765a4dde54e59e86::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit60056fecad9d217d765a4dde54e59e86::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit60056fecad9d217d765a4dde54e59e86::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit60056fecad9d217d765a4dde54e59e86::$classMap;
 
         }, null, ClassLoader::class);
