@@ -6,8 +6,6 @@
 
 ---
 
-![the dashboard](/doc-assets/komment-detail-view.png)
-
 ## Installation
 
 Use one of these methods to install the plugin:
