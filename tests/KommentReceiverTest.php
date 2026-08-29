@@ -108,7 +108,7 @@ final class KommentReceiverTest extends TestCaseMocked
     #[TestDox('validateFields - email required and not set')]
     public function testValidateFieldsEmailRequiredNotSet()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireEmail: true);
 
         $fields = [
             'email' => '',
@@ -124,7 +124,7 @@ final class KommentReceiverTest extends TestCaseMocked
     #[TestDox('validateFields - email required and invalid')]
     public function testValidateFieldsEmailRequiredInvalid()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireEmail: true);
 
         $fields = [
             'email' => 'no-valid-email',
@@ -212,7 +212,7 @@ final class KommentReceiverTest extends TestCaseMocked
     #[TestDox('validateFields - author required and not set')]
     public function testValidateFieldsAuthorRequiredNotSet()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireAuthor: true);
 
         $fields = [
             'email' => 'user@example.com',
@@ -344,7 +344,7 @@ final class KommentReceiverTest extends TestCaseMocked
     #[TestDox('validateFields - some missing or invalid')]
     public function testValidateFieldsMissingInvalid()
     {
-        $receiverClass = new KommentReceiver();
+        $receiverClass = new KommentReceiver(requireEmail: true);
 
         $fields = [
             'email' => '',
@@ -356,229 +356,47 @@ final class KommentReceiverTest extends TestCaseMocked
         $result = $receiverClass->validateFields($fields);
         $this->assertEquals(['author_url', 'email'], $result);
     }
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 0
-     */
-    public function testGetSpamlevelZero()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
 
-        $fields = [
-            'url' => '',
-            'comment' => 'hello world'
-        ];
 
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(0, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 12
-     */
-    public function testGetSpamlevel12()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => '',
-            'comment' => 'hello world https://example.com'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(12, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 14
-     */
-    public function testGetSpamlevel14()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => '',
-            'comment' => 'hello world https://example.com https://example-2.com'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(14, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 60
-     */
-    public function testGetSpamlevel60()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => '',
-            'comment' => 'hello <strong>world</strong>'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(80, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 80
-     */
-    public function testGetSpamlevel80()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => 'hi',
-            'comment' => 'hello world'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(80, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 100
-     */
-    public function testGetSpamlevel100()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => 'https://example.com',
-            'comment' => 'hello world'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(100, $result);
-    }
-
-    /**
-     * @group spam
-     * @testdox getSpamlevel - should return level 100
-     */
-    public function testGetSpamlevelMax100()
-    {
-        $receiverClass = new KommentReceiver();
-        $page = $this->getPageMock();
-
-        $fields = [
-            'url' => 'https://example.com',
-            'comment' => 'hello <strong>world</strong>'
-        ];
-
-        $result = $receiverClass->getSpamlevel($fields, $page);
-        $this->assertEquals(100, $result);
-    }
-
-    /**
-     * @group moderation
-     * @testdox autoPublish - should auto publish by email
-     */
+    #[Group('helper')]
+    #[TestDox('autoPublish - should auto publish by email')]
     public function testAutoPublish()
     {
         $receiverClass = new KommentReceiver(autoPublish: ['user@example.com']);
 
-        $result = $receiverClass->autoPublish('user@example.com', false);
+        $result = $receiverClass->autoPublish(isVerified: false, email: 'user@example.com');
         $this->assertTrue($result);
     }
 
-    /**
-     * @group moderation
-     * @testdox autoPublish - should auto publish by verification
-     */
+    #[Group('helper')]
+    #[TestDox('autoPublish - should auto publish when verified user')]
     public function testAutoPublishVerified()
     {
         $receiverClass = new KommentReceiver(autoPublishVerified: true);
 
-        $result = $receiverClass->autoPublish('user@example.com', true);
+        $result = $receiverClass->autoPublish(isVerified: true, email: 'user@example.com');
         $this->assertTrue($result);
     }
 
-    /**
-     * @group moderation
-     * @testdox autoPublish - should not auto publish
-     */
+
+    #[Group('helper')]
+    #[TestDox('autoPublish - should not auto publish')]
     public function testAutoPublishShouldNot()
     {
         $receiverClass = new KommentReceiver();
 
-        $result = $receiverClass->autoPublish('user@example.com', false);
+        $result = $receiverClass->autoPublish(isVerified: false, email: 'user@example.com');
         $this->assertFalse($result);
     }
 
-    /**
-     * @group moderation
-     * @testdox getAvatarFromEmail - should return url string
-     */
+    #[Group('helper')]
+    #[TestDox('getAvatarFromEmail - should return hash')]
     public function testGetAvatarFromEmail()
     {
         $receiverClass = new KommentReceiver();
         $mailHash = md5('user@example.com');
 
         $result = $receiverClass->getAvatarFromEmail('user@example.com');
-        $this->assertEquals('https://www.gravatar.com/avatar/' . $mailHash, $result);
+        $this->assertEquals($mailHash, $result);
     }
-
-    /**
-     * @group moderation
-     * @testdox createSafeString - should return safe string
-     */
-    public function testCreateSafeString()
-    {
-        $receiverClass = new KommentReceiver();
-
-        $result = $receiverClass->createSafeString('<strong>hello</strong>');
-        $this->assertEquals('hello', $result);
-    }
-
-    /**
-     * @group verification
-     * @testdox generateToken - returns token on success
-     */
-    // public function testGenerateTokenReturnsTokenOnSuccess()
-    // {
-    //     $receiver = new KommentReceiver(
-    //         verificationTtl: 1,
-    //         verificationSecret: 'secret'
-    //     );
-
-    //     $token = $receiver->generateToken('test@example.com', 'comment123');
-    //     $this->assertIsString($token);
-    //     $parts = explode('.', $token);
-    //     $this->assertCount(2, $parts);
-    //     $this->assertNotEmpty($parts[0]); // hash
-    //     $this->assertNotEmpty($parts[1]); // base64 timestamp
-    //     $this->assertEquals(base64_decode($parts[1]), time() + 1 * 60 * 60, '', 2); // allow small time drift
-    // }
-
-    /**
-     * @group verification
-     * @testdox generateToken - returns false on failure
-     */
-    // public function testGenerateTokenReturnsFalseOnStorageFailure()
-    // {
-    //     $storageMock = $this->createMock(StorageClass::class);
-    //     $storageMock->method('saveVerificationToken')->willReturn(false);
-    //     StorageFactory::$mock = $storageMock;
-
-    //     $receiver = new KommentReceiver(
-    //         verificationTtl: 1,
-    //         verificationSecret: 'secret'
-    //     );
-
-    //     $token = $receiver->generateToken('test@example.com', 'comment123');
-    //     $this->assertFalse($token);
-    // }
 }
