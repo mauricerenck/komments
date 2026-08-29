@@ -6,7 +6,7 @@
 
 ---
 
-![the dashboard](/doc-assets/panel-moderation-view)
+![the dashboard](/doc-assets/komment-detail-view.png)
 
 ## Installation
 
