@@ -27,7 +27,7 @@ class SpamHandler
         $this->utils = $utils ?? new KommentUtils();
     }
 
-    public function getSpamlevel(array $fields, $page): int
+    public function getSpamlevel(array $fields, string $pageUuid): int
     {
         $spamlevel = 0;
         if (V::notEmpty($fields['url'])) {
@@ -73,14 +73,19 @@ class SpamHandler
             }
         }
 
-        $spamlevel += $this->akismetCheck($fields, $page);
+        $spamlevel += $this->akismetCheck($fields, $pageUuid);
 
         return $spamlevel > 100 ? 100 : $spamlevel;
     }
 
-    public function akismetCheck(array $fields, $page): int
+    public function akismetCheck(array $fields, string $pageUuid): int
     {
         if (!$this->akismet) {
+            return 0;
+        }
+
+        $page = page($pageUuid);
+        if (is_null($page)) {
             return 0;
         }
 

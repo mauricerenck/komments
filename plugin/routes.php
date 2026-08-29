@@ -38,7 +38,7 @@ return [
 
             // CHECK FOR SPAM
             $spamHandler = new SpamHandler();
-            $spamLevel = $spamHandler->getSpamlevel($formData, $page);
+            $spamLevel = $spamHandler->getSpamlevel($formData, $formData['pageUuid']);
             if ($spamLevel > option('mauricerenck.komments.spam.sensibility', 60)) {
                 $errorMessage = [
                     'status' => 'error',
