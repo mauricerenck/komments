@@ -2,16 +2,15 @@
 
 namespace mauricerenck\Komments;
 
-use Kirby\Uuid\Uuid;
-
 class KommentModeration
 {
     private $storage;
 
-    public function __construct(private ?string $storageType = null, private ?bool $filterUnverified = null,)
+    public function __construct(private ?string $storageType = null, private ?bool $filterUnverified = null, private ?bool $verificationEnabled = null)
     {
         $this->storage = StorageFactory::create($storageType);
         $this->filterUnverified = $filterUnverified ?? option('mauricerenck.komments.spam.verification.filterUnverified', true);
+        $this->verificationEnabled = $verificationEnabled ?? option('mauricerenck.komments.spam.verification.enabled', false);
     }
 
     public function getComment(string $id): mixed
@@ -41,7 +40,12 @@ class KommentModeration
     {
         $comment = $this->storage->getSingleComment($id);
         $newStatus = $comment->published()->isTrue() ? false : true;
-        $result = $this->storage->updateComment($id, ['published' => $newStatus, 'verification_status' => $newStatus ? 'PUBLISHED' : 'PENDING']);
+
+        $unpublishedStatus = ($this->verificationEnabled)
+            ? 'PUBLISHED'
+            : 'VERIFIED';
+
+        $result = $this->storage->updateComment($id, ['published' => $newStatus, 'verification_status' => $newStatus ? 'PUBLISHED' : $unpublishedStatus]);
 
         kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.published', ['comment' => $comment]);
@@ -129,6 +133,28 @@ class KommentModeration
             'published' => $publishResult,
             'newComment' => $commentData->toArray(),
             'inReplyTo' => $comment->toArray(),
+        ];
+    }
+
+    public function updateComment(string $id, array $formData)
+    {
+        $comment = $this->storage->getSingleComment($id);
+        $saveResult = $this->storage->updateComment($id, [
+            'content' => $formData['content'],
+            'author_name' => $formData['authorname'],
+            'author_email' => $formData['authoremail'],
+            'author_url' => $formData['authorurl'],
+        ]);
+
+        kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
+        kirby()->trigger('komments.comment.replied', ['comment' => $comment]);
+
+        return [
+            'created' => $saveResult,
+            'content' => $formData['content'],
+            'author_name' => $formData['authorname'],
+            'author_email' => $formData['authoremail'],
+            'author_url' => $formData['authorurl'],
         ];
     }
 

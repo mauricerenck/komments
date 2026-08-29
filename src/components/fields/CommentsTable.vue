@@ -106,6 +106,14 @@
                 <k-options-dropdown :options="dropdownOptions(row)" />
             </template>
         </k-table>
+
+        <k-box
+            v-if="this.storageType === 'markdown'"
+            key="deprectionNote"
+            theme="warning"
+            text="You are using markdown to store comments, you might want to switch to SQLite to be able to use all features."
+            style="margin-top: var(--spacing-6)"
+        />
     </div>
 </template>
 <script>
@@ -263,13 +271,19 @@ export default {
                 },
                 on: {
                     submit: () => {
-                        this.removeMarkedComment()
+                        if (this.markRelatedComment) {
+                            this.removeMarkedComment()
+                        }
                     },
                     cancel: () => {
-                        this.removeMarkedComment()
+                        if (this.markRelatedComment) {
+                            this.removeMarkedComment()
+                        }
                     },
                     close: () => {
-                        this.removeMarkedComment()
+                        if (this.markRelatedComment) {
+                            this.removeMarkedComment()
+                        }
                     },
                 },
             })

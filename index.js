@@ -59,32 +59,79 @@
       return {
         originPublished: this.comment.published,
         replyCreated: null,
-        isSending: false
+        isSending: false,
+        editMode: false,
+        replyMode: false,
+        newText: this.comment.content || "",
+        newName: this.comment.authorname || "",
+        newUrl: this.comment.authorurl || "",
+        newMail: this.comment.authormail || ""
       };
     },
     methods: {
       sendReply() {
         this.isSending = true;
         panel.api.post(`komments/reply/${this.comment.id}`, {
-          comment: this.content,
+          comment: this.replyText,
           pageUuid: this.comment.pageuuid,
           language: this.comment.language
         }).then((response) => {
           this.originPublished = response["published"];
+          this.comment.published = response["published"];
           this.replyCreated = response["created"];
           this.isSending = false;
+          this.toggleReplyMode();
+          this.replyText = "";
         }).catch(() => {
           this.replyCreated = false;
           this.isSending = false;
+          this.toggleReplyMode();
+        });
+      },
+      publishComment() {
+        panel.api.post(`komments/publish/${this.comment.id}`).then((response) => {
+          this.comment.published = response.published;
+          this.comment.status = response.published ? "PUBLISHED" : "PENDING";
+        });
+      },
+      deleteComment() {
+        panel.dialog.open(`comment/delete/${this.comment.id}`);
+      },
+      toggleEditMode() {
+        this.editMode = !this.editMode;
+      },
+      toggleReplyMode() {
+        this.replyMode = !this.replyMode;
+      },
+      updateComment() {
+        panel.api.post(`komments/update-comment/${this.comment.id}`, {
+          content: this.newText,
+          authorname: this.newName,
+          authorurl: this.newUrl,
+          authoremail: this.newMail
+        }).then((response) => {
+          this.comment.content = response.content;
+          this.comment.authorname = response.author_name;
+          this.comment.authorurl = response.author_url;
+          this.comment.authoremail = response.author_email;
+          this.editMode = false;
         });
       }
     }
   };
   var _sfc_render$5 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [this.replyCreated ? _c("k-box", { key: "created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "positive", "text": "Your reply has been published." } }) : this.replyCreated === false ? _c("k-box", { key: "not-created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "negative", "text": "Your reply could not be published. Please try again." } }) : _vm._e(), _c("CommentContent", { attrs: { "spamlevel": _vm.comment.spamlevel, "content": _vm.comment.content, "avatar": _vm.comment.authoravatar } }), _c("div", { staticClass: "k-table k-komments-to-margin" }, [_c("table", { staticStyle: { "table-layout": "auto" } }, [_c("tbody", [_c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Created at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(" " + _vm._s(this.$library.dayjs(_vm.comment.createdate).format("YYYY-MM-DD HH:mm")) + " ")])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Author")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorname))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Email")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoremail))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Url")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorurl))])]), _vm.comment.spamlevel > 0 ? _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Spamlevel")]), _c("td", { attrs: { "data-mobile": "true" } }, [_c("k-progress", { attrs: { "value": _vm.comment.spamlevel } })], 1)]) : _vm._e()])])]), _c("k-textarea-field", { staticStyle: { "margin-bottom": "var(--spacing-2)", "margin-top": "var(--spacing-6)" }, attrs: { "autofocus": true, "label": `Reply to ${_vm.comment.authorname}`, "value": _vm.content }, on: { "input": function($event) {
-      _vm.content = $event;
-    } } }), _c("k-button", { key: "green", attrs: { "theme": "green", "variant": "filled", "icon": _vm.isSending ? _vm.loader : null, "disabled": _vm.isSending }, on: { "click": this.sendReply } }, [_vm._v(" Send reply " + _vm._s(!this.originPublished && "and publish") + " ")])], 1);
+    return _c("k-drawer", _vm._b({}, "k-drawer", _vm.$props, false), [this.replyCreated ? _c("k-box", { key: "created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "positive", "text": "Your reply has been published." } }) : this.replyCreated === false ? _c("k-box", { key: "not-created", staticStyle: { "margin-bottom": "var(--spacing-6)" }, attrs: { "theme": "negative", "text": "Your reply could not be published. Please try again." } }) : _vm._e(), this.storageType !== "markdown" ? _c("k-button-group", { staticStyle: { "margin-bottom": "var(--spacing-6)", "margin-top": "var(--spacing-6)" }, attrs: { "layout": "collapsed" } }, [_c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "edit", "theme": "blue-icon", "click": this.toggleEditMode, "disabled": this.editMode } }, [_vm._v(" Edit ")]), _c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "trash", "theme": "red-icon", "click": this.deleteComment, "disabled": this.editMode } }, [_vm._v(" Delete ")]), _c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "trash", "theme": "green-icon", "click": this.publishComment, "disabled": this.editMode } }, [_vm._v(" " + _vm._s(_vm.comment.published === true ? "Unpublish" : "Publish") + " ")]), _c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "parent", "theme": "blue-icon", "click": this.toggleReplyMode, "disabled": this.editMode } }, [_vm._v(" Reply ")])], 1) : _vm._e(), _c("CommentContent", { attrs: { "spamlevel": _vm.comment.spamlevel, "content": _vm.comment.content, "avatar": _vm.comment.authoravatar } }), _c("div", { staticClass: "k-table k-komments-to-margin" }, [_c("table", { staticStyle: { "table-layout": "auto" } }, [_c("tbody", [_c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Created at")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(" " + _vm._s(this.$library.dayjs(_vm.comment.createdate).format("YYYY-MM-DD HH:mm")) + " ")])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Author")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorname))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Email")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authoremail))])]), _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("URL")]), _c("td", { attrs: { "data-mobile": "true" } }, [_vm._v(_vm._s(_vm.comment.authorurl))])]), _vm.comment.spamlevel > 0 ? _c("tr", [_c("th", { attrs: { "data-mobile": "true" } }, [_vm._v("Spamlevel")]), _c("td", { attrs: { "data-mobile": "true" } }, [_c("k-progress", { attrs: { "value": _vm.comment.spamlevel } })], 1)]) : _vm._e()])])]), _c("k-grid", { attrs: { "variant": "columns" } }, [this.editMode ? _c("k-textarea-field", { staticStyle: { "--width": "1/1", "margin-top": "var(--spacing-6)" }, attrs: { "label": "Edit comment", "value": _vm.newText }, on: { "input": function($event) {
+      _vm.newText = $event;
+    } } }) : _vm._e(), this.editMode ? _c("k-text-field", { staticStyle: { "--width": "1/3" }, attrs: { "label": "URL", "value": _vm.newUrl }, on: { "input": function($event) {
+      _vm.newUrl = $event;
+    } } }) : _vm._e(), this.editMode ? _c("k-text-field", { staticStyle: { "--width": "1/3" }, attrs: { "label": "Name", "value": _vm.newName }, on: { "input": function($event) {
+      _vm.newName = $event;
+    } } }) : _vm._e(), this.editMode ? _c("k-text-field", { staticStyle: { "--width": "1/3" }, attrs: { "label": "Email", "value": _vm.newMail }, on: { "input": function($event) {
+      _vm.newMail = $event;
+    } } }) : _vm._e()], 1), this.storageType !== "markdown" ? _c("k-button-group", { staticStyle: { "margin-bottom": "var(--spacing-6)", "margin-top": "var(--spacing-6)" }, attrs: { "layout": "collapsed" } }, [this.editMode ? _c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "check", "theme": "green-icon", "click": this.updateComment } }, [_vm._v(" Save ")]) : _vm._e(), this.editMode ? _c("k-button", { attrs: { "size": "sm", "variant": "filled", "icon": "cancel", "theme": "red-icon", "click": this.toggleEditMode } }, [_vm._v(" Cancel ")]) : _vm._e()], 1) : _vm._e(), this.replyMode && !this.editMode ? _c("k-textarea-field", { staticStyle: { "margin-bottom": "var(--spacing-2)", "margin-top": "var(--spacing-6)" }, attrs: { "autofocus": true, "label": `Reply to ${_vm.comment.authorname}`, "value": _vm.replyText, "disabled": this.editMode }, on: { "input": function($event) {
+      _vm.replyText = $event;
+    } } }) : _vm._e(), this.replyMode && !this.editMode ? _c("k-button", { key: "green", attrs: { "theme": "green", "variant": "filled", "icon": _vm.isSending ? _vm.loader : null, "disabled": _vm.isSending }, on: { "click": this.sendReply } }, [_vm._v(" Send reply " + _vm._s(!this.originPublished ? "and publish" : "") + " ")]) : _vm._e()], 1);
   };
   var _sfc_staticRenderFns$5 = [];
   _sfc_render$5._withStripped = true;
@@ -269,13 +316,19 @@
           },
           on: {
             submit: () => {
-              this.removeMarkedComment();
+              if (this.markRelatedComment) {
+                this.removeMarkedComment();
+              }
             },
             cancel: () => {
-              this.removeMarkedComment();
+              if (this.markRelatedComment) {
+                this.removeMarkedComment();
+              }
             },
             close: () => {
-              this.removeMarkedComment();
+              if (this.markRelatedComment) {
+                this.removeMarkedComment();
+              }
             }
           }
         });
@@ -403,7 +456,7 @@
       return [_c("span", { attrs: { "title": label } }, [columnIndex === "verified" ? _c("k-icon", { staticStyle: { "color": "var(--color-yellow-700)" }, attrs: { "type": "badge" } }) : columnIndex === "spamlevel" ? _c("k-icon", { staticStyle: { "color": "var(--color-red-700)" }, attrs: { "type": "flag" } }) : columnIndex === "status" ? _c("k-icon", { staticStyle: { "color": "var(--color-green-700)" }, attrs: { "type": "preview" } }) : columnIndex === "type" ? _c("k-icon", { staticStyle: { "color": "var(--color-blue-700)" }, attrs: { "type": "box" } }) : _c("span", [_vm._v(_vm._s(label))])], 1)];
     } }, { key: "options", fn: function({ row }) {
       return [_c("k-options-dropdown", { attrs: { "options": _vm.dropdownOptions(row) } })];
-    } }]) })], 1);
+    } }]) }), this.storageType === "markdown" ? _c("k-box", { key: "deprectionNote", staticStyle: { "margin-top": "var(--spacing-6)" }, attrs: { "theme": "warning", "text": "You are using markdown to store comments, you might want to switch to SQLite to be able to use all features." } }) : _vm._e()], 1);
   };
   var _sfc_staticRenderFns$2 = [];
   _sfc_render$2._withStripped = true;
