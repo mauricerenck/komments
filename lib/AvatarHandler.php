@@ -32,6 +32,15 @@ class AvatarHandler
 
         // return gravatar, return type is always img
         if (!$cachedAvatar) {
+
+            // backwards compatiblilty
+            if (str_contains($md5hash, 'gravatar.com/avatar/')) {
+                $md5hash = str_replace('https://www.gravatar.com/avatar/', '', $md5hash);
+            }
+
+            // TODO remove when webmention reneder moved to indieconnector
+            $avatarString = (str_starts_with($md5hash, 'http')) ? $md5hash : 'https://www.gravatar.com/avatar/' . $md5hash . '?d=' . $this->avatarDefault . '&s=' . $this->avatarSize;
+
             $avatarString = 'https://www.gravatar.com/avatar/' . $md5hash . '?d=' . $this->avatarDefault . '&s=' . $this->avatarSize;
 
             return <<<HTMLTAG
