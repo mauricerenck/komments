@@ -1,3 +1,10 @@
+## [3.9.2](https://github.com/mauricerenck/komments/compare/v3.9.1...v3.9.2) (2026-08-31)
+
+
+### Bug Fixes
+
+* **avatarhandler:** good morning… ([5850777](https://github.com/mauricerenck/komments/commit/58507771c318eea27d2fb2af9e910c71a058d835))
+
 ## [3.9.1](https://github.com/mauricerenck/komments/compare/v3.9.0...v3.9.1) (2026-08-31)
 
 
