@@ -41,8 +41,6 @@ class AvatarHandler
             // TODO remove when webmention reneder moved to indieconnector
             $avatarString = (str_starts_with($md5hash, 'http')) ? $md5hash : 'https://www.gravatar.com/avatar/' . $md5hash . '?d=' . $this->avatarDefault . '&s=' . $this->avatarSize;
 
-            $avatarString = 'https://www.gravatar.com/avatar/' . $md5hash . '?d=' . $this->avatarDefault . '&s=' . $this->avatarSize;
-
             return <<<HTMLTAG
             <img class="u-photo" src="$avatarString" alt="$altText" />
             HTMLTAG;

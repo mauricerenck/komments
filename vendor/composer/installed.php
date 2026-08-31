@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'mauricerenck/komments',
-        'pretty_version' => '3.8.2',
-        'version' => '3.8.2.0',
+        'pretty_version' => '3.9.0',
+        'version' => '3.9.0.0',
         'reference' => null,
         'type' => 'kirby-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'mauricerenck/komments' => array(
-            'pretty_version' => '3.8.2',
-            'version' => '3.8.2.0',
+            'pretty_version' => '3.9.0',
+            'version' => '3.9.0.0',
             'reference' => null,
             'type' => 'kirby-plugin',
             'install_path' => __DIR__ . '/../../',
