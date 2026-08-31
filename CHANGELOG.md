@@ -1,3 +1,10 @@
+## [3.9.1](https://github.com/mauricerenck/komments/compare/v3.9.0...v3.9.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* **avatarhandler:** handle old gravatar and webmentions urls ([7b5737e](https://github.com/mauricerenck/komments/commit/7b5737ed46fa4759cad0cdbbd01b40976625eb6a))
+
 # [3.9.0](https://github.com/mauricerenck/komments/compare/v3.8.2...v3.9.0) (2026-08-29)
 
 
