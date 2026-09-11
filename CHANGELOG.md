@@ -1,3 +1,10 @@
+## [3.9.4](https://github.com/mauricerenck/komments/compare/v3.9.3...v3.9.4) (2026-09-11)
+
+
+### Bug Fixes
+
+* createstructuredcomment webmention compatibility ([e011641](https://github.com/mauricerenck/komments/commit/e011641f357ed239ae715ed08c1d32b4881b1b26))
+
 ## [3.9.3](https://github.com/mauricerenck/komments/compare/v3.9.2...v3.9.3) (2026-09-11)
 
 
