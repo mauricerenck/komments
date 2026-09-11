@@ -1,3 +1,10 @@
+## [3.9.3](https://github.com/mauricerenck/komments/compare/v3.9.2...v3.9.3) (2026-09-11)
+
+
+### Bug Fixes
+
+* processing webmention used deprecated method ([6ae011b](https://github.com/mauricerenck/komments/commit/6ae011b29ecef496c24f66b19795716c8062cd69))
+
 ## [3.9.2](https://github.com/mauricerenck/komments/compare/v3.9.1...v3.9.2) (2026-08-31)
 
 
