@@ -28,7 +28,7 @@ class KommentUtils
         string $id,
         string $pageUuid,
         string $parentId,
-        string $comment,
+        string | null $comment,
         string | null $authorName,
         string | null $authorAvatar,
         string | null $authorEmail,
