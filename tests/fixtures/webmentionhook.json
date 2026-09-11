@@ -1,0 +1,17 @@
+{
+    "id": "gx93jja7iplkv9ac",
+    "page_uuid": "page://my-fake-uuid",
+    "type": "in-reply-to",
+    "target": "https://example.com/post",
+    "source": "https://example.com/indieconnector/response/gx93jja7iplkv9ac",
+    "published": "2026-09-10 17:00:38",
+    "title": "in-reply-to",
+    "content": "This is my reply",
+    "service": "mastodon",
+    "author": {
+        "type": "card",
+        "name": "User",
+        "avatar": "https://example.com/avatar.jpg",
+        "url": "https://example.com/@user"
+    }
+}

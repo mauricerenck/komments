@@ -39,7 +39,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testdox --colors=always",
+        "test": "vendor/bin/phpunit --testdox --colors=always tests \"$@\"",
         "build-test-package": "git archive HEAD -o komments.zip --worktree-attributes",
         "build-composer": "composer install --no-dev --optimize-autoloader",
         "build-release": [

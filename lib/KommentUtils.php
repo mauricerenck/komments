@@ -37,7 +37,7 @@ class KommentUtils
         bool $published,
         bool $verified,
         int $spamLevel,
-        string $language,
+        string | null $language,
         int $upvotes,
         int $downvotes,
         string $createdAt,
