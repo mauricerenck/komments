@@ -70,7 +70,7 @@ class KommentReceiver
 
         $avatar = $this->getAvatarFromEmail($email);
 
-        if ($this->storeEmail === false) {
+        if ($this->isEmailRequired() === false) {
             $email = null;
         }
 

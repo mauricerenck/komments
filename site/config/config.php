@@ -8,7 +8,19 @@ return [
         'privacy' => [
             'requireEmail' => false,
             'requireAuthor' => false,
-        ]
+        ],
+
+        'spam' => [
+            'delete' => false,
+            'verification' => [
+                'enabled' => true,
+                'filterUnverified' => true,
+                'ttl' => 1,
+                'secret' => 'my-extremly-secure-secret',
+                'autoPublish' => false,
+                'deletionMode' => 'delete'
+            ],
+        ],
     ]
 ];
 // return [

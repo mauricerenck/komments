@@ -57,12 +57,12 @@ return [
 
             // COMMENT EMAIL VERIFICATION
             if (option('mauricerenck.komments.spam.verification.enabled', false)) {
-                $email = $commentData->email();
+                $email = $commentData->authoremail();
 
                 if (!is_null($email)) {
                     $receiver->sendVerificationMail(
                         email: $email->value(),
-                        username: $commentData->author()->value(),
+                        username: $commentData->authorname()->value(),
                         commentId: $commentData->id()->value()
                     );
                 }
