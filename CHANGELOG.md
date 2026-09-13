@@ -1,3 +1,10 @@
+## [3.9.5](https://github.com/mauricerenck/komments/compare/v3.9.4...v3.9.5) (2026-09-13)
+
+
+### Bug Fixes
+
+* **verification:** handle new comment formatter data ([db11a1a](https://github.com/mauricerenck/komments/commit/db11a1ac6ddc08700e5c7522275a10687253addc))
+
 ## [3.9.4](https://github.com/mauricerenck/komments/compare/v3.9.3...v3.9.4) (2026-09-11)
 
 
