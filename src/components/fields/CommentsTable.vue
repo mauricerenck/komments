@@ -88,8 +88,14 @@
             :rows="this.commentList"
             empty="No comments found"
             :selecting="this.selectMode"
+            :selected="this.selection"
             @cell="openDrawer"
-            :pagination="{ page: pagination.page, limit: pagination.limit, total: pagination.total, details: true }"
+            :pagination="{
+                page: pagination.page,
+                limit: pagination.limit,
+                total: filteredComments.length,
+                details: true,
+            }"
             @paginate="pagination.page = $event.page"
             @select="selectRow"
         >
@@ -103,7 +109,7 @@
                 </span>
             </template>
             <template #options="{ row }">
-                <k-options-dropdown :options="dropdownOptions(row)" />
+                <k-options-dropdown v-if="!this.selectMode" :options="dropdownOptions(row)" />
             </template>
         </k-table>
 
@@ -132,7 +138,6 @@ export default {
             pagination: {
                 page: 1,
                 limit: 20,
-                total: 0,
             },
             selectMode: false,
             selection: [],
@@ -202,12 +207,8 @@ export default {
             }
 
             const commentList = []
-            this.pagination.total = 0
-            const comments = this.webmentions
-                ? this.comments
-                : this.comments.filter((comment) => comment.type === 'comment')
 
-            comments.forEach((comment) => {
+            this.filteredComments.forEach((comment) => {
                 const pageOfComment = this.affectedPages.find((page) => page.uuid === comment.pageuuid)
 
                 const content = comment.content
@@ -232,8 +233,8 @@ export default {
 
                 const newComment = {
                     id: comment.id,
-                    pageTitle: `<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`,
-                    author: `<span class="author-entry">${comment.authoravatar} ${comment.authorname}</span>`,
+                    pageTitle: this.$h(`<a href="${pageOfComment.panel}">${pageOfComment.title}</a>`),
+                    author: this.$h(`<span class="author-entry">${comment.authoravatar} ${comment.authorname}</span>`),
                     content: content,
                     updatedAt: publishDate,
                     type: this.tableIcon(typeIcons[comment.type], '--color-blue-700', comment.type),
@@ -243,10 +244,12 @@ export default {
                 }
 
                 commentList.push(newComment)
-                this.pagination.total++
             })
 
             return commentList.slice(this.index - 1, this.pagination.limit * this.pagination.page)
+        },
+        filteredComments() {
+            return this.webmentions ? this.comments : this.comments.filter((comment) => comment.type === 'comment')
         },
         hasSpamComments() {
             return this.comments.some((comment) => comment.spamlevel > 0)
@@ -385,23 +388,19 @@ export default {
         },
 
         tableIcon(icon, color, title = '') {
-            return `<span title="${title}"><svg aria-hidden="true" data-type="${icon}" class="k-icon" style="color: var(${color});"><use xlink:href="#icon-${icon}"></use></svg></span>`
+            const sprite = this.$panel.plugins.icons[icon] ? '' : this.$panel.urls.icons
+
+            return this.$h(
+                `<span title="${title}"><svg aria-hidden="true" data-type="${icon}" class="k-icon" style="color: var(${color});"><use xlink:href="${sprite}#icon-${icon}"></use></svg></span>`
+            )
         },
 
         toggleSelect() {
             this.selectMode = !this.selectMode
         },
 
-        selectRow(row) {
-            const index = this.selection.indexOf(row.id)
-
-            if (index > -1) {
-                // ID exists, remove it
-                this.selection.splice(index, 1)
-            } else {
-                // ID does not exist, add it
-                this.selection.push(row.id)
-            }
+        selectRow(selection) {
+            this.selection = selection
         },
 
         openDrawer(cell) {
