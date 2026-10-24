@@ -21,6 +21,7 @@ return [
                         $verification = new CommentVerification();
 
                         $comments = $kommentModeration->getPendingComments();
+                        $unverifiedComments = (new KommentModeration(filterUnverified: false))->getPendingComments();
 
                         return [
                             'component' => 'k-komments-view',
@@ -33,6 +34,7 @@ return [
                                 'storageType' => option('mauricerenck.komments.storage.type', 'sqlite'),
                                 'isVerificationEnabled' => $verification->isVerificationEnabled(),
                                 'queuedVerifications' => json_decode($verification->getVerficationTokens()->toJson()),
+                                'unverifiedKomments' => json_decode($unverifiedComments['comments']),
                                 'verificationTtl' => option('mauricerenck.komments.spam.verification.ttl', 48),
                             ],
                         ];

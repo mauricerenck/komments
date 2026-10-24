@@ -126,6 +126,7 @@
 export default {
     props: {
         comments: Object,
+        unverifiedComments: Object,
         affectedPages: Array,
         columns: Array,
         webmentions: Boolean,
@@ -263,7 +264,9 @@ export default {
             this.markRelatedComment(null)
         },
         showCommentDetails(id) {
-            const comment = this.comments.find((comment) => comment.id === id)
+            const comment =
+                this.comments.find((comment) => comment.id === id) ??
+                this.unverifiedComments?.find((comment) => comment.id === id)
 
             panel.drawer.open({
                 component: 'komments-detail-drawer',
