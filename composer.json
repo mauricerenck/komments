@@ -32,6 +32,11 @@
     "suggests": {
         "mauricerenck/indieconnector": "2"
     },
+    "extra": {
+        "kirby": {
+            "compatible": "^6.0"
+        }
+    },
     "config": {
         "optimize-autoloader": true,
         "allow-plugins": {
