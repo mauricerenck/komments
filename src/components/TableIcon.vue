@@ -1,7 +1,5 @@
 <template>
-    <svg aria-hidden="true" :data-type="this.icon" class="k-icon" :style="`color: var(${this.color})`">
-        <use :xlink:href="`#icon-${this.icon}`"></use>
-    </svg>
+    <k-icon :type="this.icon" :style="`color: var(${this.color})`" />
 </template>
 <script>
 export default {

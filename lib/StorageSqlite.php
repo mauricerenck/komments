@@ -245,4 +245,9 @@ class StorageSqlite extends Storage
 
         return $this->database->delete('comment_verification', 'WHERE expires_at < ' . $time);
     }
+
+    public function deleteObsoleteVerificationTokens(): bool
+    {
+        return $this->database->delete('comment_verification', 'WHERE comment_id NOT IN (SELECT id FROM comments WHERE verification_status = \'PENDING\' AND published != 1)');
+    }
 }

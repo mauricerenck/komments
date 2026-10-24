@@ -196,7 +196,7 @@ export default {
             newText: this.comment.content || '',
             newName: this.comment.authorname || '',
             newUrl: this.comment.authorurl || '',
-            newMail: this.comment.authormail || '',
+            newMail: this.comment.authoremail || '',
         }
     },
     methods: {
@@ -225,7 +225,7 @@ export default {
         publishComment() {
             panel.api.post(`komments/publish/${this.comment.id}`).then((response) => {
                 this.comment.published = response.published
-                this.comment.status = response.published ? 'PUBLISHED' : 'PENDING'
+                this.comment.verification_status = response.verification_status
             })
         },
 
