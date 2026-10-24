@@ -196,7 +196,7 @@ export default {
             newText: this.comment.content || '',
             newName: this.comment.authorname || '',
             newUrl: this.comment.authorurl || '',
-            newMail: this.comment.authormail || '',
+            newMail: this.comment.authoremail || '',
         }
     },
     methods: {
