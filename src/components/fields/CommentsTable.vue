@@ -241,7 +241,7 @@ export default {
                     type: this.tableIcon(typeIcons[comment.type], '--color-blue-700', comment.type),
                     spamlevel: comment.spamlevel > 0 ? this.tableIcon('flag', '--color-red-700') : '',
                     verified: comment.verified ? this.tableIcon('badge', '--color-yellow-700') : '',
-                    status: this.tableIcon(statusIcon, '--color-black'),
+                    status: this.tableIcon(statusIcon, '--color-text'),
                 }
 
                 commentList.push(newComment)
@@ -433,7 +433,7 @@ export default {
         display: flex;
         gap: 10px;
         align-items: center;
-        color: var(--color-black);
+        color: var(--color-text);
         text-decoration: none;
 
         svg,
