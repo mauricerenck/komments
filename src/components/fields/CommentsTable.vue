@@ -297,7 +297,7 @@ export default {
         publishComment(id) {
             panel.api.post(`komments/publish/${id}`).then((response) => {
                 this.comments.find((item) => item.id === id).published = response.published
-                this.comments.find((item) => item.id === id).status = response.published ? 'PUBLISHED' : 'PENDING'
+                this.comments.find((item) => item.id === id).verification_status = response.verification_status
             })
         },
 

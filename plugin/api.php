@@ -47,7 +47,8 @@ return [
             'action' => function (string $id) {
                 $kommentModeration = new KommentModeration();
                 $result = $kommentModeration->publishComment($id);
-                return new Response(json_encode(['published' => $result]), 'application/json');
+                $comment = $kommentModeration->getComment($id);
+                return new Response(json_encode(['published' => $result, 'verification_status' => $comment['verification_status']]), 'application/json');
             },
         ],
         [
