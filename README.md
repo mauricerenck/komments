@@ -6,6 +6,10 @@
 
 ---
 
+Komments version 4 is in the making. All new features and idea will be part of version 4.
+
+---
+
 ## Installation
 
 Use one of these methods to install the plugin:
