@@ -1,3 +1,10 @@
+## [3.9.6](https://github.com/mauricerenck/komments/compare/v3.9.5...v3.9.6) (2026-11-06)
+
+
+### Bug Fixes
+
+* remove global helper in comment list snippet ([#113](https://github.com/mauricerenck/komments/issues/113)) ([75469ef](https://github.com/mauricerenck/komments/commit/75469ef16d0754c531c1873cb13a8ae24f5f9ce7))
+
 ## [3.9.5](https://github.com/mauricerenck/komments/compare/v3.9.4...v3.9.5) (2026-09-13)
 
 
