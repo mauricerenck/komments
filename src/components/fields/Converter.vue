@@ -90,7 +90,9 @@ export default {
         conversionList() {
             return this.comments.map((item) => {
                 return {
-                    conversionStatus: `<span class="status ${item.conversionStatus}">${item.conversionStatus}</span>`,
+                    conversionStatus: this.$h(
+                        `<span class="status ${item.conversionStatus}">${item.conversionStatus}</span>`
+                    ),
                     pageUuid: item.pageUuid,
                     pageTitle: item.pageTitle,
                     comments: item.comments,

@@ -9,6 +9,7 @@
                 <k-headline tag="h2">Comments</k-headline>
                 <CommentsTable
                     :comments="this.queuedKomments"
+                    :unverifiedComments="this.unverifiedKomments"
                     :affectedPages="this.affectedPages"
                     :webmentions="this.webmentions"
                     :storageType="this.storageType"
@@ -40,6 +41,7 @@ export default {
         storageType: String,
         isVerificationEnabled: Boolean,
         queuedVerifications: Object,
+        unverifiedKomments: Object,
         verificationTtl: Number,
     },
     data() {
@@ -49,6 +51,10 @@ export default {
     },
     methods: {
         markRelatedComment(id) {
+            if (this.relatedComment && !id) {
+                this.$panel.view.reload()
+            }
+
             this.relatedComment = id
         },
     },

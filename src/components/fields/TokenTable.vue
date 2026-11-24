@@ -21,7 +21,12 @@
             :index="true"
             :rows="this.tokenList"
             empty="No pending verifications"
-            :pagination="{ page: pagination.page, limit: pagination.limit, total: pagination.total, details: true }"
+            :pagination="{
+                page: pagination.page,
+                limit: pagination.limit,
+                total: queuedVerifications?.length ?? 0,
+                details: true,
+            }"
             @paginate="pagination.page = $event.page"
             @cell="markComment"
         />
@@ -40,7 +45,6 @@ export default {
             pagination: {
                 page: 1,
                 limit: 20,
-                total: 0,
             },
         }
     },
@@ -63,7 +67,6 @@ export default {
             }
 
             const tokenList = []
-            this.pagination.total = 0
 
             this.queuedVerifications.forEach((token) => {
                 const createdDate = this.$library.dayjs
@@ -85,7 +88,6 @@ export default {
                 }
 
                 tokenList.push(newEntry)
-                this.pagination.total++
             })
 
             return tokenList.slice(this.index - 1, this.pagination.limit * this.pagination.page)
@@ -112,7 +114,7 @@ export default {
                 cssClass = 'is-warning'
             }
 
-            return `<progress class="${cssClass}" value="${value}" max="100"></progress>`
+            return this.$h(`<progress class="${cssClass}" value="${value}" max="100"></progress>`)
         },
     },
 }

@@ -224,4 +224,9 @@ class StorageMarkdown extends Storage
     {
         return false;
     }
+
+    public function deleteObsoleteVerificationTokens(): bool
+    {
+        return false;
+    }
 }

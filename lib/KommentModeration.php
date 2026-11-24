@@ -22,6 +22,7 @@ class KommentModeration
     public function deleteComment(string $id): mixed
     {
         $result = $this->storage->deleteComment($id);
+        $this->storage->deleteObsoleteVerificationTokens();
         kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.deleted', ['commentIds' => [$id]]);
         return $result;
@@ -30,6 +31,7 @@ class KommentModeration
     public function deleteCommentsInBatch(string $type, array $ids = []): mixed
     {
         $result = $this->storage->deleteComments($type, $ids);
+        $this->storage->deleteObsoleteVerificationTokens();
         kirby()->trigger('komments.comment.changed', ['commentIds' => $ids]);
         kirby()->trigger('komments.comment.deleted', ['commentIds' => $ids]);
         return $result;
@@ -46,6 +48,7 @@ class KommentModeration
             : 'VERIFIED';
 
         $result = $this->storage->updateComment($id, ['published' => $newStatus, 'verification_status' => $newStatus ? 'PUBLISHED' : $unpublishedStatus]);
+        $this->storage->deleteObsoleteVerificationTokens();
 
         kirby()->trigger('komments.comment.changed', ['commentIds' => [$id]]);
         kirby()->trigger('komments.comment.published', ['comment' => $comment]);
@@ -57,7 +60,9 @@ class KommentModeration
     {
         kirby()->trigger('komments.comment.changed', ['commentIds' => []]);
         kirby()->trigger('komments.comment.published', []);
-        return $this->storage->publishPendingComments();
+        $result = $this->storage->publishPendingComments();
+        $this->storage->deleteObsoleteVerificationTokens();
+        return $result;
     }
 
     public function flagComment(string $id, string $flag): mixed
@@ -96,6 +101,7 @@ class KommentModeration
                 return $result;
             case 'published':
                 $result = $this->storage->updateCommentsById($ids, ['published' => true, 'verification_status' => 'PUBLISHED']);
+                $this->storage->deleteObsoleteVerificationTokens();
                 return $result;
         }
 
