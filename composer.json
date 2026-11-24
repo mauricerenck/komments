@@ -1,6 +1,6 @@
 {
     "name": "mauricerenck/komments",
-    "version": "3.9.6",
+    "version": "3.9.7",
     "description": "A comment and webmention plugin for Kirby 3",
     "homepage": "https://github.com/mauricerenck/komments",
     "type": "kirby-plugin",
@@ -8,7 +8,7 @@
     "authors": [
         {
             "name": "Maurice Renck",
-            "email": "hello@maurice-renck.de"
+            "email": "kirby@maurice-renck.de"
         }
     ],
     "autoload": {
@@ -20,7 +20,7 @@
         ]
     },
     "require-dev": {
-        "getkirby/cms": "^5",
+        "getkirby/cms": "^6",
         "phpunit/phpunit": "^12",
         "mockery/mockery": "^1.6"
     },

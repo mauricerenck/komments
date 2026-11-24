@@ -1,13 +1,13 @@
 {
     "name": "komments",
-    "version": "1.2.0",
+    "version": "3.9.7",
     "description": "A comment and webmention plugin for Kirby 3",
     "main": "index.js",
     "author": "Maurice Renck",
     "private": true,
     "scripts": {
-        "dev": "npx -y kirbyup@^4.0.0-beta.1 src/index.js --watch",
-        "build": "npx -y kirbyup@^4.0.0-beta.1 src/index.js"
+        "dev": "npx -y kirbyup src/index.js --watch",
+        "build": "npx -y kirbyup src/index.js"
     },
     "posthtml": {
         "recognizeSelfClosing": true
